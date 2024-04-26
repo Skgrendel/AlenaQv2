@@ -124,7 +124,7 @@
     <script src="{{asset('src/plugins/src/filepond/FilePondPluginImageResize.min.js')}}"></script>
     <script src="{{asset('src/plugins/src/filepond/FilePondPluginImageTransform.min.js')}}"></script>
     <script src="{{asset('src/plugins/src/filepond/filepondPluginFileValidateSize.min.js')}}"></script>
-    <script src="{{asset('src/plugins/src/filepond/custom-filepond.js')}}"></script>
+
     <!-- END PAGE LEVEL PLUGINS -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

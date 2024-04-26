@@ -99,17 +99,17 @@
                             <div class="widget-header">
                                 <div class="row">
                                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                        <h4>Multiple File</h4>
+                                        <h4>Fotos Evidencias</h4>
                                     </div>
                                 </div>
                             </div>
                             <div class="widget-content widget-content-area">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-12">
                                         <div class="multiple-file-upload">
                                             <input type="file" class="filepond file-upload-multiple" name="filepond"
                                                 multiple data-allow-reorder="true" data-max-file-size="3MB"
-                                                data-max-files="3">
+                                                data-max-files="6" accept="image/*;capture=camera">
                                         </div>
                                     </div>
                                 </div>
