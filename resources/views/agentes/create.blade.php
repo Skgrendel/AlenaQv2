@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-12">
                         <label for="medidor" class="form-label">Numero de Medidor</label>
-                        <input type="text" class="form-control" id="medidor">
+                        <input type="text" class="form-control" id="medidor" name="medidor">
                         <div class="form-check form-check-danger form-check-inline mt-2 ">
                             <input class="form-check-input" type="checkbox" value="" id="medidor_Cambio">
                             <label class="form-check-label" for="medidor_Cambio">
@@ -56,13 +56,13 @@
                         <input type="text" class="form-control" id="lectura" name="lectura">
                     </div>
 
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                         <label for="lectura" class="form-label">Numero de Lectura</label>
                         <input type="text" class="form-control" id="lectura" name="lectura">
-                    </div>
+                    </div> --}}
                     <div class="col-12">
                         <label for="comercio" class="form-label">Tipo de Comercio</label>
-                        <select id="comercio" class="form-select">
+                        <select id="comercio" class="form-select" name="tipo_comercio">
                             <option selected disabled>Seleccione El tipo de Comercio</option>
                             @foreach ($comercios as $id => $nombre)
                                 <option value="{{ $id }}">{{ $nombre }}</option>
@@ -72,7 +72,7 @@
                     </div>
                     <div class="col-12">
                         <label for="imposibilidad" class="form-label">Imposibilidad</label>
-                        <select id="imposibilidad" class="form-select">
+                        <select id="imposibilidad" class="form-select" name="imposibilidad">
                             <option selected disabled>Seleccione Su imposibilidad</option>
                             @foreach ($imposibilidad as $id => $nombre)
                                 <option value="{{ $id }}">{{ $nombre }}</option>
@@ -189,7 +189,9 @@
                 FilePondPluginFileValidateSize
             );
             FilePond.create(
-                document.querySelector('.file-upload-multiple')
+                document.querySelector('.file-upload-multiple'), {
+                    labelIdle: `Arrastra y suelta tu imagen o<span class="filepond--label-action"> Toma la foto de la camara</span>`,
+                }
             );
         });
     </script>

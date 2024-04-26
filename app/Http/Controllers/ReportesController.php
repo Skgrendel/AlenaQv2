@@ -50,6 +50,28 @@ class ReportesController extends Controller
     public function store(Request $request)
     {
 
+        if($request->hasFile('filepond')) {
+            $files = $request->file('filepond');
+
+            $fileDetails = [];
+
+            if($files !== null) {
+                foreach($files as $file) {
+                    $filename = $file->getClientOriginalName();
+                    $path = $file->storeAs('public/images', $filename);
+
+                    // Guarda los detalles del archivo en un array
+                    $fileDetails[] = [
+                        'filename' => $filename,
+                        'path' => $path
+                    ];
+                }
+            }
+
+            // Muestra los detalles de los archivos
+            dd($fileDetails);
+        }
+
         $request->validate(reportes::$rules);
 
         $latitud = $request->input('latitud');
