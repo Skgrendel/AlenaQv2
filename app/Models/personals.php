@@ -30,27 +30,33 @@ class personals extends Model
         'estado',
     ];
 
-    public function user()
+    public function usuarios()
     {
         return $this->hasOne(User::class);
     }
 
-
-    public function tipodocumento(){
+    public function vs_tipodocumento()
+    {
 
         return $this->hasOne(vs_tipo_documento::class, 'id', 'tipo_documento');
     }
 
-
-    public function estado()
+    public function vs_estado()
     {
         return $this->hasOne(vs_estado::class, 'id', 'estado');
     }
 
+    public function reportes()
+    {
+        return $this->hasOne(reportes::class);
+    }
+    public function dbs_surtigas()
+    {
+        return $this->hasOne(dbs_surtigas::class,'personals_id');
+    }
+
     public function roles()
-{
-    return $this->belongsToMany(Role::class);
-}
-
-
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }

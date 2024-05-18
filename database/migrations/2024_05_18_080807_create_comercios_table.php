@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('encabezados_dets', function (Blueprint $table) {
+        Schema::create('comercios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('encabezados_id');
-            $table->string('nombre');
-            $table->string('nomenclatura')->nullable();
+            $table->string('nombre_comercio')->nullable();
+            $table->string('tipo_comercio');
+            $table->string('medidor_anomalia',125)->nullable();
+            $table->string('medidor_cambio',125)->nullable();
+            $table->string('nuevo_comercio')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('encabezados_dets');
+        Schema::dropIfExists('comercios');
     }
 };

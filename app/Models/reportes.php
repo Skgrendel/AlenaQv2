@@ -17,79 +17,58 @@ class reportes extends Model
         'anomalia' => 'required',
         'imposibilidad' => 'required  ',
         'tipo_comercio' => 'required',
-        'foto1' => 'required|image|max:5120',
-        'foto2' => 'image|max:5120',
-        'foto3' => 'image|max:5120',
-        'foto4' => 'image|max:5120',
-        'foto5' => 'image|max:5120',
-        'foto6' => 'image|max:5120'
-    ];
-
-    static $rulesupdate = [
-        'contrato' => 'required',
-        'lectura' => 'required',
-        'anomalia' => 'required',
-        'imposibilidad' => 'nullable',
-        'observacion' => 'nullable',
-        'motivo' => 'nullable',
-        'foto1' => 'image|max:5120',
-        'foto2' => 'image|max:5120',
-        'foto3' => 'image|max:5120',
-        'foto4' => 'image|max:5120',
-        'foto5' => 'image|max:5120',
-        'foto6' => 'image|max:5120',
     ];
 
     protected $fillable = [
         'personal_id',
+        'ubicacions_id',
+        'comercios_id',
         'contrato',
         'medidor',
         'lectura',
         'anomalia',
-        'medidor_anomalia',
-        'medidor_cambio',
         'imposibilidad',
-        'direccion',
-        'tipo_comercio',
         'comentarios',
         'observaciones',
-        'latitud',
-        'longitud',
-        'foto1',
-        'foto2',
-        'foto3',
-        'foto4',
-        'foto5',
-        'foto6',
+        'imagenes',
         'video',
         'estado',
-        'nuevo_comercio'
     ];
 
     public function personal()
     {
-        return $this->belongsTo(personals::class);
+        return $this->belongsTo(personals::class,'id');
     }
 
-
-    public function EstadoReporte()
+    public function vs_estado()
     {
         return $this->hasOne(vs_estado::class, 'id', 'estado');
     }
 
-    public function imposibilidadReporte()
+    public function vs_imposibilidad()
     {
         return $this->hasOne(vs_imposibilidad::class, 'id', 'imposibilidad');
     }
 
-    public function AnomaliaReporte()
+    public function vs_anomalia()
     {
         return $this->hasOne(vs_anomalias::class, 'id', 'anomalia');
     }
 
-
-    public function ComercioReporte()
+    public function vs_comercio()
     {
         return $this->hasOne(vs_comercios::class, 'id', 'tipo_comercio');
     }
+
+    public function report_ubicacion()
+    {
+        return $this->hasOne(ubicacion::class,'id','ubicacions_id');
+    }
+
+    public function report_comercio()
+    {
+        return $this->hasOne(comercio::class,'id','comercios_id');
+    }
+
+
 }

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('encabezados', function (Blueprint $table) {
-            $table->smallIncrements('id')->unsigned();
+            $table->id();
             $table->string('nombre');
             $table->timestamps();
         });

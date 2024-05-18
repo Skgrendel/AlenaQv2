@@ -4,7 +4,6 @@
 <div class="container mt-3 ">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <a class="btn btn-primary mt-2 me-4" href="{{route('reportes.create')}}">Nuevo Reporte</a>
             @if ($reportes->isEmpty())
                             <div class="text-center py-3">
                                 <div class="card">

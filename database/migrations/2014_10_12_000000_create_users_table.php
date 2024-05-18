@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedSmallInteger('personal_id');
+            $table->foreignId('personals_id');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
-            $table->foreign('personal_id')->references('id')->on('personals');
             $table->boolean('estado')->default('1');
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();

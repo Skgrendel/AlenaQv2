@@ -2,75 +2,116 @@
 
 @section('content')
     <div class="container mt-3">
-        <a class="btn btn-primary mb-2 me-4" href="{{ route('reportes.index') }}">Regresar</a>
         <div class="card">
             <div class="card-body">
-                <form class="row g-3" id="reporte" action="{{ route('reportes.store') }}" method="post"
+                <form class="row g-3" id="reportes" action="{{ route('reportes.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
-                    <label for="Contrato" class="form-label">Numero de Contrato</label>
-                    <div class="col-12 input-group">
-                        <input id="Contrato" class="form-control" name="contrato" placeholder="Numero de Contrato"
-                            required>
-                        <button type="button" class="btn btn-primary" onclick="BuscarContrato()">Buscar</button>
-                    </div>
-                    <div class="col-12">
-                        <div class="card  shadow d-none " id="ubicacion">
-                            <div class="card-body">
-                                <label class="form-label"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="-0.815 -0.815 26 26" height="26" width="26"
-                                        id="Location-Pin-3--Streamline-Plump">
-                                        <g id="location-pin-3--navigation-map-maps-pin-gps-location">
-                                            <path id="Rectangle 180" stroke="#000000" stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="m19.0390625 16.886379166666664 0.2944708333333333 0.016246666666666666c0.616865625 0.03452416666666667 1.168236875 0.3721502083333333 1.4459533333333332 0.9240291666666667a17.018891041666667 17.018891041666667 0 0 1 1.2301772916666667 3.2391791666666667c0.22339166666666666 0.8412727083333333 -0.3934739583333333 1.6195895833333334 -1.262670625 1.6551291666666665C19.29190125 22.780872916666663 16.665018333333332 22.846875 12.184999999999999 22.846875c-4.480018333333333 0 -7.106901249999999 -0.06600208333333334 -8.561993333333334 -0.12540395833333332 -0.8691966666666666 -0.03553958333333333 -1.4855545833333335 -0.8148718749999999 -1.262670625 -1.6551291666666665a17.019906458333335 17.019906458333335 0 0 1 1.2301772916666667 -3.239686875c0.27771645833333336 -0.5518789583333333 0.8290877083333333 -0.889505 1.4459533333333332 -0.9240291666666667l0.2944708333333333 -0.015738958333333334"
-                                                stroke-width="1.63"></path>
-                                            <path id="Ellipse 517" stroke="#000000" stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M19.800625 9.174289583333334c0 5.396939583333333 -5.456849166666666 9.270754166666666 -7.132286666666666 10.333387708333333a0.8966129166666666 0.8966129166666666 0 0 1 -0.9666766666666666 0C10.026224166666667 18.445551458333334 4.569375 14.571229166666665 4.569375 9.174289583333334 4.569375 4.948633125 7.979144166666666 1.5231249999999998 12.184999999999999 1.5231249999999998c4.205855833333334 0 7.615625 3.425508125 7.615625 7.651164583333333Z"
-                                                stroke-width="1.63"></path>
-                                            <path id="Ellipse 27" stroke="#000000" stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M15.23125 9.13875a3.0462499999999997 3.0462499999999997 0 1 1 -6.092499999999999 0 3.0462499999999997 3.0462499999999997 0 0 1 6.092499999999999 0Z"
-                                                stroke-width="1.63"></path>
-                                        </g>
-                                    </svg> Ubicación</label>
-                                <p id="direccion"></p>
-                                <a href="" target="_blank" class="btn btn-info btn-sm d-none"
-                                    rel="noopener noreferrer" id="maps">Maps</a>
+                    <input type="text" hidden id="latitud" name="latitud" value="">
+                    <input type="text" hidden id="longitud" name="longitud" value="">
+
+                    <div class="col-12" id="ubicacion">
+                        <div class="">
+                            <div class="col-lg-12 ">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        <div class="col-md-12">
+                                            <label class="form-label"> Informacion del Predio</label>
+                                            <div class="mb-1">
+                                                <label for="nombre_cliente">Nombre:</label>
+                                                <span class=" text-body staticEmail "
+                                                    id="nombre_cliente">{{ $data->nombre }}</span>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="numero_contrato" class="form-label">Numero de Contrato:</label>
+                                                <span class="text-body staticEmail"
+                                                    id="numero_contrato">{{ $data->contrato }}</span>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="numero_medidor" class="form-label">Numero de Medidor: </label>
+                                                <span class=" text-body" id="numero_medidor">{{ $data->medidor }}</span>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="direccion">Direccion: </label>
+                                                <span class=" text-body" id="direccion">{{ $data->direccion }}</span>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="ciclo">Ciclo: </label>
+                                                <span class=" text-body" id="ciclo">{{ $data->ciclo }}</span>
+                                            </div>
+                                            <input type="text" id="medidor" name="medidor" hidden
+                                                value="{{ $data->medidor }}">
+                                            <input type="text" id="contrato" name="contrato" hidden
+                                                value="{{ $data->contrato }}">
+                                            <hr>
+                                            <div class="d-flex justify-content-between ">
+                                                <a href="{{ $src }}" target="_blank" class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion" data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
+                                                <a class="btn btn-info me-4 rounded  bs-tooltip" title="Regresar Pagina Anterior" data-bs-placement="top" href="{{ route('asignados.index') }}"><i class="fas fa-arrow-circle-left"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <label for="medidor" class="form-label">Numero de Medidor</label>
-                        <input type="text" class="form-control" id="medidor" name="medidor">
+                    {{-- <div class="col-12">
                         <div class="form-check form-check-danger form-check-inline mt-2 ">
-                            <input class="form-check-input" type="checkbox" value="" id="medidor_Cambio">
+                            <input class="form-check-input" type="checkbox" value="" id="medidor_anomalia">
+                            <label class="form-check-label" for="medidor_anomalia">
+                                No Concuerda
+                            </label>
+                        </div>
+                        <div class="form-check form-check-danger form-check-inline mt-2 ">
+                            <input class="form-check-input" type="checkbox" value="" id="medidor_cambio">
                             <label class="form-check-label" for="medidor_Cambio">
                                 Cambio
                             </label>
                         </div>
-                    </div>
-                    <div class="col-12">
-                        <label for="lectura" class="form-label">Numero de Lectura</label>
-                        <input type="text" class="form-control" id="lectura" name="lectura">
-                    </div>
-
-                    {{-- <div class="col-12">
-                        <label for="lectura" class="form-label">Numero de Lectura</label>
-                        <input type="text" class="form-control" id="lectura" name="lectura">
+                        <input type="text" class="form-control d-none mt-2 border-danger " name="medidor_cambio"
+                            id="medidor_cambio" placeholder="Observaciones " value="{{ old('medidor_anomalia') }}">
                     </div> --}}
                     <div class="col-12">
-                        <label for="comercio" class="form-label">Tipo de Comercio</label>
+                        <label for="comercio" class="form-label">¿Que Tipo de Comercio Encontro?</label>
                         <select id="comercio" class="form-select" name="tipo_comercio">
                             <option selected disabled>Seleccione El tipo de Comercio</option>
                             @foreach ($comercios as $id => $nombre)
                                 <option value="{{ $id }}">{{ $nombre }}</option>
                             @endforeach
-
                         </select>
+                        <div id="div-comercio-nuevo" style="display: none;" class="mt-3">
+                            <label for="nueva_opcion" class="form-label"> ¿Cúal comercio Encontró?</label>
+                            <input type="text" name="nuevo_comercio" id="nueva_opcion" class="form-control">
+                        </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 d-flex justify-content-between ">
+                        <label for="switch-encontrado" class="form-label">¿Encontro un medidor?</label>
+                        <div class="switch form-switch-custom switch-inline form-switch-success">
+                            <input class="switch-input" type="checkbox" role="switch" id="switch-encontrado">
+                            <label class="switch-label" for="switch-encontrado">Si</label>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between d-none  ">
+                        <label for="switch-coincide" class="form-label">¿El medidor No coincide?</label>
+                        <div class="switch form-switch-custom switch-inline form-switch-success">
+                            <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
+                            <label class="switch-label" for="switch-coincide">Si</label>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between ">
+                        <label for="switch-coincide" class="form-label">¿Observa alguna anomalía?</label>
+                        <div class="switch form-switch-custom switch-inline form-switch-success">
+                            <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
+                            <label class="switch-label" for="switch-coincide">Si</label>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between ">
+                        <label for="switch-coincide" class="form-label">¿Puede tomar la lectura?</label>
+                        <div class="switch form-switch-custom switch-inline form-switch-success">
+                            <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
+                            <label class="switch-label" for="switch-coincide">Si</label>
+                        </div>
+                    </div>
+                    {{-- <div class="col-12">
                         <label for="imposibilidad" class="form-label">Imposibilidad</label>
                         <select id="imposibilidad" class="form-select" name="imposibilidad">
                             <option selected disabled>Seleccione Su imposibilidad</option>
@@ -83,12 +124,12 @@
                     <div class="col-12">
                         <label for="anomalia" class="form-label">Anomalias Detectadas</label>
                         <select id="anomalia" class="form-select" name="anomalias[]" multiple autocomplete="off"
-                            data-placeholder="Seleccione Las anomalias Detectadas">
+                            data-placeholder="anomalias Detectadas">
                             @foreach ($anomalias as $id => $nombre)
                                 <option value="{{ $id }}">{{ $nombre }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
                     <div class="col-12">
                         <label for="comentarios" class="form-label">Observaciones</label>
                         <textarea name="comentarios" id="comentarios" cols="30" rows="3" class="form-control"></textarea>
@@ -104,26 +145,229 @@
                                 </div>
                             </div>
                             <div class="widget-content widget-content-area">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="multiple-file-upload">
-                                            <input type="file" class="filepond file-upload-multiple" name="filepond"
-                                                multiple data-allow-reorder="true" data-max-file-size="3MB"
-                                                data-max-files="6" accept="image/*;capture=camera">
-                                        </div>
-                                    </div>
+                                <div class="col-md-12">
+                                    <a class="btn btn-info btn-lg mb-4 me-4" id="foto1-button"
+                                        style="font-size:16px;width: 250px; height: 50px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="-0.855 -0.855 24 24" id="Landscape-1--Streamline-Flex"
+                                            height="24" width="24">
+                                            <desc>Landscape 1 Streamline Icon: https://streamlinehq.com</desc>
+                                            <g
+                                                id="landscape-1--photos-photo-landscape-picture-photography-camera-pictures-image">
+                                                <path id="Intersect" fill="#d7e0ff"
+                                                    d="M1.528245387857143 16.34891892857143C1.773647142857143 18.64271914285714 3.6184630714285713 20.48753507142857 5.9110851 20.743074 7.613961492857142 20.932857428571428 9.362389092857143 21.095892857142857 11.145 21.095892857142857s3.5310385071428567 -0.16303542857142858 5.233851214285714 -0.3528188571428571c2.292685714285714 -0.25553892857142857 4.137501642857143 -2.100354857142857 4.3828508571428575 -4.394155071428571 0.18118585714285712 -1.6932120857142856 0.33419078571428573 -3.4316251071428567 0.33419078571428573 -5.2039189285714285 0 -1.7723097428571426 -0.15300492857142858 -3.510706842857143 -0.33419078571428573 -5.203966692857143 -0.24534921428571427 -2.293720607142857 -2.090165142857143 -4.138552457142857 -4.3828508571428575 -4.3940929778571425C14.676038507142858 1.3571298342857143 12.927610907142858 1.1941071428571428 11.145 1.1941071428571428S7.613961492857142 1.3571298342857143 5.9110851 1.5469403292857142C3.6184630714285713 1.8024808499999998 1.773647142857143 3.6473127 1.528245387857143 5.941033307142857 1.347085005 7.6342931571428565 1.1941071428571428 9.372690257142857 1.1941071428571428 11.145c0 1.7722938214285715 0.15297945428571427 3.510706842857143 0.334138245 5.2039189285714285Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_2" fill="#ffffff"
+                                                    d="M1.1941071428571428 16.856971714285713v-0.22051178571428573c1.4466687642857143 -1.8618996214285712 2.5340864142857145 -2.9208816 4.343445321428572 -4.180011857142857 0.93495405 -0.6506451 2.1715395642857143 -0.7070547214285714 3.113148771428571 -0.06608984999999999 3.1203293357142856 2.124077785714286 5.740439228571429 5.387827349999999 7.413701764285714 8.537881992857143v0.3068059285714286c-1.6841687142857142 0.15029828571428572 -3.4129970357142856 0.2784657857142857 -5.1753399642857145 0.2784657857142857 -3.1755607714285716 0 -9.230097942857142 -0.75786 -9.694955892857143 -4.656540214285714Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_3" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M1.4988528385714284 16.249887642857143C2.7998469 14.622446978571428 3.857571085714286 13.625749628571429 5.538014185714286 12.456368464285713c0.93495405 -0.6506291785714285 2.171141528571429 -0.7067681357142858 3.1127507357142856 -0.06578734285714286 3.067820464285714 2.088318257142857 5.652123064285714 5.278224235714286 7.328458435714286 8.378763235714286"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_4" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M1.528245387857143 16.34891892857143C1.773647142857143 18.64271914285714 3.6184630714285713 20.48753507142857 5.9110851 20.743074 7.613961492857142 20.932857428571428 9.362389092857143 21.095892857142857 11.145 21.095892857142857s3.5310385071428567 -0.16303542857142858 5.233851214285714 -0.3528188571428571c2.292685714285714 -0.25553892857142857 4.137501642857143 -2.100354857142857 4.3828508571428575 -4.394155071428571 0.18118585714285712 -1.6932120857142856 0.33419078571428573 -3.4316251071428567 0.33419078571428573 -5.2039189285714285 0 -1.7723097428571426 -0.15300492857142858 -3.510706842857143 -0.33419078571428573 -5.203966692857143 -0.24534921428571427 -2.293720607142857 -2.090165142857143 -4.138552457142857 -4.3828508571428575 -4.3940929778571425C14.676038507142858 1.3571298342857143 12.927610907142858 1.1941071428571428 11.145 1.1941071428571428S7.613961492857142 1.3571298342857143 5.9110851 1.5469403292857142C3.6184630714285713 1.8024808499999998 1.773647142857143 3.6473127 1.528245387857143 5.941033307142857 1.347085005 7.6342931571428565 1.1941071428571428 9.372690257142857 1.1941071428571428 11.145c0 1.7722938214285715 0.15297945428571427 3.510706842857143 0.334138245 5.2039189285714285Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Vector" fill="#ffffff"
+                                                    d="M14.329190185714285 10.746773228571428c1.7831363142857144 0 2.786186314285714 -1.0030181571428571 2.786186314285714 -2.7861544714285715S16.112326499999998 5.1744642857142855 14.329190185714285 5.1744642857142855C12.54605387142857 5.1744642857142855 11.543035714285715 6.177482442857143 11.543035714285715 7.960618757142856s1.0030181571428571 2.7861544714285715 2.7861544714285715 2.7861544714285715Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Vector_2" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M14.329190185714285 10.746773228571428c1.7831363142857144 0 2.786186314285714 -1.0030181571428571 2.786186314285714 -2.7861544714285715S16.112326499999998 5.1744642857142855 14.329190185714285 5.1744642857142855C12.54605387142857 5.1744642857142855 11.543035714285715 6.177482442857143 11.543035714285715 7.960618757142856s1.0030181571428571 2.7861544714285715 2.7861544714285715 2.7861544714285715Z"
+                                                    stroke-width="1.71"></path>
+                                            </g>
+                                        </svg>
+                                        <span class="btn-text-inner">Foto Inmueble</span>
+                                        <input type="file" class="form-control d-none" id="foto1-input"
+                                            name="foto1" accept="image/jpeg" capture="camera">
+                                    </a>
+                                    <a class="btn btn-info btn-lg mb-4 me-4" id="foto2-button"
+                                        style="font-size:16px;width: 250px; height: 50px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="-0.855 -0.855 24 24" id="Landscape-1--Streamline-Flex"
+                                            height="24" width="24">
+                                            <desc>Landscape 1 Streamline Icon: https://streamlinehq.com</desc>
+                                            <g
+                                                id="landscape-1--photos-photo-landscape-picture-photography-camera-pictures-image">
+                                                <path id="Intersect" fill="#d7e0ff"
+                                                    d="M1.528245387857143 16.34891892857143C1.773647142857143 18.64271914285714 3.6184630714285713 20.48753507142857 5.9110851 20.743074 7.613961492857142 20.932857428571428 9.362389092857143 21.095892857142857 11.145 21.095892857142857s3.5310385071428567 -0.16303542857142858 5.233851214285714 -0.3528188571428571c2.292685714285714 -0.25553892857142857 4.137501642857143 -2.100354857142857 4.3828508571428575 -4.394155071428571 0.18118585714285712 -1.6932120857142856 0.33419078571428573 -3.4316251071428567 0.33419078571428573 -5.2039189285714285 0 -1.7723097428571426 -0.15300492857142858 -3.510706842857143 -0.33419078571428573 -5.203966692857143 -0.24534921428571427 -2.293720607142857 -2.090165142857143 -4.138552457142857 -4.3828508571428575 -4.3940929778571425C14.676038507142858 1.3571298342857143 12.927610907142858 1.1941071428571428 11.145 1.1941071428571428S7.613961492857142 1.3571298342857143 5.9110851 1.5469403292857142C3.6184630714285713 1.8024808499999998 1.773647142857143 3.6473127 1.528245387857143 5.941033307142857 1.347085005 7.6342931571428565 1.1941071428571428 9.372690257142857 1.1941071428571428 11.145c0 1.7722938214285715 0.15297945428571427 3.510706842857143 0.334138245 5.2039189285714285Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_2" fill="#ffffff"
+                                                    d="M1.1941071428571428 16.856971714285713v-0.22051178571428573c1.4466687642857143 -1.8618996214285712 2.5340864142857145 -2.9208816 4.343445321428572 -4.180011857142857 0.93495405 -0.6506451 2.1715395642857143 -0.7070547214285714 3.113148771428571 -0.06608984999999999 3.1203293357142856 2.124077785714286 5.740439228571429 5.387827349999999 7.413701764285714 8.537881992857143v0.3068059285714286c-1.6841687142857142 0.15029828571428572 -3.4129970357142856 0.2784657857142857 -5.1753399642857145 0.2784657857142857 -3.1755607714285716 0 -9.230097942857142 -0.75786 -9.694955892857143 -4.656540214285714Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_3" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M1.4988528385714284 16.249887642857143C2.7998469 14.622446978571428 3.857571085714286 13.625749628571429 5.538014185714286 12.456368464285713c0.93495405 -0.6506291785714285 2.171141528571429 -0.7067681357142858 3.1127507357142856 -0.06578734285714286 3.067820464285714 2.088318257142857 5.652123064285714 5.278224235714286 7.328458435714286 8.378763235714286"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_4" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M1.528245387857143 16.34891892857143C1.773647142857143 18.64271914285714 3.6184630714285713 20.48753507142857 5.9110851 20.743074 7.613961492857142 20.932857428571428 9.362389092857143 21.095892857142857 11.145 21.095892857142857s3.5310385071428567 -0.16303542857142858 5.233851214285714 -0.3528188571428571c2.292685714285714 -0.25553892857142857 4.137501642857143 -2.100354857142857 4.3828508571428575 -4.394155071428571 0.18118585714285712 -1.6932120857142856 0.33419078571428573 -3.4316251071428567 0.33419078571428573 -5.2039189285714285 0 -1.7723097428571426 -0.15300492857142858 -3.510706842857143 -0.33419078571428573 -5.203966692857143 -0.24534921428571427 -2.293720607142857 -2.090165142857143 -4.138552457142857 -4.3828508571428575 -4.3940929778571425C14.676038507142858 1.3571298342857143 12.927610907142858 1.1941071428571428 11.145 1.1941071428571428S7.613961492857142 1.3571298342857143 5.9110851 1.5469403292857142C3.6184630714285713 1.8024808499999998 1.773647142857143 3.6473127 1.528245387857143 5.941033307142857 1.347085005 7.6342931571428565 1.1941071428571428 9.372690257142857 1.1941071428571428 11.145c0 1.7722938214285715 0.15297945428571427 3.510706842857143 0.334138245 5.2039189285714285Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Vector" fill="#ffffff"
+                                                    d="M14.329190185714285 10.746773228571428c1.7831363142857144 0 2.786186314285714 -1.0030181571428571 2.786186314285714 -2.7861544714285715S16.112326499999998 5.1744642857142855 14.329190185714285 5.1744642857142855C12.54605387142857 5.1744642857142855 11.543035714285715 6.177482442857143 11.543035714285715 7.960618757142856s1.0030181571428571 2.7861544714285715 2.7861544714285715 2.7861544714285715Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Vector_2" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M14.329190185714285 10.746773228571428c1.7831363142857144 0 2.786186314285714 -1.0030181571428571 2.786186314285714 -2.7861544714285715S16.112326499999998 5.1744642857142855 14.329190185714285 5.1744642857142855C12.54605387142857 5.1744642857142855 11.543035714285715 6.177482442857143 11.543035714285715 7.960618757142856s1.0030181571428571 2.7861544714285715 2.7861544714285715 2.7861544714285715Z"
+                                                    stroke-width="1.71"></path>
+                                            </g>
+                                        </svg>
+                                        <span class="btn-text-inner">Numero de Serial</span>
+                                        <input type="file" class="form-control d-none" id="foto2-input"
+                                            name="foto2" accept="image/jpeg" capture="camera">
+                                    </a>
+                                    <a class="btn btn-info btn-lg mb-4 me-4" id="foto3-button"
+                                        style="font-size:16px;width: 250px; height: 50px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="-0.855 -0.855 24 24" id="Landscape-1--Streamline-Flex"
+                                            height="24" width="24">
+                                            <desc>Landscape 1 Streamline Icon: https://streamlinehq.com</desc>
+                                            <g
+                                                id="landscape-1--photos-photo-landscape-picture-photography-camera-pictures-image">
+                                                <path id="Intersect" fill="#d7e0ff"
+                                                    d="M1.528245387857143 16.34891892857143C1.773647142857143 18.64271914285714 3.6184630714285713 20.48753507142857 5.9110851 20.743074 7.613961492857142 20.932857428571428 9.362389092857143 21.095892857142857 11.145 21.095892857142857s3.5310385071428567 -0.16303542857142858 5.233851214285714 -0.3528188571428571c2.292685714285714 -0.25553892857142857 4.137501642857143 -2.100354857142857 4.3828508571428575 -4.394155071428571 0.18118585714285712 -1.6932120857142856 0.33419078571428573 -3.4316251071428567 0.33419078571428573 -5.2039189285714285 0 -1.7723097428571426 -0.15300492857142858 -3.510706842857143 -0.33419078571428573 -5.203966692857143 -0.24534921428571427 -2.293720607142857 -2.090165142857143 -4.138552457142857 -4.3828508571428575 -4.3940929778571425C14.676038507142858 1.3571298342857143 12.927610907142858 1.1941071428571428 11.145 1.1941071428571428S7.613961492857142 1.3571298342857143 5.9110851 1.5469403292857142C3.6184630714285713 1.8024808499999998 1.773647142857143 3.6473127 1.528245387857143 5.941033307142857 1.347085005 7.6342931571428565 1.1941071428571428 9.372690257142857 1.1941071428571428 11.145c0 1.7722938214285715 0.15297945428571427 3.510706842857143 0.334138245 5.2039189285714285Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_2" fill="#ffffff"
+                                                    d="M1.1941071428571428 16.856971714285713v-0.22051178571428573c1.4466687642857143 -1.8618996214285712 2.5340864142857145 -2.9208816 4.343445321428572 -4.180011857142857 0.93495405 -0.6506451 2.1715395642857143 -0.7070547214285714 3.113148771428571 -0.06608984999999999 3.1203293357142856 2.124077785714286 5.740439228571429 5.387827349999999 7.413701764285714 8.537881992857143v0.3068059285714286c-1.6841687142857142 0.15029828571428572 -3.4129970357142856 0.2784657857142857 -5.1753399642857145 0.2784657857142857 -3.1755607714285716 0 -9.230097942857142 -0.75786 -9.694955892857143 -4.656540214285714Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_3" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M1.4988528385714284 16.249887642857143C2.7998469 14.622446978571428 3.857571085714286 13.625749628571429 5.538014185714286 12.456368464285713c0.93495405 -0.6506291785714285 2.171141528571429 -0.7067681357142858 3.1127507357142856 -0.06578734285714286 3.067820464285714 2.088318257142857 5.652123064285714 5.278224235714286 7.328458435714286 8.378763235714286"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_4" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M1.528245387857143 16.34891892857143C1.773647142857143 18.64271914285714 3.6184630714285713 20.48753507142857 5.9110851 20.743074 7.613961492857142 20.932857428571428 9.362389092857143 21.095892857142857 11.145 21.095892857142857s3.5310385071428567 -0.16303542857142858 5.233851214285714 -0.3528188571428571c2.292685714285714 -0.25553892857142857 4.137501642857143 -2.100354857142857 4.3828508571428575 -4.394155071428571 0.18118585714285712 -1.6932120857142856 0.33419078571428573 -3.4316251071428567 0.33419078571428573 -5.2039189285714285 0 -1.7723097428571426 -0.15300492857142858 -3.510706842857143 -0.33419078571428573 -5.203966692857143 -0.24534921428571427 -2.293720607142857 -2.090165142857143 -4.138552457142857 -4.3828508571428575 -4.3940929778571425C14.676038507142858 1.3571298342857143 12.927610907142858 1.1941071428571428 11.145 1.1941071428571428S7.613961492857142 1.3571298342857143 5.9110851 1.5469403292857142C3.6184630714285713 1.8024808499999998 1.773647142857143 3.6473127 1.528245387857143 5.941033307142857 1.347085005 7.6342931571428565 1.1941071428571428 9.372690257142857 1.1941071428571428 11.145c0 1.7722938214285715 0.15297945428571427 3.510706842857143 0.334138245 5.2039189285714285Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Vector" fill="#ffffff"
+                                                    d="M14.329190185714285 10.746773228571428c1.7831363142857144 0 2.786186314285714 -1.0030181571428571 2.786186314285714 -2.7861544714285715S16.112326499999998 5.1744642857142855 14.329190185714285 5.1744642857142855C12.54605387142857 5.1744642857142855 11.543035714285715 6.177482442857143 11.543035714285715 7.960618757142856s1.0030181571428571 2.7861544714285715 2.7861544714285715 2.7861544714285715Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Vector_2" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M14.329190185714285 10.746773228571428c1.7831363142857144 0 2.786186314285714 -1.0030181571428571 2.786186314285714 -2.7861544714285715S16.112326499999998 5.1744642857142855 14.329190185714285 5.1744642857142855C12.54605387142857 5.1744642857142855 11.543035714285715 6.177482442857143 11.543035714285715 7.960618757142856s1.0030181571428571 2.7861544714285715 2.7861544714285715 2.7861544714285715Z"
+                                                    stroke-width="1.71"></path>
+                                            </g>
+                                        </svg>
+                                        <span class="btn-text-inner">Numero de Lectura</span>
+                                        <input type="file" class="form-control d-none" id="foto3-input"
+                                            name="foto3" accept="image/jpeg" capture="camera">
+                                    </a>
+                                    <a class="btn btn-info btn-lg mb-4 me-4" id="foto4-button"
+                                        style="font-size:16px;width: 250px; height: 50px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="-0.855 -0.855 24 24" id="Landscape-1--Streamline-Flex"
+                                            height="24" width="24">
+                                            <desc>Landscape 1 Streamline Icon: https://streamlinehq.com</desc>
+                                            <g
+                                                id="landscape-1--photos-photo-landscape-picture-photography-camera-pictures-image">
+                                                <path id="Intersect" fill="#d7e0ff"
+                                                    d="M1.528245387857143 16.34891892857143C1.773647142857143 18.64271914285714 3.6184630714285713 20.48753507142857 5.9110851 20.743074 7.613961492857142 20.932857428571428 9.362389092857143 21.095892857142857 11.145 21.095892857142857s3.5310385071428567 -0.16303542857142858 5.233851214285714 -0.3528188571428571c2.292685714285714 -0.25553892857142857 4.137501642857143 -2.100354857142857 4.3828508571428575 -4.394155071428571 0.18118585714285712 -1.6932120857142856 0.33419078571428573 -3.4316251071428567 0.33419078571428573 -5.2039189285714285 0 -1.7723097428571426 -0.15300492857142858 -3.510706842857143 -0.33419078571428573 -5.203966692857143 -0.24534921428571427 -2.293720607142857 -2.090165142857143 -4.138552457142857 -4.3828508571428575 -4.3940929778571425C14.676038507142858 1.3571298342857143 12.927610907142858 1.1941071428571428 11.145 1.1941071428571428S7.613961492857142 1.3571298342857143 5.9110851 1.5469403292857142C3.6184630714285713 1.8024808499999998 1.773647142857143 3.6473127 1.528245387857143 5.941033307142857 1.347085005 7.6342931571428565 1.1941071428571428 9.372690257142857 1.1941071428571428 11.145c0 1.7722938214285715 0.15297945428571427 3.510706842857143 0.334138245 5.2039189285714285Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_2" fill="#ffffff"
+                                                    d="M1.1941071428571428 16.856971714285713v-0.22051178571428573c1.4466687642857143 -1.8618996214285712 2.5340864142857145 -2.9208816 4.343445321428572 -4.180011857142857 0.93495405 -0.6506451 2.1715395642857143 -0.7070547214285714 3.113148771428571 -0.06608984999999999 3.1203293357142856 2.124077785714286 5.740439228571429 5.387827349999999 7.413701764285714 8.537881992857143v0.3068059285714286c-1.6841687142857142 0.15029828571428572 -3.4129970357142856 0.2784657857142857 -5.1753399642857145 0.2784657857142857 -3.1755607714285716 0 -9.230097942857142 -0.75786 -9.694955892857143 -4.656540214285714Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_3" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M1.4988528385714284 16.249887642857143C2.7998469 14.622446978571428 3.857571085714286 13.625749628571429 5.538014185714286 12.456368464285713c0.93495405 -0.6506291785714285 2.171141528571429 -0.7067681357142858 3.1127507357142856 -0.06578734285714286 3.067820464285714 2.088318257142857 5.652123064285714 5.278224235714286 7.328458435714286 8.378763235714286"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_4" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M1.528245387857143 16.34891892857143C1.773647142857143 18.64271914285714 3.6184630714285713 20.48753507142857 5.9110851 20.743074 7.613961492857142 20.932857428571428 9.362389092857143 21.095892857142857 11.145 21.095892857142857s3.5310385071428567 -0.16303542857142858 5.233851214285714 -0.3528188571428571c2.292685714285714 -0.25553892857142857 4.137501642857143 -2.100354857142857 4.3828508571428575 -4.394155071428571 0.18118585714285712 -1.6932120857142856 0.33419078571428573 -3.4316251071428567 0.33419078571428573 -5.2039189285714285 0 -1.7723097428571426 -0.15300492857142858 -3.510706842857143 -0.33419078571428573 -5.203966692857143 -0.24534921428571427 -2.293720607142857 -2.090165142857143 -4.138552457142857 -4.3828508571428575 -4.3940929778571425C14.676038507142858 1.3571298342857143 12.927610907142858 1.1941071428571428 11.145 1.1941071428571428S7.613961492857142 1.3571298342857143 5.9110851 1.5469403292857142C3.6184630714285713 1.8024808499999998 1.773647142857143 3.6473127 1.528245387857143 5.941033307142857 1.347085005 7.6342931571428565 1.1941071428571428 9.372690257142857 1.1941071428571428 11.145c0 1.7722938214285715 0.15297945428571427 3.510706842857143 0.334138245 5.2039189285714285Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Vector" fill="#ffffff"
+                                                    d="M14.329190185714285 10.746773228571428c1.7831363142857144 0 2.786186314285714 -1.0030181571428571 2.786186314285714 -2.7861544714285715S16.112326499999998 5.1744642857142855 14.329190185714285 5.1744642857142855C12.54605387142857 5.1744642857142855 11.543035714285715 6.177482442857143 11.543035714285715 7.960618757142856s1.0030181571428571 2.7861544714285715 2.7861544714285715 2.7861544714285715Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Vector_2" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M14.329190185714285 10.746773228571428c1.7831363142857144 0 2.786186314285714 -1.0030181571428571 2.786186314285714 -2.7861544714285715S16.112326499999998 5.1744642857142855 14.329190185714285 5.1744642857142855C12.54605387142857 5.1744642857142855 11.543035714285715 6.177482442857143 11.543035714285715 7.960618757142856s1.0030181571428571 2.7861544714285715 2.7861544714285715 2.7861544714285715Z"
+                                                    stroke-width="1.71"></path>
+                                            </g>
+                                        </svg>
+                                        <span class="btn-text-inner">Numero de Medidor</span>
+                                        <input type="file" class="form-control d-none" id="foto4-input"
+                                            name="foto4" accept="image/jpeg" capture="camera">
+                                    </a>
+                                    <a class="btn btn-info btn-lg mb-4 me-4" id="foto5-button"
+                                        style="font-size:16px;width: 250px; height: 50px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="-0.855 -0.855 24 24" id="Landscape-1--Streamline-Flex"
+                                            height="24" width="24">
+                                            <desc>Landscape 1 Streamline Icon: https://streamlinehq.com</desc>
+                                            <g
+                                                id="landscape-1--photos-photo-landscape-picture-photography-camera-pictures-image">
+                                                <path id="Intersect" fill="#d7e0ff"
+                                                    d="M1.528245387857143 16.34891892857143C1.773647142857143 18.64271914285714 3.6184630714285713 20.48753507142857 5.9110851 20.743074 7.613961492857142 20.932857428571428 9.362389092857143 21.095892857142857 11.145 21.095892857142857s3.5310385071428567 -0.16303542857142858 5.233851214285714 -0.3528188571428571c2.292685714285714 -0.25553892857142857 4.137501642857143 -2.100354857142857 4.3828508571428575 -4.394155071428571 0.18118585714285712 -1.6932120857142856 0.33419078571428573 -3.4316251071428567 0.33419078571428573 -5.2039189285714285 0 -1.7723097428571426 -0.15300492857142858 -3.510706842857143 -0.33419078571428573 -5.203966692857143 -0.24534921428571427 -2.293720607142857 -2.090165142857143 -4.138552457142857 -4.3828508571428575 -4.3940929778571425C14.676038507142858 1.3571298342857143 12.927610907142858 1.1941071428571428 11.145 1.1941071428571428S7.613961492857142 1.3571298342857143 5.9110851 1.5469403292857142C3.6184630714285713 1.8024808499999998 1.773647142857143 3.6473127 1.528245387857143 5.941033307142857 1.347085005 7.6342931571428565 1.1941071428571428 9.372690257142857 1.1941071428571428 11.145c0 1.7722938214285715 0.15297945428571427 3.510706842857143 0.334138245 5.2039189285714285Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_2" fill="#ffffff"
+                                                    d="M1.1941071428571428 16.856971714285713v-0.22051178571428573c1.4466687642857143 -1.8618996214285712 2.5340864142857145 -2.9208816 4.343445321428572 -4.180011857142857 0.93495405 -0.6506451 2.1715395642857143 -0.7070547214285714 3.113148771428571 -0.06608984999999999 3.1203293357142856 2.124077785714286 5.740439228571429 5.387827349999999 7.413701764285714 8.537881992857143v0.3068059285714286c-1.6841687142857142 0.15029828571428572 -3.4129970357142856 0.2784657857142857 -5.1753399642857145 0.2784657857142857 -3.1755607714285716 0 -9.230097942857142 -0.75786 -9.694955892857143 -4.656540214285714Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_3" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M1.4988528385714284 16.249887642857143C2.7998469 14.622446978571428 3.857571085714286 13.625749628571429 5.538014185714286 12.456368464285713c0.93495405 -0.6506291785714285 2.171141528571429 -0.7067681357142858 3.1127507357142856 -0.06578734285714286 3.067820464285714 2.088318257142857 5.652123064285714 5.278224235714286 7.328458435714286 8.378763235714286"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_4" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M1.528245387857143 16.34891892857143C1.773647142857143 18.64271914285714 3.6184630714285713 20.48753507142857 5.9110851 20.743074 7.613961492857142 20.932857428571428 9.362389092857143 21.095892857142857 11.145 21.095892857142857s3.5310385071428567 -0.16303542857142858 5.233851214285714 -0.3528188571428571c2.292685714285714 -0.25553892857142857 4.137501642857143 -2.100354857142857 4.3828508571428575 -4.394155071428571 0.18118585714285712 -1.6932120857142856 0.33419078571428573 -3.4316251071428567 0.33419078571428573 -5.2039189285714285 0 -1.7723097428571426 -0.15300492857142858 -3.510706842857143 -0.33419078571428573 -5.203966692857143 -0.24534921428571427 -2.293720607142857 -2.090165142857143 -4.138552457142857 -4.3828508571428575 -4.3940929778571425C14.676038507142858 1.3571298342857143 12.927610907142858 1.1941071428571428 11.145 1.1941071428571428S7.613961492857142 1.3571298342857143 5.9110851 1.5469403292857142C3.6184630714285713 1.8024808499999998 1.773647142857143 3.6473127 1.528245387857143 5.941033307142857 1.347085005 7.6342931571428565 1.1941071428571428 9.372690257142857 1.1941071428571428 11.145c0 1.7722938214285715 0.15297945428571427 3.510706842857143 0.334138245 5.2039189285714285Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Vector" fill="#ffffff"
+                                                    d="M14.329190185714285 10.746773228571428c1.7831363142857144 0 2.786186314285714 -1.0030181571428571 2.786186314285714 -2.7861544714285715S16.112326499999998 5.1744642857142855 14.329190185714285 5.1744642857142855C12.54605387142857 5.1744642857142855 11.543035714285715 6.177482442857143 11.543035714285715 7.960618757142856s1.0030181571428571 2.7861544714285715 2.7861544714285715 2.7861544714285715Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Vector_2" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M14.329190185714285 10.746773228571428c1.7831363142857144 0 2.786186314285714 -1.0030181571428571 2.786186314285714 -2.7861544714285715S16.112326499999998 5.1744642857142855 14.329190185714285 5.1744642857142855C12.54605387142857 5.1744642857142855 11.543035714285715 6.177482442857143 11.543035714285715 7.960618757142856s1.0030181571428571 2.7861544714285715 2.7861544714285715 2.7861544714285715Z"
+                                                    stroke-width="1.71"></path>
+                                            </g>
+                                        </svg>
+                                        <span class="btn-text-inner">Estado del Medidor</span>
+                                        <input type="file" class="form-control d-none" id="foto5-input"
+                                            name="foto5" accept="image/jpeg" capture="camera">
+                                    </a>
+                                    <a class="btn btn-info btn-lg mb-4 me-4" id="foto6-button"
+                                        style="font-size:16px;width: 250px; height: 50px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="-0.855 -0.855 24 24" id="Landscape-1--Streamline-Flex"
+                                            height="24" width="24">
+                                            <desc>Landscape 1 Streamline Icon: https://streamlinehq.com</desc>
+                                            <g
+                                                id="landscape-1--photos-photo-landscape-picture-photography-camera-pictures-image">
+                                                <path id="Intersect" fill="#d7e0ff"
+                                                    d="M1.528245387857143 16.34891892857143C1.773647142857143 18.64271914285714 3.6184630714285713 20.48753507142857 5.9110851 20.743074 7.613961492857142 20.932857428571428 9.362389092857143 21.095892857142857 11.145 21.095892857142857s3.5310385071428567 -0.16303542857142858 5.233851214285714 -0.3528188571428571c2.292685714285714 -0.25553892857142857 4.137501642857143 -2.100354857142857 4.3828508571428575 -4.394155071428571 0.18118585714285712 -1.6932120857142856 0.33419078571428573 -3.4316251071428567 0.33419078571428573 -5.2039189285714285 0 -1.7723097428571426 -0.15300492857142858 -3.510706842857143 -0.33419078571428573 -5.203966692857143 -0.24534921428571427 -2.293720607142857 -2.090165142857143 -4.138552457142857 -4.3828508571428575 -4.3940929778571425C14.676038507142858 1.3571298342857143 12.927610907142858 1.1941071428571428 11.145 1.1941071428571428S7.613961492857142 1.3571298342857143 5.9110851 1.5469403292857142C3.6184630714285713 1.8024808499999998 1.773647142857143 3.6473127 1.528245387857143 5.941033307142857 1.347085005 7.6342931571428565 1.1941071428571428 9.372690257142857 1.1941071428571428 11.145c0 1.7722938214285715 0.15297945428571427 3.510706842857143 0.334138245 5.2039189285714285Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_2" fill="#ffffff"
+                                                    d="M1.1941071428571428 16.856971714285713v-0.22051178571428573c1.4466687642857143 -1.8618996214285712 2.5340864142857145 -2.9208816 4.343445321428572 -4.180011857142857 0.93495405 -0.6506451 2.1715395642857143 -0.7070547214285714 3.113148771428571 -0.06608984999999999 3.1203293357142856 2.124077785714286 5.740439228571429 5.387827349999999 7.413701764285714 8.537881992857143v0.3068059285714286c-1.6841687142857142 0.15029828571428572 -3.4129970357142856 0.2784657857142857 -5.1753399642857145 0.2784657857142857 -3.1755607714285716 0 -9.230097942857142 -0.75786 -9.694955892857143 -4.656540214285714Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_3" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M1.4988528385714284 16.249887642857143C2.7998469 14.622446978571428 3.857571085714286 13.625749628571429 5.538014185714286 12.456368464285713c0.93495405 -0.6506291785714285 2.171141528571429 -0.7067681357142858 3.1127507357142856 -0.06578734285714286 3.067820464285714 2.088318257142857 5.652123064285714 5.278224235714286 7.328458435714286 8.378763235714286"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Intersect_4" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M1.528245387857143 16.34891892857143C1.773647142857143 18.64271914285714 3.6184630714285713 20.48753507142857 5.9110851 20.743074 7.613961492857142 20.932857428571428 9.362389092857143 21.095892857142857 11.145 21.095892857142857s3.5310385071428567 -0.16303542857142858 5.233851214285714 -0.3528188571428571c2.292685714285714 -0.25553892857142857 4.137501642857143 -2.100354857142857 4.3828508571428575 -4.394155071428571 0.18118585714285712 -1.6932120857142856 0.33419078571428573 -3.4316251071428567 0.33419078571428573 -5.2039189285714285 0 -1.7723097428571426 -0.15300492857142858 -3.510706842857143 -0.33419078571428573 -5.203966692857143 -0.24534921428571427 -2.293720607142857 -2.090165142857143 -4.138552457142857 -4.3828508571428575 -4.3940929778571425C14.676038507142858 1.3571298342857143 12.927610907142858 1.1941071428571428 11.145 1.1941071428571428S7.613961492857142 1.3571298342857143 5.9110851 1.5469403292857142C3.6184630714285713 1.8024808499999998 1.773647142857143 3.6473127 1.528245387857143 5.941033307142857 1.347085005 7.6342931571428565 1.1941071428571428 9.372690257142857 1.1941071428571428 11.145c0 1.7722938214285715 0.15297945428571427 3.510706842857143 0.334138245 5.2039189285714285Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Vector" fill="#ffffff"
+                                                    d="M14.329190185714285 10.746773228571428c1.7831363142857144 0 2.786186314285714 -1.0030181571428571 2.786186314285714 -2.7861544714285715S16.112326499999998 5.1744642857142855 14.329190185714285 5.1744642857142855C12.54605387142857 5.1744642857142855 11.543035714285715 6.177482442857143 11.543035714285715 7.960618757142856s1.0030181571428571 2.7861544714285715 2.7861544714285715 2.7861544714285715Z"
+                                                    stroke-width="1.71"></path>
+                                                <path id="Vector_2" stroke="#4147d5" stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M14.329190185714285 10.746773228571428c1.7831363142857144 0 2.786186314285714 -1.0030181571428571 2.786186314285714 -2.7861544714285715S16.112326499999998 5.1744642857142855 14.329190185714285 5.1744642857142855C12.54605387142857 5.1744642857142855 11.543035714285715 6.177482442857143 11.543035714285715 7.960618757142856s1.0030181571428571 2.7861544714285715 2.7861544714285715 2.7861544714285715Z"
+                                                    stroke-width="1.71"></path>
+                                            </g>
+                                        </svg>
+                                        <span class="btn-text-inner">Opcional</span>
+                                        <input type="file" class="form-control d-none" id="foto6-input"
+                                            name="foto6" accept="image/jpeg" capture="camera">
+                                    </a>
                                 </div>
+                                <hr class="my-2">
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary" id="submitButtonReporte">Enviar</button>
-                        <button class="btn btn-success mb-2 me-4 d-none" id="progressBarReporte">
-                            <div class="spinner-border text-white me-2 align-self-center loader-sm "></div> Enviando
-                            Archivos Espere...
-                        </button>
-                    </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary mt-3" id="submitButtonReporte">Enviar</button>
+                            <button class="btn btn-success mb-2 me-4 d-none" id="progressBarReporte">
+                                <div class="spinner-border text-white me-2 align-self-center loader-sm "></div> Enviando
+                                Archivos Espere...
+                            </button>
+                        </div>
                 </form>
             </div>
         </div>
@@ -131,68 +375,5 @@
 @endsection
 
 @section('scripts')
-    <script>
-        function BuscarContrato() {
-            var id = $('#Contrato').val();
-            if (id) {
-                $.ajax({
-                    url: '/funtion/busqueda/' + id,
-                    type: 'GET',
-                    success: function(response) {
-                        // Aquí puedes manejar la respuesta del servidor
-                        $('#medidor').val(response.contrato.medidor);
-                        $('#direccion').text(response.contrato.direccion);
-                        $('#maps').removeClass('d-none');
-                        $('#maps').attr('href', 'https://www.google.com/maps/place/' + response.src);
-                        $('#ubicacion').removeClass('d-none');
-                    },
-                    error: function(error) {
-                        if (error.responseJSON && error.responseJSON.error) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: error.responseJSON.error,
-                            });
-                        }
-                    }
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Ingrese un numero de contrato',
-                });
-            }
-        }
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#reporte').submit(function() {
-                $('#submitButtonReporte').addClass('d-none');
-                $('#progressBarReporte').removeClass('d-none');
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function(event) {
-            new TomSelect("#anomalia", {
-                persist: false,
-                createOnBlur: true,
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            FilePond.registerPlugin(
-                FilePondPluginImagePreview,
-                FilePondPluginImageExifOrientation,
-                FilePondPluginFileValidateSize
-            );
-            FilePond.create(
-                document.querySelector('.file-upload-multiple'), {
-                    labelIdle: `Arrastra y suelta tu imagen o<span class="filepond--label-action"> Toma la foto de la camara</span>`,
-                }
-            );
-        });
-    </script>
+    <script src="{{asset('script/agentes/AgentesGlobal.js')}}"></script>
 @endsection

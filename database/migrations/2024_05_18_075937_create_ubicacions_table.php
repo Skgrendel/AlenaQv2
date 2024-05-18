@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('encabezados_dets', function (Blueprint $table) {
+        Schema::create('ubicacions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('encabezados_id');
-            $table->string('nombre');
-            $table->string('nomenclatura')->nullable();
+            $table->string('direccion');
+            $table->string('latitud');
+            $table->string('longitud');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('encabezados_dets');
+        Schema::dropIfExists('ubicacions');
     }
 };

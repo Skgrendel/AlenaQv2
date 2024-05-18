@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\dbs_surtigas;
 use App\Models\encabezados_dets;
 use App\Models\reportes;
 use App\Models\vs_anomalias;
@@ -24,7 +25,7 @@ class ReportesController extends Controller
     public function index()
     {
         $reportes = reportes::with('personal', 'EstadoReporte')
-            ->where('personal_id', Auth::user()->personal->id)
+            ->where('personals_id', Auth::user()->personal->id)
             ->whereIn('estado', [5, 7])
             ->get();
         $estados = vs_estado::all();
@@ -38,10 +39,6 @@ class ReportesController extends Controller
      */
     public function create()
     {
-        $anomalias = vs_anomalias::pluck('nombre', 'id');
-        $comercios = vs_comercios::pluck('nombre', 'id');
-        $imposibilidad = vs_imposibilidad::pluck('nombre', 'id');
-        return view('agentes.create', compact('anomalias', 'comercios', 'imposibilidad'));
     }
 
     /**
@@ -49,28 +46,6 @@ class ReportesController extends Controller
      */
     public function store(Request $request)
     {
-
-        if($request->hasFile('filepond')) {
-            $files = $request->file('filepond');
-
-            $fileDetails = [];
-
-            if($files !== null) {
-                foreach($files as $file) {
-                    $filename = $file->getClientOriginalName();
-                    $path = $file->storeAs('public/images', $filename);
-
-                    // Guarda los detalles del archivo en un array
-                    $fileDetails[] = [
-                        'filename' => $filename,
-                        'path' => $path
-                    ];
-                }
-            }
-
-            // Muestra los detalles de los archivos
-            dd($fileDetails);
-        }
 
         $request->validate(reportes::$rules);
 
@@ -94,9 +69,6 @@ class ReportesController extends Controller
         }
 
         $AnomaliaJson = json_encode($request->anomalia);
-
-        $reportes = $request->all();
-
         $reportes['personal_id'] = Auth::user()->personal->id;
         $reportes['anomalia'] = $AnomaliaJson;
         $reportes['latitud'] = $latitud;
@@ -110,41 +82,6 @@ class ReportesController extends Controller
             $reportes['video'] = $videoname;
         }
 
-        foreach (range(1, 6) as $i) {
-            if ($imagen = $request->file('foto' . $i)) {
-                $path = 'imagen/';
-                $foto = rand(1000, 9999) . "_" . date('YmdHis') . "." . $imagen->getClientOriginalExtension();
-                $imagen->move($path, $foto);
-                $reportes['foto' . $i] = $foto;
-                //  Abrir la imagen utilizando GD
-                $imagenGD = imagecreatefromjpeg(public_path($path . $foto));
-                // Añadir texto del contrato  a la imagen
-                $textoContrato = "Contrato N°:" . $request->input('contrato');
-                $colorTexto = imagecolorallocate($imagenGD, 255, 255, 255); // Color blanco
-                $posXContrato = 10; // Ajusta según tu diseño
-                $posYContrato = imagesy($imagenGD) - 170; // Ajusta según tu diseño
-                imagettftext($imagenGD, $fontSize, 0, $posXContrato, $posYContrato, $colorTexto, public_path('font/arial.ttf'), $textoContrato);
-                // Añadir texto de coordenadas a la imagen
-                $textoCoordenadas = "Direccion: " . $direccion;
-                $colorTexto = imagecolorallocate($imagenGD, 255, 255, 255); // Color blanco
-                $posXCoordenadas = 10; // Ajusta según tu diseño
-                $posYCoordenadas = imagesy($imagenGD) - 20; // Ajusta según tu diseño
-                imagettftext($imagenGD, $fontSize, 0, $posXCoordenadas, $posYCoordenadas, $colorTexto, public_path('font/arial.ttf'), $textoCoordenadas);
-
-                //Añadir texto de fecha a la imagen
-                $fechaActual = date("Y-m-d H:i:s");
-                $posXFecha = 10; // Ajusta según tu diseño
-                $posYFecha = imagesy($imagenGD) - 90; // Ajusta según tu diseño
-                imagettftext($imagenGD, $fontSize, 0, $posXFecha, $posYFecha, $colorTexto, public_path('font/arial.ttf'), "Fecha: $fechaActual");
-
-                // Guardar la imagen modificada
-                imagejpeg($imagenGD, public_path($path . $foto));
-
-                // Liberar la memoria
-                imagedestroy($imagenGD);
-            }
-        }
-        reportes::create($reportes);
         return redirect()->route('reportes.index')->with('success', 'Reporte Creado Con Exito');
     }
     /**
@@ -152,10 +89,12 @@ class ReportesController extends Controller
      */
     public function show($id)
     {
-        $reporte = reportes::find($id);
-        $anomaliasIds = json_decode($reporte->anomalia);
-        $anomalias = vs_anomalias::whereIn('id', $anomaliasIds)->get();
-        return view('agentes.show', compact('reporte', 'anomalias'));
+        $data = dbs_surtigas::where('contrato', $id)->first();
+        $src = 'https://www.google.com/maps/place/' . $data->latitud . ',' . $data->longitud;
+        $anomalias = vs_anomalias::pluck('nombre', 'id');
+        $comercios = vs_comercios::pluck('nombre', 'id');
+        $imposibilidad = vs_imposibilidad::pluck('nombre', 'id');
+        return view('agentes.create', compact('anomalias', 'comercios', 'imposibilidad', 'data', 'src'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -174,7 +113,7 @@ class ReportesController extends Controller
      */
     public function update(Request $request, $reporte)
     {
-        $request->validate(reportes::$rulesupdate);
+        $request->validate(reportes::$rules);
         $reportes = reportes::find($reporte);
         $report = $request->all();
         $AnomaliaJson = json_encode($request->anomalia);
@@ -258,6 +197,4 @@ class ReportesController extends Controller
     {
         //
     }
-
-
 }

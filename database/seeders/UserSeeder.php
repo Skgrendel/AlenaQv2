@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         // Usuario de Administrador Predeterminado
         $user = User::create([
             'email' => 'admin@proderi.com',
-            'personal_id'=>'1',
+            'personals_id'=>'1',
             'password' => bcrypt('0000.**'), // Cambia esto por la contraseña que desees
             'estado' => 1, // Ajusta el valor según tus necesidades
         ]);
