@@ -9,8 +9,7 @@
                     @csrf
                     <input type="text" hidden id="latitud" name="latitud" value="">
                     <input type="text" hidden id="longitud" name="longitud" value="">
-
-                    <div class="col-12" id="ubicacion">
+                    <div class="col-12 mb-1 " id="ubicacion">
                         <div class="">
                             <div class="col-lg-12 ">
                                 <div class="card shadow">
@@ -54,61 +53,58 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-12">
-                        <div class="form-check form-check-danger form-check-inline mt-2 ">
-                            <input class="form-check-input" type="checkbox" value="" id="medidor_anomalia">
-                            <label class="form-check-label" for="medidor_anomalia">
-                                No Concuerda
-                            </label>
-                        </div>
-                        <div class="form-check form-check-danger form-check-inline mt-2 ">
-                            <input class="form-check-input" type="checkbox" value="" id="medidor_cambio">
-                            <label class="form-check-label" for="medidor_Cambio">
-                                Cambio
-                            </label>
-                        </div>
-                        <input type="text" class="form-control d-none mt-2 border-danger " name="medidor_cambio"
-                            id="medidor_cambio" placeholder="Observaciones " value="{{ old('medidor_anomalia') }}">
-                    </div> --}}
-                    <div class="col-12">
-                        <label for="comercio" class="form-label">¿Que Tipo de Comercio Encontro?</label>
-                        <select id="comercio" class="form-select" name="tipo_comercio">
-                            <option selected disabled>Seleccione El tipo de Comercio</option>
-                            @foreach ($comercios as $id => $nombre)
-                                <option value="{{ $id }}">{{ $nombre }}</option>
-                            @endforeach
-                        </select>
-                        <div id="div-comercio-nuevo" style="display: none;" class="mt-3">
-                            <label for="nueva_opcion" class="form-label"> ¿Cúal comercio Encontró?</label>
-                            <input type="text" name="nuevo_comercio" id="nueva_opcion" class="form-control">
-                        </div>
-                    </div>
                     <div class="col-12 d-flex justify-content-between ">
-                        <label for="switch-encontrado" class="form-label">¿Encontro un medidor?</label>
+                        <label for="switch-predio" class="form-label">¿Encontro el Predio?</label>
                         <div class="switch form-switch-custom switch-inline form-switch-success">
-                            <input class="switch-input" type="checkbox" role="switch" id="switch-encontrado">
-                            <label class="switch-label" for="switch-encontrado">Si</label>
+                            <input class="switch-input" type="checkbox" role="switch" id="switch-predio">
+                            <label class="switch-label" for="switch-predio">Si</label>
                         </div>
                     </div>
-                    <div class="col-12 d-flex justify-content-between d-none  ">
-                        <label for="switch-coincide" class="form-label">¿El medidor No coincide?</label>
-                        <div class="switch form-switch-custom switch-inline form-switch-success">
-                            <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
-                            <label class="switch-label" for="switch-coincide">Si</label>
+                    <div class="d-none">
+                        <div class="">
+                            <div class="col-12">
+                                <label for="comercio" class="form-label">¿Que Tipo de Comercio Encontro?</label>
+                                <select id="comercio" class="form-select" name="tipo_comercio">
+                                    <option selected disabled>Seleccione El tipo de Comercio</option>
+                                    @foreach ($comercios as $id => $nombre)
+                                        <option value="{{ $id }}">{{ $nombre }}</option>
+                                    @endforeach
+                                </select>
+                                <div id="div-comercio-nuevo" style="display: none;" class="mt-3">
+                                    <label for="nueva_opcion" class="form-label"> ¿Cúal comercio Encontró?</label>
+                                    <input type="text" name="nuevo_comercio" id="nueva_opcion" class="form-control">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-12 d-flex justify-content-between ">
-                        <label for="switch-coincide" class="form-label">¿Observa alguna anomalía?</label>
-                        <div class="switch form-switch-custom switch-inline form-switch-success">
-                            <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
-                            <label class="switch-label" for="switch-coincide">Si</label>
+                        <div class="col-12 d-flex justify-content-between ">
+                            <label for="switch-medidor" class="form-label">¿Encontro un medidor?</label>
+                            <div class="switch form-switch-custom switch-inline form-switch-success">
+                                <input class="switch-input" type="checkbox" role="switch" id="switch-medidor">
+                                <label class="switch-label" for="switch-medidor">Si</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-12 d-flex justify-content-between ">
-                        <label for="switch-coincide" class="form-label">¿Puede tomar la lectura?</label>
-                        <div class="switch form-switch-custom switch-inline form-switch-success">
-                            <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
-                            <label class="switch-label" for="switch-coincide">Si</label>
+                        <div class="d-none" id="cont-medidor">
+                            <div class="col-12 d-flex justify-content-between">
+                                <label for="switch-coincide" class="form-label">¿El medidor coincide?</label>
+                                <div class="switch form-switch-custom switch-inline form-switch-success">
+                                    <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
+                                    <label class="switch-label" for="switch-coincide">No</label>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <label for="switch-coincide" class="form-label">¿Observa alguna anomalía?</label>
+                                <div class="switch form-switch-custom switch-inline form-switch-success">
+                                    <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
+                                    <label class="switch-label" for="switch-coincide">Si</label>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <label for="switch-coincide" class="form-label">¿Puede tomar la lectura?</label>
+                                <div class="switch form-switch-custom switch-inline form-switch-success">
+                                    <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
+                                    <label class="switch-label" for="switch-coincide">Si</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     {{-- <div class="col-12">
@@ -134,8 +130,14 @@
                         <label for="comentarios" class="form-label">Observaciones</label>
                         <textarea name="comentarios" id="comentarios" cols="30" rows="3" class="form-control"></textarea>
                     </div>
-
-                    <div id="fuMultipleFile" class="col-lg-12 layout-spacing">
+                    <div class="col-12 d-flex justify-content-between ">
+                        <label for="switch-encontrado" class="form-label">¿Desea Subir Evidencias?</label>
+                        <div class="switch form-switch-custom switch-inline form-switch-success">
+                            <input class="switch-input" type="checkbox" role="switch" id="switch-encontrado">
+                            <label class="switch-label" for="switch-encontrado">Si</label>
+                        </div>
+                    </div>
+                    <div id="fuMultipleFile" class="col-lg-12 layout-spacing d-none ">
                         <div class="statbox widget box box-shadow">
                             <div class="widget-header">
                                 <div class="row">
