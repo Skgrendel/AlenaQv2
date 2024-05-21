@@ -38,14 +38,17 @@
                                                 <label for="ciclo">Ciclo: </label>
                                                 <span class=" text-body" id="ciclo">{{ $data->ciclo }}</span>
                                             </div>
-                                            <input type="text" id="medidor" name="medidor" hidden
-                                                value="{{ $data->medidor }}">
-                                            <input type="text" id="contrato" name="contrato" hidden
-                                                value="{{ $data->contrato }}">
+                                            <input type="text" id="medidor" name="medidor" hidden value="{{ $data->medidor }}">
+                                            <input type="text" id="contrato" name="contrato" hidden value="{{ $data->contrato }}">
                                             <hr>
                                             <div class="d-flex justify-content-between ">
-                                                <a href="{{ $src }}" target="_blank" class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion" data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
-                                                <a class="btn btn-info me-4 rounded  bs-tooltip" title="Regresar Pagina Anterior" data-bs-placement="top" href="{{ route('asignados.index') }}"><i class="fas fa-arrow-circle-left"></i></a>
+                                                <a href="{{ $src }}" target="_blank"
+                                                    class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion"
+                                                    data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
+                                                <a class="btn btn-info me-4 rounded  bs-tooltip"
+                                                    title="Regresar Pagina Anterior" data-bs-placement="top"
+                                                    href="{{ route('asignados.index') }}"><i
+                                                        class="fas fa-arrow-circle-left"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -53,30 +56,31 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 d-flex justify-content-between ">
+                    <div class="col-12 d-flex justify-content-between">
                         <label for="switch-predio" class="form-label">¿Encontro el Predio?</label>
                         <div class="switch form-switch-custom switch-inline form-switch-success">
                             <input class="switch-input" type="checkbox" role="switch" id="switch-predio">
                             <label class="switch-label" for="switch-predio">Si</label>
                         </div>
                     </div>
-                    <div class="d-none">
-                        <div class="">
-                            <div class="col-12">
-                                <label for="comercio" class="form-label">¿Que Tipo de Comercio Encontro?</label>
-                                <select id="comercio" class="form-select" name="tipo_comercio">
-                                    <option selected disabled>Seleccione El tipo de Comercio</option>
-                                    @foreach ($comercios as $id => $nombre)
-                                        <option value="{{ $id }}">{{ $nombre }}</option>
-                                    @endforeach
-                                </select>
-                                <div id="div-comercio-nuevo" style="display: none;" class="mt-3">
-                                    <label for="nueva_opcion" class="form-label"> ¿Cúal comercio Encontró?</label>
-                                    <input type="text" name="nuevo_comercio" id="nueva_opcion" class="form-control">
-                                </div>
+                    <input type="hidden" id="hidden-anomalia" name="anomalia" value="8" disabled>
+                    <div class="d-none" id="info">
+                        <div class="col-12 mb-2">
+                            <label for="comercio" class="form-label">¿Que Tipo de Comercio Encontro?</label>
+                            <select id="comercio" class="form-select" name="tipo_comercio">
+                                <option selected disabled>Seleccione El tipo de Comercio</option>
+                                @foreach ($comercios as $id => $nombre)
+                                    <option value="{{ $id }}">{{ $nombre }}</option>
+                                @endforeach
+                            </select>
+                            <input type="hidden" id="hidden-comercio" name="tipo_comercio" value="70" disabled>
+
+                            <div id="div-comercio-nuevo" style="display: none;" class="mt-3">
+                                <label for="nueva_opcion" class="form-label"> ¿Cúal comercio Encontró?</label>
+                                <input type="text" name="nuevo_comercio" id="nueva_opcion" class="form-control">
                             </div>
                         </div>
-                        <div class="col-12 d-flex justify-content-between ">
+                        <div class="col-12 d-flex justify-content-between mb-2">
                             <label for="switch-medidor" class="form-label">¿Encontro un medidor?</label>
                             <div class="switch form-switch-custom switch-inline form-switch-success">
                                 <input class="switch-input" type="checkbox" role="switch" id="switch-medidor">
@@ -85,59 +89,74 @@
                         </div>
                         <div class="d-none" id="cont-medidor">
                             <div class="col-12 d-flex justify-content-between">
-                                <label for="switch-coincide" class="form-label">¿El medidor coincide?</label>
-                                <div class="switch form-switch-custom switch-inline form-switch-success">
-                                    <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
-                                    <label class="switch-label" for="switch-coincide">No</label>
-                                </div>
-                            </div>
-                            <div class="col-12 d-flex justify-content-between">
-                                <label for="switch-coincide" class="form-label">¿Observa alguna anomalía?</label>
+                                <label for="switch-coincide" class="form-label">¿El medidor No coincide?</label>
                                 <div class="switch form-switch-custom switch-inline form-switch-success">
                                     <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
                                     <label class="switch-label" for="switch-coincide">Si</label>
                                 </div>
                             </div>
-                            <div class="col-12 d-flex justify-content-between">
-                                <label for="switch-coincide" class="form-label">¿Puede tomar la lectura?</label>
-                                <div class="switch form-switch-custom switch-inline form-switch-success">
-                                    <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
-                                    <label class="switch-label" for="switch-coincide">Si</label>
+                            <div class="col-lg-12 d-none mb-2" id="medidor_anomalia_container">
+                                <div class="mt-1">
+                                    <label for="nueva_opcion" class="form-label">Digite el numero de Medidor Que Encontro</label>
+                                    <input type="text" name="medidor_anomalia" id="medidor_anomalia" class="form-control">
                                 </div>
                             </div>
+                            <div class="col-12 d-flex justify-content-between mb-2">
+                                <label for="switch-anomalia" class="form-label">¿Observa alguna anomalía?</label>
+                                <div class="switch form-switch-custom switch-inline form-switch-success">
+                                    <input class="switch-input" type="checkbox" role="switch" id="switch-anomalia">
+                                    <label class="switch-label" for="switch-anomalia">Si</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 d-none mb-2" id="anomaliaContainer">
+                                <div class="mt-1">
+                                    <label for="nueva_opcion" class="form-label">Seleccione La Anomalia Que Detecto</label>
+                                    <select id="anomalia" class="form-select" name="anomalia">
+                                        <option selected disabled>Seleccione La Anomalia</option>
+                                        @foreach ($anomalias as $id => $nombre)
+                                            <option value="{{ $id }}">{{ $nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <label for="switch-lectura" class="form-label">¿Puede tomar la lectura?</label>
+                                <div class="switch form-switch-custom switch-inline form-switch-success">
+                                    <input class="switch-input" type="checkbox" role="switch" id="switch-lectura">
+                                    <label class="switch-label" for="switch-lectura">Si</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 d-none mb-2" id="lectura_container">
+                                <div class="mt-1">
+                                    <label for="lectura" class="form-label">Digite el numero de Lectura</label>
+                                    <input type="text" name="lectura" id="lectura" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 d-none" id="container_imposibilidad">
+                                <label for="imposibilidad" class="form-label">Imposibilidad</label>
+                                <select id="imposibilidad" class="form-select" name="imposibilidad">
+                                    <option selected disabled>Seleccione Su imposibilidad</option>
+                                    @foreach ($imposibilidad as $id => $nombre)
+                                        <option value="{{ $id }}">{{ $nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <input type="hidden" id="hidden-imposibilidad" name="imposibilidad" disabled>
                         </div>
                     </div>
-                    {{-- <div class="col-12">
-                        <label for="imposibilidad" class="form-label">Imposibilidad</label>
-                        <select id="imposibilidad" class="form-select" name="imposibilidad">
-                            <option selected disabled>Seleccione Su imposibilidad</option>
-                            @foreach ($imposibilidad as $id => $nombre)
-                                <option value="{{ $id }}">{{ $nombre }}</option>
-                            @endforeach
 
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <label for="anomalia" class="form-label">Anomalias Detectadas</label>
-                        <select id="anomalia" class="form-select" name="anomalias[]" multiple autocomplete="off"
-                            data-placeholder="anomalias Detectadas">
-                            @foreach ($anomalias as $id => $nombre)
-                                <option value="{{ $id }}">{{ $nombre }}</option>
-                            @endforeach
-                        </select>
-                    </div> --}}
                     <div class="col-12">
                         <label for="comentarios" class="form-label">Observaciones</label>
                         <textarea name="comentarios" id="comentarios" cols="30" rows="3" class="form-control"></textarea>
                     </div>
                     <div class="col-12 d-flex justify-content-between ">
-                        <label for="switch-encontrado" class="form-label">¿Desea Subir Evidencias?</label>
+                        <label for="switch-evidencias" class="form-label">¿Desea Subir Evidencias?</label>
                         <div class="switch form-switch-custom switch-inline form-switch-success">
-                            <input class="switch-input" type="checkbox" role="switch" id="switch-encontrado">
-                            <label class="switch-label" for="switch-encontrado">Si</label>
+                            <input class="switch-input" type="checkbox" role="switch" id="switch-evidencias">
+                            <label class="switch-label" for="switch-evidencias">Si</label>
                         </div>
                     </div>
-                    <div id="fuMultipleFile" class="col-lg-12 layout-spacing d-none ">
+                    <div id="evidencias" class="col-lg-12 layout-spacing d-none ">
                         <div class="statbox widget box box-shadow">
                             <div class="widget-header">
                                 <div class="row">
@@ -364,12 +383,16 @@
                         </div>
 
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary mt-3" id="submitButtonReporte">Enviar</button>
                             <button class="btn btn-success mb-2 me-4 d-none" id="progressBarReporte">
                                 <div class="spinner-border text-white me-2 align-self-center loader-sm "></div> Enviando
                                 Archivos Espere...
                             </button>
                         </div>
+                    </div>
+                    <div class="col-12">
+
+                        <button type="submit" class="btn btn-primary mt-3" id="submitButtonReporte">Enviar</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -377,5 +400,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('script/agentes/AgentesGlobal.js')}}"></script>
+    <script src="{{ asset('script/agentes/AgentesGlobal.js') }}"></script>
+    <script src="{{ asset('script/agentes/AgentesCreate.js') }}"></script>
 @endsection

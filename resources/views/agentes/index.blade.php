@@ -26,7 +26,7 @@
                       </svg>
                     @endif
                     <div class="card-body px-0 py-0 align-self-center">
-                        <p class="card-text text-sm">Contrato: <div id="">{$reporte->contrato}</div> </p>
+                        <p class="card-text text-sm">Contrato: <div id="">{{$reporte->contrato}}</div> </p>
                        <ul>
                         <li>
                             <span></span>

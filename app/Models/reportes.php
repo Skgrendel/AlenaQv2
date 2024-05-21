@@ -20,7 +20,7 @@ class reportes extends Model
     ];
 
     protected $fillable = [
-        'personal_id',
+        'personals_id',
         'ubicacions_id',
         'comercios_id',
         'contrato',

@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\comercio;
 use App\Models\dbs_surtigas;
 use App\Models\encabezados_dets;
 use App\Models\reportes;
+use App\Models\ubicacion;
 use App\Models\vs_anomalias;
 use App\Models\vs_estado;
 use App\Models\vs_comercios;
 use App\Models\vs_imposibilidad;
+use App\Services\ImageProcessingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -24,7 +27,7 @@ class ReportesController extends Controller
      */
     public function index()
     {
-        $reportes = reportes::with('personal', 'EstadoReporte')
+        $reportes = reportes::with('personal', 'vs_estado')
             ->where('personals_id', Auth::user()->personal->id)
             ->whereIn('estado', [5, 7])
             ->get();
@@ -47,11 +50,11 @@ class ReportesController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate(reportes::$rules);
+
+        //$request->validate(reportes::$rules);
 
         $latitud = $request->input('latitud');
         $longitud = $request->input('longitud');
-        $fontSize = 50;
 
         if ($request->input('contrato')) {
             $contrato = reportes::where('contrato', $request->input('contrato'))->first();
@@ -68,19 +71,37 @@ class ReportesController extends Controller
             $direccion = $data['items'][0]['address']['label'];
         }
 
-        $AnomaliaJson = json_encode($request->anomalia);
-        $reportes['personal_id'] = Auth::user()->personal->id;
-        $reportes['anomalia'] = $AnomaliaJson;
-        $reportes['latitud'] = $latitud;
-        $reportes['longitud'] = $longitud;
-        $reportes['direccion'] = $direccion;
+        //Ubicacion
+        $ubicacion['direccion'] = $direccion;
+        $ubicacion['latitud'] = $latitud;
+        $ubicacion['longitud'] = $longitud;
+        $ubicacion = ubicacion::create($ubicacion);
 
-        if ($video = $request->file('video')) {
-            $path = 'video/';
-            $videoname = rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();
-            $video->move($path, $videoname);
-            $reportes['video'] = $videoname;
-        }
+        //Comercio
+        $comercios['nombre_comercio'] = $request->input('nuevo_comercio');
+        $comercios['tipo_comercio'] = $request->input('tipo_comercio');
+        $comercios['medidor_anomalia'] = $request->input('medidor_anomalia');
+        $comercio = comercio::create($comercios);
+
+        //Reporte
+        $prc = new ImageProcessingService();
+        $fotos = $prc->processImages($request, $direccion);
+        $AnomaliaJson = json_encode($request->anomalia);
+        $reportes['anomalia'] = $AnomaliaJson;
+        $reportes['personals_id'] = Auth::user()->personal->id;
+        $reportes['ubicacions_id'] = $ubicacion->id;
+        $reportes['comercios_id'] = $comercio->id;
+        $reportes['contrato'] = $request->input('contrato');
+        $reportes['medidor'] = $request->input('medidor') ?? 0;
+        $reportes['lectura'] = $request->input('lectura');
+        $reportes['imposibilidad'] = $request->input('imposibilidad');
+        $reportes['imagenes'] = json_encode($fotos);
+        $reportesResultado = reportes::create($reportes);
+
+        //dbs_surtigas Cambio de Estado
+        $dbs_surtigas = dbs_surtigas::where('contrato', $reportesResultado->contrato )->first();
+        $dbs_surtigas->estado = '0';
+        $dbs_surtigas->update();
 
         return redirect()->route('reportes.index')->with('success', 'Reporte Creado Con Exito');
     }

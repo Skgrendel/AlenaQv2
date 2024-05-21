@@ -88,25 +88,3 @@ function obtenerUbicacion() {
 // Llamar a la función para obtener la ubicación al cargar la página
 window.onload = obtenerUbicacion;
 
-
-// Mostrar input para No concordancia del Medidor
-
-document.getElementById('medidor_noconcuerda').addEventListener('change', function() {
-    var medidorAnomalia = document.getElementById('medidor_anomalia');
-    if (this.checked) {
-        medidorAnomalia.classList.remove("hidden");
-    } else {
-        medidorAnomalia.classList.add("hidden");
-    }
-});
-
-//Mostrar input para justificacion de Cambio de medidor
-
-document.getElementById('cambio').addEventListener('change', function() {
-    var medidorAnomalia = document.getElementById('medidor_cambio');
-    if (this.checked) {
-        medidorAnomalia.classList.remove("hidden");
-    } else {
-        medidorAnomalia.classList.add("hidden");
-    }
-});
