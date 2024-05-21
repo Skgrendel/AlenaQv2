@@ -49,13 +49,17 @@ switchMedidor.addEventListener("change", function () {
 // Medidor Anomalia Coincide
 
 const switchMedidorAnomalia = document.getElementById("switch-coincide");
-const contmedidorAnomalia = document.getElementById("medidor_anomalia");
+const contmedidorAnomalia = document.getElementById("medidor_anomalia_container");
+const medidor_anomalia = document.getElementById("medidor_anomalia");
 
 switchMedidorAnomalia.addEventListener("change", function () {
     if (this.checked) {
+
         contmedidorAnomalia.classList.remove("d-none"); // Show the div
+        medidor_anomalia.disabled = false;
     } else {
         contmedidorAnomalia.classList.add("d-none"); // Hide the div
+        medidor_anomalia.disabled = true;
     }
 });
 
