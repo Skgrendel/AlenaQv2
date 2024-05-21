@@ -49,10 +49,7 @@ class ReportesController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        //$request->validate(reportes::$rules);
-
+        $request->validate(reportes::$rules);
         $latitud = $request->input('latitud');
         $longitud = $request->input('longitud');
 
