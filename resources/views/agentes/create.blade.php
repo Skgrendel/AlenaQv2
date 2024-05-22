@@ -56,11 +56,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 d-flex justify-content-between">
-                        <label for="switch-predio" class="form-label">¿Encontro el Predio?</label>
-                        <div class="switch form-switch-custom switch-inline form-switch-success">
-                            <input class="switch-input" type="checkbox" role="switch" id="switch-predio">
-                            <label class="switch-label" for="switch-predio">Si</label>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6 d-flex justify-content-start ">
+                                <label for="switch-predio" class="form-label">¿Encontro el Predio?</label>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end ">
+                                <div class="switch form-switch-custom switch-inline form-switch-success">
+                                    <input class="switch-input" type="checkbox" role="switch" id="switch-predio">
+                                    <label class="switch-label" for="switch-predio">Si</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <input type="hidden" id="hidden-anomalia" name="anomalia" value="8" disabled>
@@ -80,19 +86,31 @@
                                 <input type="text" name="nuevo_comercio" id="nueva_opcion" class="form-control">
                             </div>
                         </div>
-                        <div class="col-12 d-flex justify-content-between mb-2">
-                            <label for="switch-medidor" class="form-label">¿Encontro un medidor?</label>
-                            <div class="switch form-switch-custom switch-inline form-switch-success">
-                                <input class="switch-input" type="checkbox" role="switch" id="switch-medidor">
-                                <label class="switch-label" for="switch-medidor">Si</label>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6 d-flex justify-content-start">
+                                    <label for="switch-medidor" class="form-label">¿Encontro un medidor?</label>
+                                </div>
+                                <div class="col-6 d-flex justify-content-end ">
+                                    <div class="switch form-switch-custom switch-inline form-switch-success">
+                                        <input class="switch-input" type="checkbox" role="switch" id="switch-medidor">
+                                        <label class="switch-label" for="switch-medidor">Si</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="d-none" id="cont-medidor">
-                            <div class="col-12 d-flex justify-content-between">
-                                <label for="switch-coincide" class="form-label">¿El medidor No coincide?</label>
-                                <div class="switch form-switch-custom switch-inline form-switch-success">
-                                    <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
-                                    <label class="switch-label" for="switch-coincide">Si</label>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-6 d-flex justify-content-start ">
+                                        <label for="switch-coincide" class="form-label">¿El medidor No coincide?</label>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <div class="switch form-switch-custom switch-inline form-switch-success">
+                                            <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
+                                            <label class="switch-label" for="switch-coincide">Si</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-12 d-none mb-2" id="medidor_anomalia_container">
@@ -101,11 +119,17 @@
                                     <input type="text" name="medidor_anomalia" id="medidor_anomalia" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-12 d-flex justify-content-between mb-2">
-                                <label for="switch-anomalia" class="form-label">¿Observa alguna anomalía?</label>
-                                <div class="switch form-switch-custom switch-inline form-switch-success">
-                                    <input class="switch-input" type="checkbox" role="switch" id="switch-anomalia">
-                                    <label class="switch-label" for="switch-anomalia">Si</label>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-6 d-flex justify-content-start ">
+                                        <label for="switch-anomalia" class="form-label">¿Observa alguna anomalía?</label>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end ">
+                                        <div class="switch form-switch-custom switch-inline form-switch-success">
+                                            <input class="switch-input" type="checkbox" role="switch" id="switch-anomalia">
+                                            <label class="switch-label" for="switch-anomalia">Si</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-12 d-none mb-2" id="anomaliaContainer">
@@ -144,7 +168,6 @@
                             <input type="hidden" id="hidden-imposibilidad" name="imposibilidad" disabled>
                         </div>
                     </div>
-
                     <div class="col-12">
                         <label for="comentarios" class="form-label">Observaciones</label>
                         <textarea name="comentarios" id="comentarios" cols="30" rows="3" class="form-control"></textarea>
@@ -233,12 +256,12 @@
                                                     stroke-width="1.71"></path>
                                             </g>
                                         </svg>
-                                        <span class="btn-text-inner">Numero de Serial</span>
+                                        <span class="btn-text-inner">Sellos del Medidor</span>
                                         <input type="file" class="form-control d-none" id="foto2-input"
                                             name="foto2" accept="image/jpeg" capture="camera">
                                     </a>
                                     <a class="btn btn-info btn-lg mb-4 me-4" id="foto3-button"
-                                        style="font-size:16px;width: 250px; height: 50px;">
+                                        style="font-size:12px;width: 250px; height: 50px;">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                             viewBox="-0.855 -0.855 24 24" id="Landscape-1--Streamline-Flex"
                                             height="24" width="24">
@@ -268,7 +291,7 @@
                                                     stroke-width="1.71"></path>
                                             </g>
                                         </svg>
-                                        <span class="btn-text-inner">Numero de Lectura</span>
+                                        <span class="btn-text-inner">N. Lectura y N. Medidor</span>
                                         <input type="file" class="form-control d-none" id="foto3-input"
                                             name="foto3" accept="image/jpeg" capture="camera">
                                     </a>
@@ -303,7 +326,7 @@
                                                     stroke-width="1.71"></path>
                                             </g>
                                         </svg>
-                                        <span class="btn-text-inner">Numero de Medidor</span>
+                                        <span class="btn-text-inner">Estado del Medidor</span>
                                         <input type="file" class="form-control d-none" id="foto4-input"
                                             name="foto4" accept="image/jpeg" capture="camera">
                                     </a>
@@ -338,11 +361,11 @@
                                                     stroke-width="1.71"></path>
                                             </g>
                                         </svg>
-                                        <span class="btn-text-inner">Estado del Medidor</span>
+                                        <span class="btn-text-inner">Opcional</span>
                                         <input type="file" class="form-control d-none" id="foto5-input"
                                             name="foto5" accept="image/jpeg" capture="camera">
                                     </a>
-                                    <a class="btn btn-info btn-lg mb-4 me-4" id="foto6-button"
+                                    <a class="btn btn-info btn-lg mb-4 me-4" id="video-button"
                                         style="font-size:16px;width: 250px; height: 50px;">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                             viewBox="-0.855 -0.855 24 24" id="Landscape-1--Streamline-Flex"
@@ -373,9 +396,9 @@
                                                     stroke-width="1.71"></path>
                                             </g>
                                         </svg>
-                                        <span class="btn-text-inner">Opcional</span>
-                                        <input type="file" class="form-control d-none" id="foto6-input"
-                                            name="foto6" accept="image/jpeg" capture="camera">
+                                        <span class="btn-text-inner">Video</span>
+                                        <input type="file" class="form-control d-none" id="Video-input"
+                                            name="Video" accept="mp4*" capture="camera">
                                     </a>
                                 </div>
                                 <hr class="my-2">

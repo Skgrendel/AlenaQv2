@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 class ImageProcessingService
 {
-    public function processImages(Request $request, $direccion, $fontSize = 50)
+    public function processImages(Request $request, $fontSize = 40)
     {
         $reportes = [];
 
-        foreach (range(1, 6) as $i) {
+        foreach (range(1, 5) as $i) {
             if ($imagen = $request->file('foto' . $i)) {
                 $path = 'imagen/';
                 $foto = rand(1000, 9999) . "_" . date('YmdHis') . "." . $imagen->getClientOriginalExtension();
@@ -27,16 +27,10 @@ class ImageProcessingService
                 $posYContrato = imagesy($imagenGD) - 170; // Ajusta según tu diseño
                 imagettftext($imagenGD, $fontSize, 0, $posXContrato, $posYContrato, $colorTexto, public_path('font/arial.ttf'), $textoContrato);
 
-                // Añadir texto de coordenadas a la imagen
-                $textoCoordenadas = "Direccion: " . $direccion;
-                $posXCoordenadas = 10; // Ajusta según tu diseño
-                $posYCoordenadas = imagesy($imagenGD) - 20; // Ajusta según tu diseño
-                imagettftext($imagenGD, $fontSize, 0, $posXCoordenadas, $posYCoordenadas, $colorTexto, public_path('font/arial.ttf'), $textoCoordenadas);
-
                 // Añadir texto de fecha a la imagen
                 $fechaActual = date("Y-m-d H:i:s");
                 $posXFecha = 10; // Ajusta según tu diseño
-                $posYFecha = imagesy($imagenGD) - 90; // Ajusta según tu diseño
+                $posYFecha = imagesy($imagenGD) - 100; // Ajusta según tu diseño
                 imagettftext($imagenGD, $fontSize, 0, $posXFecha, $posYFecha, $colorTexto, public_path('font/arial.ttf'), "Fecha: $fechaActual");
 
                 // Guardar la imagen modificada

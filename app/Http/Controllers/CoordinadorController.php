@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\dbs_surtigas;
 use App\Models\direcciones;
 use App\Models\reportes;
 use App\Models\vs_anomalias;
@@ -103,7 +104,7 @@ class CoordinadorController extends Controller
 
         $anomalias = vs_anomalias::whereIn('id', $anomaliasIds)->get();
 
-        $direccion = direcciones::where('contrato', $reporte->contrato)->first();
+        $direccion = dbs_surtigas::where('contrato', $reporte->contrato)->first();
 
         // Ruta de la plantilla
         $templateFile = public_path('template/temp.docx');

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Http;
 
 class ReportesController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('can:agente');
@@ -82,7 +83,7 @@ class ReportesController extends Controller
 
         //Reporte
         $prc = new ImageProcessingService();
-        $fotos = $prc->processImages($request, $direccion);
+        $fotos = $prc->processImages($request);
         $AnomaliaJson = json_encode($request->anomalia);
         $reportes['anomalia'] = $AnomaliaJson;
         $reportes['personals_id'] = Auth::user()->personal->id;

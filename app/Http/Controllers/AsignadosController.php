@@ -14,7 +14,6 @@ class AsignadosController extends Controller
     public function index()
     {
         $asignados = dbs_surtigas::where('personals_id', Auth::user()->personal->id)
-            ->where('estado', 1)
             ->get();
         return view('agentes.asignados.index', compact('asignados'));
     }
