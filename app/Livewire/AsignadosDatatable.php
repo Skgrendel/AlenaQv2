@@ -2,8 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Exports\ReportExport;
-use Maatwebsite\Excel\Facades\Excel;
+
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
