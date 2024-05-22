@@ -21,4 +21,9 @@ class comercio extends Model
     {
         return $this->belongsTo(reportes::class,'id');
     }
+
+    public function vs_comercio()
+    {
+        return $this->hasOne(vs_comercios::class, 'id', 'tipo_comercio');
+    }
 }

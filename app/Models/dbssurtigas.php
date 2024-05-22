@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class dbs_surtigas extends Model
+class dbssurtigas extends Model
 {
     use HasFactory;
 

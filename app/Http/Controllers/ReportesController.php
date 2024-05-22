@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\comercio;
-use App\Models\dbs_surtigas;
+use App\Models\dbssurtigas;
 use App\Models\encabezados_dets;
 use App\Models\reportes;
 use App\Models\ubicacion;
@@ -97,7 +97,7 @@ class ReportesController extends Controller
         $reportesResultado = reportes::create($reportes);
 
         //dbs_surtigas Cambio de Estado
-        $dbs_surtigas = dbs_surtigas::where('contrato', $reportesResultado->contrato )->first();
+        $dbs_surtigas = dbssurtigas::where('contrato', $reportesResultado->contrato )->first();
         $dbs_surtigas->estado = '0';
         $dbs_surtigas->update();
 
@@ -108,7 +108,7 @@ class ReportesController extends Controller
      */
     public function show($id)
     {
-        $data = dbs_surtigas::where('contrato', $id)->first();
+        $data = dbssurtigas::where('contrato', $id)->first();
         $src = 'https://www.google.com/maps/place/' . $data->latitud . ',' . $data->longitud;
         $anomalias = vs_anomalias::pluck('nombre', 'id');
         $comercios = vs_comercios::pluck('nombre', 'id');

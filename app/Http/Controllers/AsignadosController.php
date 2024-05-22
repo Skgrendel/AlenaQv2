@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\dbs_surtigas;
+use App\Models\dbssurtigas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,9 +13,7 @@ class AsignadosController extends Controller
      */
     public function index()
     {
-        $asignados = dbs_surtigas::where('personals_id', Auth::user()->personal->id)
-            ->get();
-        return view('agentes.asignados.index', compact('asignados'));
+        return view('agentes.asignados.index');
     }
 
     /**

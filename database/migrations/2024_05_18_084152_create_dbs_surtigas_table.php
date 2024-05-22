@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dbs_surtigas', function (Blueprint $table) {
+        Schema::create('dbssurtigas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('personals_id')->nullable();
             $table->string('cliente')->nullable();
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dbs_surtigas');
+        Schema::dropIfExists('dbssurtigas');
     }
 };
