@@ -37,4 +37,5 @@ Route::middleware('check_user_status')->group(function () {
     Route::post('/addcomercio', [ReportesController::class, 'addcomercio'])->name('addcomercio');
     Route::get('/busqueda', [DireccionesController::class, 'index'])->name('busqueda');
     Route::get('/informes', [InformesController::class, 'InfoGeneral'])->name('informes');
+    
 });

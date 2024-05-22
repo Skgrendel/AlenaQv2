@@ -19,30 +19,30 @@
                                             <div class="mb-1">
                                                 <label for="nombre_cliente">Nombre:</label>
                                                 <span class=" text-body staticEmail "
-                                                    id="nombre_cliente">{{ $data->nombre }}</span>
+                                                    id="nombre_cliente">{{ $data['info']['cliente'] }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="numero_contrato" class="form-label">Numero de Contrato:</label>
                                                 <span class="text-body staticEmail"
-                                                    id="numero_contrato">{{ $data->contrato }}</span>
+                                                    id="numero_contrato">{{ $data['info']['contrato'] }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="numero_medidor" class="form-label">Numero de Medidor: </label>
-                                                <span class=" text-body" id="numero_medidor">{{ $data->medidor }}</span>
+                                                <span class=" text-body" id="numero_medidor">{{$data['info']['medidor'] }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="direccion">Direccion: </label>
-                                                <span class=" text-body" id="direccion">{{ $data->direccion }}</span>
+                                                <span class=" text-body" id="direccion">{{$data['info']['direccion'] }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Ciclo: </label>
-                                                <span class=" text-body" id="ciclo">{{ $data->ciclo }}</span>
+                                                <span class=" text-body" id="ciclo">{{ $data['info']['ciclo'] }}</span>
                                             </div>
-                                            <input type="text" id="medidor" name="medidor" hidden value="{{ $data->medidor }}">
-                                            <input type="text" id="contrato" name="contrato" hidden value="{{ $data->contrato }}">
+                                            <input type="text" id="medidor" name="medidor" hidden value="{{ $data['info']['medidor'] }}">
+                                            <input type="text" id="contrato" name="contrato" hidden value="{{ $data['info']['contrato'] }}">
                                             <hr>
                                             <div class="d-flex justify-content-between ">
-                                                <a href="{{ $src }}" target="_blank"
+                                                <a href="{{ $data['location']['link'] }}" target="_blank"
                                                     class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion"
                                                     data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
                                                 <a class="btn btn-info me-4 rounded  bs-tooltip"
@@ -75,7 +75,7 @@
                             <label for="comercio" class="form-label">¿Que Tipo de Comercio Encontro?</label>
                             <select id="comercio" class="form-select" name="tipo_comercio">
                                 <option selected disabled>Seleccione El tipo de Comercio</option>
-                                @foreach ($comercios as $id => $nombre)
+                                @foreach ($data['comercios'] as $id => $nombre)
                                     <option value="{{ $id }}">{{ $nombre }}</option>
                                 @endforeach
                             </select>
@@ -135,9 +135,9 @@
                             <div class="col-lg-12 d-none mb-2" id="anomaliaContainer">
                                 <div class="mt-1">
                                     <label for="nueva_opcion" class="form-label">Seleccione La Anomalia Que Detecto</label>
-                                    <select id="anomalia" class="form-select" name="anomalia">
+                                    <select id="anomalia" class="form-select" name="anomalia[]" multiple="multiple">
                                         <option selected disabled>Seleccione La Anomalia</option>
-                                        @foreach ($anomalias as $id => $nombre)
+                                        @foreach ($data['anomalias'] as $id => $nombre)
                                             <option value="{{ $id }}">{{ $nombre }}</option>
                                         @endforeach
                                     </select>
@@ -160,7 +160,7 @@
                                 <label for="imposibilidad" class="form-label">Imposibilidad</label>
                                 <select id="imposibilidad" class="form-select" name="imposibilidad">
                                     <option selected disabled>Seleccione Su imposibilidad</option>
-                                    @foreach ($imposibilidad as $id => $nombre)
+                                    @foreach ($data['imposibilidad'] as $id => $nombre)
                                         <option value="{{ $id }}">{{ $nombre }}</option>
                                     @endforeach
                                 </select>

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\comercio;
 use App\Models\dbssurtigas;
-use App\Models\encabezados_dets;
 use App\Models\reportes;
 use App\Models\ubicacion;
 use App\Models\vs_anomalias;
@@ -12,6 +11,8 @@ use App\Models\vs_estado;
 use App\Models\vs_comercios;
 use App\Models\vs_imposibilidad;
 use App\Services\ImageProcessingService;
+use App\Services\CreateReportServices;
+use App\Services\EditReportServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -97,7 +98,7 @@ class ReportesController extends Controller
         $reportesResultado = reportes::create($reportes);
 
         //dbs_surtigas Cambio de Estado
-        $dbs_surtigas = dbssurtigas::where('contrato', $reportesResultado->contrato )->first();
+        $dbs_surtigas = dbssurtigas::where('contrato', $reportesResultado->contrato)->first();
         $dbs_surtigas->estado = '0';
         $dbs_surtigas->update();
 
@@ -108,24 +109,20 @@ class ReportesController extends Controller
      */
     public function show($id)
     {
-        $data = dbssurtigas::where('contrato', $id)->first();
-        $src = 'https://www.google.com/maps/place/' . $data->latitud . ',' . $data->longitud;
-        $anomalias = vs_anomalias::pluck('nombre', 'id');
-        $comercios = vs_comercios::pluck('nombre', 'id');
-        $imposibilidad = vs_imposibilidad::pluck('nombre', 'id');
-        return view('agentes.create', compact('anomalias', 'comercios', 'imposibilidad', 'data', 'src'));
+        $create = new CreateReportServices();
+        $data = $create->CreateReport($id);
+
+        return view('agentes.create', compact('data'));
     }
     /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
     {
-        $anomalias = vs_anomalias::pluck('nombre', 'id');
-        $comercios = vs_comercios::pluck('nombre', 'id');
-        $imposibilidad = vs_imposibilidad::pluck('nombre', 'id');
-        $reporte = reportes::find($id);
-        $anomaliasIds = json_decode($reporte->anomalia);
-        return view('agentes.edit', compact('reporte', 'anomalias', 'comercios', 'imposibilidad', 'anomaliasIds'));
+        $info = new EditReportServices();
+        $data = $info->EditReport($id);
+
+        return view('agentes.edit', compact('data'));
     }
     /**
      * Update the specified resource in storage.
@@ -205,15 +202,14 @@ class ReportesController extends Controller
             }
         }
 
-
         $reportes->update($report);
         return redirect()->route('reportes.index')->with('success', 'Reporte Actualizado Con Exito');
     }
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(reportes $reportes)
+    public function destroy(string $id)
     {
-        //
+
     }
 }
