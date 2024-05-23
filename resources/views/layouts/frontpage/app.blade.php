@@ -24,23 +24,27 @@
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
     <script src="https://kit.fontawesome.com/049e213d27.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/src/table/datatable/datatables.css')}}">
-     <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/css/light/table/datatable/dt-global_style.css')}}">
-     <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/css/dark/table/datatable/dt-global_style.css')}}">
-    <link href="{{ asset('src/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('layouts/vertical-light-menu/css/light/plugins.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('layouts/vertical-light-menu/css/dark/plugins.css') }}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="{{asset('src/assets/css/light/forms/switches.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('src/assets/css/dark/forms/switches.css')}}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/table/datatable/datatables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/table/datatable/dt-global_style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/table/datatable/dt-global_style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/bootstrap/css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('layouts/vertical-light-menu/css/light/plugins.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('layouts/vertical-light-menu/css/dark/plugins.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/forms/switches.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/forms/switches.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/elements/alert.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/elements/alert.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/glightbox/glightbox.min.css') }}">
+
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-    <link href="{{ asset('src/plugins/src/sweetalerts2/sweetalerts2.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('src/plugins/src/sweetalerts2/sweetalerts2.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/elements/alert.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/elements/alert.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/tomSelect/tom-select.default.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/tomSelect/custom-tomSelect.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/tomSelect/custom-tomSelect.css') }}">
     @livewireStyles
 
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
@@ -107,21 +111,22 @@
 
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-    <script src="{{ asset('src/plugins/src/tomSelect/tom-select.base.js') }}"></script>
-    <script src="{{ asset('src/plugins/src/tomSelect/custom-tom-select.js') }}"></script>
-    <script src="{{ asset('src/plugins/src/global/vendors.min.js') }}"></script>
     <script src="{{ asset('src/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/global/vendors.min.js') }}"></script>
     <script src="{{ asset('src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('src/plugins/src/mousetrap/mousetrap.min.js') }}"></script>
     <script src="{{ asset('src/plugins/src/waves/waves.min.js') }}"></script>
     <script src="{{ asset('src/plugins/src/highlight/highlight.pack.js') }}"></script>
     <script src="{{ asset('src/plugins/src/sweetalerts2/sweetalerts2.min.js') }}"></script>
-    <script src="{{asset('src/plugins/src/table/datatable/datatables.js')}}"></script>
+    <script src="{{ asset('src/plugins/src/table/datatable/datatables.js') }}"></script>
     <script src="{{ asset('src/assets/js/custom.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('layouts/vertical-light-menu/app.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/glightbox/glightbox.min.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/glightbox/custom-glightbox.min.js') }}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-     <!-- END PAGE LEVEL PLUGINS -->
+    <!-- END PAGE LEVEL PLUGINS -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     @livewireScripts

@@ -1,15 +1,4 @@
-//Mostrar Opcion para agregar nuevo Comercio
-document.getElementById("comercio").addEventListener("change", function() {
-    var divComercioNuevo = document.getElementById("div-comercio-nuevo");
-    if (this.options[this.selectedIndex].textContent === "Otros") {
-        divComercioNuevo.style.display = "block";
-    } else {
-        divComercioNuevo.style.display = "none";
-    }
-});
-
 // Mostrar Validacion de Subida de Archivos
-
 document.addEventListener("DOMContentLoaded", function() {
     for (let i = 1; i <= 5; i++) {
         document.getElementById(`foto${i}-button`).addEventListener("click", function() {
@@ -42,12 +31,15 @@ $(document).ready(function() {
 
 // Cambio de Estilo en el Seletor de Anomalias
 
-document.addEventListener("DOMContentLoaded", function(event) {
-    new TomSelect("#anomalia", {
-        persist: false,
-        createOnBlur: true,
+$(document).ready(function() {
+    $('#anomalia').select2({
+        theme: "bootstrap-5",
+        width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+        placeholder: $(this).data('placeholder'),
+        closeOnSelect: false,
     });
 });
+
 
 //Obtener La ubicacion Actual del Lector
 
@@ -91,10 +83,10 @@ window.onload = obtenerUbicacion;
 document.addEventListener("DOMContentLoaded", function() {
 
         document.getElementById('video-button').addEventListener("click", function() {
-            document.getElementById('Video-input').click();
+            document.getElementById('video-input').click();
         });
 
-        document.getElementById('Video-input').addEventListener("change", function() {
+        document.getElementById('video-input').addEventListener("change", function() {
             var button = document.getElementById('video-button');
 
             if (this.files && this.files.length > 0) {

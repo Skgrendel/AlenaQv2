@@ -4,13 +4,12 @@
     <div class="container mt-3">
         <div class="card">
             <div class="card-body">
-                <form class="row g-3" id="reportes" action="{{ route('reportes.store') }}" method="POST"
-                    enctype="multipart/form-data">
+                <form class="row g-3" id="reportes" action="{{ route('reportes.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="text" hidden id="latitud" name="latitud" value="">
                     <input type="text" hidden id="longitud" name="longitud" value="">
                     <div class="col-12 mb-1 " id="ubicacion">
-                        <div class="">
+                        <div class="col-12">
                             <div class="col-lg-12 ">
                                 <div class="card shadow">
                                     <div class="card-body">
@@ -28,18 +27,22 @@
                                             </div>
                                             <div class="mb-1">
                                                 <label for="numero_medidor" class="form-label">Numero de Medidor: </label>
-                                                <span class=" text-body" id="numero_medidor">{{$data['info']['medidor'] }}</span>
+                                                <span class=" text-body"
+                                                    id="numero_medidor">{{ $data['info']['medidor'] }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="direccion">Direccion: </label>
-                                                <span class=" text-body" id="direccion">{{$data['info']['direccion'] }}</span>
+                                                <span class=" text-body"
+                                                    id="direccion">{{ $data['info']['direccion'] }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Ciclo: </label>
                                                 <span class=" text-body" id="ciclo">{{ $data['info']['ciclo'] }}</span>
                                             </div>
-                                            <input type="text" id="medidor" name="medidor" hidden value="{{ $data['info']['medidor'] }}">
-                                            <input type="text" id="contrato" name="contrato" hidden value="{{ $data['info']['contrato'] }}">
+                                            <input type="text" id="medidor" name="medidor" hidden
+                                                value="{{ $data['info']['medidor'] }}">
+                                            <input type="text" id="contrato" name="contrato" hidden
+                                                value="{{ $data['info']['contrato'] }}">
                                             <hr>
                                             <div class="d-flex justify-content-between ">
                                                 <a href="{{ $data['location']['link'] }}" target="_blank"
@@ -69,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" id="hidden-anomalia" name="anomalia" value="8" disabled>
+                    <input type="hidden" id="hidden-anomalia" name="anomalia[]" multiple value="67" disabled>
                     <div class="d-none" id="info">
                         <div class="col-12 mb-2">
                             <label for="comercio" class="form-label">¿Que Tipo de Comercio Encontro?</label>
@@ -81,9 +84,13 @@
                             </select>
                             <input type="hidden" id="hidden-comercio" name="tipo_comercio" value="70" disabled>
 
-                            <div id="div-comercio-nuevo" style="display: none;" class="mt-3">
+                            <div id="div-comercio-nuevo" class="mt-3 d-none">
                                 <label for="nueva_opcion" class="form-label"> ¿Cúal comercio Encontró?</label>
                                 <input type="text" name="nuevo_comercio" id="nueva_opcion" class="form-control">
+                            </div>
+                            <div class="mt-3">
+                                <label for="nueva_opcion" class="form-label"> Nombre del Comercio Encontrado</label>
+                                <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control">
                             </div>
                         </div>
                         <div class="col-12">
@@ -107,7 +114,8 @@
                                     </div>
                                     <div class="col-6 d-flex justify-content-end">
                                         <div class="switch form-switch-custom switch-inline form-switch-success">
-                                            <input class="switch-input" type="checkbox" role="switch" id="switch-coincide">
+                                            <input class="switch-input" type="checkbox" role="switch"
+                                                id="switch-coincide">
                                             <label class="switch-label" for="switch-coincide">Si</label>
                                         </div>
                                     </div>
@@ -115,8 +123,10 @@
                             </div>
                             <div class="col-lg-12 d-none mb-2" id="medidor_anomalia_container">
                                 <div class="mt-1">
-                                    <label for="nueva_opcion" class="form-label">Digite el numero de Medidor Que Encontro</label>
-                                    <input type="text" name="medidor_anomalia" id="medidor_anomalia" class="form-control">
+                                    <label for="nueva_opcion" class="form-label">Digite el numero de Medidor Que
+                                        Encontro</label>
+                                    <input type="text" name="medidor_anomalia" id="medidor_anomalia"
+                                        class="form-control">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -126,7 +136,8 @@
                                     </div>
                                     <div class="col-6 d-flex justify-content-end ">
                                         <div class="switch form-switch-custom switch-inline form-switch-success">
-                                            <input class="switch-input" type="checkbox" role="switch" id="switch-anomalia">
+                                            <input class="switch-input" type="checkbox" role="switch"
+                                                id="switch-anomalia">
                                             <label class="switch-label" for="switch-anomalia">Si</label>
                                         </div>
                                     </div>
@@ -134,9 +145,10 @@
                             </div>
                             <div class="col-lg-12 d-none mb-2" id="anomaliaContainer">
                                 <div class="mt-1">
-                                    <label for="nueva_opcion" class="form-label">Seleccione La Anomalia Que Detecto</label>
-                                    <select id="anomalia" class="form-select" name="anomalia[]" multiple="multiple">
-                                        <option selected disabled>Seleccione La Anomalia</option>
+                                    <label for="nueva_opcion" class="form-label">Seleccione La Anomalia Que
+                                        Detecto</label>
+                                    <select id="anomalia" class="form-select" name="anomalia[]" multiple
+                                        data-placeholder="Seleccione la anomalia">
                                         @foreach ($data['anomalias'] as $id => $nombre)
                                             <option value="{{ $id }}">{{ $nombre }}</option>
                                         @endforeach
@@ -397,8 +409,7 @@
                                             </g>
                                         </svg>
                                         <span class="btn-text-inner">Video</span>
-                                        <input type="file" class="form-control d-none" id="Video-input"
-                                            name="Video" accept="mp4*" capture="camera">
+                                        <input type="file" class="form-control d-none" id="video-input" name="video" accept="video/mp4" capture="camera">
                                     </a>
                                 </div>
                                 <hr class="my-2">
@@ -413,7 +424,6 @@
                         </div>
                     </div>
                     <div class="col-12">
-
                         <button type="submit" class="btn btn-primary mt-3" id="submitButtonReporte">Enviar</button>
                     </div>
                 </form>
@@ -425,4 +435,19 @@
 @section('scripts')
     <script src="{{ asset('script/agentes/AgentesGlobal.js') }}"></script>
     <script src="{{ asset('script/agentes/AgentesCreate.js') }}"></script>
+    <script>
+        //Mostrar Opcion para agregar nuevo Comercio
+        document.getElementById("comercio").addEventListener("change", function() {
+            var divComercioNuevo = document.getElementById("div-comercio-nuevo");
+            const nueva_opcion = document.getElementById("nueva_opcion");
+
+            if (this.options[this.selectedIndex].textContent === "Otros") {
+                divComercioNuevo.classList.remove("d-none");
+                nueva_opcion.disabled = false;
+            } else {
+                divComercioNuevo.classList.add("d-none");
+                nueva_opcion.disabled = true;
+            }
+        });
+    </script>
 @endsection

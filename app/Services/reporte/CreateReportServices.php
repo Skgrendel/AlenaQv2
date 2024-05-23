@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\reporte;
 
 use App\Models\dbssurtigas;
 use App\Models\vs_anomalias;

@@ -19,13 +19,13 @@
                 <div class="col-md-4">
                     <div class="card style-3 d-flex flex-column mb-2">
                         <div class="d-flex">
-                            @if ($reporte->estado != '7')
+                            @if ($reporte->vs_estado->nombre != 'Rechazado')
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="70" height="70"
                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-warning">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
                                 </svg>
-                            @elseif ($reporte->estado == '7')
+                            @elseif ($reporte->vs_estado->nombre == 'Rechazado')
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="70" height="70"
                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-danger">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -52,12 +52,12 @@
                         </div>
                         <div class="col-12">
                             <div class="row">
-                                @if ($reporte->estado != '7')
+                                @if ($reporte->vs_estado->nombre != 'Rechazado')
                                     <div class="col-sm-6 d-flex justify-content-md-start">
                                         <a href="#" class="btn btn-warning mb-2 me-4">Ver Informacion</a>
                                     </div>
 
-                                @elseif ($reporte->estado == '7')
+                                @elseif ($reporte->vs_estado->nombre == 'Rechazado')
                                     <div class="col-sm-6 d-flex justify-content-md-start">
                                         <a href="{{route('reportes.edit',$reporte->id)}}" class="btn btn-danger mb-2 me-4">Revisar</a>
                                     </div>
@@ -69,4 +69,17 @@
             @endforeach
         </div>
     </div>
+@endsection
+
+@section('scripts')
+@if (session('success'))
+<script>
+    Swal.fire({
+        title: '¡Éxito!',
+        text: '{{ session('success') }}',
+        icon: 'success',
+        confirmButtonText: 'OK'
+    });
+</script>
+@endif
 @endsection

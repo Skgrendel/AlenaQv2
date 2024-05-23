@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             infoDiv.classList.remove("d-none"); // Show the div
             hiddenAnomalia.disabled = true;
             hiddenComercio.disabled = true;
+            hiddenimposibilidad.disabled =true;
+            hiddenimposibilidad.val="";
         } else {
             infoDiv.classList.add("d-none"); // Hide the div
             hiddenAnomalia.disabled = false;
@@ -24,7 +26,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             medidor_anomalia.disabled = true;
             lectura.value = 0;
             hiddenimposibilidad.disabled = false;
-            hiddenimposibilidad.value = 63;
+            hiddenimposibilidad.value = 62;
         }
     }
     // Añadir evento change al checkbox
@@ -90,7 +92,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             contLectura.classList.remove("d-none"); // Show the div
             contimposibilidad.classList.add("d-none");
             hiddenimposibilidad.disabled = false;
-            hiddenimposibilidad.value = 58;
+            hiddenimposibilidad.value = 57;
 
         } else {
             contLectura.classList.add("d-none"); // Hide the div

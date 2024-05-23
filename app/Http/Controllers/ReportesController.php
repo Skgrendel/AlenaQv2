@@ -6,16 +6,14 @@ use App\Models\comercio;
 use App\Models\dbssurtigas;
 use App\Models\reportes;
 use App\Models\ubicacion;
-use App\Models\vs_anomalias;
 use App\Models\vs_estado;
-use App\Models\vs_comercios;
-use App\Models\vs_imposibilidad;
-use App\Services\ImageProcessingService;
-use App\Services\CreateReportServices;
-use App\Services\EditReportServices;
+use App\Services\reporte\CreateReportServices;
+use App\Services\reporte\EditReportServices;
+use App\Services\reporte\FileProcessingService;
+use App\Services\reporte\StoreReportServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
+
 
 class ReportesController extends Controller
 {
@@ -51,9 +49,10 @@ class ReportesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(reportes::$rules);
-        $latitud = $request->input('latitud');
-        $longitud = $request->input('longitud');
+        //Variables
+        $File = new FileProcessingService();
+        $Store = new StoreReportServices();
+        $id =  Auth::user()->personal->id;
 
         if ($request->input('contrato')) {
             $contrato = reportes::where('contrato', $request->input('contrato'))->first();
@@ -62,40 +61,26 @@ class ReportesController extends Controller
             }
         }
 
-        if ($latitud == null || $longitud == null) {
+        if ($request->input('latitud') == null || $request->input('longitud') == null) {
             return redirect()->route('reportes.create')->with('error', 'No se pudo obtener la direccion , Active su GPS y vuelva a intentarlo');
         } else {
-            $response = Http::withoutVerifying()->get("https://revgeocode.search.hereapi.com/v1/revgeocode?apikey=auuOOORgqWd_T4DFf0onY2JlvMDhz4tP0G0o7fRYDRU&at=$latitud,$longitud&lang=es-ES");
-            $data = $response->json();
-            $direccion = $data['items'][0]['address']['label'];
+            $ubicacionData = $Store->StoreUbicacion($request);
         }
+         //Procesar Archivos Multimedia
+         $fotos = $File->processImages($request);
+         $video = $File->processVideo($request);
+        //Procesar Ubicacion y Comercio
 
-        //Ubicacion
-        $ubicacion['direccion'] = $direccion;
-        $ubicacion['latitud'] = $latitud;
-        $ubicacion['longitud'] = $longitud;
-        $ubicacion = ubicacion::create($ubicacion);
+        $comercioData = $Store->StoreComercio($request);
 
-        //Comercio
-        $comercios['nombre_comercio'] = $request->input('nuevo_comercio');
-        $comercios['tipo_comercio'] = $request->input('tipo_comercio');
-        $comercios['medidor_anomalia'] = $request->input('medidor_anomalia');
-        $comercio = comercio::create($comercios);
-
-        //Reporte
-        $prc = new ImageProcessingService();
-        $fotos = $prc->processImages($request);
-        $AnomaliaJson = json_encode($request->anomalia);
-        $reportes['anomalia'] = $AnomaliaJson;
-        $reportes['personals_id'] = Auth::user()->personal->id;
-        $reportes['ubicacions_id'] = $ubicacion->id;
-        $reportes['comercios_id'] = $comercio->id;
-        $reportes['contrato'] = $request->input('contrato');
-        $reportes['medidor'] = $request->input('medidor') ?? 0;
-        $reportes['lectura'] = $request->input('lectura');
-        $reportes['imposibilidad'] = $request->input('imposibilidad');
-        $reportes['imagenes'] = json_encode($fotos);
-        $reportesResultado = reportes::create($reportes);
+        //Guardar Ubicacion y Comercio
+        $ubicacion = ubicacion::create($ubicacionData);
+        $comercio = comercio::create($comercioData);
+        //Procesar Reporte
+        $reportesData = $Store->StoreReportes($request,$fotos,$id,$ubicacion->id,$comercio->id,$video);
+        dd($reportesData);
+        //Guardar Reporte
+        $reportesResultado = reportes::create($reportesData);
 
         //dbs_surtigas Cambio de Estado
         $dbs_surtigas = dbssurtigas::where('contrato', $reportesResultado->contrato)->first();
@@ -121,7 +106,7 @@ class ReportesController extends Controller
     {
         $info = new EditReportServices();
         $data = $info->EditReport($id);
-
+        $data['imagenes'] = (array) $data['imagenes'];
         return view('agentes.edit', compact('data'));
     }
     /**
@@ -129,6 +114,7 @@ class ReportesController extends Controller
      */
     public function update(Request $request, $reporte)
     {
+        dd($request->all());
         $request->validate(reportes::$rules);
         $reportes = reportes::find($reporte);
         $report = $request->all();
@@ -210,6 +196,5 @@ class ReportesController extends Controller
      */
     public function destroy(string $id)
     {
-
     }
 }

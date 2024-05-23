@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\reporte;
 
 use Illuminate\Http\Request;
 
-class ImageProcessingService
+class FileProcessingService
 {
     public function processImages(Request $request, $fontSize = 40)
     {
@@ -42,5 +42,18 @@ class ImageProcessingService
         }
 
         return $reportes;
+    }
+
+    public function processVideo(Request $request)
+    {
+
+        if ($video = $request->file('video')) {
+            $path = 'video/';
+            $videoname = rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();
+            $video->move($path, $videoname);
+             $videoname;
+        }
+
+        return $videoname;
     }
 }
