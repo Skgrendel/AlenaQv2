@@ -9,7 +9,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <p class="text-black">No hay Reportes Activos</p>
-                                <a href="{{route('asignados.index')}}" class="btn btn-outline-success">Comenzar</a>
+                                <a href="{{ route('asignados.index') }}" class="btn btn-outline-success">Comenzar</a>
                             </div>
                         </div>
                     </div>
@@ -33,17 +33,18 @@
                                 </svg>
                             @endif
                             <div class="card-body px-4 py-0 align-self-center">
-                                <p class="card-text text-sm text-black "> <strong>Contrato: {{ $reporte->contrato }}</strong> </p>
+                                <p class="card-text text-sm text-black "> <strong>Contrato:
+                                        {{ $reporte->contrato }}</strong> </p>
                                 <ul>
                                     <li>
                                         <span>Fecha: {{ $reporte->created_at->format('Y-m-d') }}</span>
                                     </li>
                                     <li>
                                         @if ($reporte->estado != '7')
-                                        Estado: <span class="badge bg-warning"> {{ $reporte->vs_estado->nombre }}</span>
-                                        <span></span>
+                                            Estado: <span class="badge bg-warning"> {{ $reporte->vs_estado->nombre }}</span>
+                                            <span></span>
                                         @elseif ($reporte->estado == '7')
-                                        Estado: <span class="badge bg-danger"> {{ $reporte->vs_estado->nombre }}</span>
+                                            Estado: <span class="badge bg-danger"> {{ $reporte->vs_estado->nombre }}</span>
                                         @endif
 
                                     </li>
@@ -54,12 +55,14 @@
                             <div class="row">
                                 @if ($reporte->vs_estado->nombre != 'Rechazado')
                                     <div class="col-sm-6 d-flex justify-content-md-start">
-                                        <a href="#" class="btn btn-warning mb-2 me-4">Ver Informacion</a>
+                                        <a href="{{route('showreportes',$reporte->id)}}" class="btn btn-warning mb-2 me-4">
+                                            Ver Información
+                                        </a>
                                     </div>
-
                                 @elseif ($reporte->vs_estado->nombre == 'Rechazado')
                                     <div class="col-sm-6 d-flex justify-content-md-start">
-                                        <a href="{{route('reportes.edit',$reporte->id)}}" class="btn btn-danger mb-2 me-4">Revisar</a>
+                                        <a href="{{ route('reportes.edit', $reporte->id) }}"
+                                            class="btn btn-danger mb-2 me-4">Revisar</a>
                                     </div>
                                 @endif
                             </div>
@@ -72,14 +75,14 @@
 @endsection
 
 @section('scripts')
-@if (session('success'))
-<script>
-    Swal.fire({
-        title: '¡Éxito!',
-        text: '{{ session('success') }}',
-        icon: 'success',
-        confirmButtonText: 'OK'
-    });
-</script>
-@endif
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                title: '¡Éxito!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
 @endsection

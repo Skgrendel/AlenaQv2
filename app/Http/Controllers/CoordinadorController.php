@@ -25,14 +25,7 @@ class CoordinadorController extends Controller
         return view('coordinador.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-    }
-
-    /**
+      /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -131,7 +124,7 @@ class CoordinadorController extends Controller
         $templateProcessor->setValue('observaciones', $reporte->observaciones);
         $templateProcessor->setValue('video', config('app.url') . '/video/' . $reporte->video);
         $fotos = json_encode($reporte->imagenes);
-        
+
         for ($i = 1; $i < 6; $i++) {
             $foto = 'foto' . $i;
             $this->ImgExist($fotos, $templateProcessor, $foto);

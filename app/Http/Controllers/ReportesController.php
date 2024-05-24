@@ -7,6 +7,7 @@ use App\Models\vs_estado;
 use App\Services\ProcessingServices;
 use App\Services\reporte\CreateReportServices;
 use App\Services\reporte\EditReportServices;
+use App\Services\reporte\ShowReportServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,12 +17,16 @@ class ReportesController extends Controller
 
     private $Processing;
     private  $info;
+    private  $create;
+    private $show;
 
     public function __construct()
     {
         $this->middleware('can:agente');
         $this->Processing = new ProcessingServices;
         $this->info = new EditReportServices();
+        $this->create = new CreateReportServices();
+        $this->show = new ShowReportServices();
     }
     /**
      * Display a listing of the resource.
@@ -37,14 +42,6 @@ class ReportesController extends Controller
         return view('agentes.index', compact('reportes', 'estados'));
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -52,7 +49,7 @@ class ReportesController extends Controller
     {
         $id = Auth::user()->personal->id;
         $ServicesStore = $this->Processing;
-        $ServicesStore->StoreReport($request,$id);
+        $ServicesStore->StoreReport($request, $id);
 
         return redirect()->route('reportes.index')->with('success', 'Reporte Creado Con Exito');
     }
@@ -61,9 +58,7 @@ class ReportesController extends Controller
      */
     public function show($id)
     {
-        $create = new CreateReportServices();
-        $data = $create->CreateReport($id);
-
+        $data = $this->create->CreateReport($id);
         return view('agentes.create', compact('data'));
     }
     /**
@@ -81,14 +76,14 @@ class ReportesController extends Controller
     public function update(Request $request, $reporte)
     {
         $ServicesUpdate = $this->Processing;
-        $ServicesUpdate->UpdateReport($request,$reporte);
+        $ServicesUpdate->UpdateReport($request, $reporte);
 
         return redirect()->route('reportes.index')->with('success', 'Reporte Actualizado Con Exito');
     }
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
+    
+    public function showreporte(string $id){
+        $data = $this->show->ShowReport($id);
+        $data['imagenes'] = (array) $data['imagenes'];
+        return view('agentes.show',compact('data'));
     }
 }

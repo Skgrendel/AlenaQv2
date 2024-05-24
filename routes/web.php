@@ -28,11 +28,12 @@ Route::get('/', function () {
 Auth::routes();
 Route::middleware('check_user_status')->group(function () {
     Route::get('/home', adminController::class)->name('home');
-    Route::resource('/reportes', ReportesController::class)->names('reportes');
-    Route::resource('/asignados', AsignadosController::class)->names('asignados');
-    Route::resource('/coordinador', CoordinadorController::class)->names('coordinador');
+    Route::resource('/reportes', ReportesController::class)->names('reportes')->except(['destroy','create']);
+    Route::get('/asignados', AsignadosController::class)->name('asignados');
+    Route::resource('/coordinador', CoordinadorController::class)->names('coordinador')->except(['create']);
     Route::resource('/personals', PersonalsController::class)->names('personals');
     Route::get('/admin', adminController::class)->name('admin');
     Route::get('/informes', [InformesController::class, 'InfoGeneral'])->name('informes');
+    Route::get('show/reporte/{id}',[ReportesController::class,'showreporte'])->name('showreportes');
     Route::resource('/auditorias', AuditoriaController::class)->names('auditorias');
 });
