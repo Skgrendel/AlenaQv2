@@ -10,10 +10,11 @@ class vs_imposibilidad extends Model
     use HasFactory;
     protected $table = 'vs_imposibilidades';
 
-   
 
       public function reporte()
       {
-          return $this->belongsTo(reportes::class);
+          return $this->belongsTo(reportes::class,'id');
       }
+
+
 }

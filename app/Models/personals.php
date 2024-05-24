@@ -48,11 +48,11 @@ class personals extends Model
 
     public function reportes()
     {
-        return $this->hasOne(reportes::class);
+        return $this->belongsTo(reportes::class,'personals_id');
     }
     public function dbs_surtigas()
     {
-        return $this->hasOne(dbs_surtigas::class,'personals_id');
+        return $this->hasOne(dbssurtigas::class,'personals_id');
     }
 
     public function roles()

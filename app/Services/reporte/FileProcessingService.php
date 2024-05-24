@@ -52,10 +52,10 @@ class FileProcessingService
             $path = 'video/';
             $videoname = rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();
             $video->move($path, $videoname);
-             $videoname;
+            $reportesData = $videoname;
         }
 
-        return $videoname;
+        return $reportesData;
     }
 
     public function processVideoUpdate(Request $request,$reporte){
@@ -78,7 +78,7 @@ class FileProcessingService
             $video->move($path, $videoname);
             $reportesData = $videoname;
         }
-        
+
         return $reportesData;
     }
 

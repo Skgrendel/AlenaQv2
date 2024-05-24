@@ -37,7 +37,7 @@ class reportes extends Model
 
     public function personal()
     {
-        return $this->belongsTo(personals::class,'id');
+        return $this->hasOne(personals::class,'id','personals_id');
     }
 
     public function vs_estado()

@@ -63,7 +63,7 @@ class AsignadosDatatable extends DataTableComponent
             ->collapseOnMobile(),
             Column::make("Estado", "estado")
                 ->format(
-                    fn ($value) => $value == 0 ? '<span class="badge badge-success">Revisado</span>' : '<span class="badge badge-warning">Pendiente</span>'
+                    fn ($value) => $value == 0 ? '<span class="badge badge-success">Registrado</span>' : '<span class="badge badge-warning">Pendiente</span>'
                 )
                 ->html()
                 ->collapseOnMobile(),

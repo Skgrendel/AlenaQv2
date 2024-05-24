@@ -17,9 +17,5 @@ class InformesController extends Controller
     {
         return view('informes.informeGeneral');
     }
-    public function InfoDia()
-    {
-        return view('informes.informeDia');
-    }
 
 }

@@ -2,9 +2,8 @@
 
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\AsignadosController;
+use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\CoordinadorController;
-use App\Http\Controllers\DireccionesController;
-use App\Http\Controllers\FuntionController;
 use App\Http\Controllers\InformesController;
 use App\Http\Controllers\PersonalsController;
 use App\Http\Controllers\ReportesController;
@@ -34,8 +33,6 @@ Route::middleware('check_user_status')->group(function () {
     Route::resource('/coordinador', CoordinadorController::class)->names('coordinador');
     Route::resource('/personals', PersonalsController::class)->names('personals');
     Route::get('/admin', adminController::class)->name('admin');
-    Route::post('/addcomercio', [ReportesController::class, 'addcomercio'])->name('addcomercio');
-    Route::get('/busqueda', [DireccionesController::class, 'index'])->name('busqueda');
     Route::get('/informes', [InformesController::class, 'InfoGeneral'])->name('informes');
-    
+    Route::resource('/auditorias', AuditoriaController::class)->names('auditorias');
 });
