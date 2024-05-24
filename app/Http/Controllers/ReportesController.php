@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\comercio;
-use App\Models\dbssurtigas;
 use App\Models\reportes;
-use App\Models\ubicacion;
 use App\Models\vs_estado;
+use App\Services\ProcessingServices;
 use App\Services\reporte\CreateReportServices;
 use App\Services\reporte\EditReportServices;
-use App\Services\reporte\FileProcessingService;
-use App\Services\reporte\StoreReportServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,9 +14,14 @@ use Illuminate\Support\Facades\Auth;
 class ReportesController extends Controller
 {
 
+    private $Processing;
+    private  $info;
+
     public function __construct()
     {
         $this->middleware('can:agente');
+        $this->Processing = new ProcessingServices;
+        $this->info = new EditReportServices();
     }
     /**
      * Display a listing of the resource.
@@ -49,43 +50,9 @@ class ReportesController extends Controller
      */
     public function store(Request $request)
     {
-        //Variables
-        $File = new FileProcessingService();
-        $Store = new StoreReportServices();
-        $id =  Auth::user()->personal->id;
-
-        if ($request->input('contrato')) {
-            $contrato = reportes::where('contrato', $request->input('contrato'))->first();
-            if ($contrato) {
-                return redirect()->route('reportes.create')->with('error', 'el Contrato ya fue registrado');
-            }
-        }
-
-        if ($request->input('latitud') == null || $request->input('longitud') == null) {
-            return redirect()->route('reportes.create')->with('error', 'No se pudo obtener la direccion , Active su GPS y vuelva a intentarlo');
-        } else {
-            $ubicacionData = $Store->StoreUbicacion($request);
-        }
-         //Procesar Archivos Multimedia
-         $fotos = $File->processImages($request);
-         $video = $File->processVideo($request);
-        //Procesar Ubicacion y Comercio
-
-        $comercioData = $Store->StoreComercio($request);
-
-        //Guardar Ubicacion y Comercio
-        $ubicacion = ubicacion::create($ubicacionData);
-        $comercio = comercio::create($comercioData);
-        //Procesar Reporte
-        $reportesData = $Store->StoreReportes($request,$fotos,$id,$ubicacion->id,$comercio->id,$video);
-        dd($reportesData);
-        //Guardar Reporte
-        $reportesResultado = reportes::create($reportesData);
-
-        //dbs_surtigas Cambio de Estado
-        $dbs_surtigas = dbssurtigas::where('contrato', $reportesResultado->contrato)->first();
-        $dbs_surtigas->estado = '0';
-        $dbs_surtigas->update();
+        $id = Auth::user()->personal->id;
+        $ServicesStore = $this->Processing;
+        $ServicesStore->StoreReport($request,$id);
 
         return redirect()->route('reportes.index')->with('success', 'Reporte Creado Con Exito');
     }
@@ -104,8 +71,7 @@ class ReportesController extends Controller
      */
     public function edit($id)
     {
-        $info = new EditReportServices();
-        $data = $info->EditReport($id);
+        $data = $this->info->EditReport($id);
         $data['imagenes'] = (array) $data['imagenes'];
         return view('agentes.edit', compact('data'));
     }
@@ -114,81 +80,9 @@ class ReportesController extends Controller
      */
     public function update(Request $request, $reporte)
     {
-        dd($request->all());
-        $request->validate(reportes::$rules);
-        $reportes = reportes::find($reporte);
-        $report = $request->all();
-        $AnomaliaJson = json_encode($request->anomalia);
-        $reportes['anomalia'] = $AnomaliaJson;
-        $estado = '5';
-        $fontSize = 50;
-        $reportes['estado'] =  $estado;
+        $ServicesUpdate = $this->Processing;
+        $ServicesUpdate->UpdateReport($request,$reporte);
 
-
-        if ($video = $request->file('video')) {
-            $path = 'video/';
-            // Obtener el nombre del video anterior desde la base de datos
-            $videoAnterior = $reportes->video;
-            // Eliminar el video anterior si existe
-            if ($videoAnterior) {
-                $rutaVideoAnterior = public_path($path . $videoAnterior);
-                if (file_exists($rutaVideoAnterior)) {
-                    unlink($rutaVideoAnterior);
-                }
-            }
-            // Procesar y guardar el nuevo video
-            $videoname = rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();
-            $video->move($path, $videoname);
-            $report['video'] = $videoname;
-        } else {
-            unset($report['video']);
-        }
-
-        foreach (range(1, 6) as $i) {
-            if ($imagen = $request->file('foto' . $i)) {
-                $path = 'imagen/';
-                $foto = rand(1000, 9999) . "_" . date('YmdHis') . "." . $imagen->getClientOriginalExtension();
-                $imagen->move($path, $foto);
-                $report['foto' . $i] = $foto;
-                //  Abrir la imagen utilizando GD
-                $imagenGD = imagecreatefromjpeg(public_path($path . $foto));
-                // Añadir texto del contrato  a la imagen
-                $textoContrato = "Contrato N°:" . $reportes->contrato;
-                $colorTexto = imagecolorallocate($imagenGD, 255, 255, 255); // Color blanco
-                $posXContrato = 10; // Ajusta según tu diseño
-                $posYContrato = imagesy($imagenGD) - 170; // Ajusta según tu diseño
-                imagettftext($imagenGD, $fontSize, 0, $posXContrato, $posYContrato, $colorTexto, public_path('font/arial.ttf'), $textoContrato);
-                // Añadir texto de coordenadas a la imagen
-                $textoCoordenadas = "Direccion:" . $reportes->direccion;
-                $colorTexto = imagecolorallocate($imagenGD, 255, 255, 255); // Color blanco
-                $posXCoordenadas = 10; // Ajusta según tu diseño
-                $posYCoordenadas = imagesy($imagenGD) - 20; // Ajusta según tu diseño
-                imagettftext($imagenGD, $fontSize, 0, $posXCoordenadas, $posYCoordenadas, $colorTexto, public_path('font/arial.ttf'), $textoCoordenadas);
-                //Añadir texto de fecha a la imagen
-                $fechaActual = date("Y-m-d H:i:s");
-                $posXFecha = 10; // Ajusta según tu diseño
-                $posYFecha = imagesy($imagenGD) - 90; // Ajusta según tu diseño
-                imagettftext($imagenGD, $fontSize, 0, $posXFecha, $posYFecha, $colorTexto, public_path('font/arial.ttf'), "Fecha: $fechaActual");
-                // Guardar la imagen modificada
-                imagejpeg($imagenGD, public_path($path . $foto));
-                // Liberar la memoria
-                imagedestroy($imagenGD);
-                // Obtener el nombre de la foto anterior desde la base de datos
-                $fotoAnterior = $reportes->foto . $i;
-                // Eliminar la foto anterior si existe
-                if ($fotoAnterior) {
-                    $rutaFotoAnterior = public_path($path . $fotoAnterior);
-                    if (file_exists($rutaFotoAnterior)) {
-                        unlink($rutaFotoAnterior);
-                    }
-                }
-                $report['foto' . $i] = $foto;
-            } else {
-                unset($report['foto' . $i]);
-            }
-        }
-
-        $reportes->update($report);
         return redirect()->route('reportes.index')->with('success', 'Reporte Actualizado Con Exito');
     }
     /**

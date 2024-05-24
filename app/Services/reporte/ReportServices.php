@@ -2,10 +2,13 @@
 
 namespace App\Services\reporte;
 
+use App\Models\comercio;
+use App\Models\reportes;
+use App\Models\ubicacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class StoreReportServices
+class ReportServices
 {
     public function StoreComercio(Request $request)
     {
@@ -37,9 +40,7 @@ class StoreReportServices
 
     public function StoreReportes(Request $request, $foto, $id, $ubicacion, $comercio, $video)
     {
-
         $reportes = [];
-
         $AnomaliaJson = json_encode($request->anomalia);
         $reportes['anomalia'] = $AnomaliaJson;
         $reportes['personals_id'] = $id;
@@ -54,4 +55,21 @@ class StoreReportServices
 
         return $reportes;
     }
+
+    public function UpdateComercio(Request $request, $reporte)
+    {
+
+        $comercio = comercio::where('id', $reporte->comercios_id)->first();
+        $comercio->update($request->all());
+        return $comercio;
+    }
+
+    public function UpdateUbicacion($ubicacion, $reporte)
+    {
+        $ubicaciones = ubicacion::where('id', $reporte->ubicacions_id)->first();
+        $ubicaciones->update($ubicacion);
+        return $ubicaciones;
+    }
+
+
 }

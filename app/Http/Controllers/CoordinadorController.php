@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\dbs_surtigas;
-use App\Models\direcciones;
+use App\Models\dbssurtigas;
 use App\Models\reportes;
 use App\Models\vs_anomalias;
 use Carbon\Carbon;
@@ -104,7 +104,7 @@ class CoordinadorController extends Controller
 
         $anomalias = vs_anomalias::whereIn('id', $anomaliasIds)->get();
 
-        $direccion = dbs_surtigas::where('contrato', $reporte->contrato)->first();
+        $direccion = dbssurtigas::where('contrato', $reporte->contrato)->first();
 
         // Ruta de la plantilla
         $templateFile = public_path('template/temp.docx');
@@ -119,7 +119,7 @@ class CoordinadorController extends Controller
         $templateProcessor->setValue('medidor', $reporte->medidor);
         $templateProcessor->setValue('medidor_anomalia', $reporte->medidor_anomalia);
         $templateProcessor->setValue('lectura', $reporte->lectura);
-        $templateProcessor->setValue('comercio', $reporte->ComercioReporte->nombre);
+        $templateProcessor->setValue('comercio', $reporte->report_comercio->tipo_comercio);
         $nombresAnomalias = array();
         foreach ($anomalias as $anomalia) {
             $nombresAnomalias[] = $anomalia->nombre;
@@ -127,13 +127,14 @@ class CoordinadorController extends Controller
         $stringAnomalias = implode(", ", $nombresAnomalias);
         $templateProcessor->setValue('anomalia', $stringAnomalias);
 
-        $templateProcessor->setValue('imposibilidad', $reporte->imposibilidadReporte->nombre);
+        $templateProcessor->setValue('imposibilidad', $reporte->vs_imposibilidad->nombre);
         $templateProcessor->setValue('observaciones', $reporte->observaciones);
         $templateProcessor->setValue('video', config('app.url') . '/video/' . $reporte->video);
-
-        for ($i = 1; $i < 7; $i++) {
+        $fotos = json_encode($reporte->imagenes);
+        
+        for ($i = 1; $i < 6; $i++) {
             $foto = 'foto' . $i;
-            $this->ImgExist($reporte->$foto, $templateProcessor, $foto);
+            $this->ImgExist($fotos, $templateProcessor, $foto);
         }
 
         $rand = rand(600, 1000);
