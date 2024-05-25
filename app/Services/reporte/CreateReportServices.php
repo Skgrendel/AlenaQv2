@@ -9,27 +9,24 @@ use App\Models\vs_imposibilidad;
 
 class CreateReportServices
 {
-    public function CreateReport(string $id){
+    public function CreateReport(string $id)
+    {
         $data = dbssurtigas::where('contrato', $id)->first();
         $src = 'https://www.google.com/maps/place/' . $data->latitud . ',' . $data->longitud;
         $anomalias = vs_anomalias::pluck('nombre', 'id');
         $comercios = vs_comercios::pluck('nombre', 'id');
         $imposibilidad = vs_imposibilidad::pluck('nombre', 'id');
 
-        return[
+        return [
             'info' => [
-                'contrato'=> $data->contrato,
-                'medidor' => $data->medidor,
-                'direccion' => $data->direccion,
-                'ciclo' => $data->ciclo,
-                'cliente' => $data->cliente,
+                'db_Surtigas' => $data,
             ],
-            'location' =>[
-                'link'=> $src,
+            'location' => [
+                'link' => $src,
             ],
-            'anomalias'=>$anomalias,
-            'comercios'=>$comercios,
-            'imposibilidad'=>$imposibilidad,
+            'anomalias' => $anomalias,
+            'comercios' => $comercios,
+            'imposibilidad' => $imposibilidad,
         ];
     }
 }

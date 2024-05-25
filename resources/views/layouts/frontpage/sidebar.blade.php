@@ -33,7 +33,7 @@
                 </div>
             </a>
         </li>
-        <li class="menu {{ Route::currentRouteName() == 'asignados.index' ? 'active' : '' }}">
+        <li class="menu {{ Route::currentRouteName() == 'asignados' ? 'active' : '' }}">
             <a href="{{ route('asignados') }}" aria-expanded="true" class="dropdown-toggle">
                 <div class="">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -104,8 +104,7 @@
             @endif
 
             @if ($user->hasRole('Administrador'))
-                @if ($user->hasRole('Administrador'))
-                    <li class="menu {{ Route::currentRouteName() == 'personals.index' ? 'active' : '' }}">
+                    <li class="menu {{ Route::currentRouteName() == 'personals.index'|| Route::currentRouteName() == 'personals.edit' ? 'active' : '' }}">
                         <a href="#Personal" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"
@@ -134,7 +133,6 @@
                             </li>
                         </ul>
                     </li>
-                @endif
                 <li class="menu {{ Route::currentRouteName() == 'informes' ? 'active' : '' }}">
                     <a href="#Informe" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <div class="">

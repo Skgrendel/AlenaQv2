@@ -50,16 +50,6 @@ class reportes extends Model
         return $this->hasOne(vs_imposibilidad::class, 'id', 'imposibilidad');
     }
 
-    public function vs_anomalia()
-    {
-        return $this->hasOne(vs_anomalias::class, 'id', 'anomalia');
-    }
-
-    public function vs_comercio()
-    {
-        return $this->hasOne(vs_comercios::class, 'id', 'tipo_comercio');
-    }
-
     public function report_ubicacion()
     {
         return $this->hasOne(ubicacion::class,'id','ubicacions_id');

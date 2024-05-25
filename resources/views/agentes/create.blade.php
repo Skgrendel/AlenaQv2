@@ -18,31 +18,31 @@
                                             <div class="mb-1">
                                                 <label for="nombre_cliente">Nombre:</label>
                                                 <span class=" text-body staticEmail "
-                                                    id="nombre_cliente">{{ $data['info']['cliente'] }}</span>
+                                                    id="nombre_cliente">{{ $data['info']['db_Surtigas']['cliente'] }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="numero_contrato" class="form-label">Numero de Contrato:</label>
                                                 <span class="text-body staticEmail"
-                                                    id="numero_contrato">{{ $data['info']['contrato'] }}</span>
+                                                    id="numero_contrato">{{ $data['info']['db_Surtigas']['contrato'] }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="numero_medidor" class="form-label">Numero de Medidor: </label>
                                                 <span class=" text-body"
-                                                    id="numero_medidor">{{ $data['info']['medidor'] }}</span>
+                                                    id="numero_medidor">{{ $data['info']['db_Surtigas']['medidor'] }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="direccion">Direccion: </label>
                                                 <span class=" text-body"
-                                                    id="direccion">{{ $data['info']['direccion'] }}</span>
+                                                    id="direccion">{{ $data['info']['db_Surtigas']['direccion'] }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Ciclo: </label>
-                                                <span class=" text-body" id="ciclo">{{ $data['info']['ciclo'] }}</span>
+                                                <span class=" text-body" id="ciclo">{{ $data['info']['db_Surtigas']['ciclo'] }}</span>
                                             </div>
                                             <input type="text" id="medidor" name="medidor" hidden
-                                                value="{{ $data['info']['medidor'] }}">
+                                                value="{{ $data['info']['db_Surtigas']['medidor'] }}">
                                             <input type="text" id="contrato" name="contrato" hidden
-                                                value="{{ $data['info']['contrato'] }}">
+                                                value="{{ $data['info']['db_Surtigas']['contrato'] }}">
                                             <hr>
                                             <div class="d-flex justify-content-between ">
                                                 <a href="{{ $data['location']['link'] }}" target="_blank"
@@ -50,7 +50,7 @@
                                                     data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
                                                 <a class="btn btn-info me-4 rounded  bs-tooltip"
                                                     title="Regresar Pagina Anterior" data-bs-placement="top"
-                                                    href="{{ route('asignados.index') }}"><i
+                                                    href="{{ route('asignados') }}"><i
                                                         class="fas fa-arrow-circle-left"></i></a>
                                             </div>
                                         </div>

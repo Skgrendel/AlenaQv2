@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\personals;
 use App\Models\User;
 use App\Models\vs_tipo_documento;
+use App\Services\personal\PersonalServices;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
 class PersonalsController extends Controller
 {
+    private $store;
     public function __construct()
     {
         $this->middleware('can:coordinador');
+        $this->store = new PersonalServices;
     }
     /**
      * Display a listing of the resource.
@@ -38,38 +41,7 @@ class PersonalsController extends Controller
      */
     public function store(Request $request)
     {
-        // Validación de datos
-        $request->validate(personals::$rules);
-
-        // Validar existencia de personal por número de documento
-        $userCorreo = $request['correo'];
-        $userRol = $request['rol'];
-        $existingPersonal = personals::where('numero_documento', $request->input('numero_documento'))->first();
-
-        if ($existingPersonal) {
-            // Si ya existe personal con ese número de documento, muestra un mensaje de error y redirige
-            return redirect()->back()->with('success', 'Ya existe un personal con este número de documento.')->with('title', 'Error');
-        }
-        // Si no existe, crea el personal
-        $data = $request->all();
-        $personal = personals::create($data);
-        $personal_id = $personal->id;
-
-        // Crear usuario
-        $user = new User([
-            'email' => $userCorreo,
-            'password' => bcrypt($request['numero_documento']),
-        ]);
-
-        // Asignar roles al usuario
-        $Role = Role::where('name', $userRol)->first();
-        $user->assignRole($Role);
-
-        // Asociar usuario al personal creado
-        $user->personal_id = $personal_id; //
-        $user->save();
-
-
+        $data = $this->store->PersonalStore($request);
         return  redirect()->route('personals.index')->with('icon', 'success')->with('success', 'Personal Creado con Exito')
         ->with('title', 'Guardado');
     }
@@ -87,26 +59,9 @@ class PersonalsController extends Controller
      */
     public function edit(string $id, User $user)
     {
-        // Buscar el registro personal
-        $personal = personals::find($id);
-
-        // Verificar si el registro "personals" existe
-        if (!$personal) {
-            // Redirige a una página de error o a otra página si el registro "personals" no se encuentra
-
-            return redirect()->back()->with('success', 'Registro no Encontrado')->with('title', 'Error');
-        }
-
-        // Buscar el registro de usuario asociado con el registro personal
-        $roles = Role::pluck('name', 'name')->all();
-
-        $user = User::where('personal_id', $personal->id)->first();
-        // Verificar si el registro de usuario existe
-        $userRoles = $user->roles->pluck('name')->toArray();
-
-        // Verificar si el registro de usuario existe
-        $tipodocumento = vs_tipo_documento::pluck('nombre', 'id');
-        return view('personals.edit', compact('personal', 'tipodocumento', 'roles', 'user', 'userRoles'));
+       $data= $this->store->PersonalEdit($id);
+       
+        return view('personals.edit', compact('data'));
     }
 
     /**
@@ -167,10 +122,13 @@ class PersonalsController extends Controller
             return redirect()->back()->with('icon', 'error')->with('success', 'Registro no encontrado');
         }
 
-        // Actualizar la propiedad estado para ambos registros
+         // Actualizar la propiedad estado para ambos registros
+        $personal->estado = 0;
+        $personal->save();
 
-        $personal->delete();
-        $usuario->delete();
+        $usuario->estado = 0;
+        $usuario->save();
+
 
         // Redirigir a la ruta de índice
         return redirect()->route('personals.index')->with('icon', 'success')->with('success', 'Personal Eliminado con Exito');
