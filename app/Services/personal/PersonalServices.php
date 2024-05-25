@@ -71,7 +71,6 @@ class PersonalServices
 
         if ($personal) {
             $personal->update($request->all());
-
             // Buscar el registro de usuario asociado con el registro personal
             $user = User::where('personal_id', $personal->id)->first();
 
@@ -84,7 +83,7 @@ class PersonalServices
                 // Asignar roles al usuario
                 $user->syncRoles($request['rol']);
             }
-           
+
         }
 
     }
