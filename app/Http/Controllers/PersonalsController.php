@@ -33,7 +33,7 @@ class PersonalsController extends Controller
         $tipodocumento = vs_tipo_documento::pluck('nombre', 'id');
         $roles = Role::pluck('name', 'name')->all();
         $userRoles = null;
-        return view('personals.create', compact('tipodocumento', 'roles','userRoles'));
+        return view('personals.create', compact('tipodocumento', 'roles', 'userRoles'));
     }
 
     /**
@@ -43,7 +43,7 @@ class PersonalsController extends Controller
     {
         $data = $this->store->PersonalStore($request);
         return  redirect()->route('personals.index')->with('icon', 'success')->with('success', 'Personal Creado con Exito')
-        ->with('title', 'Guardado');
+            ->with('title', 'Guardado');
     }
 
     /**
@@ -59,8 +59,7 @@ class PersonalsController extends Controller
      */
     public function edit(string $id, User $user)
     {
-       $data= $this->store->PersonalEdit($id);
-       
+        $data = $this->store->PersonalEdit($id);
         return view('personals.edit', compact('data'));
     }
 
@@ -69,32 +68,8 @@ class PersonalsController extends Controller
      */
     public function update(Request $request,  $id)
     {
-        $personal = personals::find($id);
-
-        if ($personal) {
-            $personal->update($request->all());
-
-            // Buscar el registro de usuario asociado con el registro personal
-            $user = User::where('personal_id', $personal->id)->first();
-
-            // Verificar si el registro de usuario existe
-            if ($user) {
-                $user->update([
-                    'email' => $request['correo'],
-                ]);
-
-                // Asignar roles al usuario
-                $user->syncRoles($request['rol']);
-            }
-
-
-            return redirect()->route('personals.index')-> with('icon', 'success')->with('success', 'Personal Actualizado con Exito');
-
-        } else {
-
-            return redirect()->back()->with('icon', 'error')->with('success', 'Registro no encontrado');
-        }
-
+        $data = $this->store->PersonalUpdate($request,$id);
+        return redirect()->route('personals.index')-> with('icon', 'success')->with('success', 'Personal Actualizado con Exito');
     }
 
     /**
@@ -109,7 +84,7 @@ class PersonalsController extends Controller
         if (!$personal) {
             // Manejar el caso cuando el registro no se encuentra
             // Por ejemplo, puedes redirigir de vuelta con un mensaje de error
-            return redirect()->back()->with('icon', 'error')->with('success', 'Registro no encontrado')   ;
+            return redirect()->back()->with('icon', 'error')->with('success', 'Registro no encontrado');
         }
 
         // Buscar el registro de usuario asociado con el registro personal
@@ -122,7 +97,7 @@ class PersonalsController extends Controller
             return redirect()->back()->with('icon', 'error')->with('success', 'Registro no encontrado');
         }
 
-         // Actualizar la propiedad estado para ambos registros
+        // Actualizar la propiedad estado para ambos registros
         $personal->estado = 0;
         $personal->save();
 
