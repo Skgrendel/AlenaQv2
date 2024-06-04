@@ -21,6 +21,10 @@ class RolesDatatable extends DataTableComponent
         $this->setConfigurableAreas([
             'toolbar-left-end' => 'admin.roles.drop',
         ]);
+        $this->setTableAttributes([
+            'default' => false,
+            'class' => 'table table-secondary',
+        ]);
     }
 
 
