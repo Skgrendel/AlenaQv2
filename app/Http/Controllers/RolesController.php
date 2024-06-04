@@ -12,7 +12,8 @@ class RolesController extends Controller
      */
     public function index()
     {
-        return view('admin.roles.index');
+        $roles = Role::all();
+        return view('admin.roles.index',compact('roles'));
     }
 
     /**
@@ -60,6 +61,6 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        dd($role);
     }
 }

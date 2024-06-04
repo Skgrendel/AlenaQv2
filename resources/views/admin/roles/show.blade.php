@@ -1,9 +1,7 @@
 @extends('layouts.frontpage.app')
 
 @section('content')
-    <div class="container mt-3 ">
-
-    </div>
+   
 @endsection
 
 @section('scripts')
