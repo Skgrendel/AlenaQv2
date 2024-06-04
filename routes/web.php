@@ -7,6 +7,7 @@ use App\Http\Controllers\CoordinadorController;
 use App\Http\Controllers\InformesController;
 use App\Http\Controllers\PersonalsController;
 use App\Http\Controllers\ReportesController;
+use App\Http\Controllers\RolesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,4 +37,5 @@ Route::middleware('check_user_status')->group(function () {
     Route::get('/informes', [InformesController::class, 'InfoGeneral'])->name('informes');
     Route::get('show/reporte/{id}',[ReportesController::class,'showreporte'])->name('showreportes');
     Route::resource('/auditorias', AuditoriaController::class)->names('auditorias');
+    Route::resource('Roles',RolesController::class)->names('roles');
 });

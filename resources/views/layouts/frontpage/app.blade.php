@@ -26,13 +26,16 @@
     <script src="https://kit.fontawesome.com/049e213d27.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/table/datatable/datatables.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/table/datatable/dt-global_style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/table/datatable/dt-global_style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('src/bootstrap/css/bootstrap.min.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('layouts/vertical-light-menu/css/light/plugins.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('layouts/vertical-light-menu/css/dark/plugins.css') }}"/>
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('src/plugins/css/light/table/datatable/dt-global_style.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('src/plugins/css/dark/table/datatable/dt-global_style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/bootstrap/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('layouts/vertical-light-menu/css/light/plugins.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('layouts/vertical-light-menu/css/dark/plugins.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/forms/switches.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/forms/switches.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/elements/alert.css') }}">
@@ -55,10 +58,13 @@
             min-height: calc(100vh - 155px) !important;
         }
     </style>
-
+    @php
+        $user = Auth::user();
+        $isAdmin = $user->hasRole('Administrador');
+    @endphp
 </head>
 
-<body class="alt-menu layout-boxed" page="starter-pack">
+<body class="layout-boxed {{ !$isAdmin ? 'alt-menu' : '' }}" page="starter-pack">
 
     <!-- BEGIN LOADER -->
     <div id="load_screen">
@@ -90,7 +96,7 @@
                 <div class="middle-content container-xxl p-0">
 
                     <!--  BEGIN BREADCRUMBS  -->
-                    @include('layouts.frontpage.secondnavbar')
+                    <x-breadcrumbs :pageName="'Home'" />
                     <!--  END BREADCRUMBS  -->
 
                     <div class="row layout-top-spacing">
