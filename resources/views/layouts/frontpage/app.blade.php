@@ -96,7 +96,7 @@
                 <div class="middle-content container-xxl p-0">
 
                     <!--  BEGIN BREADCRUMBS  -->
-                    <x-breadcrumbs :pageName="'Home'" />
+                    @include('layouts.frontpage.secondnavbar')
                     <!--  END BREADCRUMBS  -->
 
                     <div class="row layout-top-spacing">
