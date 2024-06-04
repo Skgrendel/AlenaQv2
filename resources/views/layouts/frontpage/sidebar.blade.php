@@ -1,7 +1,6 @@
 <div class="sidebar-wrapper sidebar-theme">
     <nav id="sidebar">
-        <div class="navbar-nav theme-brand flex-row  text-center">
-
+        <div class="navbar-nav theme-brand flex-row text-center">
             <div class="nav-item sidebar-toggle">
                 <div class="btn-toggle sidebarCollapse">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -13,44 +12,14 @@
                 </div>
             </div>
         </div>
-
         <ul class="list-unstyled menu-categories mt-2 " id="accordionExample">
             @php
                 $user = Auth::user();
             @endphp
-            @if ($user->hasRole('Lector')||$user->hasRole('Administrador'))
-            <li
-            class="menu {{ Route::currentRouteName() == 'reportes.index' || Route::currentRouteName() == 'reportes.show' || Route::currentRouteName() == 'reportes.edit' ? 'active' : '' }}">
-            <a href="{{ route('reportes.index') }}" aria-expanded="true" class="dropdown-toggle">
-                <div class="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="feather feather-home">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg>
-                    <span>Principal</span>
-                </div>
-            </a>
-        </li>
-        <li class="menu {{ Route::currentRouteName() == 'asignados' ? 'active' : '' }}">
-            <a href="{{ route('asignados') }}" aria-expanded="true" class="dropdown-toggle">
-                <div class="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="feather feather-home">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg>
-                    <span>Reportes Asignados</span>
-                </div>
-            </a>
-        </li>
-            @endif
-            @if ($user->hasRole('Administrador') || $user->hasRole('Coordinador'))
+            @if ($user->hasRole('Lector') || $user->hasRole('Administrador'))
                 <li
-                    class="menu {{ Route::currentRouteName() == 'coordinador.index' || Route::currentRouteName() == 'coordinador.show' ? 'active' : '' }}">
-                    <a href="{{ route('coordinador.index') }}" aria-expanded="true" class="dropdown-toggle">
+                    class="menu {{ Route::currentRouteName() == 'reportes.index' || Route::currentRouteName() == 'reportes.show' || Route::currentRouteName() == 'reportes.edit' ? 'active' : '' }}">
+                    <a href="{{ route('reportes.index') }}" aria-expanded="true" class="dropdown-toggle">
                         <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"
                                 id="Home-3--Streamline-Core" height="14" width="14">
@@ -61,12 +30,46 @@
                                         clip-rule="evenodd" stroke-width="1"></path>
                                 </g>
                             </svg>
-                            <span>Reportes</span>
+                            <span>Principal</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="menu {{ Route::currentRouteName() == 'asignados' ? 'active' : '' }}">
+                    <a href="{{ route('asignados') }}" aria-expanded="true" class="dropdown-toggle">
+                        <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 48 48"
+                                id="User-Switch-Account--Streamline-Plump" height="48" width="48">
+                                <desc>User Switch Account Streamline Icon: https://streamlinehq.com</desc>
+                                <g id="user-switch-account">
+                                    <path id="Union" fill="#000000" fill-rule="evenodd"
+                                        d="M5.686 11.58c0.048 -1.005 0.1 -1.898 0.155 -2.683 0.26 -3.784 3.168 -6.75 6.975 -7.034 2.553 -0.19 6.25 -0.363 11.238 -0.363 0.325 0 0.644 0 0.957 0.002a2.5 2.5 0 0 1 -0.022 5l-0.935 -0.002c-4.873 0 -8.445 0.17 -10.867 0.35 -1.303 0.097 -2.267 1.062 -2.358 2.39 -0.048 0.695 -0.095 1.483 -0.139 2.37 0.787 0.065 1.55 0.16 2.265 0.283 1.746 0.303 2.55 2.281 1.569 3.72 -1.574 2.306 -3.689 4.607 -4.753 5.72a2.452 2.452 0 0 1 -3.54 0.011c-1.103 -1.138 -3.348 -3.545 -4.824 -5.779 -0.962 -1.454 -0.109 -3.364 1.58 -3.661a26.42 26.42 0 0 1 2.699 -0.324ZM43.5 8a6.5 6.5 0 1 0 -10.648 5.004c-2.733 1.292 -4.776 3.837 -5.422 6.907 -0.309 1.463 0.939 2.59 2.283 2.59h14.458c1.344 0 2.592 -1.127 2.284 -2.59 -0.641 -3.043 -2.653 -5.569 -5.35 -6.872A6.488 6.488 0 0 0 43.5 8Zm-39 24a6.5 6.5 0 1 1 10.648 5.004c2.733 1.292 4.776 3.837 5.422 6.907 0.309 1.463 -0.939 2.59 -2.283 2.59H3.829c-1.344 0 -2.592 -1.127 -2.284 -2.59 0.641 -3.043 2.653 -5.569 5.35 -6.872A6.488 6.488 0 0 1 4.5 32Zm40.514 4.096a26.27 26.27 0 0 1 -2.7 0.324 128.661 128.661 0 0 1 -0.155 2.683c-0.26 3.785 -3.17 6.75 -6.976 7.034 -1.994 0.148 -4.685 0.286 -8.144 0.34a2.5 2.5 0 1 1 -0.078 -5c3.367 -0.052 5.96 -0.186 7.85 -0.326 1.305 -0.098 2.269 -1.063 2.36 -2.391 0.048 -0.695 0.095 -1.483 0.139 -2.37 -0.787 -0.065 -1.55 -0.16 -2.265 -0.283 -1.746 -0.303 -2.55 -2.281 -1.569 -3.72 1.574 -2.306 3.69 -4.607 4.753 -5.72a2.452 2.452 0 0 1 3.54 -0.011c1.103 1.138 3.348 3.545 4.824 5.779 0.962 1.454 0.109 3.364 -1.58 3.661Z"
+                                        clip-rule="evenodd" stroke-width="1"></path>
+                                </g>
+                            </svg>
+                            <span>Contratos Asignados</span>
                         </div>
                     </a>
                 </li>
             @endif
-
+            @if ($user->hasRole('Administrador') || $user->hasRole('Coordinador'))
+                <li
+                    class="menu {{ Route::currentRouteName() == 'coordinador.index' || Route::currentRouteName() == 'coordinador.show' ? 'active' : '' }}">
+                    <a href="{{ route('coordinador.index') }}" aria-expanded="true" class="dropdown-toggle">
+                        <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 48 48"
+                                id="File-Report--Streamline-Core" height="48" width="48">
+                                <desc>File Report Streamline Icon: https://streamlinehq.com</desc>
+                                <g id="file-report">
+                                    <path id="Subtract" fill="#000000" fill-rule="evenodd"
+                                        d="M4.93488 1.5063085714285713C5.899337142857142 0.5418342857142857 7.2074742857142855 0 8.571428571428571 0H30.857142857142854c0.45466285714285715 0 0.8907085714285714 0.18061165714285712 1.2121714285714285 0.502104L44.06948571428571 12.502114285714285C44.390742857142854 12.823577142857141 44.57142857142857 13.259622857142856 44.57142857142857 13.714285714285714v29.142857142857142c0 1.3638857142857141 -0.5417142857142857 2.672228571428571 -1.5061714285714285 3.636685714285714S40.79245714285714 48 39.42857142857142 48h-30.857142857142854c-1.3639885714285713 0 -2.6720914285714286 -0.5417142857142857 -3.636548571428571 -1.5061714285714285C3.970422857142857 45.52937142857143 3.4285714285714284 44.22102857142857 3.4285714285714284 42.857142857142854v-37.714285714285715c0 -1.3639542857142857 0.5418514285714285 -2.6720777142857144 1.5063085714285713 -3.636548571428571Zm29.151771428571426 13.7232c0.8367771428571428 -0.8368457142857142 0.8367771428571428 -2.1936 0 -3.030445714285714 -0.8368457142857142 -0.8368457142857142 -2.1936 -0.8368457142857142 -3.030445714285714 0L25.71428571428571 17.540982857142854 22.086651428571425 13.913348571428571c-0.8368457142857142 -0.8368457142857142 -2.1936 -0.8368457142857142 -3.030445714285714 0l-5.142857142857142 5.142857142857142c-0.8368457142857142 0.8368457142857142 -0.8368457142857142 2.1936 0 3.030445714285714 0.8368457142857142 0.8368457142857142 2.1936 0.8368457142857142 3.030445714285714 0L20.57142857142857 18.459017142857142l3.6276342857142856 3.6276342857142856c0.8368457142857142 0.8368457142857142 2.1936 0.8368457142857142 3.030445714285714 0l6.857142857142857 -6.857142857142857ZM32.57142857142857 27h-17.142857142857142c-1.1834742857142857 0 -2.142857142857143 0.9593828571428571 -2.142857142857143 2.142857142857143s0.9593828571428571 2.142857142857143 2.142857142857143 2.142857142857143h17.142857142857142c1.1834742857142857 0 2.142857142857143 -0.9593828571428571 2.142857142857143 -2.142857142857143s-0.9593828571428571 -2.142857142857143 -2.142857142857143 -2.142857142857143Zm-17.142857142857142 8.571428571428571h17.142857142857142c1.1834742857142857 0 2.142857142857143 0.9593142857142857 2.142857142857143 2.142857142857143s-0.9593828571428571 2.142857142857143 -2.142857142857143 2.142857142857143h-17.142857142857142c-1.1834742857142857 0 -2.142857142857143 -0.9593142857142857 -2.142857142857143 -2.142857142857143s0.9593828571428571 -2.142857142857143 2.142857142857143 -2.142857142857143Z"
+                                        clip-rule="evenodd" stroke-width="1"></path>
+                                </g>
+                            </svg>
+                            <span>Lecturas</span>
+                        </div>
+                    </a>
+                </li>
+            @endif
             @if ($user->hasRole('Pno') || $user->hasRole('Administrador') || $user->hasRole('Coordinador'))
                 <li
                     class="menu {{ Route::currentRouteName() == 'auditorias.index' || Route::currentRouteName() == 'auditorias.show' || Route::currentRouteName() == 'auditorias.create' ? 'active' : '' }}">
@@ -102,37 +105,36 @@
                     </ul>
                 </li>
             @endif
-
             @if ($user->hasRole('Administrador'))
-                    <li class="menu {{ Route::currentRouteName() == 'personals.index'|| Route::currentRouteName() == 'personals.edit' ? 'active' : '' }}">
-                        <a href="#Personal" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"
-                                    id="User-Multiple-Group--Streamline-Core" height="14" width="14">
-                                    <desc>User Multiple Group Streamline Icon: https://streamlinehq.com</desc>
-                                    <g id="user-multiple-group--close-geometric-human-multiple-person-up-user">
-                                        <path id="Union" fill="#000000" fill-rule="evenodd"
-                                            d="M7.9799 3.815C7.9799 5.4387 6.6637 6.755 5.04 6.755S2.1 5.4387 2.1 3.815S3.4163 0.8751 5.04 0.8751S7.9799 2.1913 7.9799 3.815ZM5.04 7.735C2.3338 7.735 0.14 9.9288 0.14 12.6349C0.14 12.9055 0.3594 13.1249 0.63 13.1249H9.4499C9.7206 13.1249 9.9399 12.9055 9.9399 12.6349C9.9399 9.9288 7.7462 7.735 5.04 7.735ZM13.37 13.1249H11.094C11.1402 12.9697 11.165 12.8052 11.165 12.6349C11.165 10.6347 10.2062 8.8584 8.7231 7.7406C8.8016 7.7369 8.8806 7.735 8.96 7.735C11.6662 7.735 13.86 9.9288 13.86 12.6349C13.86 12.9055 13.6406 13.1249 13.37 13.1249ZM8.96 6.755C8.6643 6.755 8.3788 6.7114 8.1096 6.6301C8.7898 5.8888 9.205 4.9004 9.205 3.815S8.7898 1.7412 8.1096 0.9999C8.3788 0.9187 8.6643 0.8751 8.96 0.8751C10.5837 0.8751 11.9 2.1913 11.9 3.815S10.5837 6.755 8.96 6.755Z"
-                                            clip-rule="evenodd" stroke-width="1"></path>
-                                    </g>
-                                </svg>
-                                <span>Usuarios</span>
-                            </div>
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-chevron-right">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg>
-                            </div>
-                        </a>
-                        <ul class="collapse submenu list-unstyled" id="Personal" data-bs-parent="#accordionExample">
-                            <li>
-                                <a href="{{ route('personals.index') }}"> Personal Activo </a>
-                            </li>
-                        </ul>
-                    </li>
+                <li
+                    class="menu {{ Route::currentRouteName() == 'personals.index' || Route::currentRouteName() == 'personals.edit' ? 'active' : '' }}">
+                    <a href="#Personal" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"
+                                id="User-Multiple-Group--Streamline-Core" height="14" width="14">
+                                <desc>User Multiple Group Streamline Icon: https://streamlinehq.com</desc>
+                                <g id="user-multiple-group--close-geometric-human-multiple-person-up-user">
+                                    <path id="Union" fill="#000000" fill-rule="evenodd"
+                                        d="M7.9799 3.815C7.9799 5.4387 6.6637 6.755 5.04 6.755S2.1 5.4387 2.1 3.815S3.4163 0.8751 5.04 0.8751S7.9799 2.1913 7.9799 3.815ZM5.04 7.735C2.3338 7.735 0.14 9.9288 0.14 12.6349C0.14 12.9055 0.3594 13.1249 0.63 13.1249H9.4499C9.7206 13.1249 9.9399 12.9055 9.9399 12.6349C9.9399 9.9288 7.7462 7.735 5.04 7.735ZM13.37 13.1249H11.094C11.1402 12.9697 11.165 12.8052 11.165 12.6349C11.165 10.6347 10.2062 8.8584 8.7231 7.7406C8.8016 7.7369 8.8806 7.735 8.96 7.735C11.6662 7.735 13.86 9.9288 13.86 12.6349C13.86 12.9055 13.6406 13.1249 13.37 13.1249ZM8.96 6.755C8.6643 6.755 8.3788 6.7114 8.1096 6.6301C8.7898 5.8888 9.205 4.9004 9.205 3.815S8.7898 1.7412 8.1096 0.9999C8.3788 0.9187 8.6643 0.8751 8.96 0.8751C10.5837 0.8751 11.9 2.1913 11.9 3.815S10.5837 6.755 8.96 6.755Z"
+                                        clip-rule="evenodd" stroke-width="1"></path>
+                                </g>
+                            </svg>
+                            <span>Usuarios</span>
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </a>
+                    <ul class="collapse submenu list-unstyled" id="Personal" data-bs-parent="#accordionExample">
+                        <li>
+                            <a href="{{ route('personals.index') }}"> Personal Activo </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="menu {{ Route::currentRouteName() == 'informes' ? 'active' : '' }}">
                     <a href="#Informe" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
@@ -163,7 +165,6 @@
                 </li>
             @endif
         </ul>
-
     </nav>
 
 </div>

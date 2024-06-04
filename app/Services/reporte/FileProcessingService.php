@@ -10,7 +10,6 @@ class FileProcessingService
     public function processImages(Request $request, $fontSize = 40)
     {
         $reportes = [];
-
         foreach (range(1, 5) as $i) {
             if ($imagen = $request->file('foto' . $i)) {
                 $path = 'imagen/';
@@ -47,7 +46,6 @@ class FileProcessingService
 
     public function processVideo(Request $request)
     {
-
         if ($video = $request->file('video')) {
             $path = 'video/';
             $videoname = rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();

@@ -6,7 +6,6 @@ use App\Models\personals;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
 use App\Models\vs_tipo_documento;
-use Illuminate\Support\Facades\Request;
 
 class PersonalServices
 {
@@ -73,13 +72,11 @@ class PersonalServices
             $personal->update($request->all());
             // Buscar el registro de usuario asociado con el registro personal
             $user = User::where('personal_id', $personal->id)->first();
-
             // Verificar si el registro de usuario existe
             if ($user) {
                 $user->update([
                     'email' => $request['correo'],
                 ]);
-
                 // Asignar roles al usuario
                 $user->syncRoles($request['rol']);
             }
