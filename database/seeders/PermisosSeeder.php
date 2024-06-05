@@ -15,17 +15,86 @@ class PermisosSeeder extends Seeder
     {
         // Crea un permiso de ejemplo
         Permission::create([
-            'name' => 'administrador',
+            'name' => 'admin.index',
+            'description'=>'Configuracion de Sistema',
+            'category'=>'Administrador',
             'guard_name' => 'web',
             'estado' => 1, // Ajusta el valor según tus necesidades
         ]);
         Permission::create([
-            'name' => 'coordinador',
+            'name' => 'admin.show',
+            'description'=>'Ver Configuraciones',
+            'category'=>'Administrador',
             'guard_name' => 'web',
             'estado' => 1, // Ajusta el valor según tus necesidades
         ]);
         Permission::create([
-            'name' => 'agente',
+            'name' => 'admin.create',
+            'description'=>'Crear Configuracion',
+            'category'=>'Administrador',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
+            'name' => 'admin.edit',
+            'description'=>'Editar Configuracion',
+            'category'=>'Administrador',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
+            'name' => 'coordi.index',
+            'description'=>'Ver Reportes',
+            'category'=>'Coordinador',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
+            'name' => 'coordi.show',
+            'description'=>'Revision de Reportes',
+            'category'=>'Coordinador',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
+            'name' => 'coordi.create',
+            'description'=>'Crear Reportes',
+            'category'=>'Coordinador',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
+            'name' => 'coordi.edit',
+            'description'=>'Editar Reportes',
+            'category'=>'Coordinador',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
+            'name' => 'agente.index',
+            'description'=>'Revisar Lecturas',
+            'category'=>'Agentes',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
+            'name' => 'agente.show',
+            'description'=>'Ver Lecturas',
+            'category'=>'Agentes',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
+            'name' => 'agente.create',
+            'description'=>'Crear Lecturas',
+            'category'=>'Agentes',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
+            'name' => 'agente.edit',
+            'description'=>'Editar Lecturas',
+            'category'=>'Agentes',
             'guard_name' => 'web',
             'estado' => 1, // Ajusta el valor según tus necesidades
         ]);
