@@ -15,7 +15,7 @@ class RolesController extends Controller
     public function index()
     {
         $roles = Role::all();
-        return view('admin.roles.index',compact('roles'));
+        return view('admin.roles.index', compact('roles'));
     }
 
     /**
@@ -24,7 +24,7 @@ class RolesController extends Controller
     public function create()
     {
         $permisos = Permission::all()->groupBy('category');
-        return view('admin.roles.create',compact('permisos'));
+        return view('admin.roles.create', compact('permisos'));
     }
 
     /**
@@ -32,7 +32,11 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'name' => 'required',
+            ]
+        );
     }
 
     /**
@@ -40,7 +44,7 @@ class RolesController extends Controller
      */
     public function show(Role $role)
     {
-        return view('admin.roles.show',compact('role'));
+        return view('admin.roles.show', compact('role'));
     }
 
     /**
@@ -48,7 +52,7 @@ class RolesController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('admin.roles.edit',compact('role'));
+        return view('admin.roles.edit', compact('role'));
     }
 
     /**
