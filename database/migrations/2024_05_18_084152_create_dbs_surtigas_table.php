@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('dbssurtigas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('personals_id')->nullable();
-            $table->string('cliente')->nullable();
             $table->string('contrato');
             $table->string('direccion');
             $table->string('barrio');

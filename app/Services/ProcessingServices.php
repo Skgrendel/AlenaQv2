@@ -30,6 +30,7 @@ class ProcessingServices
         $fotos = $this->file->processImages($request);
         $video = $this->file->processVideo($request);
 
+
         //Procesar Ubicacion y Comercio
         $ubicacionData = $this->Service->StoreUbicacion($request);
         $comercioData = $this->Service->StoreComercio($request);

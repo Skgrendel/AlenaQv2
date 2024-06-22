@@ -51,7 +51,9 @@ class ReportServices
         $reportes['lectura'] = $request->input('lectura');
         $reportes['imposibilidad'] = $request->input('imposibilidad');
         $reportes['imagenes'] = json_encode($foto);
-        $reportes['video'] = $video;
+        if ($video){
+            $reportes['video'] = $video;
+        }
 
         return $reportes;
     }

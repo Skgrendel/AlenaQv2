@@ -9,7 +9,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <p class="text-black">No hay Reportes Activos</p>
-                                <a href="{{ route('asignados.index') }}" class="btn btn-outline-success">Comenzar</a>
+                                <a href="{{ route('asignados') }}" class="btn btn-outline-success">Comenzar</a>
                             </div>
                         </div>
                     </div>

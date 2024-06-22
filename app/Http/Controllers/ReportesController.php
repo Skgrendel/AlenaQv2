@@ -22,7 +22,6 @@ class ReportesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:agente');
         $this->Processing = new ProcessingServices;
         $this->info = new EditReportServices();
         $this->create = new CreateReportServices();
@@ -80,7 +79,7 @@ class ReportesController extends Controller
 
         return redirect()->route('reportes.index')->with('success', 'Reporte Actualizado Con Exito');
     }
-    
+
     public function showreporte(string $id){
         $data = $this->show->ShowReport($id);
         $data['imagenes'] = (array) $data['imagenes'];

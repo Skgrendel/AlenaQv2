@@ -44,7 +44,7 @@ class PermisosSeeder extends Seeder
         ]);
         Permission::create([
             'name' => 'coordi.index',
-            'description'=>'Ver Reportes',
+            'description'=>'Reportes',
             'category'=>'Coordinador',
             'guard_name' => 'web',
             'estado' => 1, // Ajusta el valor según tus necesidades
@@ -72,7 +72,7 @@ class PermisosSeeder extends Seeder
         ]);
         Permission::create([
             'name' => 'agente.index',
-            'description'=>'Revisar Lecturas',
+            'description'=>'Lecturas',
             'category'=>'Agentes',
             'guard_name' => 'web',
             'estado' => 1, // Ajusta el valor según tus necesidades
@@ -95,6 +95,34 @@ class PermisosSeeder extends Seeder
             'name' => 'agente.edit',
             'description'=>'Editar Lecturas',
             'category'=>'Agentes',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
+            'name' => 'audit.index',
+            'description'=>'Auditorias',
+            'category'=>'Auditor',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
+            'name' => 'audit.show',
+            'description'=>'Ver Auditorias',
+            'category'=>'Auditor',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
+            'name' => 'audit.edit',
+            'description'=>'editar Auditorias',
+            'category'=>'Auditor',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
+            'name' => 'audit.create',
+            'description'=>'Realizar Auditorias',
+            'category'=>'Auditor',
             'guard_name' => 'web',
             'estado' => 1, // Ajusta el valor según tus necesidades
         ]);

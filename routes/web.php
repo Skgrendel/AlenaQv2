@@ -35,6 +35,7 @@ Route::middleware('check_user_status')->group(function () {
     Route::resource('/personals', PersonalsController::class)->names('personals');
     Route::get('/admin', adminController::class)->name('admin');
     Route::get('/informes', [InformesController::class, 'InfoGeneral'])->name('informes');
+    Route::get('/busqueda', [InformesController::class, 'BusquedaGis'])->name('busqueda');
     Route::get('show/reporte/{id}',[ReportesController::class,'showreporte'])->name('showreportes');
     Route::resource('/auditorias', AuditoriaController::class)->names('auditorias');
     Route::resource('Roles',RolesController::class)->names('roles');

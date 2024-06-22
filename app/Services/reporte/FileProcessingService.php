@@ -46,6 +46,8 @@ class FileProcessingService
 
     public function processVideo(Request $request)
     {
+        $reportesData = null;
+        
         if ($video = $request->file('video')) {
             $path = 'video/';
             $videoname = rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();

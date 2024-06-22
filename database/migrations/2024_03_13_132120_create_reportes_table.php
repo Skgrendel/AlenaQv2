@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('imposibilidad');
             $table->text('observaciones')->nullable();
             $table->text('comentarios')->nullable();
+            $table->boolean('revisado')->default('0');
             $table->json('imagenes')->nullable();
             $table->string('video')->nullable();
             $table->string('estado')->default('5');

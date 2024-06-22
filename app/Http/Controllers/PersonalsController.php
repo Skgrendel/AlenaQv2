@@ -14,7 +14,6 @@ class PersonalsController extends Controller
     private $store;
     public function __construct()
     {
-        $this->middleware('can:coordinador');
         $this->store = new PersonalServices;
     }
     /**

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -37,14 +36,20 @@ class RolesController extends Controller
                 'name' => 'required',
             ]
         );
+        $role = Role::create($request->all());
+        $role->permissions()->sync($request->Permisos);
+
+        return redirect()->route('roles.index')->with('success', 'Su rol Fue Creado Exitosamente');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Role $role)
+    public function show(string $id)
     {
-        return view('admin.roles.show', compact('role'));
+        $role = Role::find($id);
+        $permisos = Permission::all()->groupBy('category');
+        return view('admin.roles.show', compact('role', 'permisos'));
     }
 
     /**
@@ -52,6 +57,7 @@ class RolesController extends Controller
      */
     public function edit(Role $role)
     {
+        
         return view('admin.roles.edit', compact('role'));
     }
 
@@ -68,6 +74,6 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
-        dd($role);
+
     }
 }

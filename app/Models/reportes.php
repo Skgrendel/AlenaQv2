@@ -59,6 +59,10 @@ class reportes extends Model
     {
         return $this->hasOne(comercio::class,'id','comercios_id');
     }
+    public function auditoria()
+    {
+        return $this->hasOne(auditoria::class,'id');
+    }
 
 
 }
