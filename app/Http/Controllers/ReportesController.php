@@ -46,6 +46,7 @@ class ReportesController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $id = Auth::user()->personal->id;
         $ServicesStore = $this->Processing;
         $ServicesStore->StoreReport($request, $id);

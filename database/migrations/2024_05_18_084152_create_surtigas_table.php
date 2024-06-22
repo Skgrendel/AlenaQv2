@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dbssurtigas', function (Blueprint $table) {
+        Schema::create('surtigas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('personals_id')->nullable();
             $table->string('contrato');
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dbssurtigas');
+        Schema::dropIfExists('surtigas');
     }
 };

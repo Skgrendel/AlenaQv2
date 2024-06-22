@@ -18,7 +18,7 @@ return new class extends Migration
             $table->boolean('lectura_correcta');
             $table->boolean('foto_correcta');
             $table->boolean('comercio_coincide');
-            $table->boolean('confirmado_anomalia');
+            $table->boolean('intento_soborno');
             $table->text('observaciones');
             $table->timestamps();
         });

@@ -13,7 +13,6 @@ class ReportServices
     public function StoreComercio(Request $request)
     {
         $comercios = [];
-        $comercios['nuevo_comercio'] = $request->input('nuevo_comercio');
         $comercios['nombre_comercio'] = $request->input('nombre_comercio');
         $comercios['tipo_comercio'] = $request->input('tipo_comercio');
         $comercios['medidor_anomalia'] = $request->input('medidor_anomalia');
@@ -46,10 +45,10 @@ class ReportServices
         $reportes['personals_id'] = $id;
         $reportes['ubicacions_id'] = $ubicacion;
         $reportes['comercios_id'] = $comercio;
-        $reportes['contrato'] = $request->input('contrato');
-        $reportes['medidor'] = $request->input('medidor') ?? 0;
+        $reportes['surtigas_id'] = $request->surtigas_id;
         $reportes['lectura'] = $request->input('lectura');
         $reportes['imposibilidad'] = $request->input('imposibilidad');
+        $reportes['comentarios'] = $request->input('comentarios');
         $reportes['imagenes'] = json_encode($foto);
         if ($video){
             $reportes['video'] = $video;

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\dbssurtigas;
-use App\Models\direcciones;
+use App\Models\surtigas;
 use App\Models\reportes;
 use App\Models\vs_anomalias;
 use App\Models\vs_comercios;
@@ -49,7 +48,7 @@ class AuditoriaController extends Controller
         $reporte = reportes::find($id);
         $reporte->load('vs_imposibilidad','report_comercio','report_ubicacion');
         $contrato = $reporte->contrato;
-        $validate = dbssurtigas::where('contrato', $contrato)->first();
+        $validate = surtigas::where('contrato', $contrato)->first();
         $anomaliasIds = json_decode($reporte->anomalia);
         $fotos = json_decode($reporte->imagenes);
         $anomalias = vs_anomalias::whereIn('id', $anomaliasIds)->get();
@@ -68,7 +67,7 @@ class AuditoriaController extends Controller
 
         $anomalias = vs_anomalias::whereIn('id', $anomaliasIds)->get();
 
-        $direccion = dbssurtigas::where('contrato', $reporte->contrato)->first();
+        $direccion = surtigas::where('contrato', $reporte->contrato)->first();
 
         // Ruta de la plantilla
         $templateFile = public_path('template/temp.docx');

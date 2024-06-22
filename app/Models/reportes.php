@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use BaconQrCode\Renderer\RendererStyle\Fill;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,8 +10,6 @@ class reportes extends Model
     use HasFactory;
 
     static $rules = [
-        'contrato' => 'required',
-        'medidor' => 'required',
         'lectura' => 'required',
         'anomalia' => 'required',
         'imposibilidad' => 'required  ',
@@ -23,8 +20,7 @@ class reportes extends Model
         'personals_id',
         'ubicacions_id',
         'comercios_id',
-        'contrato',
-        'medidor',
+        'surtigas_id',
         'lectura',
         'anomalia',
         'imposibilidad',
@@ -62,6 +58,10 @@ class reportes extends Model
     public function auditoria()
     {
         return $this->hasOne(auditoria::class,'id');
+    }
+    public function dbSurtigas()
+    {
+        return $this->hasOne(surtigas::class,'id','surtigas_id');
     }
 
 

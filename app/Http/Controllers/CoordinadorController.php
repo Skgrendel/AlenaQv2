@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\dbs_surtigas;
-use App\Models\dbssurtigas;
+use App\Models\surtigas;
 use App\Models\reportes;
 use App\Models\vs_anomalias;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PhpOffice\PhpWord\TemplateProcessor;
-use PhpOffice\PhpWord\IOFactory;
+
 
 class CoordinadorController extends Controller
 {
@@ -96,7 +95,7 @@ class CoordinadorController extends Controller
 
         $anomalias = vs_anomalias::whereIn('id', $anomaliasIds)->get();
 
-        $direccion = dbssurtigas::where('contrato', $reporte->contrato)->first();
+        $direccion = surtigas::where('contrato', $reporte->contrato)->first();
 
         // Ruta de la plantilla
         $templateFile = public_path('template/temp.docx');

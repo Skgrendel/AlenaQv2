@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Dbssurtigas;
+use App\Models\surtigas;
 use Illuminate\Support\Facades\Auth;
 
 class AsignadosDatatable extends DataTableComponent
 {
-    protected $model = Dbssurtigas::class;
+    protected $model = surtigas::class;
     public ?string $searchPlaceholder = 'Buscar por Contrato';
     public ?int $searchFilterDebounce = 500;
     public string $defaultSortDirection = 'desc';
@@ -36,9 +36,9 @@ class AsignadosDatatable extends DataTableComponent
                 ])
                 ->filter(function (Builder $builder, $value) {
                     if ($value === '1') {
-                        $builder->where('Dbssurtigas.estado', '1');
+                        $builder->where('surtigas.estado', '1');
                     } elseif ($value === '2') {
-                        $builder->where('Dbssurtigas.estado', '0');
+                        $builder->where('surtigas.estado', '0');
                     }
                 }),
         ];
@@ -49,7 +49,7 @@ class AsignadosDatatable extends DataTableComponent
         $user = Auth::user();
         $personalId = $user->personals_id;
 
-        return Dbssurtigas::query()->where('Dbssurtigas.personals_id', $personalId);
+        return surtigas::query()->where('surtigas.personals_id', $personalId);
     }
 
     public function columns(): array

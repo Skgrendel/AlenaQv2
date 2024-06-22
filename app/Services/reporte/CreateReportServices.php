@@ -2,7 +2,7 @@
 
 namespace App\Services\reporte;
 
-use App\Models\dbssurtigas;
+use App\Models\surtigas;
 use App\Models\vs_anomalias;
 use App\Models\vs_comercios;
 use App\Models\vs_imposibilidad;
@@ -11,7 +11,7 @@ class CreateReportServices
 {
     public function CreateReport(string $id)
     {
-        $data = dbssurtigas::where('contrato', $id)->first();
+        $data = surtigas::where('contrato', $id)->first();
         $src = 'https://www.google.com/maps/place/' . $data->latitud . ',' . $data->longitud;
         $anomalias = vs_anomalias::pluck('nombre', 'id');
         $comercios = vs_comercios::pluck('nombre', 'id');

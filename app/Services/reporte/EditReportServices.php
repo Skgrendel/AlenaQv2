@@ -3,7 +3,7 @@
 namespace App\Services\reporte;
 
 use App\Models\comercio;
-use App\Models\dbssurtigas;
+use App\Models\surtigas;
 use App\Models\reportes;
 use App\Models\ubicacion;
 use App\Models\vs_anomalias;
@@ -17,7 +17,7 @@ class EditReportServices
         $data = reportes::find($id);
         $data->load('report_comercio','report_ubicacion','vs_imposibilidad');
         $ubicacion = ubicacion::where('id', $data->ubicacions_id)->first();
-        $ciclo = dbssurtigas::where('contrato', $data->contrato)->first();
+        $ciclo = surtigas::where('id', $data->surtigas_id)->first();
         $comerciosIds = comercio::where('id', $data->comercios_id)->first();
         $src = 'https://www.google.com/maps/place/' . $ciclo->latitud . ',' . $ciclo->longitud;
         $comercios = vs_comercios::pluck('nombre', 'id');

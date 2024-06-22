@@ -16,8 +16,6 @@ return new class extends Migration
             $table->string('nombre_comercio')->nullable();
             $table->string('tipo_comercio');
             $table->string('medidor_anomalia',125)->nullable();
-            $table->string('medidor_cambio',125)->nullable();
-            $table->string('nuevo_comercio')->nullable();
             $table->timestamps();
         });
     }

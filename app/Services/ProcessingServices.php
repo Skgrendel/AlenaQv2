@@ -6,7 +6,7 @@ use App\Services\reporte\FileProcessingService;
 use App\Services\reporte\ReportServices;
 use Illuminate\Http\Request;
 use App\Models\comercio;
-use App\Models\dbssurtigas;
+use App\Models\surtigas;
 use App\Models\reportes;
 use App\Models\ubicacion;
 
@@ -26,6 +26,7 @@ class ProcessingServices
     public function StoreReport(Request $request, $id)
     {
 
+        
         //Procesar Archivos Multimedia
         $fotos = $this->file->processImages($request);
         $video = $this->file->processVideo($request);
@@ -43,10 +44,10 @@ class ProcessingServices
         $reportesData = $this->Service->StoreReportes($request, $fotos, $id, $ubicacion->id, $comercio->id, $video);
 
         //Guardar Reporte
-        $reportesResultado = reportes::create($reportesData);
+        $Resultado = reportes::create($reportesData);
 
         //dbs_surtigas Cambio de Estado
-        $dbs_surtigas = dbssurtigas::where('contrato', $reportesResultado->contrato)->first();
+        $dbs_surtigas = surtigas::where('id', $Resultado->surtigas_id)->first();
         $dbs_surtigas->estado = '0';
         $dbs_surtigas->update();
     }

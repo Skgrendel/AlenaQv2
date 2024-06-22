@@ -4,7 +4,8 @@
     <div class="container mt-3">
         <div class="card">
             <div class="card-body">
-                <form class="row g-3" id="reportes" action="{{ route('reportes.store') }}" method="POST" enctype="multipart/form-data">
+                <form class="row g-3" id="reportes" action="{{ route('reportes.store') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <input type="text" hidden id="latitud" name="latitud" value="">
                     <input type="text" hidden id="longitud" name="longitud" value="">
@@ -37,12 +38,11 @@
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Ciclo: </label>
-                                                <span class=" text-body" id="ciclo">{{ $data['info']['db_Surtigas']['ciclo'] }}</span>
+                                                <span class=" text-body"
+                                                    id="ciclo">{{ $data['info']['db_Surtigas']['ciclo'] }}</span>
                                             </div>
-                                            <input type="text" id="medidor" name="medidor" hidden
-                                                value="{{ $data['info']['db_Surtigas']['medidor'] }}">
-                                            <input type="text" id="contrato" name="contrato" hidden
-                                                value="{{ $data['info']['db_Surtigas']['contrato'] }}">
+                                            <input type="text" id="medidor" name="surtigas_id" hidden
+                                                value="{{ $data['info']['db_Surtigas']['id'] }}">
                                             <hr>
                                             <div class="d-flex justify-content-between ">
                                                 <a href="{{ $data['location']['link'] }}" target="_blank"
@@ -64,15 +64,19 @@
                             <div class="col-6 d-flex justify-content-start ">
                                 <label for="switch-predio" class="form-label">¿Encontro el Predio?</label>
                             </div>
-                            <div class="col-6 d-flex justify-content-end ">
-                                <div class="switch form-switch-custom switch-inline form-switch-success">
-                                    <input class="switch-input" type="checkbox" role="switch" id="switch-predio">
-                                    <label class="switch-label" for="switch-predio">Si</label>
+                            <div class="col-6 d-flex justify-content-end">
+                                <div class="btn-group me-2" role="group" aria-label="Second group">
+                                <input type="radio" class="btn-check" name="options-outlined" id="prediosi"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-success" for="prediosi">Si</label>
+                                <input type="radio" class="btn-check" name="options-outlined" id="prediono"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-danger" for="prediono">No</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" id="hidden-anomalia" name="anomalia[]" multiple value="67" disabled>
+
                     <div class="d-none" id="info">
                         <div class="col-12 mb-2">
                             <label for="comercio" class="form-label">¿Que Tipo de Comercio Encontro?</label>
@@ -82,26 +86,25 @@
                                     <option value="{{ $id }}">{{ $nombre }}</option>
                                 @endforeach
                             </select>
-                            <input type="hidden" id="hidden-comercio" name="tipo_comercio" value="70" disabled>
 
-                            <div id="div-comercio-nuevo" class="mt-3 d-none">
-                                <label for="nueva_opcion" class="form-label"> ¿Cúal comercio Encontró?</label>
-                                <input type="text" name="nuevo_comercio" id="nueva_opcion" class="form-control">
-                            </div>
                             <div class="mt-3">
-                                <label for="nueva_opcion" class="form-label"> Nombre del Comercio Encontrado</label>
-                                <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control">
+                                <label for="nueva_opcion" class="form-label">Nombre del Comercio Encontrado</label>
+                                <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control" required>
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 mt-2">
                             <div class="row">
                                 <div class="col-6 d-flex justify-content-start">
                                     <label for="switch-medidor" class="form-label">¿Encontro un medidor?</label>
                                 </div>
                                 <div class="col-6 d-flex justify-content-end ">
-                                    <div class="switch form-switch-custom switch-inline form-switch-success">
-                                        <input class="switch-input" type="checkbox" role="switch" id="switch-medidor">
-                                        <label class="switch-label" for="switch-medidor">Si</label>
+                                    <div class="btn-group me-2" role="group" aria-label="Second group">
+                                    <input type="radio" class="btn-check" name="options-outlined" id="medidorsi"
+                                        autocomplete="off">
+                                    <label class="btn btn-outline-success text-center" for="medidorsi">Si</label>
+                                    <input type="radio" class="btn-check" name="options-outlined" id="medidorno"
+                                        autocomplete="off">
+                                    <label class="btn btn-outline-danger text-center" for="medidorno">No</label>
                                     </div>
                                 </div>
                             </div>
@@ -110,14 +113,17 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-6 d-flex justify-content-start ">
-                                        <label for="switch-coincide" class="form-label">¿El medidor No coincide?</label>
+                                        <label for="switch-coincide" class="form-label">¿El medidor coincide?</label>
                                     </div>
                                     <div class="col-6 d-flex justify-content-end">
-                                        <div class="switch form-switch-custom switch-inline form-switch-success">
-                                            <input class="switch-input" type="checkbox" role="switch"
-                                                id="switch-coincide">
-                                            <label class="switch-label" for="switch-coincide">Si</label>
-                                        </div>
+                                        <div class="btn-group me-2" role="group" aria-label="Second group">
+                                            <input type="radio" class="btn-check" name="medidorcsi" id="medidorcsi"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success text-center" for="medidorcsi">Si</label>
+                                            <input type="radio" class="btn-check" name="medidorcsi" id="medidorcno"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-danger text-center" for="medidorcno">No</label>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -126,20 +132,23 @@
                                     <label for="nueva_opcion" class="form-label">Digite el numero de Medidor Que
                                         Encontro</label>
                                     <input type="text" name="medidor_anomalia" id="medidor_anomalia"
-                                        class="form-control">
+                                        class="form-control" disabled>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12" id="container_anomalia_select">
                                 <div class="row">
                                     <div class="col-6 d-flex justify-content-start ">
                                         <label for="switch-anomalia" class="form-label">¿Observa alguna anomalía?</label>
                                     </div>
                                     <div class="col-6 d-flex justify-content-end ">
-                                        <div class="switch form-switch-custom switch-inline form-switch-success">
-                                            <input class="switch-input" type="checkbox" role="switch"
-                                                id="switch-anomalia">
-                                            <label class="switch-label" for="switch-anomalia">Si</label>
-                                        </div>
+                                        <div class="btn-group me-2" role="group" aria-label="Second group">
+                                            <input type="radio" class="btn-check" name="anomaliasi" id="anomaliasi"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success text-center" for="anomaliasi">Si</label>
+                                            <input type="radio" class="btn-check" name="anomaliasi" id="anomaliano"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-danger text-center" for="anomaliano">No</label>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -157,10 +166,14 @@
                             </div>
                             <div class="col-12 d-flex justify-content-between">
                                 <label for="switch-lectura" class="form-label">¿Puede tomar la lectura?</label>
-                                <div class="switch form-switch-custom switch-inline form-switch-success">
-                                    <input class="switch-input" type="checkbox" role="switch" id="switch-lectura">
-                                    <label class="switch-label" for="switch-lectura">Si</label>
-                                </div>
+                                <div class="btn-group me-2" role="group" aria-label="Second group">
+                                    <input type="radio" class="btn-check" name="lecturasi" id="lecturasi"
+                                        autocomplete="off">
+                                    <label class="btn btn-outline-success text-center" for="lecturasi">Si</label>
+                                    <input type="radio" class="btn-check" name="lecturasi" id="lecturano"
+                                        autocomplete="off">
+                                    <label class="btn btn-outline-danger text-center" for="lecturano">No</label>
+                                    </div>
                             </div>
                             <div class="col-lg-12 d-none mb-2" id="lectura_container">
                                 <div class="mt-1">
@@ -168,30 +181,22 @@
                                     <input type="text" name="lectura" id="lectura" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-12 d-none" id="container_imposibilidad">
+                            <div class="col-12 d-none" id="container_imposibilidad" hidden>
                                 <label for="imposibilidad" class="form-label">Imposibilidad</label>
-                                <select id="imposibilidad" class="form-select" name="imposibilidad">
-                                    <option selected disabled>Seleccione Su imposibilidad</option>
+                                <select id="imposibilidad" class="form-select" name="imposibilidad"
+                                    data-placeholder="Seleccione la imposibilidad">
                                     @foreach ($data['imposibilidad'] as $id => $nombre)
                                         <option value="{{ $id }}">{{ $nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <input type="hidden" id="hidden-imposibilidad" name="imposibilidad" disabled>
                         </div>
                     </div>
                     <div class="col-12">
                         <label for="comentarios" class="form-label">Observaciones</label>
                         <textarea name="comentarios" id="comentarios" cols="30" rows="3" class="form-control"></textarea>
                     </div>
-                    <div class="col-12 d-flex justify-content-between ">
-                        <label for="switch-evidencias" class="form-label">¿Desea Subir Evidencias?</label>
-                        <div class="switch form-switch-custom switch-inline form-switch-success">
-                            <input class="switch-input" type="checkbox" role="switch" id="switch-evidencias">
-                            <label class="switch-label" for="switch-evidencias">Si</label>
-                        </div>
-                    </div>
-                    <div id="evidencias" class="col-lg-12 layout-spacing d-none ">
+                    <div id="evidencias" class="col-lg-12 layout-spacing">
                         <div class="statbox widget box box-shadow">
                             <div class="widget-header">
                                 <div class="row">
@@ -409,7 +414,8 @@
                                             </g>
                                         </svg>
                                         <span class="btn-text-inner">Video</span>
-                                        <input type="file" class="form-control d-none" id="video-input" name="video" accept="video/mp4" capture="camera">
+                                        <input type="file" class="form-control d-none" id="video-input"
+                                            name="video" accept="video/mp4" capture="camera">
                                     </a>
                                 </div>
                                 <hr class="my-2">
@@ -435,19 +441,4 @@
 @section('scripts')
     <script src="{{ asset('script/agentes/AgentesGlobal.js') }}"></script>
     <script src="{{ asset('script/agentes/AgentesCreate.js') }}"></script>
-    <script>
-        //Mostrar Opcion para agregar nuevo Comercio
-        document.getElementById("comercio").addEventListener("change", function() {
-            var divComercioNuevo = document.getElementById("div-comercio-nuevo");
-            const nueva_opcion = document.getElementById("nueva_opcion");
-
-            if (this.options[this.selectedIndex].textContent === "Otros") {
-                divComercioNuevo.classList.remove("d-none");
-                nueva_opcion.disabled = false;
-            } else {
-                divComercioNuevo.classList.add("d-none");
-                nueva_opcion.disabled = true;
-            }
-        });
-    </script>
 @endsection

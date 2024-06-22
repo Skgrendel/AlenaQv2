@@ -52,7 +52,7 @@ class personals extends Model
     }
     public function dbs_surtigas()
     {
-        return $this->hasOne(dbssurtigas::class,'personals_id');
+        return $this->hasOne(surtigas::class,'personals_id');
     }
 
     public function roles()
