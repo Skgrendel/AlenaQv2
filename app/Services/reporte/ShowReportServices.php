@@ -14,9 +14,8 @@ class ShowReportServices
 {
     public function ShowReport(string $id)
     {
-        $data = reportes::find($id);
+        $data = reportes::find($id)->dd;
         $ubicacion = ubicacion::where('id',$data->ubicacions_id)->first();
-        $ciclo = surtigas::where('id',$data->surtigas_id)->first();
         $comerciosIds = comercio::where('id',$data->comercios_id)->first();
         $comercios = vs_comercios::pluck('nombre', 'id');
         $anomalias = vs_anomalias::pluck('nombre', 'id');
@@ -27,11 +26,11 @@ class ShowReportServices
         return [
             'info' => [
                 'id'=>$data->id,
-                'contrato' => $data->contrato,
-                'medidor' => $data->medidor,
+                'contrato' => $data->dbSurtigas->contrato,
+                'medidor' => $data->dbSurtigas->medidor,
                 'direccion' => $ubicacion->direccion,
-                'ciclo' => $ciclo->ciclo,
-                'cliente' => $ciclo->cliente,
+                'ciclo' => $data->dbSurtigas->ciclo,
+                'cliente' => $data->dbSurtigas->cliente,
                 'comerciosid' => $comerciosIds->tipo_comercio,
                 'comercionovedad'=> $comerciosIds->nuevo_comercio,
                 'medidoranomalia'=>$comerciosIds->medidor_anomalia,
@@ -40,6 +39,7 @@ class ShowReportServices
                 'imposibilidadid' =>$data->imposibilidad,
                 'lectura' => $data->lectura,
                 'observaciones' =>$data->observaciones,
+                'estado' => $data->estado
             ],
             'comercios' => $comercios,
             'anomalias' => $anomalias,

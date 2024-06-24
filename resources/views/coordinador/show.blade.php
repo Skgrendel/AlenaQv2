@@ -9,18 +9,14 @@
                         <div class="m-o-dropdown-list">
                             <div class="media mt-0 mb-3">
                                 <div class="badge--group me-3">
-                                    @if ($validate === null)
-                                        <span class="badge bg-danger badge-dot"></span>
-                                    @else
-                                        <div class="badge badge-success badge-dot"></div>
-                                    @endif
+                                    <div class="badge badge-success badge-dot"></div>
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading mb-0">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <span class="media-title">Numero de Contrato:
-                                                <strong>{{ $reporte->contrato }} @if ($validate === null)  <span class="text-danger">No REGISTRA en base de datos</span>  @endif</strong> </span>
+                                                    <strong>{{ $data['info']['contrato'] }}</strong> </span>
                                             </div>
                                         </div>
                                     </h4>
@@ -33,38 +29,52 @@
                                 <ul>
 
                                     <li>
-                                        <span class="text-card text-sm"> Numero del Medidor: {{ $reporte->medidor }}</span>
+                                        <span class="text-card text-sm"> Numero del Medidor:
+                                            {{ $data['info']['medidor'] ?? 'Sin medidor' }}</span>
                                     </li>
                                     <li>
-                                        <span class="text-card text-sm"> Numero de Lectura: {{ $reporte->lectura }}</span>
+                                        <span class="text-card text-sm"> Numero de Lectura:
+                                            {{ $data['info']['lectura'] }}</span>
                                     </li>
                                     <li>
                                         <span class="text-card text-sm"> Tipo de Comercio:
-                                            {{ $reporte->ComercioReporte->nombre }}</span>
-                                        @if ($reporte->nuevo_comercio)
-                                            <span class="text-card text-sm"> Comercio: {{ $reporte->nuevo_comercio }}</span>
-                                        @endif
+                                            {{ $data['info']['comercios'] ?? 'No tiene comercio' }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="text-card text-sm"> Ciclo:
+                                            {{ $data['info']['ciclo'] ?? 'Sin Datos' }}</span>
                                     </li>
                                 </ul>
                             </div>
                             <div class="col-md-6">
                                 <ul>
                                     <li>
-                                        <span class="text-card text-sm">{{ $reporte->imposibilidadReporte->nombre }}</span>
+                                        <span
+                                            class="text-card text-sm">{{ $data['info']['imposibilidad'] ?? 'No registra imposibilidades' }}</span>
                                     </li>
-                                    @foreach ($anomalias as $anomalia)
-                                        <li>
-                                            <span class="text-card text-sm">{{ $anomalia->nombre }}</span>
-                                        </li>
-                                    @endforeach
+                                    <li>
+                                        <span class="text-card text-sm">
+                                            {{ $data['info']['anomalias'] ?? 'sin datos' }}
+                                        </span>
+                                    </li>
                                     <li>
                                         <span class="text-card text-sm">Medidor Encontrado:
-                                            {{ $reporte->medidor_anomalia }}</span>
+                                            {{ $data['info']['medidoranomalia'] ?? 'Sin datos' }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="text-card text-sm">Estado:
+                                            {!! $data['info']['estado'] == 1
+                                                ? '<span class="badge bg-success">Activo</span>'
+                                                : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-
+                        <hr>
+                        <div class="row">
+                            <span class="text-card mb-2"> <strong>Comentarios del Agente de Campo</strong></span><br>
+                            <div class="text-card text-sm">{{ $data['info']['comentarios'] ?? 'sin datos' }}</div>
+                        </div>
                     </div>
                     <div class="card-footer pt-0 border-0">
                         <div class="progress br-30 progress-sm">
@@ -84,14 +94,46 @@
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading mb-0">
-                                        <span class="text-card">Comentarios del Agente de Campo</span>
+                                        <span class="text-card">Datos Gis
+                                            </span>
                                     </h4>
                                 </div>
                             </div>
                             <hr class="my-2">
                         </div>
-                        <div class="row">
-                            <div class="text-card text-sm">{{ $reporte->comentarios }}</div>
+                        <div class="row mt-2">
+                            <div class="text-card text-sm col-6">
+                                <ul>
+                                    <li class="mb-2">
+                                        Usuario :  {{ $gis['info']['usuario'] ?? 'sin datos' }}
+                                    </li>
+                                    <li class="mb-2">
+                                        Direccion: {{ $gis['info']['direccion'] ?? 'sin datos' }}
+                                    </li>
+                                    <li class="mb-2">
+                                        Barrio: {{ $gis['info']['barrio'] ?? 'sin datos' }}
+                                    </li>
+                                    <li>
+                                        Categoria: {{ $gis['info']['categoria'] ?? 'sin datos' }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="text-card text-sm col-6">
+                                <ul>
+                                    <li class="mb-2">
+                                        Contrato:  {{ $gis['info']['contrato'] ?? 'sin datos' }}
+                                    </li>
+                                    <li class="mb-2">
+                                        Medidor :  {{ $gis['info']['medidor'] ?? 'sin datos' }}
+                                    </li>
+                                    <li class="mb-2">
+                                        Estado: {{ $gis['info']['estado'] ?? 'sin datos' }}
+                                    </li>
+                                    <li class="mb-2">
+                                        Descripcion: {{ $gis['info']['descripcion'] ?? 'sin datos' }}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
 
                     </div>
@@ -124,13 +166,13 @@
                             <hr class="my-2">
                         </div>
                         <div class="row">
-                            <form action="{{ route('coordinador.update', $reporte->id) }}" method="post" id="observacion"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('coordinador.update', $data['info']['id']) }}" method="post"
+                                id="observacion" enctype="multipart/form-data">
                                 @method('PUT')
                                 @csrf
                                 <textarea id="editor" rows="5" name="observaciones" class="form-control mb-3"
                                     placeholder="Escriba Sus Observaciones"></textarea>
-                                @if ($reporte->estado != '6')
+                                @if ($data['info']['estado'] != '6')
                                     <div class="mb-2">
                                         <div class="form-check form-check-success form-check-inline">
                                             <label class="form-check-label" for="inlineRadio1">
@@ -184,7 +226,7 @@
                             <form action="{{ route('coordinador.store') }}" method="POST" enctype="multipart/form-data"
                                 id="evidencias">
                                 @csrf
-                                <input type="text" name="id" value="{{ $reporte->id }}" hidden>
+                                <input type="text" name="id" value="{{ $data['info']['id'] }}" hidden>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="input-group mb-1 ">
@@ -250,23 +292,22 @@
     <div class="widget-content widget-content-area mt-2 ">
         <div class="row">
             @foreach (range(1, 6) as $i)
-                @if ($reporte->{'foto' . $i})
+                @if (isset($data['imagenes']['foto' . $i]))
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                        <a href="/imagen/{{ $reporte->{'foto' . $i} }}"
+                        <a href="/imagen/{{ $data['imagenes']['foto' . $i] }}"
                             class="withDescriptionGlightbox glightbox-content"
-                            data-glightbox="title: Contrato y medidor; description: Contrato #:{{ $reporte->contrato }} - Medidor #:{{ $reporte->medidor }};">
-                            <img src="/imagen/{{ $reporte->{'foto' . $i} }}" alt="image" class="img-fluid"
-                            style="width:350px; height:250px; object-fit: cover;" />
+                            data-glightbox="title: Contrato y medidor; description: Contrato #:{{ $data['info']['contrato'] }} - Medidor #:{{ $data['info']['medidor'] }};">
+                            <img src="/imagen/{{ $data['imagenes']['foto' . $i] }}" alt="image" class="img-fluid"
+                                style="width:350px; height:250px; object-fit: cover;" />
                         </a>
                     </div>
                 @endif
             @endforeach
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4 me-auto">
-                @if ($reporte->video)
-                    <a href="{{ asset('video/' . $reporte['video']) }}"
-                        class="withDescriptionGlightbox glightbox-content">
+                @if (isset($data['video']))
+                    <a href="{{ asset('video/' . $data['video']) }}" class="withDescriptionGlightbox glightbox-content">
                         <img src="{{ asset('src/image/video.jpeg') }}" alt="image" class="img-fluid"
-                        style="width:350px; height:250px; object-fit: cover;" />
+                            style="width:350px; height:250px; object-fit: cover;" />
                     </a>
                 @endif
             </div>

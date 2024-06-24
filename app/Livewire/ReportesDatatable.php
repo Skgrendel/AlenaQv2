@@ -21,7 +21,9 @@ class ReportesDatatable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')->setTableRowUrl(function($row) {
+            return route('coordinador.show',['coordinador' => $row]);
+        });
         $this->setColumnSelectStatus(false);
     }
 
@@ -122,7 +124,7 @@ class ReportesDatatable extends DataTableComponent
         return [
             Column::make("Nombres", "personal.nombres"),
             Column::make("Apellidos", "personal.apellidos"),
-            Column::make("Contrato", "contrato")
+            Column::make("Contrato", "dbSurtigas.contrato")
                 ->collapseOnMobile()
                 ->searchable(),
             Column::make("Lectura", "lectura")

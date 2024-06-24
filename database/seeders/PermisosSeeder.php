@@ -43,6 +43,13 @@ class PermisosSeeder extends Seeder
             'estado' => 1, // Ajusta el valor según tus necesidades
         ]);
         Permission::create([
+            'name' => 'admin.destroy',
+            'description'=>'Eliminar Configuracion',
+            'category'=>'Administrador',
+            'guard_name' => 'web',
+            'estado' => 1, // Ajusta el valor según tus necesidades
+        ]);
+        Permission::create([
             'name' => 'coordi.index',
             'description'=>'Reportes',
             'category'=>'Coordinador',

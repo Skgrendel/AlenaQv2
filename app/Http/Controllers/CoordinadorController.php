@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\surtigas;
 use App\Models\reportes;
 use App\Models\vs_anomalias;
+use App\Services\ProcessingServices;
+use App\Services\reporte\CreateReportServices;
+use App\Services\coordinador\DataGisServices;
+use App\Services\coordinador\ShowReportServices;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -12,8 +16,17 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class CoordinadorController extends Controller
 {
+    private $Processing;
+    private  $info;
+    private  $create;
+    private $show;
+
     public function __construct()
     {
+        $this->Processing = new ProcessingServices;
+        $this->info = new DataGisServices();
+        $this->create = new CreateReportServices();
+        $this->show = new ShowReportServices();
     }
     /**
      * Display a listing of the resource.
@@ -77,10 +90,10 @@ class CoordinadorController extends Controller
      */
     public function show($id)
     {
-        $reporte = reportes::find($id);
-        $anomaliasIds = json_decode($reporte->anomalia);
-        $anomalias = vs_anomalias::whereIn('id', $anomaliasIds)->get();
-        return view('coordinador.show', compact('reporte', 'anomalias'));
+        $data = $this->show->ShowReport($id);
+        $gis = $this->info->DataGis($id);
+        $data['imagenes'] = (array) $data['imagenes'];
+        return view('coordinador.show', compact('data','gis'));
     }
 
     /**

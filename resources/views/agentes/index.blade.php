@@ -34,7 +34,7 @@
                             @endif
                             <div class="card-body px-4 py-0 align-self-center">
                                 <p class="card-text text-sm text-black "> <strong>Contrato:
-                                        {{ $reporte->contrato }}</strong> </p>
+                                        {{ $reporte->dbSurtigas->contrato }}</strong> </p>
                                 <ul>
                                     <li>
                                         <span>Fecha: {{ $reporte->created_at->format('Y-m-d') }}</span>

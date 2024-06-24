@@ -80,13 +80,11 @@
                     <div class="d-none" id="info">
                         <div class="col-12 mb-2">
                             <label for="comercio" class="form-label">¿Que Tipo de Comercio Encontro?</label>
-                            <select id="comercio" class="form-select" name="tipo_comercio">
-                                <option selected disabled>Seleccione El tipo de Comercio</option>
+                            <select id="slcComercio" class="form-select" name="tipo_comercio" data-placeholder="Seleccione el Tipo de Comercio">
                                 @foreach ($data['comercios'] as $id => $nombre)
                                     <option value="{{ $id }}">{{ $nombre }}</option>
                                 @endforeach
                             </select>
-
                             <div class="mt-3">
                                 <label for="nueva_opcion" class="form-label">Nombre del Comercio Encontrado</label>
                                 <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control" required>
@@ -156,7 +154,7 @@
                                 <div class="mt-1">
                                     <label for="nueva_opcion" class="form-label">Seleccione La Anomalia Que
                                         Detecto</label>
-                                    <select id="anomalia" class="form-select" name="anomalia[]" multiple
+                                    <select id="slcanomalia" class="form-select" name="anomalia[]" multiple
                                         data-placeholder="Seleccione la anomalia">
                                         @foreach ($data['anomalias'] as $id => $nombre)
                                             <option value="{{ $id }}">{{ $nombre }}</option>

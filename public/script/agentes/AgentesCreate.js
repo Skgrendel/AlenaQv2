@@ -2,6 +2,8 @@
 document.addEventListener("DOMContentLoaded", (event) => {
     const anomaliasi = document.getElementById("anomaliasi");
     const prediosi = document.getElementById("prediosi");
+    const lecturasi = document.getElementById("lecturasi");
+    const lecturano = document.getElementById("lecturano");
     const prediono = document.getElementById("prediono");
     const anomaliano = document.getElementById("anomaliano");
     const medidorsi = document.getElementById("medidorsi");
@@ -11,8 +13,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const infoDiv = document.getElementById("info");
     const nombre_comercio = document.getElementById("nombre_comercio");
     const contmedidor = document.getElementById("cont-medidor")
-    const Anomalia = document.getElementById("anomalia");
-    const Comercio = document.getElementById("comercio");
+    const contlectura = document.getElementById("lectura_container")
+    const Anomalia = document.getElementById("slcanomalia");
+    const Comercio = document.getElementById("slcComercio");
     const medidor_anomalia = document.getElementById("medidor_anomalia");
     const medidor_anomalia_container = document.getElementById("medidor_anomalia_container");
     const imposibilidad = document.getElementById("imposibilidad");
@@ -21,55 +24,66 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Función para actualizar el estado del checkbox
     const updateState = () => {
-
-        if (prediosi.checked) {
-            infoDiv.classList.remove("d-none"); // Show the div
-            medidor_anomalia.disabled = false;
-            nombre_comercio.value = ""
-            Comercio.value = "";
-        }
-        if (anomaliasi.checked) {
-            anomaliaContainer.classList.remove("d-none"); // Show the div
-            Anomalia.value = "";
-        }
-
-        if (anomaliano.checked) {
-            anomaliaContainer.classList.add("d-none"); // Show the div
-            Anomalia.value = 8;
-        }
-
-        if (medidorsi.checked) {
-            contmedidor.classList.remove("d-none"); // Show the div
-        }
-
-        if (medidorno.checked) {
-            contmedidor.classList.add("d-none"); // Show the div
-            medidor_anomalia.disabled = true;
-            lectura.value = 0;
-            Anomalia.value = 67;
-            imposibilidad.value = 60;
-        }
-        if (medidorcsi.checked) {
-            medidor_anomalia_container.classList.add("d-none"); // Show the div
-            medidor_anomalia.disabled = true;
-        }
-
-        if (medidorcno.checked) {
-            medidor_anomalia_container.classList.remove("d-none"); // Show the div
-            medidor_anomalia.disabled = false;
-            
-        }
-
         if (prediono.checked) {
-            infoDiv.classList.add("d-none"); // Hide the div
+            infoDiv.classList.add("d-none");
             medidor_anomalia.disabled = true;
             nombre_comercio.value = "Comercio No encontrado"
             Anomalia.value = 67;
             Comercio.value = 70;
             imposibilidad.value = 60;
             lectura.value = 0;
+            console.log("entro aca")
         }
 
+        if (prediosi.checked) {
+            infoDiv.classList.remove("d-none");
+            medidor_anomalia.disabled = false;
+            nombre_comercio.value = ""
+            Comercio.value = "";
+        }
+
+        if (anomaliasi.checked) {
+            anomaliaContainer.classList.remove("d-none");
+            Anomalia.value = "";
+        }
+
+        if (anomaliano.checked) {
+            anomaliaContainer.classList.add("d-none");
+            Anomalia.value = 8;
+        }
+
+        if (lecturano.checked) {
+            contlectura.classList.add("d-none");
+            lectura.value = 0;
+        }
+
+        if (lecturasi.checked) {
+            contlectura.classList.remove("d-none");
+            lectura.value = "";
+        }
+
+        if (medidorsi.checked) {
+            contmedidor.classList.remove("d-none");
+        }
+
+        if (medidorno.checked) {
+            contmedidor.classList.add("d-none");
+            medidor_anomalia.disabled = true;
+            lectura.value = 0;
+            Anomalia.value = 67;
+            imposibilidad.value = 60;
+        }
+
+        if (medidorcsi.checked) {
+            medidor_anomalia_container.classList.add("d-none");
+            medidor_anomalia.disabled = true;
+        }
+
+        if (medidorcno.checked) {
+            medidor_anomalia_container.classList.remove("d-none");
+            medidor_anomalia.disabled = false;
+
+        }
 
     };
 
@@ -78,7 +92,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     medidorsi.addEventListener("change", updateState);
     medidorcsi.addEventListener("change", updateState);
     anomaliasi.addEventListener("change", updateState);
+    lecturasi.addEventListener("change", updateState);
     prediono.addEventListener("change", updateState);
+    lecturano.addEventListener("change", updateState);
     medidorno.addEventListener("change", updateState);
     medidorcno.addEventListener("change", updateState);
     anomaliano.addEventListener("change", updateState);
@@ -87,18 +103,3 @@ document.addEventListener("DOMContentLoaded", (event) => {
     updateState();
 });
 
-
-document.addEventListener("DOMContentLoaded", (event) => {
-
-const switchEvidencia = document.getElementById("switch-evidencias");
-const contEvidencia = document.getElementById("evidencias");
-
-switchEvidencia.addEventListener("change", function () {
-    if (this.checked) {
-        contEvidencia.classList.remove("d-none"); // Show the div
-    } else {
-        contEvidencia.classList.add("d-none"); // Hide the div
-    }
-});
-
-});

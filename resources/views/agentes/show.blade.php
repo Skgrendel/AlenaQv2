@@ -124,7 +124,6 @@
                                         aria-labelledby="profile-tab" tabindex="0">
                                         <div class="widget-content widget-content-area mt-2 ">
                                             <div class="row">
-
                                                 @foreach (range(1, 6) as $i)
                                                     @if (isset($data['imagenes']['foto' . $i]))
                                                         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
