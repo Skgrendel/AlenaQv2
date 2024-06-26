@@ -25,6 +25,9 @@ class ReportesDatatable extends DataTableComponent
             return route('coordinador.show',['coordinador' => $row]);
         });
         $this->setColumnSelectStatus(false);
+        $this->setTableAttributes([
+            'class' => 'table table-bordered custom-table',
+        ]);
     }
 
     public function bulkActions(): array

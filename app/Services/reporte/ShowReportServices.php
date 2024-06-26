@@ -14,7 +14,7 @@ class ShowReportServices
 {
     public function ShowReport(string $id)
     {
-        $data = reportes::find($id)->dd;
+        $data = reportes::find($id);
         $ubicacion = ubicacion::where('id',$data->ubicacions_id)->first();
         $comerciosIds = comercio::where('id',$data->comercios_id)->first();
         $comercios = vs_comercios::pluck('nombre', 'id');

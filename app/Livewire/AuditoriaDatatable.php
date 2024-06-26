@@ -25,6 +25,9 @@ class AuditoriaDatatable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
+        $this->setTableAttributes([
+            'class' => 'table table-bordered custom-table',
+        ]);
     }
 
     public function bulkActions(): array

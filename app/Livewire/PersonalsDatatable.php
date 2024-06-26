@@ -21,6 +21,9 @@ class PersonalsDatatable extends DataTableComponent
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
         $this->setPerPage(10);
+        $this->setTableAttributes([
+            'class' => 'table table-bordered custom-table',
+        ]);
         $this->setConfigurableAreas([
             'toolbar-left-end' => 'personals.drop',
         ]);

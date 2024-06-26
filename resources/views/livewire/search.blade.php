@@ -33,7 +33,7 @@
             </div>
             <div class="col-12 mb-2">
                 <label for="direccion" class="form-label"><strong>Nombre del Usuario</strong></label><br>
-                <span class="form-control" id="direccion">{{ $nombre_user }}</span>
+                <span class="form-control" id="direccion">{{ $nombre_user . ' ' . $apellido}}</span>
             </div>
             <div class="col-12 mb-2">
                 <label for="direccion" class="form-label"><strong>Medidor</strong></label><br>
