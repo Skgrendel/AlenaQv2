@@ -38,7 +38,6 @@ class RolesController extends Controller
         );
         $role = Role::create($request->all());
         $role->permissions()->sync($request->Permisos);
-
         return redirect()->route('roles.index')->with('success', 'Su rol Fue Creado Exitosamente');
     }
 
@@ -57,7 +56,6 @@ class RolesController extends Controller
      */
     public function edit(Role $role)
     {
-        
         return view('admin.roles.edit', compact('role'));
     }
 

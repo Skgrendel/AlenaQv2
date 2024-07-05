@@ -13,10 +13,7 @@
             </div>
         </div>
         <ul class="list-unstyled menu-categories mt-2 " id="accordionExample">
-            @php
-                $user = Auth::user();
-            @endphp
-            @if ($user->hasRole('Lector') || $user->hasRole('Administrador'))
+            @can('agente.index')
                 <li
                     class="menu {{ Route::currentRouteName() == 'reportes.index' || Route::currentRouteName() == 'reportes.show' || Route::currentRouteName() == 'reportes.edit' ? 'active' : '' }}">
                     <a href="{{ route('reportes.index') }}" aria-expanded="true" class="dropdown-toggle">
@@ -50,8 +47,8 @@
                         </div>
                     </a>
                 </li>
-            @endif
-            @if ($user->hasRole('Administrador') || $user->hasRole('Coordinador'))
+            @endcan
+            @can('coordi.index')
                 <li
                     class="menu {{ Route::currentRouteName() == 'coordinador.index' || Route::currentRouteName() == 'coordinador.show' ? 'active' : '' }}">
                     <a href="{{ route('coordinador.index') }}" aria-expanded="true" class="dropdown-toggle">
@@ -69,8 +66,8 @@
                         </div>
                     </a>
                 </li>
-            @endif
-            @if ($user->hasRole('Pno') || $user->hasRole('Administrador') || $user->hasRole('Coordinador'))
+            @endcan
+            @can('coordi.show')
                 <li
                     class="menu {{ Route::currentRouteName() == 'auditorias.index' || Route::currentRouteName() == 'auditorias.show' || Route::currentRouteName() == 'auditorias.create' ? 'active' : '' }}">
                     <a href="#Auditoria" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -78,8 +75,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"
                                 id="Clipboard-Check--Streamline-Core" height="14" width="14">
                                 <desc>Clipboard Check Streamline Icon: https://streamlinehq.com</desc>
-                                <g
-                                    id="clipboard-check--checkmark-edit-task-edition-checklist-check-success-clipboard-form">
+                                <g id="clipboard-check--checkmark-edit-task-edition-checklist-check-success-clipboard-form">
                                     <path id="Union" fill="#000000" fill-rule="evenodd"
                                         d="M5.5 0c-0.55228 0 -1 0.447716 -1 1v0.5c0 0.55229 0.44772 1 1 1h3c0.55229 0 1 -0.44771 1 -1V1c0 -0.552285 -0.44771 -1 -1 -1h-3ZM3.24997 1H2.75c-0.82843 0 -1.5 0.67157 -1.5 1.5v10c0 0.8284 0.67157 1.5 1.5 1.5h8.5c0.8284 0 1.5 -0.6716 1.5 -1.5v-10c0 -0.82843 -0.6716 -1.5 -1.5 -1.5h-0.5v0.5c0 1.24264 -1.00739 2.25 -2.25003 2.25h-3c-1.24264 0 -2.25 -1.00736 -2.25 -2.25V1ZM9.95 5.9c0.3314 0.24853 0.3985 0.71863 0.15 1.05l-3 4c-0.23883 0.3184 -0.68483 0.3948 -1.01603 0.174l-1.5 -1c-0.34464 -0.22973 -0.43777 -0.69538 -0.20801 -1.04003 0.22977 -0.34464 0.69542 -0.43777 1.04007 -0.20801l0.90966 0.60645L8.9 6.05c0.24853 -0.33137 0.71863 -0.39853 1.05 -0.15Z"
                                         clip-rule="evenodd" stroke-width="1"></path>
@@ -88,9 +84,9 @@
                             <span>Auditoria</span>
                         </div>
                         <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-chevron-right">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </div>
@@ -104,8 +100,8 @@
                         </li>
                     </ul>
                 </li>
-            @endif
-            @if ($user->hasRole('Administrador'))
+            @endcan
+            @can('admin.index')
                 <li
                     class="menu {{ Route::currentRouteName() == 'personals.index' || Route::currentRouteName() == 'personals.edit' ? 'active' : '' }}">
                     <a href="#Personal" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -122,9 +118,9 @@
                             <span>Usuarios</span>
                         </div>
                         <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-chevron-right">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </div>
@@ -150,9 +146,9 @@
                             <span>Informes</span>
                         </div>
                         <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-chevron-right">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </div>
@@ -164,7 +160,7 @@
                     </ul>
                 </li>
                 <li
-                    class="menu {{ Route::currentRouteName() == 'roles.index' || Route::currentRouteName() == 'roles.show' || Route::currentRouteName() == 'roles.create'? 'active' : '' }}">
+                    class="menu {{ Route::currentRouteName() == 'roles.index' || Route::currentRouteName() == 'roles.show' || Route::currentRouteName() == 'roles.create' ? 'active' : '' }}">
                     <a href="#roles" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"
@@ -179,9 +175,9 @@
                             <span>Configuracion</span>
                         </div>
                         <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-chevron-right">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </div>
@@ -192,7 +188,7 @@
                         </li>
                     </ul>
                 </li>
-            @endif
+            @endcan
         </ul>
     </nav>
 </div>
