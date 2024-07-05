@@ -9,7 +9,7 @@ class auditoria extends Model
 {
     use HasFactory;
     protected $table = 'auditorias';
-    protected $fillable = ['reportes_id','medidor_coincide','lectura_correcta','foto_correcta','comercio_coincide','revisado','confirmado_anomalia','observaciones'];
+    protected $fillable = ['reportes_id','medidor_coincide','lectura_correcta','foto_correcta','comercio_coincide','revisado','confirmado_anomalia','intento_soborno','observaciones'];
 
     public function ReportesLecutra()
     {

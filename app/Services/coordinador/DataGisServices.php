@@ -9,29 +9,151 @@ use Illuminate\Support\Facades\Http;
 
 class DataGisServices
 {
-    public function DataGis(string $id)
+    public function DataGis($id)
     {
-        $token = 'lNonRqbV5deWakOmePwDf7VIJChpJ_8IYrkrHMmK_50J0IdGUTeWniXN_r74mn9b9z13Du5egEEG88V5RadOve82YgACV4t6EtoRAabbj5Owr8sRodGTs2R8cdf3QxNtISjU3GVUqxNBsZqOTQlebWr07tA7GZrJUF_6s__oxkChThBei0KoUR9_Lr1ZfoCQTQneZH-ALYa5zZUzA5rdDy0P7BwSqBFIAXIEltYHKCCQsFSjH_BILnTE1SR_8Mp6c2NWEHvnHeCLHSXSUMNhjg..';
-        $data = reportes::find($id);
-        $surtigas = surtigas::where('id', $data->surtigas_id)->first();
-        // URL de consulta
-        $urlConsulta = Http::withoutVerifying()->get("https://arcgisportal.surtigas.com.co/geaserver/rest/services/Ingenieria/FC_PTDIRECCIONES/MapServer/0/query?f=json&where=(SUBSCRIPTION_ID%20IS%20NOT%20NULL)%20AND%20(SUBSCRIPTION_ID%20%3D%20$surtigas->contrato)&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=OBJECTID%2CORDEN%2CRID%2COBJECTID_1%2CDEPARTAMENTO%2CLOCALIDAD%2CNOMBRE%2CADDRESS_ID%2CID_PREMISE%2CNUP%2CDIRECCION%2CTAG%2CANILLADO%2CTIPOPREDIO%2CCICLO%2CDESCRIPCION%2CBARRIO%2CNOMBREBARRIO%2CCATEGORIA%2CDESCATEGORIA%2CESTRATO%2CPRODUCT_ID%2CPRODUCT_STATUS_ID%2CESTADOPRODUCTO%2CSUBSCRIPTION_ID%2CDESCESTADOCORTE%2CCODIDOESTADOCORTE%2CNOMBREUSUARIO%2CAPELLIDO%2CELEMENTOMEDICION%2CORIG_FID&outSR=102100&resultOffset=0&resultRecordCount=1000&token=$token");
+        try {
+            //$token = env('GIS_API_TOKEN');
+            $data = reportes::find($id);
+            $surtigas = surtigas::where('contrato', $data->dbSurtigas->contrato)->first();
+            $token = 'WbKs3NOEc3oYl3HxCdlSYoVH-wCrEVpBPxs-8K6tl5CnVnnRumo1CarwdXJm29GfULCOpxnl_VBPbTp3wQU8vsBLfCwwp5guoD21BZeOOBU1iJuF8YteaS-2Z06oH58LXpZbPI44G9lR-_BFHr9JhjyvE1BmXWefVceJ3peIs6s3vW5W7bdq_Z3Uu3Au1BI7w18LIqjgJ7KaHbameKGkGnndBASzk1BVXbvMG0gDO6RR_uKX0ZZFxjUo2fi9q63JX6q_5u2UmSoJb7UWwPUvSw..';
+            $url = "https://arcgisportal.surtigas.com.co/geaserver/rest/services/Ingenieria/FC_PTDIRECCIONES/MapServer/0/query?f=json&where=(SUBSCRIPTION_ID%20IS%20NOT%20NULL)%20AND%20(SUBSCRIPTION_ID%20%3D%20$surtigas->contrato)&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=OBJECTID%2CORDEN%2CRID%2COBJECTID_1%2CDEPARTAMENTO%2CLOCALIDAD%2CNOMBRE%2CADDRESS_ID%2CID_PREMISE%2CNUP%2CDIRECCION%2CTAG%2CANILLADO%2CTIPOPREDIO%2CCICLO%2CDESCRIPCION%2CBARRIO%2CNOMBREBARRIO%2CCATEGORIA%2CDESCATEGORIA%2CESTRATO%2CPRODUCT_ID%2CPRODUCT_STATUS_ID%2CESTADOPRODUCTO%2CSUBSCRIPTION_ID%2CDESCESTADOCORTE%2CCODIDOESTADOCORTE%2CNOMBREUSUARIO%2CAPELLIDO%2CELEMENTOMEDICION%2CORIG_FID&outSR=102100&resultOffset=0&resultRecordCount=1000&token=$token";
 
-        // Decodificar la respuesta JSON
-        $data = $urlConsulta->json();
-        $attributes = $data['features'][0]['attributes'];
+            if (!$surtigas) {
+                return [
+                    'error' => 'No se encontró informacion asociada al contrato proporcionado.'
+                ];
+            }
 
-        return [
-            'info' => [
-                'direccion' => $attributes['DIRECCION'],
-                'estado' => $attributes['ESTADOPRODUCTO'],
-                'usuario' => $attributes['NOMBREUSUARIO'],
-                'barrio' => $attributes['NOMBREBARRIO'],
-                'categoria' =>$attributes['DESCATEGORIA'],
-                'descripcion' =>$attributes['DESCRIPCION'],
-                'contrato'=> $attributes['PRODUCT_ID'],
-                'medidor'=> $attributes['ELEMENTOMEDICION']
-            ],
-        ];
+            // URL de consulta
+            $urlConsulta = Http::withoutVerifying()
+                ->withHeaders([
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+                ])
+                ->get($url);
+
+            // Verificar el estado de la respuesta
+            if ($urlConsulta->failed()) {
+                return [
+                    'error' => 'Error al consultar el servicio GIS. Por favor, inténtelo más tarde.'
+                ];
+            }
+
+            // Decodificar la respuesta JSON
+            $data = $urlConsulta->json();
+
+            if (isset($data['error'])) {
+                return [
+                    'error' => $data['error']['message']
+                ];
+            }
+
+            if (!$data || !isset($data['features'][0])) {
+                return [
+                    'error' => 'No se encontraron datos para el contrato proporcionado.'
+                ];
+            }
+
+            $attributes = $data['features'][0]['attributes'];
+    
+            return [
+                'info' => [
+                    'direccion' => $attributes['DIRECCION'],
+                    'estado' => $attributes['ESTADOPRODUCTO'],
+                    'estadoCorte' => $attributes['DESCESTADOCORTE'],
+                    'usuario' => $attributes['NOMBREUSUARIO'],
+                    'apellido' => $attributes['APELLIDO'],
+                    'cliente' => $attributes['NOMBREUSUARIO'] . ' ' .  $attributes['APELLIDO'],
+                    'barrio' => $attributes['NOMBREBARRIO'],
+                    'categoria' => $attributes['DESCATEGORIA'],
+                    'descripcion' => $attributes['DESCRIPCION'],
+                    'contrato' => $attributes['SUBSCRIPTION_ID'],
+                    'medidor' => $attributes['ELEMENTOMEDICION']
+                ],
+            ];
+        } catch (\Exception $e) {
+            return [
+                'error' => 'Se produjo un error al intentar acceder al servicio : ' // . $e->getMessage()
+            ];
+        }
+    }
+
+    public function DataGisubicacion(string $contrato)
+    {
+        try {
+            $token = env('GIS_API_TOKEN');
+            $surtigas = surtigas::where('contrato', $contrato)->first();
+            $url = "https://arcgisportal.surtigas.com.co/geaserver/rest/services/Ingenieria/FC_PTDIRECCIONES/MapServer/0/query?f=json&where=(SUBSCRIPTION_ID%20IS%20NOT%20NULL)%20AND%20(SUBSCRIPTION_ID%20%3D%20$surtigas->contrato)&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=OBJECTID%2CORDEN%2CRID%2COBJECTID_1%2CDEPARTAMENTO%2CLOCALIDAD%2CNOMBRE%2CADDRESS_ID%2CID_PREMISE%2CNUP%2CDIRECCION%2CTAG%2CANILLADO%2CTIPOPREDIO%2CCICLO%2CDESCRIPCION%2CBARRIO%2CNOMBREBARRIO%2CCATEGORIA%2CDESCATEGORIA%2CESTRATO%2CPRODUCT_ID%2CPRODUCT_STATUS_ID%2CESTADOPRODUCTO%2CSUBSCRIPTION_ID%2CDESCESTADOCORTE%2CCODIDOESTADOCORTE%2CNOMBREUSUARIO%2CAPELLIDO%2CELEMENTOMEDICION%2CORIG_FID&outSR=102100&resultOffset=0&resultRecordCount=1000&token=$token";
+
+            if (!$surtigas) {
+                return [
+                    'error' => 'No se encontró informacion asociada al contrato proporcionado.'
+                ];
+            }
+
+            // URL de consulta
+            $urlConsulta = Http::withoutVerifying()
+                ->withHeaders([
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+                ])
+                ->get($url);
+
+            // Verificar el estado de la respuesta
+            if ($urlConsulta->failed()) {
+                return [
+                    'error' => 'Error al consultar el servicio GIS. Por favor, inténtelo más tarde.'
+                ];
+            }
+
+            // Decodificar la respuesta JSON
+            $data = $urlConsulta->json();
+
+            if (isset($data['error'])) {
+                return [
+                    'error' => $data['error']['message']
+                ];
+            }
+
+            if (!$data || !isset($data['features'][0])) {
+                return [
+                    'error' => 'No se encontraron datos para el contrato proporcionado.'
+                ];
+            }
+
+            $attributes = $data['features'][0]['attributes'];
+            $geometry = $data['features'][0]['geometry'];
+
+            // Convertir coordenadas de Web Mercator a latitud y longitud
+            list($lat, $lng) = $this->convertWebMercatorToLatLng($geometry['x'], $geometry['y']);
+
+            return [
+                'info' => [
+                    'direccion' => $attributes['DIRECCION'],
+                    'estado' => $attributes['ESTADOPRODUCTO'],
+                    'estadoCorte' => $attributes['DESCESTADOCORTE'],
+                    'usuario' => $attributes['NOMBREUSUARIO'],
+                    'apellido' => $attributes['APELLIDO'],
+                    'cliente' => $attributes['NOMBREUSUARIO'] . ' ' .  $attributes['APELLIDO'],
+                    'barrio' => $attributes['NOMBREBARRIO'],
+                    'categoria' => $attributes['DESCATEGORIA'],
+                    'descripcion' => $attributes['DESCRIPCION'],
+                    'contrato' => $attributes['SUBSCRIPTION_ID'],
+                    'medidor' => $attributes['ELEMENTOMEDICION']
+                ],
+                'geometry' => [
+                    'link' => 'https://www.google.com/maps/place/' . $lat . ',' . $lng,
+                ]
+            ];
+        } catch (\Exception $e) {
+            return [
+                'error' => 'Se produjo un error al intentar acceder al servicio : ' // . $e->getMessage()
+            ];
+        }
+    }
+
+    private function convertWebMercatorToLatLng($x, $y)
+    {
+        $lng = ($x / 6378137) * (180 / pi());
+        $lat = (2 * atan(exp($y / 6378137)) - (pi() / 2)) * (180 / pi());
+        return [$lat, $lng];
     }
 }

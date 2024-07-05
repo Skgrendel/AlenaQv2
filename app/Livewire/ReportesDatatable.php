@@ -21,8 +21,8 @@ class ReportesDatatable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id')->setTableRowUrl(function($row) {
-            return route('coordinador.show',['coordinador' => $row]);
+        $this->setPrimaryKey('id')->setTableRowUrl(function ($row) {
+            return route('coordinador.show', ['coordinador' => $row]);
         });
         $this->setColumnSelectStatus(false);
         $this->setTableAttributes([
@@ -51,21 +51,7 @@ class ReportesDatatable extends DataTableComponent
     public function filters(): array
     {
         return [
-            SelectFilter::make('Estados')
-                ->options([
-                    '' => 'All',
-                    '5' => 'Pendientes',
-                    '7' => 'Rechazados',
-                ])
-                ->filter(function (Builder $builder, $value) {
-                    if ($value === '5') {
-                        $builder->where('reportes.estado', '5');
-                    } elseif ($value === '7') {
-                        $builder->where('reportes.estado', '7');
-                    }
-                }),
-
-            SelectFilter::make('Anomalias')
+                  SelectFilter::make('Anomalias')
                 ->options([
                     '' => 'All',
                     '1' => 'Sin anomalias',
@@ -114,11 +100,56 @@ class ReportesDatatable extends DataTableComponent
                         $builder->whereJsonContains('reportes.anomalia', '67');
                     }
                 }),
+
+            SelectFilter::make('Ciclos')
+                ->options([
+                    '' => 'All',
+                    '1' => '1001',
+                    '2' => '1002',
+                    '3' => '1003',
+                    '4' => '1004',
+                    '5' => '1005',
+                    '6' => '1006',
+                    '7' => '1007',
+                    '8' => '1008',
+                    '9' => '1009',
+                    '10' => '1010',
+                    '11' => '1011',
+                    '12' => '1012',
+                ])
+                ->filter(function (Builder $builder, $value) {
+                    if ($value === '1') {
+                        $builder->where('dbSurtigas.ciclo', '1001');
+                    } elseif ($value === '2') {
+                        $builder->where('dbSurtigas.ciclo', '1002');
+                    } elseif ($value === '3') {
+                        $builder->where('dbSurtigas.ciclo', '1003');
+                    } elseif ($value === '4') {
+                        $builder->where('dbSurtigas.ciclo', '1004');
+                    } elseif ($value === '5') {
+                        $builder->where('dbSurtigas.ciclo', '1005');
+                    } elseif ($value === '6') {
+                        $builder->where('dbSurtigas.ciclo', '1006');
+                    } elseif ($value === '7') {
+                        $builder->where('dbSurtigas.ciclo', '1007');
+                    } elseif ($value === '8') {
+                        $builder->where('dbSurtigas.ciclo', '1008');
+                    } elseif ($value === '9') {
+                        $builder->where('dbSurtigas.ciclo', '1009');
+                    } elseif ($value === '10') {
+                        $builder->where('dbSurtigas.ciclo', '1010');
+                    } elseif ($value === '11') {
+                        $builder->where('dbSurtigas.ciclo', '1011');
+                    } elseif ($value === '12') {
+                        $builder->where('dbSurtigas.ciclo', '1012');
+                    }
+                }),
         ];
     }
     public function builder(): Builder
     {
-        return reportes::query()->whereIn('reportes.estado', [5,7]);
+        return reportes::query()->whereIn('reportes.estado', [5, 7])
+            ->with(['personal', 'report_comercio', 'dbSurtigas']);
     }
 
 
@@ -149,6 +180,7 @@ class ReportesDatatable extends DataTableComponent
                 ->collapseAlways(),
             Column::make("Comercio", "report_comercio.vs_comercio.nombre")
                 ->collapseAlways(),
+            Column::make('Ciclos', 'dbSurtigas.ciclo'),
             Column::make("Estado", "estado")
                 ->format(
                     fn ($value, $row, Column $column) => match ($value) {

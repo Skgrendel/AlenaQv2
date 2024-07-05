@@ -21,22 +21,22 @@
                                             <div class="mb-1">
                                                 <span for="nombre_cliente">Nombre:</span>
                                                 <span
-                                                    class=" text-body staticEmail "id="nombre_cliente">{{ $data['info']['ciclo']['cliente'] }}</span>
+                                                    class=" text-body staticEmail "id="nombre_cliente">{{ $gis['info']['cliente'] ?? 'Sin Datos' }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <span for="numero_contrato" class="form-label">Numero de Contrato:</span>
                                                 <span class="text-body staticEmail"
-                                                    id="numero_contrato">{{ $data['info']['reporte']['contrato'] }}</span>
+                                                    id="numero_contrato">{{ $gis['info']['contrato'] ?? 'Sin Datos' }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <span for="numero_medidor" class="form-label">Numero de Medidor: </span>
                                                 <span class=" text-body" id="numero_medidor">
-                                                    <strong>{{ $data['info']['reporte']['medidor'] }}</strong></span>
+                                                    <strong>{{ $gis['info']['medidor'] ?? 'Sin Datos' }}</strong></span>
                                             </div>
                                             <div class="mb-1">
                                                 <span for="direccion">Direccion: </span>
                                                 <span class=" text-body"
-                                                    id="direccion">{{ $data['info']['ubicacion']['direccion'] }}</span>
+                                                    id="direccion">{{ $gis['info']['direccion'] ?? 'Sin Datos' }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <span for="ciclo">Ciclo: </span>
@@ -49,8 +49,12 @@
                                             <hr>
                                             @if ($data['info']['reporte']['observaciones'])
                                                 <span class="form-label">Observaciones:</span>
-                                                <span class="form-control">{{ $data['info']['reporte']['observaciones'] }}</span>
+                                                <span class="form-control">{{ $data['info']['reporte']['observaciones'] ?? 'Sin Datos' }}</span>
                                             @endif
+                                            <a class="btn btn-info me-4 rounded  bs-tooltip"
+                                                    title="Regresar Pagina Anterior" data-bs-placement="top"
+                                                    href="{{ route('reportes.index') }}"><i
+                                                        class="fas fa-arrow-circle-left"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -77,7 +81,6 @@
                         <label for="nueva_opcion" class="form-label"> Nombre del Comercio Encontrado</label>
                         <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control" value="{{ $data['info']['comercio']['nombre_comercio'] }}">
                     </div>
-
                     <div class="col-12" id="cont-medidor">
                         <div class="col-lg-12 mb-2" id="medidor_anomalia_container">
                             <div class="mt-1">

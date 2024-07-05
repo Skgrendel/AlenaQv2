@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\reportes;
 use App\Models\vs_estado;
+use App\Services\coordinador\DataGisServices;
 use App\Services\ProcessingServices;
 use App\Services\reporte\CreateReportServices;
 use App\Services\reporte\EditReportServices;
@@ -19,6 +20,7 @@ class ReportesController extends Controller
     private  $info;
     private  $create;
     private $show;
+    private $gis;
 
     public function __construct()
     {
@@ -26,6 +28,7 @@ class ReportesController extends Controller
         $this->info = new EditReportServices();
         $this->create = new CreateReportServices();
         $this->show = new ShowReportServices();
+        $this->gis  = new DataGisServices();
     }
     /**
      * Display a listing of the resource.
@@ -59,7 +62,8 @@ class ReportesController extends Controller
     public function show($id)
     {
         $data = $this->create->CreateReport($id);
-        return view('agentes.create', compact('data'));
+        $gis = $this->gis->DataGisubicacion($id);
+        return view('agentes.create', compact('data', 'gis'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -67,8 +71,9 @@ class ReportesController extends Controller
     public function edit($id)
     {
         $data = $this->info->EditReport($id);
+        $gis = $this->gis->DataGis($id);
         $data['imagenes'] = (array) $data['imagenes'];
-        return view('agentes.edit', compact('data'));
+        return view('agentes.edit', compact('data', 'gis'));
     }
     /**
      * Update the specified resource in storage.
@@ -77,13 +82,14 @@ class ReportesController extends Controller
     {
         $ServicesUpdate = $this->Processing;
         $ServicesUpdate->UpdateReport($request, $reporte);
-
         return redirect()->route('reportes.index')->with('success', 'Reporte Actualizado Con Exito');
     }
 
-    public function showreporte(string $id){
+    public function showreporte(string $id)
+    {
         $data = $this->show->ShowReport($id);
+        $gis = $this->gis->DataGis($id);
         $data['imagenes'] = (array) $data['imagenes'];
-        return view('agentes.show',compact('data'));
+        return view('agentes.show', compact('data', 'gis'));
     }
 }

@@ -19,33 +19,38 @@
                                             <div class="mb-1">
                                                 <label for="nombre_cliente">Nombre:</label>
                                                 <span class=" text-body staticEmail "
-                                                    id="nombre_cliente">{{ $data['info']['db_Surtigas']['cliente'] }}</span>
+                                                    id="nombre_cliente">{{ $gis['info']['cliente']?? 'sin datos' }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="numero_contrato" class="form-label">Numero de Contrato:</label>
                                                 <span class="text-body staticEmail"
-                                                    id="numero_contrato">{{ $data['info']['db_Surtigas']['contrato'] }}</span>
+                                                    id="numero_contrato">{{ $gis['info']['contrato']?? 'sin datos' }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="numero_medidor" class="form-label">Numero de Medidor: </label>
                                                 <span class=" text-body"
-                                                    id="numero_medidor">{{ $data['info']['db_Surtigas']['medidor'] }}</span>
+                                                    id="numero_medidor">{{ $gis['info']['medidor']?? 'sin datos' }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="direccion">Direccion: </label>
                                                 <span class=" text-body"
-                                                    id="direccion">{{ $data['info']['db_Surtigas']['direccion'] }}</span>
+                                                    id="direccion">{{ $gis['info']['direccion']?? 'sin datos' }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Ciclo: </label>
                                                 <span class=" text-body"
-                                                    id="ciclo">{{ $data['info']['db_Surtigas']['ciclo'] }}</span>
+                                                    id="ciclo">{{ $data['info']['db_Surtigas']['ciclo']?? 'sin datos' }}</span>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="ciclo">Descripcion: </label>
+                                                <span class=" text-body"
+                                                    id="ciclo">{{ $gis['info']['descripcion']?? 'sin datos' }}</span>
                                             </div>
                                             <input type="text" id="medidor" name="surtigas_id" hidden
                                                 value="{{ $data['info']['db_Surtigas']['id'] }}">
                                             <hr>
                                             <div class="d-flex justify-content-between ">
-                                                <a href="{{ $data['location']['link'] }}" target="_blank"
+                                                <a href="{{ $gis['geometry']['link'] ?? '#'}}" target="_blank"
                                                     class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion"
                                                     data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
                                                 <a class="btn btn-info me-4 rounded  bs-tooltip"

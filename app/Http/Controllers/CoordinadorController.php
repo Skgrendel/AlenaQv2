@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\surtigas;
 use App\Models\reportes;
-use App\Models\vs_anomalias;
 use App\Services\ProcessingServices;
 use App\Services\reporte\CreateReportServices;
 use App\Services\coordinador\DataGisServices;
+use App\Services\coordinador\ReportServices;
 use App\Services\coordinador\ShowReportServices;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use PhpOffice\PhpWord\TemplateProcessor;
+
 
 
 class CoordinadorController extends Controller
 {
     private $Processing;
-    private  $info;
     private  $create;
+    private  $info;
     private $show;
+    private $report;
 
     public function __construct()
     {
+        $this->report  = new ReportServices();
         $this->Processing = new ProcessingServices;
         $this->info = new DataGisServices();
-        $this->create = new CreateReportServices();
         $this->show = new ShowReportServices();
+        $this->create = new CreateReportServices();
     }
     /**
      * Display a listing of the resource.
@@ -101,64 +101,11 @@ class CoordinadorController extends Controller
      */
     public function edit(string $id)
     {
-
-        $reporte = reportes::find($id);
-
-        $anomaliasIds = json_decode($reporte->anomalia);
-
-        $anomalias = vs_anomalias::whereIn('id', $anomaliasIds)->get();
-
-        $direccion = surtigas::where('contrato', $reporte->contrato)->first();
-
-        // Ruta de la plantilla
-        $templateFile = public_path('template/temp.docx');
-
-        // Cargar la plantilla
-        $templateProcessor = new TemplateProcessor($templateFile);
-
-        // Reemplazar marcadores de posición con datos
-        $templateProcessor->setValue('contrato', $reporte->contrato);
-        $templateProcessor->setValue('fecha', $reporte->created_at);
-        $templateProcessor->setValue('direccion', $direccion->direccion);
-        $templateProcessor->setValue('medidor', $reporte->medidor);
-        $templateProcessor->setValue('medidor_anomalia', $reporte->medidor_anomalia);
-        $templateProcessor->setValue('lectura', $reporte->lectura);
-        $templateProcessor->setValue('comercio', $reporte->report_comercio->tipo_comercio);
-        $nombresAnomalias = array();
-        foreach ($anomalias as $anomalia) {
-            $nombresAnomalias[] = $anomalia->nombre;
-        }
-        $stringAnomalias = implode(", ", $nombresAnomalias);
-        $templateProcessor->setValue('anomalia', $stringAnomalias);
-
-        $templateProcessor->setValue('imposibilidad', $reporte->vs_imposibilidad->nombre);
-        $templateProcessor->setValue('observaciones', $reporte->observaciones);
-        $templateProcessor->setValue('video', config('app.url') . '/video/' . $reporte->video);
-        $fotos = json_encode($reporte->imagenes);
-
-        for ($i = 1; $i < 6; $i++) {
-            $foto = 'foto' . $i;
-            $this->ImgExist($fotos, $templateProcessor, $foto);
-        }
-
-        $rand = rand(600, 1000);
-        $fecha = Carbon::now()->format('d-m-Y');
-
-        $outputFile = public_path('template/Reporte del contrato ' . $reporte->contrato . '-' . $fecha . '-' . $rand . '.docx');
-        $templateProcessor->saveAs($outputFile);
-
-        // Descargar el documento
-        return response()->download($outputFile)->deleteFileAfterSend();
+        $reportes = $this->report->DownloadReport($id);
+        return response()->download($reportes['file'])->deleteFileAfterSend();
     }
 
-    private function ImgExist($img, $templateProcessor, $var)
-    {
-        if (file_exists(public_path('imagen/' . $img)) and $img != null) {
-            return $templateProcessor->setImageValue($var, array('path' => public_path('imagen/' . $img), 'width' => 400, 'height' => 400, 'ratio' => true));
-        } else {
-            return $templateProcessor->setValue($var, 'Sin Registro Fotografico');
-        }
-    }
+
 
     /**
      * Update the specified resource in storage.

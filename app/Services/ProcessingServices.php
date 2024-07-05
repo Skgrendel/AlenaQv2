@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\auditoria;
 use App\Services\reporte\FileProcessingService;
 use App\Services\reporte\ReportServices;
 use Illuminate\Http\Request;
@@ -25,8 +26,6 @@ class ProcessingServices
 
     public function StoreReport(Request $request, $id)
     {
-
-        
         //Procesar Archivos Multimedia
         $fotos = $this->file->processImages($request);
         $video = $this->file->processVideo($request);
@@ -59,7 +58,7 @@ class ProcessingServices
         $video = $this->file->processVideoUpdate($request, $reporte);
         $ubicacion = $this->Service->StoreUbicacion($request);
         $updateComercio = $this->Service->UpdateComercio($request, $reporte);
-        $updateUbicacion = $this->Service->UpdateUbicacion($ubicacion,$reporte);
+        $updateUbicacion = $this->Service->UpdateUbicacion($ubicacion, $reporte);
         $AnomaliaJson = json_encode($request->anomalia);
         $datosActualizados = [
             'anomalia' => json_encode($request->anomalia),
@@ -71,5 +70,41 @@ class ProcessingServices
             'comentarios' => $request->input('comentarios'),
         ];
         $reporte->update($datosActualizados);
+    }
+    public function UpdateReportAuditoria(Request $request, $reportes)
+    {
+        $reporte = reportes::find($reportes);
+        $updateComercio = $this->Service->UpdateComercio($request, $reporte);
+        $AnomaliaJson = json_encode($request->input('anomalias'));
+        $datosActualizados = [
+            'anomalia' => $AnomaliaJson,
+            'lectura' => $request->input('lectura'),
+            'imposibilidad' => $request->input('imposibilidad'),
+            'comentarios' => $request->input('comentarios'),
+            'revisado' => $request->input('revisado')
+        ];
+        $reporte->update($datosActualizados);
+    }
+
+    public function CreateAuditoria(Request $request, $id)
+    {
+        $reportes = reportes::find($id);
+        $validate = auditoria::where('reportes_id', $reportes->id)->first();
+        if ($validate) {
+            return [
+                'error' => 'Ya se Registro una auditoria para este contrato'
+            ];
+        } else {
+            auditoria::create([
+                'reportes_id' => $reportes->id,
+                'medidor_coincide' => $request->input('medidor_coincide'),
+                'lectura_correcta' => $request->input('lectura_correcta'),
+                'foto_correcta' => $request->input('foto_correcta'),
+                'comercio_coincide' => $request->input('comercio_coincide'),
+                'anomalias_coincide' => $request->input('anomalias_coincide'),
+                'intento_soborno' => $request->input('soborno'),
+                'observaciones' => $request->input('observaciones'),
+            ]);
+        }
     }
 }

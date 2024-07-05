@@ -94,53 +94,66 @@
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading mb-0">
-                                        <span class="text-card">Datos Gis
-                                            </span>
+                                        <span class="text-card">Datos del Usuario
+                                        </span>
                                     </h4>
                                 </div>
                             </div>
                             <hr class="my-2">
                         </div>
-                        <div class="row mt-2">
-                            <div class="text-card text-sm col-6">
-                                <ul>
-                                    <li class="mb-2">
-                                        Usuario :  {{ $gis['info']['usuario'] ?? 'sin datos' }}
-                                    </li>
-                                    <li class="mb-2">
-                                        Direccion: {{ $gis['info']['direccion'] ?? 'sin datos' }}
-                                    </li>
-                                    <li class="mb-2">
-                                        Barrio: {{ $gis['info']['barrio'] ?? 'sin datos' }}
-                                    </li>
-                                    <li>
-                                        Categoria: {{ $gis['info']['categoria'] ?? 'sin datos' }}
-                                    </li>
-                                </ul>
+                        @if (isset($gis['info']))
+                            <div class="row mt-2">
+                                <div class="text-card text-sm col-6">
+                                    <ul>
+                                        <li class="mb-2">
+                                            Usuario :
+                                            {{ $gis['info']['cliente'] ?? 'sin datos'}}
+                                        </li>
+                                        <li class="mb-2">
+                                            Direccion: {{ $gis['info']['direccion'] ?? 'sin datos' }}
+                                        </li>
+                                        <li class="mb-2">
+                                            Barrio: {{ $gis['info']['barrio'] ?? 'sin datos' }}
+                                        </li>
+                                        <li>
+                                            Categoria: {{ $gis['info']['categoria'] ?? 'sin datos' }}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="text-card text-sm col-6">
+                                    <ul>
+                                        <li class="mb-2">
+                                            Contrato: {{ $gis['info']['contrato'] ?? 'sin datos' }}
+                                        </li>
+                                        <li class="mb-2">
+                                            Medidor : {{ $gis['info']['medidor'] ?? 'sin datos' }}
+                                        </li>
+                                        <li class="mb-2">
+                                            Estado: {{ $gis['info']['estado'] ?? 'sin datos' }}
+                                        </li>
+                                        <li class="mb-2">
+                                            Descripcion: {{ $gis['info']['descripcion'] ?? 'sin datos' }}
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="text-card text-sm col-6">
-                                <ul>
-                                    <li class="mb-2">
-                                        Contrato:  {{ $gis['info']['contrato'] ?? 'sin datos' }}
-                                    </li>
-                                    <li class="mb-2">
-                                        Medidor :  {{ $gis['info']['medidor'] ?? 'sin datos' }}
-                                    </li>
-                                    <li class="mb-2">
-                                        Estado: {{ $gis['info']['estado'] ?? 'sin datos' }}
-                                    </li>
-                                    <li class="mb-2">
-                                        Descripcion: {{ $gis['info']['descripcion'] ?? 'sin datos' }}
-                                    </li>
-                                </ul>
+                            <div class="row">
+                                <div class="text-card">
+                                    <ul>
+                                        <li>
+                                            Estado de Conexion: {{ $gis['info']['estadoCorte'] ?? 'sin datos' }}
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-
+                        @else
+                            <p>{{ $gis['error'] }}</p>
+                        @endif
                     </div>
                     <div class="card-footer pt-0 border-0">
                         <div class="progress br-30 progress-sm">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="100"
-                                aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" style="width: 100%;background:#0E1726"
+                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </div>

@@ -23,7 +23,9 @@ class AuditoriaDatatable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')->setTableRowUrl(function ($row) {
+            return route('auditorias.show', ['auditoria' => $row]);
+        });
         $this->setColumnSelectStatus(false);
         $this->setTableAttributes([
             'class' => 'table table-bordered custom-table',
@@ -100,26 +102,47 @@ class AuditoriaDatatable extends DataTableComponent
                         $builder->whereJsonContains('reportes.anomalia', '68');
                     }
                 }),
-                SelectFilter::make('Imposibilidades')
+            SelectFilter::make('Ciclos')
                 ->options([
                     '' => 'All',
-                    '1' => 'Obstaculos (Poca Visibilidad)',
-                    '2' => 'Falta de Acceso (Rejas, Cerraduras, Etc)',
-                    '3' => 'Falta de Medidor',
-                    '4' => 'Usuario No Permite Lectura',
-                    '5' => 'Lugar Deshabitado',
+                    '1' => '1001',
+                    '2' => '1002',
+                    '3' => '1003',
+                    '4' => '1004',
+                    '5' => '1005',
+                    '6' => '1006',
+                    '7' => '1007',
+                    '8' => '1008',
+                    '9' => '1009',
+                    '10' => '1010',
+                    '11' => '1011',
+                    '12' => '1012',
                 ])
                 ->filter(function (Builder $builder, $value) {
                     if ($value === '1') {
-                        $builder->where('reportes.imposibilidad', '58');
+                        $builder->where('dbSurtigas.ciclo', '1001');
                     } elseif ($value === '2') {
-                        $builder->where('reportes.imposibilidad', '59');
+                        $builder->where('dbSurtigas.ciclo', '1002');
                     } elseif ($value === '3') {
-                        $builder->where('reportes.imposibilidad', '60');
+                        $builder->where('dbSurtigas.ciclo', '1003');
                     } elseif ($value === '4') {
-                        $builder->where('reportes.imposibilidad', '61');
+                        $builder->where('dbSurtigas.ciclo', '1004');
                     } elseif ($value === '5') {
-                        $builder->where('reportes.imposibilidad', '62');
+                        $builder->where('dbSurtigas.ciclo', '1005');
+                    } elseif ($value === '6') {
+                        $builder->where('dbSurtigas.ciclo', '1006');
+                    } elseif ($value === '7') {
+                        $builder->where('dbSurtigas.ciclo', '1007');
+                    } elseif ($value === '8') {
+                        $builder->where('dbSurtigas.ciclo', '1008');
+                    } elseif ($value === '9') {
+                        $builder->where('dbSurtigas.ciclo', '1009');
+                    } elseif ($value === '10') {
+                        $builder->where('dbSurtigas.ciclo', '1010');
+                    } elseif ($value === '11') {
+                        $builder->where('dbSurtigas.ciclo', '1011');
+                    } elseif ($value === '12') {
+                        $builder->where('dbSurtigas.ciclo', '1012');
                     }
                 }),
         ];
@@ -128,11 +151,12 @@ class AuditoriaDatatable extends DataTableComponent
     public function builder(): Builder
     {
         return reportes::query()
-        ->where('reportes.estado', 6)
-        ->where(function ($query) {
-            $query->whereNull('reportes.revisado')
-                  ->orWhere('reportes.revisado', 0);
-        });
+            ->with(['personal', 'report_comercio', 'dbSurtigas'])
+            ->where('reportes.estado', 6)
+            ->where(function ($query) {
+                $query->whereNull('reportes.revisado')
+                    ->orWhere('reportes.revisado', 0);
+            });
     }
 
     public function columns(): array
@@ -140,9 +164,10 @@ class AuditoriaDatatable extends DataTableComponent
 
         return [
             Column::make("Nombres", "personal.nombres")
-            ->searchable(),
-            Column::make("Apellidos", "personal.apellidos"),
-            Column::make("Contrato", "contrato")
+                ->collapseAlways(),
+            Column::make("Apellidos", "personal.apellidos")
+                ->collapseAlways(),
+            Column::make("Contrato", "dbSurtigas.contrato")
                 ->collapseOnMobile()
                 ->searchable(),
             Column::make("Lectura", "lectura")
@@ -164,12 +189,13 @@ class AuditoriaDatatable extends DataTableComponent
                 ->collapseAlways(),
             Column::make("Comercio", "report_comercio.vs_comercio.nombre")
                 ->collapseAlways(),
+            Column::make('Ciclos', 'dbSurtigas.ciclo'),
             Column::make("Estado", "revisado")
-            ->format(
-                fn ($value) => $value == 0 || $value === null ? '<span class="badge badge-warning">Pendiente por auditar</span>' : 'No Revisado'
-            )
-            ->html()
-            ->collapseOnMobile(),
+                ->format(
+                    fn ($value) => $value == 0 || $value === null ? '<span class="badge badge-warning">Pendiente por auditar</span>' : 'No Revisado'
+                )
+                ->html()
+                ->collapseOnMobile(),
             Column::make("Fecha", "created_at")
                 ->format(fn ($value) => $value->format('d/M/Y'))
                 ->collapseOnMobile(),

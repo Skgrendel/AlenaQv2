@@ -18,8 +18,6 @@ class InformesController extends Controller
         return view('informes.informeGeneral');
     }
 
-    public function BusquedaGis(){
-        return view('busqueda.index');
-    }
+    
 
 }

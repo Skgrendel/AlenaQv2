@@ -15,7 +15,7 @@ class EditReportServices
     public function EditReport(string $id)
     {
         $data = reportes::find($id);
-        $data->load('report_comercio','report_ubicacion','vs_imposibilidad');
+        $data->load('report_comercio', 'report_ubicacion', 'vs_imposibilidad');
         $ubicacion = ubicacion::where('id', $data->ubicacions_id)->first();
         $ciclo = surtigas::where('id', $data->surtigas_id)->first();
         $comerciosIds = comercio::where('id', $data->comercios_id)->first();
@@ -32,6 +32,7 @@ class EditReportServices
                 'comercio' => $comerciosIds,
                 'anomaliasid' => $anomaliasId,
                 'reporte' => $data,
+                'estado' => $ciclo->estado
             ],
             'location' => [
                 'link' => $src,

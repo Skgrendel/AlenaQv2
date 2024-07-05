@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('auditorias', function (Blueprint $table) {
             $table->id();
             $table->foreignId('reportes_id');
-            $table->boolean('medidor_coincide');
-            $table->boolean('lectura_correcta');
-            $table->boolean('foto_correcta');
-            $table->boolean('comercio_coincide');
-            $table->boolean('intento_soborno');
-            $table->text('observaciones');
+            $table->boolean('medidor_coincide')->nullable();
+            $table->boolean('lectura_correcta')->nullable();
+            $table->boolean('foto_correcta')->nullable();
+            $table->boolean('comercio_coincide')->nullable();
+            $table->boolean('intento_soborno')->nullable();
+            $table->text('observaciones')->nullable();
             $table->timestamps();
         });
     }

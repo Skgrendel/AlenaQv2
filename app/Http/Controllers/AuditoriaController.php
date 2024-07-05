@@ -2,20 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\surtigas;
+
 use App\Models\reportes;
-use App\Models\vs_anomalias;
-use App\Models\vs_comercios;
-use App\Models\vs_imposibilidad;
-use Carbon\Carbon;
+use App\Services\coordinador\DataGisServices;
+use App\Services\coordinador\ReportServices;
+use App\Services\coordinador\ShowReportServices;
+use App\Services\ProcessingServices;
+use App\Services\reporte\EditReportServices;
 use Illuminate\Http\Request;
-use PhpOffice\PhpWord\TemplateProcessor;
+
 
 class AuditoriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private $report;
+    private  $info;
+    private $edit;
+    private $Processing;
+    private $show;
+    public function __construct()
+    {
+        $this->Processing = new ProcessingServices;
+        $this->edit = new EditReportServices();
+        $this->info = new DataGisServices();
+        $this->show = new ShowReportServices();
+        $this->report  = new ReportServices();
+    }
     public function index()
     {
         return view('auditoria.index');
@@ -26,7 +37,7 @@ class AuditoriaController extends Controller
      */
     public function create()
     {
-       return view('auditoria.revisado');
+        return view('auditoria.revisado');
     }
 
     /**
@@ -42,17 +53,10 @@ class AuditoriaController extends Controller
      */
     public function show(string $id)
     {
-        $anomaliasver = vs_anomalias::pluck('nombre', 'id');
-        $comercios = vs_comercios::pluck('nombre', 'id');
-        $imposibilidad = vs_imposibilidad::pluck('nombre', 'id');
-        $reporte = reportes::find($id);
-        $reporte->load('vs_imposibilidad','report_comercio','report_ubicacion');
-        $contrato = $reporte->contrato;
-        $validate = surtigas::where('contrato', $contrato)->first();
-        $anomaliasIds = json_decode($reporte->anomalia);
-        $fotos = json_decode($reporte->imagenes);
-        $anomalias = vs_anomalias::whereIn('id', $anomaliasIds)->get();
-        return view('auditoria.show', compact('reporte', 'anomalias', 'validate', 'anomaliasver', 'comercios', 'imposibilidad', 'anomaliasIds','fotos'));
+        $data = $this->edit->EditReport($id);
+        $gis = $this->info->DataGis($id);
+        $data['imagenes'] = (array) $data['imagenes'];
+        return view('auditoria.show', compact('data', 'gis'));
     }
 
     /**
@@ -60,81 +64,23 @@ class AuditoriaController extends Controller
      */
     public function edit(string $id)
     {
-
-        $reporte = reportes::find($id);
-
-        $anomaliasIds = json_decode($reporte->anomalia);
-
-        $anomalias = vs_anomalias::whereIn('id', $anomaliasIds)->get();
-
-        $direccion = surtigas::where('contrato', $reporte->contrato)->first();
-
-        // Ruta de la plantilla
-        $templateFile = public_path('template/temp.docx');
-
-        // Cargar la plantilla
-        $templateProcessor = new TemplateProcessor($templateFile);
-
-        // Reemplazar marcadores de posición con datos
-        $templateProcessor->setValue('contrato', $reporte->contrato);
-        $templateProcessor->setValue('fecha', $reporte->created_at);
-        $templateProcessor->setValue('direccion', $direccion->direccion);
-        $templateProcessor->setValue('medidor', $reporte->medidor);
-        $templateProcessor->setValue('medidor_anomalia', $reporte->medidor_anomalia);
-        $templateProcessor->setValue('lectura', $reporte->lectura);
-        $templateProcessor->setValue('comercio', $reporte->ComercioReporte->nombre);
-        $nombresAnomalias = array();
-        foreach ($anomalias as $anomalia) {
-            $nombresAnomalias[] = $anomalia->nombre;
-        }
-        $stringAnomalias = implode(", ", $nombresAnomalias);
-        $templateProcessor->setValue('anomalia', $stringAnomalias);
-
-        $templateProcessor->setValue('imposibilidad', $reporte->imposibilidadReporte->nombre);
-        $templateProcessor->setValue('observaciones', $reporte->comentarios);
-        $templateProcessor->setValue('video', config('app.url') . '/video/' . $reporte->video);
-
-        for ($i = 1; $i < 7; $i++) {
-            $foto = 'foto' . $i;
-            $this->ImgExist($reporte->$foto, $templateProcessor, $foto);
-        }
-
-        $rand = rand(600, 1000);
-        $fecha = Carbon::now()->format('d-m-Y');
-
-        $outputFile = public_path('template/Reporte del contrato ' . $reporte->contrato . '-' . $fecha . '-' . $rand . '.docx');
-        $templateProcessor->saveAs($outputFile);
-
-        // Descargar el documento
-        return response()->download($outputFile)->deleteFileAfterSend();
+        $reportes = $this->report->DownloadReport($id);
+        return response()->download($reportes['file'])->deleteFileAfterSend();
     }
 
-    private function ImgExist($img, $templateProcessor, $var)
-    {
-        if (file_exists(public_path('imagen/' . $img)) and $img != null) {
-            return $templateProcessor->setImageValue($var, array('path' => public_path('imagen/' . $img), 'width' => 400, 'height' => 400, 'ratio' => true));
-        } else {
-            return $templateProcessor->setValue($var, 'Sin Registro Fotografico');
-        }
-    }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $reporte)
     {
 
-        $revisado = $request->revisado;
+       // dd($request->all());
+        $ServicesUpdate = $this->Processing;
+        $ServicesUpdate->UpdateReportAuditoria($request, $reporte);
+        $ServicesUpdate->CreateAuditoria($request, $reporte);
 
-        if (!$revisado == 0) {
-            $reporte = reportes::find($id);
-            $reporte->update(['revisado' => $request->revisado]);
-            return redirect()->route('auditorias.index')->with('success', 'Reporte Revisado');
-        }
-
-        $reporte = reportes::find($id);
-        $reportes = $request->all();
-        $reporte->update($reportes);
         return redirect()->route('auditorias.index')->with('success', 'Reporte Actualizado');
     }
 

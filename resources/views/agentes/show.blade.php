@@ -16,21 +16,21 @@
                                         <div class="mb-1">
                                             <span for="nombre_cliente">Nombre:</span>
                                             <span
-                                                class=" text-body staticEmail "id="nombre_cliente">{{ $data['info']['cliente'] }}</span>
+                                                class=" text-body staticEmail "id="nombre_cliente">{{ $gis['info']['cliente'] }}</span>
                                         </div>
                                         <div class="mb-1">
                                             <span for="numero_contrato" class="form-label">Numero de Contrato:</span>
                                             <span class="text-body staticEmail"
-                                                id="numero_contrato">{{ $data['info']['contrato'] }}</span>
+                                                id="numero_contrato">{{ $gis['info']['contrato'] }}</span>
                                         </div>
                                         <div class="mb-1">
                                             <span for="numero_medidor" class="form-label">Numero de Medidor: </span>
                                             <span class=" text-body" id="numero_medidor">
-                                                <strong>{{ $data['info']['medidor'] }}</strong></span>
+                                                <strong>{{ $gis['info']['medidor'] }}</strong></span>
                                         </div>
                                         <div class="mb-1">
                                             <span for="direccion">Direccion: </span>
-                                            <span class=" text-body" id="direccion">{{ $data['info']['direccion'] }}</span>
+                                            <span class=" text-body" id="direccion">{{ $gis['info']['direccion'] }}</span>
                                         </div>
                                         <div class="mb-1">
                                             <span for="ciclo">Ciclo: </span>
