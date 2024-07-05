@@ -71,7 +71,7 @@ class PersonalServices
         if ($personal) {
             $personal->update($request->all());
             // Buscar el registro de usuario asociado con el registro personal
-            $user = User::where('personal_id', $personal->id)->first();
+            $user = User::where('personals_id', $personal->id)->first();
             // Verificar si el registro de usuario existe
             if ($user) {
                 $user->update([
