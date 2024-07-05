@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('personals_id')->nullable();
             $table->string('contrato');
+            $table->string('cliente');
             $table->string('direccion');
             $table->string('barrio');
             $table->string('medidor');
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->string('longitud');
             $table->string('ciclo');
             $table->boolean('estado')->default('1');
+            $table->boolean('estado_servicio');
             $table->timestamps();
         });
     }

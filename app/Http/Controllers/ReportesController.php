@@ -16,11 +16,7 @@ use Illuminate\Support\Facades\Auth;
 class ReportesController extends Controller
 {
 
-    private $Processing;
-    private  $info;
-    private  $create;
-    private $show;
-    private $gis;
+    private $Processing, $info, $create, $show, $gis;
 
     public function __construct()
     {
@@ -49,7 +45,7 @@ class ReportesController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+       
         $id = Auth::user()->personal->id;
         $ServicesStore = $this->Processing;
         $ServicesStore->StoreReport($request, $id);

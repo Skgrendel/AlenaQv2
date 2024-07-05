@@ -160,9 +160,292 @@
             </div>
         </div>
     </div>
-    <div class="widget-content widget-content-area mt-2 ">
-        <div class="row">
-            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
+    @if ($data['info']['reporte']['revisado'] === 0 && $data['info']['reporte']['confirmado'] === 0)
+        <div class="widget-content widget-content-area mt-2 ">
+            <div class="row">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
+                    <div class="card style-4" style="width: 100%; height: 100%;">
+                        <div class="card-body pt-3">
+                            <div class="m-o-dropdown-list">
+                                <div class="media mt-0 mb-3">
+                                    <div class="badge--group me-3">
+                                        <div class="badge badge-success badge-dot"></div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading mb-0">
+                                            <span class="media-title">Informacion de Reportes</span>
+                                        </h4>
+                                    </div>
+                                </div>
+                                <hr class="my-2">
+                            </div>
+                            <div class="row">
+                                <form action="{{ route('auditorias.update', $data['info']['reporte']['id']) }}"
+                                    method="post" id="observacion" enctype="multipart/form-data">
+                                    @method('PUT')
+                                    @csrf
+                                    <div class="form-group mb-1 ">
+                                        <label for="Contrato" class="form-label">Numero de Contrato</label>
+                                        <span id="Contrato" class="form-control"
+                                            name="contrato">{{ $gis['info']['contrato'] }} </span>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-1 ">
+                                                <label for="medidor" class="form-label">Numero de Medidor</label>
+                                                <span type="text" class="form-control" id="medidor"
+                                                    name="medidor">{{ $gis['info']['medidor'] }}</span>
+                                            </div>
+                                            <div class="form-group mb-1 ">
+                                                <label for="lectura">Numero de Lectura</label>
+                                                <input type="text" class="form-control" id="lectura" name="lectura"
+                                                    value="{{ $data['info']['reporte']['lectura'] }}">
+                                            </div>
+                                            <div class="form-group mb-1 ">
+                                                <label for="imposibilidad" class="form-label">Imposibilidad</label>
+                                                <select id="imposibilidad" class="form-select" name="imposibilidad">
+                                                    @foreach ($data['imposibilidad'] as $id => $nombre)
+                                                        <option value="{{ $id }}"
+                                                            {{ $data['info']['reporte']['imposibilidad'] == $id ? 'selected' : '' }}>
+                                                            {{ $nombre }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-1 ">
+                                                <label for="medidor" class="form-label text-danger ">Medidor
+                                                    Anomalia</label>
+                                                <input type="text" class="form-control" id="medidor_anomalia"
+                                                    name="medidor_anomalia"
+                                                    value="{{ $data['info']['comercio']['medidor_anomalia'] }}">
+                                            </div>
+                                            <div class="form-group mb-1 ">
+                                                <label for="comercio" class="form-label">Tipo de Comercio</label>
+                                                <select id="comercio" class="form-select" name="tipo_comercio">
+                                                    @foreach ($data['comercios'] as $id => $nombre)
+                                                        <option value="{{ $id }}"
+                                                            {{ $data['info']['comercio']['tipo_comercio'] == $id ? 'selected' : '' }}>
+                                                            {{ $nombre }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group mb-1 ">
+                                                <label for="anomalia" class="form-label">Anomalias Detectadas</label>
+                                                <select id="anomalia" class="form-select" name="anomalias[]" multiple
+                                                    autocomplete="off" data-placeholder="anomalias">
+                                                    @foreach ($data['anomalias'] as $id => $nombre)
+                                                        <option
+                                                            value="{{ $id }}"{{ in_array($id, $data['info']['anomaliasid']) ? 'selected' : '' }}>
+                                                            {{ $nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
+                    <div class="card style-4" style="width: 100%; height: 100%;">
+                        <div class="card-body pt-3">
+                            <div class="m-o-dropdown-list">
+                                <div class="media mt-0 mb-3">
+                                    <div class="badge--group me-3">
+                                        <div class="badge badge-success badge-dot"></div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading mb-0">
+                                            <span class="media-title">Observaciones</span>
+                                        </h4>
+                                    </div>
+                                </div>
+                                <hr class="my-2">
+                            </div>
+                            <div class="row">
+                                <div>
+                                    <div class="row mt-3">
+                                        <div class="col-3">
+                                            <span class="form-check-label">¿El medidor coincide con el Contrato?</span>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="medidor_coincide" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">si</label>
+                                            </div>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="medidor_coincide" value="0">
+                                                <label class="form-check-label" for="inlineCheckbox1">no</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <span class="form-check-label">¿La lectura es correcta?</span>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="lectura_correcta" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">si</label>
+                                            </div>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="lectura_correcta" value="0">
+                                                <label class="form-check-label" for="inlineCheckbox1">no</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <span class="form-check-label">¿La foto fue tomada en la posicion
+                                                correcta?</span>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="foto_correcta" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">si</label>
+                                            </div>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="foto_correcta" value="0">
+                                                <label class="form-check-label" for="inlineCheckbox1">no</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-4">
+                                            <span class="form-check-label">¿Coicide el tipo de comercio?</span>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="comercio_coincide" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">si</label>
+                                            </div>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="comercio_coincide" value="0">
+                                                <label class="form-check-label" for="inlineCheckbox1">no</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                                    name="revisado" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">Revisado</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                                    name="soborno" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">Intento de
+                                                    Soborno</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <textarea id="editor" rows="5" name="observaciones" class="form-control mb-3"
+                                    placeholder="Escriba Sus Observaciones"></textarea>
+                            </div>
+
+                            <div class="alert alert-warning d-none" role="alert" id="progressBarObservacion">
+                                <span class="text-sm">Guardando Cambios Porfavor Espere.....</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class=" d-flex justify-content-end">
+                                <button type="submit" id="submitButtonObservacion"
+                                    class="btn btn-success">Guardar</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @can('admin.edit')
+            <div class="widget-content widget-content-area mt-2 ">
+                <div class="row">
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
+                        <div class="card style-4" style="width: 100%; height: 100%;">
+                            <div class="card-body pt-3">
+                                <div class="m-o-dropdown-list">
+                                    <div class="media mt-0 mb-3">
+                                        <div class="badge--group me-3">
+                                            <div class="badge badge-success badge-dot"></div>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading mb-0">
+                                                <span class="text-card">Subir Evidencias</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <hr class="my-2">
+                                </div>
+                                <div class="row">
+                                    <form action="{{ route('coordinador.store') }}" method="POST" enctype="multipart/form-data"
+                                        id="evidencias">
+                                        @csrf
+                                        <input type="text" name="id" value="{{ $data['info']['reporte']['id'] }}" hidden>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="input-group mb-1 ">
+                                                    <input type="file" class="form-control " id="foto1" name="foto1"
+                                                        accept="image/jpeg">
+                                                    <span class="input-group-text" id="foto1">Inmueble</span>
+                                                </div>
+                                                <div class="input-group mb-1">
+                                                    <input type="file" class="form-control" id="foto2" name="foto2"
+                                                        accept="image/jpeg">
+                                                    <span class="input-group-text" for="foto2">Sellos del Medidor</span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group mb-1">
+                                                    <input type="file" class="form-control" id="foto4" name="foto4"
+                                                        accept="image/jpeg">
+                                                    <span class="input-group-text" for="foto5">Estado Medidor</span>
+                                                </div>
+                                                <div class="input-group mb-1">
+                                                    <input type="file" class="form-control" id="foto5" name="foto5"
+                                                        accept="image/jpeg">
+                                                    <span class="input-group-text" for="foto6">Opcional</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-md-12">
+                                                <div class="input-group mb-1">
+                                                    <input type="file" class="form-control" id="foto3" name="foto3"
+                                                        accept="image/jpeg">
+                                                    <span class="input-group-text" for="foto3">Numero Lectura y medidor</span>
+                                                </div>
+                                                <div class="input-group">
+                                                    <input class="form-control" type="file" id="video" name="video"
+                                                        accept="video/mp4">
+                                                    <span class="input-group-text" id="video">video</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="my-2">
+                                        <div class="alert alert-success d-none alert-evidencia" role="alert" id="alert">
+                                        </div>
+                                        <div class="alert alert-warning d-none" role="alert" id="progressBarEvidencias">
+                                            <span class="text-sm">Cargando Archivos Porfavor Espere.....</span>
+                                        </div>
+                                        <div class="d-flex justify-content-end">
+                                            <button type="submit" id="submitButtonEvidencias"
+                                                class="btn btn-success">Guardar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endcan
+    @endif
+    @if ($data['info']['reporte']['revisado'] === 1 && $data['info']['reporte']['confirmado'] === 0)
+    <div class="widget-content widget-content-area my-2">
+        <div class="row d-flex justify-content-center">
+            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                 <div class="card style-4" style="width: 100%; height: 100%;">
                     <div class="card-body pt-3">
                         <div class="m-o-dropdown-list">
@@ -179,255 +462,26 @@
                             <hr class="my-2">
                         </div>
                         <div class="row">
-                            <form action="{{ route('auditorias.update', $data['info']['reporte']['id']) }}" method="post"
-                                id="observacion" enctype="multipart/form-data">
+                            <form action="{{ route('auditorias.update', $data['info']['reporte']['id']) }}" method="post">
+                                @csrf
                                 @method('PUT')
-                                @csrf
-                                <div class="form-group mb-1 ">
-                                    <label for="Contrato" class="form-label">Numero de Contrato</label>
-                                    <span id="Contrato" class="form-control" name="contrato">{{ $gis['info']['contrato'] }} </span>
-                                </div>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group mb-1 ">
-                                            <label for="medidor" class="form-label">Numero de Medidor</label>
-                                            <span type="text" class="form-control" id="medidor" name="medidor"
-                                                >{{ $gis['info']['medidor'] }}</span>
-                                        </div>
-                                        <div class="form-group mb-1 ">
-                                            <label for="lectura">Numero de Lectura</label>
-                                            <input type="text" class="form-control" id="lectura" name="lectura"
-                                                value="{{ $data['info']['reporte']['lectura'] }}">
-                                        </div>
-                                        <div class="form-group mb-1 ">
-                                            <label for="imposibilidad" class="form-label">Imposibilidad</label>
-                                            <select id="imposibilidad" class="form-select" name="imposibilidad">
-                                                @foreach ($data['imposibilidad'] as $id => $nombre)
-                                                    <option value="{{ $id }}"
-                                                        {{ $data['info']['reporte']['imposibilidad'] == $id ? 'selected' : '' }}>
-                                                        {{ $nombre }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group mb-1 ">
-                                            <label for="medidor" class="form-label text-danger ">Medidor
-                                                Anomalia</label>
-                                            <input type="text" class="form-control" id="medidor_anomalia"
-                                                name="medidor_anomalia"
-                                                value="{{ $data['info']['comercio']['medidor_anomalia'] }}">
-                                        </div>
-                                        <div class="form-group mb-1 ">
-                                            <label for="comercio" class="form-label">Tipo de Comercio</label>
-                                            <select id="comercio" class="form-select" name="tipo_comercio">
-                                                @foreach ($data['comercios'] as $id => $nombre)
-                                                    <option value="{{ $id }}"
-                                                        {{ $data['info']['comercio']['tipo_comercio'] == $id ? 'selected' : '' }}>
-                                                        {{ $nombre }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group mb-1 ">
-                                            <label for="anomalia" class="form-label">Anomalias Detectadas</label>
-                                            <select id="anomalia" class="form-select" name="anomalias[]" multiple
-                                                autocomplete="off" data-placeholder="anomalias">
-                                                @foreach ($data['anomalias'] as $id => $nombre)
-                                                    <option
-                                                        value="{{ $id }}"{{ in_array($id, $data['info']['anomaliasid']) ? 'selected' : '' }}>
-                                                        {{ $nombre }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
-                <div class="card style-4" style="width: 100%; height: 100%;">
-                    <div class="card-body pt-3">
-                        <div class="m-o-dropdown-list">
-                            <div class="media mt-0 mb-3">
-                                <div class="badge--group me-3">
-                                    <div class="badge badge-success badge-dot"></div>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading mb-0">
-                                        <span class="media-title">Observaciones</span>
-                                    </h4>
-                                </div>
-                            </div>
-                            <hr class="my-2">
-                        </div>
-                        <div class="row">
-                            <div>
-                                <div class="row mt-3">
                                     <div class="col-3">
-                                        <span class="form-check-label">¿El medidor coincide con el Contrato?</span>
-                                        <div class="form-check ">
-                                            <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                name="medidor_coincide" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox1">si</label>
-                                        </div>
-                                        <div class="form-check ">
-                                            <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                name="medidor_coincide" value="0">
-                                            <label class="form-check-label" for="inlineCheckbox1">no</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <span class="form-check-label">¿La lectura es correcta?</span>
-                                        <div class="form-check ">
-                                            <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                name="lectura_correcta" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox1">si</label>
-                                        </div>
-                                        <div class="form-check ">
-                                            <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                name="lectura_correcta" value="0">
-                                            <label class="form-check-label" for="inlineCheckbox1">no</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <span class="form-check-label">¿La foto fue tomada en la posicion
-                                            correcta?</span>
-                                        <div class="form-check ">
-                                            <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                name="foto_correcta" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox1">si</label>
-                                        </div>
-                                        <div class="form-check ">
-                                            <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                name="foto_correcta" value="0">
-                                            <label class="form-check-label" for="inlineCheckbox1">no</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-4">
-                                        <span class="form-check-label">¿Coicide el tipo de comercio?</span>
-                                        <div class="form-check ">
-                                            <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                name="comercio_coincide" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox1">si</label>
-                                        </div>
-                                        <div class="form-check ">
-                                            <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                name="comercio_coincide" value="0">
-                                            <label class="form-check-label" for="inlineCheckbox1">no</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
+                                        <span class="form-check-label">¿Anomalia Confirmada?</span>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
-                                                name="revisado" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox1">Revisado</label>
+                                            <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                name="confirmado" value="1">
+                                            <label class="form-check-label" for="inlineCheckbox1">si</label>
                                         </div>
-                                    </div>
-                                    <div class="col-4">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
-                                                name="soborno" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox1">Intento de
-                                                Soborno</label>
+                                            <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                name="confirmado" value="0">
+                                            <label class="form-check-label" for="inlineCheckbox1">no</label>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <textarea id="editor" rows="5" name="observaciones" class="form-control mb-3"
-                                placeholder="Escriba Sus Observaciones"></textarea>
-                        </div>
-
-                        <div class="alert alert-warning d-none" role="alert" id="progressBarObservacion">
-                            <span class="text-sm">Guardando Cambios Porfavor Espere.....</span>
-                        </div>
-                        <hr class="my-2">
-                        <div class=" d-flex justify-content-end">
-                            <button type="submit" id="submitButtonObservacion" class="btn btn-success">Guardar</button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2 ">
-                <div class="card style-4" style="width: 100%; height: 100%;">
-                    <div class="card-body pt-3">
-                        <div class="m-o-dropdown-list">
-                            <div class="media mt-0 mb-3">
-                                <div class="badge--group me-3">
-                                    <div class="badge badge-success badge-dot"></div>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading mb-0">
-                                        <span class="text-card">Subir Evidencias</span>
-                                    </h4>
-                                </div>
-                            </div>
-                            <hr class="my-2">
-                        </div>
-                        <div class="row">
-                            <form action="{{ route('coordinador.store') }}" method="POST" enctype="multipart/form-data"
-                                id="evidencias">
-                                @csrf
-                                <input type="text" name="id" value="{{ $data['info']['reporte']['id'] }}"
-                                    hidden>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="input-group mb-1 ">
-                                            <input type="file" class="form-control " id="foto1" name="foto1"
-                                                accept="image/jpeg">
-                                            <span class="input-group-text" id="foto1">Inmueble</span>
-                                        </div>
-                                        <div class="input-group mb-1">
-                                            <input type="file" class="form-control" id="foto2" name="foto2"
-                                                accept="image/jpeg">
-                                            <span class="input-group-text" for="foto2">Numero Serial</span>
-                                        </div>
-                                        <div class="input-group mb-1">
-                                            <input type="file" class="form-control" id="foto3" name="foto3"
-                                                accept="image/jpeg">
-                                            <span class="input-group-text" for="foto3">Numero Lectura</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="input-group mb-1">
-                                            <input type="file" class="form-control" id="foto4" name="foto4"
-                                                accept="image/jpeg">
-                                            <span class="input-group-text" for="foto4">Numero Medidor</span>
-                                        </div>
-                                        <div class="input-group mb-1">
-                                            <input type="file" class="form-control" id="foto5" name="foto5"
-                                                accept="image/jpeg">
-                                            <span class="input-group-text" for="foto5">Estado Medidor</span>
-                                        </div>
-                                        <div class="input-group mb-1">
-                                            <input type="file" class="form-control" id="foto6" name="foto6"
-                                                accept="image/jpeg">
-                                            <span class="input-group-text" for="foto6">Opcional</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-12">
-                                        <div class="input-group">
-                                            <input class="form-control" type="file" id="video" name="video"
-                                                accept="video/mp4">
-                                            <span class="input-group-text" id="video">video</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="my-2">
-                                <div class="alert alert-success d-none alert-evidencia" role="alert" id="alert">
-                                </div>
-                                <div class="alert alert-warning d-none" role="alert" id="progressBarEvidencias">
-                                    <span class="text-sm">Cargando Archivos Porfavor Espere.....</span>
-                                </div>
-                                <div class="d-flex justify-content-end">
-                                    <button type="submit" id="submitButtonEvidencias"
+                                <div class=" d-flex justify-content-between ">
+                                    <button type="submit" id="submitButtonRevisado"
                                         class="btn btn-success">Guardar</button>
                                 </div>
                             </form>
@@ -437,6 +491,8 @@
             </div>
         </div>
     </div>
+
+    @endif
     <div class="widget-content widget-content-area mt-2 ">
         <div class="row">
             @foreach (range(1, 6) as $i)

@@ -12,10 +12,9 @@ class DataGisServices
     public function DataGis($id)
     {
         try {
-            //$token = env('GIS_API_TOKEN');
+            $token = env('GIS_API_TOKEN');
             $data = reportes::find($id);
             $surtigas = surtigas::where('contrato', $data->dbSurtigas->contrato)->first();
-            $token = 'WbKs3NOEc3oYl3HxCdlSYoVH-wCrEVpBPxs-8K6tl5CnVnnRumo1CarwdXJm29GfULCOpxnl_VBPbTp3wQU8vsBLfCwwp5guoD21BZeOOBU1iJuF8YteaS-2Z06oH58LXpZbPI44G9lR-_BFHr9JhjyvE1BmXWefVceJ3peIs6s3vW5W7bdq_Z3Uu3Au1BI7w18LIqjgJ7KaHbameKGkGnndBASzk1BVXbvMG0gDO6RR_uKX0ZZFxjUo2fi9q63JX6q_5u2UmSoJb7UWwPUvSw..';
             $url = "https://arcgisportal.surtigas.com.co/geaserver/rest/services/Ingenieria/FC_PTDIRECCIONES/MapServer/0/query?f=json&where=(SUBSCRIPTION_ID%20IS%20NOT%20NULL)%20AND%20(SUBSCRIPTION_ID%20%3D%20$surtigas->contrato)&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=OBJECTID%2CORDEN%2CRID%2COBJECTID_1%2CDEPARTAMENTO%2CLOCALIDAD%2CNOMBRE%2CADDRESS_ID%2CID_PREMISE%2CNUP%2CDIRECCION%2CTAG%2CANILLADO%2CTIPOPREDIO%2CCICLO%2CDESCRIPCION%2CBARRIO%2CNOMBREBARRIO%2CCATEGORIA%2CDESCATEGORIA%2CESTRATO%2CPRODUCT_ID%2CPRODUCT_STATUS_ID%2CESTADOPRODUCTO%2CSUBSCRIPTION_ID%2CDESCESTADOCORTE%2CCODIDOESTADOCORTE%2CNOMBREUSUARIO%2CAPELLIDO%2CELEMENTOMEDICION%2CORIG_FID&outSR=102100&resultOffset=0&resultRecordCount=1000&token=$token";
 
             if (!$surtigas) {
@@ -54,7 +53,7 @@ class DataGisServices
             }
 
             $attributes = $data['features'][0]['attributes'];
-    
+
             return [
                 'info' => [
                     'direccion' => $attributes['DIRECCION'],
@@ -80,6 +79,7 @@ class DataGisServices
     public function DataGisubicacion(string $contrato)
     {
         try {
+            
             $token = env('GIS_API_TOKEN');
             $surtigas = surtigas::where('contrato', $contrato)->first();
             $url = "https://arcgisportal.surtigas.com.co/geaserver/rest/services/Ingenieria/FC_PTDIRECCIONES/MapServer/0/query?f=json&where=(SUBSCRIPTION_ID%20IS%20NOT%20NULL)%20AND%20(SUBSCRIPTION_ID%20%3D%20$surtigas->contrato)&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=OBJECTID%2CORDEN%2CRID%2COBJECTID_1%2CDEPARTAMENTO%2CLOCALIDAD%2CNOMBRE%2CADDRESS_ID%2CID_PREMISE%2CNUP%2CDIRECCION%2CTAG%2CANILLADO%2CTIPOPREDIO%2CCICLO%2CDESCRIPCION%2CBARRIO%2CNOMBREBARRIO%2CCATEGORIA%2CDESCATEGORIA%2CESTRATO%2CPRODUCT_ID%2CPRODUCT_STATUS_ID%2CESTADOPRODUCTO%2CSUBSCRIPTION_ID%2CDESCESTADOCORTE%2CCODIDOESTADOCORTE%2CNOMBREUSUARIO%2CAPELLIDO%2CELEMENTOMEDICION%2CORIG_FID&outSR=102100&resultOffset=0&resultRecordCount=1000&token=$token";

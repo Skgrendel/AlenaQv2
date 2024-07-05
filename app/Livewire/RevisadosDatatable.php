@@ -21,7 +21,9 @@ class RevisadosDatatable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')->setTableRowUrl(function ($row) {
+            return route('auditorias.show', ['auditoria' => $row]);
+        });
         $this->setColumnSelectStatus(false);
         $this->setTableAttributes([
             'class' => 'table table-bordered custom-table',
@@ -147,7 +149,8 @@ class RevisadosDatatable extends DataTableComponent
     public function builder(): Builder
     {
         return reportes::query()
-            ->where('reportes.revisado', 1)
+            ->where('reportes.revisado','1')
+            ->where('reportes.confirmado','0')
             ->with(['personal', 'report_comercio', 'dbSurtigas']);
     }
 
@@ -156,7 +159,7 @@ class RevisadosDatatable extends DataTableComponent
         return [
             Column::make("Nombres", "personal.nombres"),
             Column::make("Apellidos", "personal.apellidos"),
-            Column::make("Contrato", "contrato")
+            Column::make("Contrato", "dbSurtigas.contrato")
                 ->collapseOnMobile()
                 ->searchable(),
             Column::make("Lectura", "lectura")

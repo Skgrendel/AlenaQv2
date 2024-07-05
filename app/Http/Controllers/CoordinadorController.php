@@ -14,12 +14,8 @@ use Illuminate\Http\Request;
 
 class CoordinadorController extends Controller
 {
-    private $Processing;
-    private  $create;
-    private  $info;
-    private $show;
-    private $report;
-
+    private $Processing,$create,$info,$show,$report;
+    
     public function __construct()
     {
         $this->report  = new ReportServices();
@@ -36,52 +32,12 @@ class CoordinadorController extends Controller
         return view('coordinador.index');
     }
 
-      /**
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $fontSize = 50;
-        $reportes = reportes::find($request["id"]);
-        $report = $request->all();
-
-        if ($video = $request->file('video')) {
-            $path = 'video/';
-            $videoname = rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();
-            $video->move($path, $videoname);
-            $reportes['video'] = $videoname;
-        }
-
-        foreach (range(1, 6) as $i) {
-            if ($imagen = $request->file('foto' . $i)) {
-                $path = 'imagen/';
-                $foto = rand(1000, 9999) . "_" . date('YmdHis') . "." . $imagen->getClientOriginalExtension();
-                $imagen->move($path, $foto);
-                $reportes['foto' . $i] = $foto;
-                //  Abrir la imagen utilizando GD
-                $imagenGD = imagecreatefromjpeg(public_path($path . $foto));
-                // Añadir texto del contrato  a la imagen
-                $textoContrato = "Contrato N°:" . $reportes->contrato;
-                $colorTexto = imagecolorallocate($imagenGD, 255, 255, 255); // Color blanco
-                $posXContrato = 10; // Ajusta según tu diseño
-                $posYContrato = 60; // Ajusta según tu diseño
-                imagettftext($imagenGD, $fontSize, 0, $posXContrato, $posYContrato, $colorTexto, public_path('font/arial.ttf'), $textoContrato);
-
-                //Añadir texto de fecha a la imagen
-                $fechaActual = date("Y-m-d H:i:s");
-                $posXFecha = 10; // Ajusta según tu diseño
-                $posYFecha = 120; // Ajusta según tu diseño
-                imagettftext($imagenGD, $fontSize, 0, $posXFecha, $posYFecha, $colorTexto, public_path('font/arial.ttf'), "Fecha: $fechaActual");
-
-                // Guardar la imagen modificada
-                imagejpeg($imagenGD, public_path($path . $foto));
-
-                // Liberar la memoria
-                imagedestroy($imagenGD);
-            }
-        }
-        $reportes->save($report);
-
+        $data = $this->Processing->UpdateFile($request);
         return response()->json(['success' => 'Evidencias creadas con éxito']);
     }
 
@@ -93,7 +49,7 @@ class CoordinadorController extends Controller
         $data = $this->show->ShowReport($id);
         $gis = $this->info->DataGis($id);
         $data['imagenes'] = (array) $data['imagenes'];
-        return view('coordinador.show', compact('data','gis'));
+        return view('coordinador.show', compact('data', 'gis'));
     }
 
     /**
@@ -115,10 +71,7 @@ class CoordinadorController extends Controller
         $request->validate([
             'estado' => 'required',
         ]);
-
-
         $estado = $request->estado;
-
         $reporte = reportes::find($id);
 
         if ($reporte == null) {

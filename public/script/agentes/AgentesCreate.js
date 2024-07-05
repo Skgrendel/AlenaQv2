@@ -28,9 +28,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             infoDiv.classList.add("d-none");
             medidor_anomalia.disabled = true;
             nombre_comercio.value = "Comercio No encontrado"
-            Anomalia.value = 67;
-            Comercio.value = 70;
-            imposibilidad.value = 60;
+            Anomalia.value = 17; // Medidor no encontrado
+            Comercio.value = 55; // comercio no enconrado
+            imposibilidad.value = 58; //imposibilidad falta de medidor
             lectura.value = 0;
             console.log("entro aca")
         }
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         if (anomaliano.checked) {
             anomaliaContainer.classList.add("d-none");
-            Anomalia.value = 8;
+            Anomalia.value = 8; // Sin anomalias
         }
 
         if (lecturano.checked) {
@@ -70,8 +70,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             contmedidor.classList.add("d-none");
             medidor_anomalia.disabled = true;
             lectura.value = 0;
-            Anomalia.value = 67;
-            imposibilidad.value = 60;
+            Anomalia.value = 17; // Medidor no encontrado
+            imposibilidad.value = 58; //imposibilidad falta de medidor
         }
 
         if (medidorcsi.checked) {

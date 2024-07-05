@@ -71,6 +71,28 @@ class ProcessingServices
         ];
         $reporte->update($datosActualizados);
     }
+
+    public function UpdateFile(Request $request)
+    {
+        $reporte = reportes::find($request->input('id'));
+        $fotos = $this->file->processImagesUpdate($request, $reporte);
+        $video = $this->file->processVideoUpdate($request, $reporte);
+        $datosActualizados = [
+            'video' => $video,
+            'imagenes' => $fotos,
+        ];
+        $reporte->update($datosActualizados);
+    }
+
+    public function  UpdateReportconfirmado(Request $request, $reportes)
+    {
+        $reporte = reportes::find($reportes);
+        $datosActualizados = [
+            'confirmado' => $request->input('confirmado'),
+        ];
+        $reporte->update($datosActualizados);
+    }
+
     public function UpdateReportAuditoria(Request $request, $reportes)
     {
         $reporte = reportes::find($reportes);
@@ -81,7 +103,7 @@ class ProcessingServices
             'lectura' => $request->input('lectura'),
             'imposibilidad' => $request->input('imposibilidad'),
             'comentarios' => $request->input('comentarios'),
-            'revisado' => $request->input('revisado')
+            'revisado' => $request->input('revisado'),
         ];
         $reporte->update($datosActualizados);
     }

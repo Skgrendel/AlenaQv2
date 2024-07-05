@@ -15,7 +15,9 @@ class RolesDatatable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')->setTableRowUrl(function ($row) {
+            return route('roles.show', ['Role' => $row]);
+        });
         $this->setColumnSelectStatus(false);
         $this->setPerPage(10);
         $this->setConfigurableAreas([

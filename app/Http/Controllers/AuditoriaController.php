@@ -11,14 +11,12 @@ use App\Services\ProcessingServices;
 use App\Services\reporte\EditReportServices;
 use Illuminate\Http\Request;
 
+use function Livewire\of;
 
 class AuditoriaController extends Controller
 {
-    private $report;
-    private  $info;
-    private $edit;
-    private $Processing;
-    private $show;
+    private $report, $info, $edit, $Processing, $show;
+
     public function __construct()
     {
         $this->Processing = new ProcessingServices;
@@ -75,13 +73,18 @@ class AuditoriaController extends Controller
      */
     public function update(Request $request, $reporte)
     {
-
-       // dd($request->all());
+        //dd($request->all());
         $ServicesUpdate = $this->Processing;
-        $ServicesUpdate->UpdateReportAuditoria($request, $reporte);
-        $ServicesUpdate->CreateAuditoria($request, $reporte);
+        if ($request->input('revisado') == 1) {
+            $ServicesUpdate->UpdateReportAuditoria($request, $reporte);
+            $ServicesUpdate->CreateAuditoria($request, $reporte);
+            return redirect()->route('auditorias.index')->with('success', 'Reporte Actualizado');
+        }
 
-        return redirect()->route('auditorias.index')->with('success', 'Reporte Actualizado');
+        if ($request->input('confirmado') == 1 || $request->input('confirmado') == 0) {
+            $ServicesUpdate->UpdateReportconfirmado($request, $reporte);
+            return redirect()->route('auditorias.create')->with('success', 'Reporte Actualizado');
+        }
     }
 
     /**

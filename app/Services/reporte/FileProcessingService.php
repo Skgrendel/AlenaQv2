@@ -47,7 +47,7 @@ class FileProcessingService
     public function processVideo(Request $request)
     {
         $reportesData = null;
-        
+
         if ($video = $request->file('video')) {
             $path = 'video/';
             $videoname = rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();
@@ -99,7 +99,7 @@ class FileProcessingService
                 $imagenGD = imagecreatefromjpeg(public_path($path . $foto));
 
                 // Añadir texto del contrato a la imagen
-                $textoContrato = "Contrato N°:" . $reporte->contrato;
+                $textoContrato = "Contrato N°:" . $reporte->dbSurtigas->contrato;
                 $colorTexto = imagecolorallocate($imagenGD, 255, 255, 255); // Color blanco
                 $posXContrato = 10; // Ajusta según tu diseño
                 $posYContrato = imagesy($imagenGD) - 170; // Ajusta según tu diseño

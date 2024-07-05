@@ -36,7 +36,7 @@ class ShowReportServices
                 'lectura' => $data->lectura,
                 'observaciones' =>$data->observaciones,
                 'comentarios' =>$data->comentarios,
-                'estado' => $ciclo->estado
+                'estado' => $ciclo->estado_servicio
             ],
             'imagenes' => $imagenes,
             'video' =>$data->video,

@@ -250,27 +250,18 @@
                                         <div class="input-group mb-1">
                                             <input type="file" class="form-control" id="foto2" name="foto2"
                                                 accept="image/jpeg">
-                                            <span class="input-group-text" for="foto2">Numero Serial</span>
+                                            <span class="input-group-text" for="foto2">Sellos del Medidor</span>
                                         </div>
-                                        <div class="input-group mb-1">
-                                            <input type="file" class="form-control" id="foto3" name="foto3"
-                                                accept="image/jpeg">
-                                            <span class="input-group-text" for="foto3">Numero Lectura</span>
-                                        </div>
+
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group mb-1">
                                             <input type="file" class="form-control" id="foto4" name="foto4"
                                                 accept="image/jpeg">
-                                            <span class="input-group-text" for="foto4">Numero Medidor</span>
-                                        </div>
-                                        <div class="input-group mb-1">
-                                            <input type="file" class="form-control" id="foto5" name="foto5"
-                                                accept="image/jpeg">
                                             <span class="input-group-text" for="foto5">Estado Medidor</span>
                                         </div>
                                         <div class="input-group mb-1">
-                                            <input type="file" class="form-control" id="foto6" name="foto6"
+                                            <input type="file" class="form-control" id="foto5" name="foto5"
                                                 accept="image/jpeg">
                                             <span class="input-group-text" for="foto6">Opcional</span>
                                         </div>
@@ -278,6 +269,11 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-md-12">
+                                        <div class="input-group mb-1">
+                                            <input type="file" class="form-control" id="foto3" name="foto3"
+                                                accept="image/jpeg">
+                                            <span class="input-group-text" for="foto3">Numero Lectura y medidor</span>
+                                        </div>
                                         <div class="input-group">
                                             <input class="form-control" type="file" id="video" name="video"
                                                 accept="video/mp4">

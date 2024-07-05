@@ -27,6 +27,8 @@ class reportes extends Model
         'comentarios',
         'observaciones',
         'imagenes',
+        'revisado',
+        'confirmado',
         'video',
         'estado',
     ];
