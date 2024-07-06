@@ -45,8 +45,6 @@
         {!! Form::submit('Crear Rol', ['class' => 'btn btn-primary btn-rounded mb-2 me-4']) !!}
         {!! Form::close() !!}
     </div>
-    </div>
-    </div>
 @endsection
 
 @section('scripts')

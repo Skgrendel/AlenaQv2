@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-
+use App\Models\configuraciones;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
@@ -50,33 +50,35 @@ class AsignadosDatatable extends DataTableComponent
     public function builder(): Builder
     {
         $user = Auth::user();
+        $config = configuraciones::find('1');
         $personalId = $user->personals_id;
 
-        return surtigas::query()->where('surtigas.personals_id', $personalId);
+        return surtigas::query()->where('surtigas.personals_id', $personalId)
+            ->where('ciclo', $config->ciclo);
     }
 
     public function columns(): array
     {
         return [
             Column::make("Contrato", "contrato")
-            ->searchable(),
+                ->searchable(),
             Column::make("Direccion", "direccion")
-            ->collapseOnMobile(),
+                ->collapseOnMobile(),
             Column::make("Ciclo", "ciclo")
-            ->collapseOnMobile(),
+                ->collapseOnMobile(),
             Column::make("Estado", "estado")
                 ->format(
                     fn ($value) => $value == 0 ? '<span class="badge badge-success">Registrado</span>' : '<span class="badge badge-warning">Pendiente</span>'
                 )
                 ->html()
                 ->collapseOnMobile(),
-                Column::make('Acciones', 'contrato')
+            Column::make('Acciones', 'contrato')
                 ->format(
                     fn ($value, $row, Column $column) => view('agentes.asignados.actions', [
                         'value' => $value,
                         'estado' => $row->estado // Suponiendo que "estado" es la columna que contiene el valor de estado
                     ])
-                    ),
+                ),
         ];
     }
 }

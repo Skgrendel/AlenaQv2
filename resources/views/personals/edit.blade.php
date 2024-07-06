@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Nuevo Personal
+                       <span class="mb-2">Editar Personal</span>
                         <a href="{{ route('personals.index') }}" class="btn btn-outline-primary float-right">Regresar</a>
                     </div>
                     <form action="{{ route('personals.update',$data['personal']['id']) }}" method="post">
@@ -18,13 +18,13 @@
                                     <div class="form-group">
                                         <label for="tipo_documento">Tipo de Documento</label>
                                         <select class="form-select" aria-label="tipo_documento" name="tipo_documento" id="tipo_documento" required>
-                                            <option selected>Seleccione tipo de documento</option>
+                                            <option selected disabled>Seleccione tipo de documento</option>
                                             @foreach ($data['tipodocumento'] as $id => $nombre)
-                                                <option value="{{ $id }}" {{ $data['personal']['tipodocumento'] == $id ? 'selected' : '' }}>{{ $nombre }}</option>
+                                                <option value="{{ $id }}" {{ $data['personal']['tipodocumento'] = $id ? 'selected' : '' }}>{{ $nombre }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mt-2">
                                         <label for="nombres">Nombres</label>
                                         <input type="text" class="form-control @error('nombres') is-invalid @enderror"
                                             id="nombres" name="nombres" value="{{ $data['personal']['nombres'] }}">
@@ -32,7 +32,7 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mt-2">
                                         <label for="telefono">Telefono</label>
                                         <input type="text" class="form-control @error('telefono') is-invalid @enderror"
                                             id="telefono" name="telefono" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ $data['personal']['telefono'] }}">
@@ -43,7 +43,7 @@
 
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group mt-2">
                                         <label for="numero_documento">Número de Documento</label>
                                         <input type="tel" class="form-control" id="numero_documento"
                                             name="numero_documento"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ $data['personal']['numero_documento'] }}">
@@ -52,7 +52,7 @@
                                         @enderror
                                     </div>
                                     <div
-                                        class="form-group
+                                        class="form-group mt-2
                                         @error('apellidos') is-invalid @enderror">
                                         <label for="apellidos">Apellidos</label>
                                         <input type="text" class="form-control" id="apellidos" name="apellidos"
@@ -62,7 +62,7 @@
                                         @enderror
                                     </div>
                                     <div
-                                        class="form-group
+                                        class="form-group mt-2
                                         @error('correo') is-invalid @enderror">
                                         <label for="correo">Correo</label>
                                         <input type="email" class="form-control" id="correo" name="correo"
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group">
+                                <div class="form-group mt-2">
                                     <label for="rol">Rol</label>
                                     <select name="rol" class="form-control" id="rol">
                                         <option value="">Seleccionar rol</option>

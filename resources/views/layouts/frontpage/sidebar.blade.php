@@ -160,7 +160,7 @@
                     </ul>
                 </li>
                 <li
-                    class="menu {{ Route::currentRouteName() == 'roles.index' || Route::currentRouteName() == 'roles.show' || Route::currentRouteName() == 'roles.create' ? 'active' : '' }}">
+                    class="menu {{ Route::currentRouteName() == 'roles.index' || Route::currentRouteName() == 'roles.show' || Route::currentRouteName() == 'roles.create' || Route::currentRouteName() == 'configs.index' ? 'active' : '' }}">
                     <a href="#roles" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"
@@ -185,6 +185,9 @@
                     <ul class="collapse submenu list-unstyled" id="roles" data-bs-parent="#accordionExample">
                         <li>
                             <a href="{{ route('roles.index') }}"> Roles </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('configs.index') }}"> ciclos </a>
                         </li>
                     </ul>
                 </li>

@@ -18,7 +18,9 @@ class PersonalsDatatable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')->setTableRowUrl(function ($row) {
+            return route('personals.edit', ['personal' => $row]);
+        });
         $this->setColumnSelectStatus(false);
         $this->setPerPage(10);
         $this->setTableAttributes([
@@ -42,7 +44,7 @@ class PersonalsDatatable extends DataTableComponent
             Column::make("Apellidos", "apellidos")
                 ->sortable()
                 ->searchable(),
-            Column::make("Telefono", "telefono"),
+            Column::make("Telefono", "telefono" ),
             Column::make("Correo", "correo"),
             Column::make("Estado", "estado")
                 ->format(

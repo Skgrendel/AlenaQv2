@@ -9,7 +9,8 @@ use App\Models\vs_tipo_documento;
 
 class PersonalServices
 {
-    public function PersonalStore($request){
+    public function PersonalStore($request)
+    {
 
         // Validación de datos
         $request->validate(personals::$rules);
@@ -41,30 +42,31 @@ class PersonalServices
         // Asociar usuario al personal creado
         $user->personal_id = $personal_id; //
         $user->save();
-
     }
 
-    public function PersonalEdit($id){
-         // Buscar el registro personal
-         $personal = personals::find($id);
-         // Buscar el registro de usuario asociado con el registro personal
-         $roles = Role::pluck('name', 'name')->all();
-         $user = User::where('personals_id', $personal->id)->first();
-         // Verificar si el registro de usuario existe
-         $userRoles = $user->roles->pluck('name')->toArray();
-         // Verificar si el registro de usuario existe
-         $tipodocumento = vs_tipo_documento::pluck('nombre', 'id');
+    public function PersonalEdit($id)
+    {
+        // Buscar el registro personal
+        $personal = personals::find($id);
+        // Buscar el registro de usuario asociado con el registro personal
+        $roles = Role::pluck('name', 'name')->all();
+        $user = User::where('personals_id', $personal->id)->first();
+        // Verificar si el registro de usuario existe
+        $userRoles = $user->roles->pluck('name')->toArray();
+        // Verificar si el registro de usuario existe
+        $tipodocumento = vs_tipo_documento::pluck('nombre', 'id');
 
-         return[
-            'personal'=>$personal,
-            'roles'=>$roles,
-            'user'=>$user,
-            'userRoles'=>$userRoles,
-            'tipodocumento'=>$tipodocumento
-         ];
+        return [
+            'personal' => $personal,
+            'roles' => $roles,
+            'user' => $user,
+            'userRoles' => $userRoles,
+            'tipodocumento' => $tipodocumento
+        ];
     }
 
-    public function PersonalUpdate($request,  $id){
+    public function PersonalUpdate($request,  $id)
+    {
 
         $personal = personals::find($id);
 
@@ -80,8 +82,6 @@ class PersonalServices
                 // Asignar roles al usuario
                 $user->syncRoles($request['rol']);
             }
-
         }
-
     }
 }

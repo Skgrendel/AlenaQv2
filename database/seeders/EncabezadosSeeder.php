@@ -15,20 +15,19 @@ class EncabezadosSeeder extends Seeder
     {
         // parametros de opciones de
         encabezados::create([
-            'nombre'=>'Tipo de Documento',
+            'nombre' => 'Tipo de Documento',
         ]);
         encabezados::create([
-            'nombre'=>'estado',
+            'nombre' => 'estado',
         ]);
         encabezados::create([
-            'nombre'=>'anomalia',
+            'nombre' => 'anomalia',
         ]);
         encabezados::create([
-            'nombre'=>'tipo_comercio',
+            'nombre' => 'tipo_comercio',
         ]);
         encabezados::create([
-            'nombre'=>'imposibilidad',
+            'nombre' => 'imposibilidad',
         ]);
-
-        }
+    }
 }

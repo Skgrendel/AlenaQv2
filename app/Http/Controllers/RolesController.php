@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -56,15 +57,22 @@ class RolesController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('admin.roles.edit', compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, string $id)
     {
-        //
+        $role = Role::find($id);
+        $request->validate(
+            [
+                'name' => 'required',
+            ]
+        );
+        $role->update($request->all());
+        $role->permissions()->sync($request->permisos);
+        return redirect()->route('roles.index')->with('success', 'Su rol Fue Actualizado Exitosamente');
     }
 
     /**
@@ -72,6 +80,5 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
-
     }
 }
