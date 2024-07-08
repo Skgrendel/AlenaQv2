@@ -45,7 +45,7 @@
                                                     id="ciclo">{{ $gis['info']['descripcion'] ?? 'sin datos' }}</span>
                                             </div>
                                             <input type="text" id="medidor" name="surtigas_id" hidden
-                                                value="{{ $data['info']['db_Surtigas']['id'] }}">
+                                                value="{{ $data['info']['id'] }}">
                                             <hr>
                                             <div class="d-flex justify-content-between ">
                                                 <a href="{{ $gis['geometry']['link'] ?? '#' }}" target="_blank"
