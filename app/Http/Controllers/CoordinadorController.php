@@ -101,19 +101,16 @@ class CoordinadorController extends Controller
     public function destroy(string $id)
     {
         $reporte = reportes::find($id);
-        
-        $comercio = comercio::where('id', $reporte->comercios_id);
-        $ubicacion = ubicacion::where('id', $reporte->ubicacions_id);
         $surtigas = surtigas::where('id', $reporte->surtigas_id);
 
-        if ($reporte == null && $comercio == null && $ubicacion == null) {
+        if ($reporte == null) {
             return redirect()->route('coordinador.index')->with('error', 'No se encontró el reporte');
         } else {
 
-            $surtigas->estado = '1';
-            $surtigas->update();
-            $ubicacion->delete();
-            $comercio->delete();
+            $datosActualizar = [
+                'estado' => '1',
+            ];
+            $surtigas->update( $datosActualizar);
             $reporte->delete();
 
             return redirect()->route('coordinador.index')->with('success', 'Reporte eliminado con éxito');
