@@ -60,6 +60,13 @@
                                                         class="fas fa-arrow-circle-left"></i></a>
                                             </div>
                                             @endif
+                                            @if (isset($gis['error']))
+                                            <div class="mb-1">
+                                                <label for="numero_contrato" class="form-label">Error:</label>
+                                                <span class="text-body staticEmail"
+                                                    id="numero_contrato">{{ $gis['error']?? 'sin datos' }}</span>
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
