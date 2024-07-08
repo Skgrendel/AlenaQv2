@@ -16,6 +16,7 @@
                                     <div class="card-body">
                                         <div class="col-md-12">
                                             <label class="form-label"> Informacion del Predio</label>
+                                            @if (isset($gis['info']))
                                             <div class="mb-1">
                                                 <label for="nombre_cliente">Nombre:</label>
                                                 <span class=" text-body staticEmail "
@@ -58,6 +59,7 @@
                                                     href="{{ route('asignados') }}"><i
                                                         class="fas fa-arrow-circle-left"></i></a>
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
