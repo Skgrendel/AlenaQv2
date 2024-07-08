@@ -9,7 +9,7 @@ class surtigas extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['personals_id','contrato','direccion','latitud','longitud','ciclo'];
+    protected $fillable = ['personals_id','contrato','direccion','latitud','longitud','ciclo','estado'];
 
     public function personal(){
         return $this->belongsTo(personals::class, 'id');
