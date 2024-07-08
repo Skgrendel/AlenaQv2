@@ -17,55 +17,57 @@
                                         <div class="col-md-12">
                                             <label class="form-label"> Informacion del Predio</label>
                                             @if (isset($gis['info']))
-                                            <div class="mb-1">
-                                                <label for="nombre_cliente">Nombre:</label>
-                                                <span class=" text-body staticEmail "
-                                                    id="nombre_cliente">{{ $gis['info']['cliente']?? 'sin datos' }}</span>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="numero_contrato" class="form-label">Numero de Contrato:</label>
-                                                <span class="text-body staticEmail"
-                                                    id="numero_contrato">{{ $gis['info']['contrato']?? 'sin datos' }}</span>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="numero_medidor" class="form-label">Numero de Medidor: </label>
-                                                <span class=" text-body"
-                                                    id="numero_medidor">{{ $gis['info']['medidor']?? 'sin datos' }}</span>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="direccion">Direccion: </label>
-                                                <span class=" text-body"
-                                                    id="direccion">{{ $gis['info']['direccion']?? 'sin datos' }}</span>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="ciclo">Ciclo: </label>
-                                                <span class=" text-body"
-                                                    id="ciclo">{{ $data['info']['db_Surtigas']['ciclo']?? 'sin datos' }}</span>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="ciclo">Descripcion: </label>
-                                                <span class=" text-body"
-                                                    id="ciclo">{{ $gis['info']['descripcion']?? 'sin datos' }}</span>
-                                            </div>
-                                            <input type="text" id="medidor" name="surtigas_id" hidden
-                                                value="{{ $data['info']['db_Surtigas']['id'] }}">
-                                            <hr>
-                                            <div class="d-flex justify-content-between ">
-                                                <a href="{{ $gis['geometry']['link'] ?? '#'}}" target="_blank"
-                                                    class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion"
-                                                    data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
-                                                <a class="btn btn-info me-4 rounded  bs-tooltip"
-                                                    title="Regresar Pagina Anterior" data-bs-placement="top"
-                                                    href="{{ route('asignados') }}"><i
-                                                        class="fas fa-arrow-circle-left"></i></a>
-                                            </div>
+                                                <div class="mb-1">
+                                                    <label for="nombre_cliente">Nombre:</label>
+                                                    <span class=" text-body staticEmail "
+                                                        id="nombre_cliente">{{ $gis['info']['cliente'] ?? 'sin datos' }}</span>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="numero_contrato" class="form-label">Numero de
+                                                        Contrato:</label>
+                                                    <span class="text-body staticEmail"
+                                                        id="numero_contrato">{{ $gis['info']['contrato'] ?? 'sin datos' }}</span>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="numero_medidor" class="form-label">Numero de Medidor:
+                                                    </label>
+                                                    <span class=" text-body"
+                                                        id="numero_medidor">{{ $gis['info']['medidor'] ?? 'sin datos' }}</span>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="direccion">Direccion: </label>
+                                                    <span class=" text-body"
+                                                        id="direccion">{{ $gis['info']['direccion'] ?? 'sin datos' }}</span>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="ciclo">Ciclo: </label>
+                                                    <span class=" text-body"
+                                                        id="ciclo">{{ $data['info']['db_Surtigas']['ciclo'] ?? 'sin datos' }}</span>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="ciclo">Descripcion: </label>
+                                                    <span class=" text-body"
+                                                        id="ciclo">{{ $gis['info']['descripcion'] ?? 'sin datos' }}</span>
+                                                </div>
+                                                <input type="text" id="medidor" name="surtigas_id" hidden
+                                                    value="{{ $data['info']['db_Surtigas']['id'] }}">
+                                                <hr>
+                                                <div class="d-flex justify-content-between ">
+                                                    <a href="{{ $gis['geometry']['link'] ?? '#' }}" target="_blank"
+                                                        class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion"
+                                                        data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
+                                                    <a class="btn btn-info me-4 rounded  bs-tooltip"
+                                                        title="Regresar Pagina Anterior" data-bs-placement="top"
+                                                        href="{{ route('asignados') }}"><i
+                                                            class="fas fa-arrow-circle-left"></i></a>
+                                                </div>
                                             @endif
                                             @if (isset($gis['error']))
-                                            <div class="mb-1">
-                                                <label for="numero_contrato" class="form-label">Error:</label>
-                                                <span class="text-body staticEmail"
-                                                    id="numero_contrato">{{ $gis['error']?? 'sin datos' }}</span>
-                                            </div>
+                                                <div class="mb-1">
+                                                    <label for="numero_contrato" class="form-label">Error:</label>
+                                                    <span class="text-body staticEmail"
+                                                        id="numero_contrato">{{ $gis['error'] ?? 'sin datos' }}</span>
+                                                </div>
                                             @endif
                                         </div>
                                     </div>
@@ -80,12 +82,12 @@
                             </div>
                             <div class="col-6 d-flex justify-content-end">
                                 <div class="btn-group me-2" role="group" aria-label="Second group">
-                                <input type="radio" class="btn-check" name="options-outlined" id="prediosi"
-                                    autocomplete="off">
-                                <label class="btn btn-outline-success" for="prediosi">Si</label>
-                                <input type="radio" class="btn-check" name="options-outlined" id="prediono"
-                                    autocomplete="off">
-                                <label class="btn btn-outline-danger" for="prediono">No</label>
+                                    <input type="radio" class="btn-check" name="options-outlined" id="prediosi"
+                                        autocomplete="off">
+                                    <label class="btn btn-outline-success" for="prediosi">Si</label>
+                                    <input type="radio" class="btn-check" name="options-outlined" id="prediono"
+                                        autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="prediono">No</label>
                                 </div>
                             </div>
                         </div>
@@ -94,14 +96,16 @@
                     <div class="d-none" id="info">
                         <div class="col-12 mb-2">
                             <label for="comercio" class="form-label">¿Que Tipo de Comercio Encontro?</label>
-                            <select id="slcComercio" class="form-select" name="tipo_comercio" data-placeholder="Seleccione el Tipo de Comercio">
+                            <select id="slcComercio" class="form-select" name="tipo_comercio"
+                                data-placeholder="Seleccione el Tipo de Comercio">
                                 @foreach ($data['comercios'] as $id => $nombre)
                                     <option value="{{ $id }}">{{ $nombre }}</option>
                                 @endforeach
                             </select>
                             <div class="mt-3">
                                 <label for="nueva_opcion" class="form-label">Nombre del Comercio Encontrado</label>
-                                <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control" required>
+                                <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control"
+                                    required>
                             </div>
                         </div>
                         <div class="col-12 mt-2">
@@ -111,12 +115,12 @@
                                 </div>
                                 <div class="col-6 d-flex justify-content-end ">
                                     <div class="btn-group me-2" role="group" aria-label="Second group">
-                                    <input type="radio" class="btn-check" name="options-outlined" id="medidorsi"
-                                        autocomplete="off">
-                                    <label class="btn btn-outline-success text-center" for="medidorsi">Si</label>
-                                    <input type="radio" class="btn-check" name="options-outlined" id="medidorno"
-                                        autocomplete="off">
-                                    <label class="btn btn-outline-danger text-center" for="medidorno">No</label>
+                                        <input type="radio" class="btn-check" name="options-outlined" id="medidorsi"
+                                            autocomplete="off">
+                                        <label class="btn btn-outline-success text-center" for="medidorsi">Si</label>
+                                        <input type="radio" class="btn-check" name="options-outlined" id="medidorno"
+                                            autocomplete="off">
+                                        <label class="btn btn-outline-danger text-center" for="medidorno">No</label>
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +139,7 @@
                                             <input type="radio" class="btn-check" name="medidorcsi" id="medidorcno"
                                                 autocomplete="off">
                                             <label class="btn btn-outline-danger text-center" for="medidorcno">No</label>
-                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +164,7 @@
                                             <input type="radio" class="btn-check" name="anomaliasi" id="anomaliano"
                                                 autocomplete="off">
                                             <label class="btn btn-outline-danger text-center" for="anomaliano">No</label>
-                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -185,7 +189,7 @@
                                     <input type="radio" class="btn-check" name="lecturasi" id="lecturano"
                                         autocomplete="off">
                                     <label class="btn btn-outline-danger text-center" for="lecturano">No</label>
-                                    </div>
+                                </div>
                             </div>
                             <div class="col-lg-12 d-none mb-2" id="lectura_container">
                                 <div class="mt-1">
