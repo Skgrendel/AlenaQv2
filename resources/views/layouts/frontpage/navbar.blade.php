@@ -3,7 +3,7 @@
         <ul class="navbar-item theme-brand flex-row  text-center">
             <li class="nav-item theme-logo">
                 <a href="#">
-                    <a href="{{route('reportes.index')}}" class="nav-link"> Q Analityc Data </a>
+                    <a href="{{route('reportes.index')}}" class="nav-link"> Q Analityc Data V 2.0 </a>
                 </a>
             </li>
         </ul>
