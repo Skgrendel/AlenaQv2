@@ -172,6 +172,9 @@ class AuditoriaDatatable extends DataTableComponent
                 ->searchable(),
             Column::make("Lectura", "lectura")
                 ->collapseOnMobile(),
+                Column::make("Medidor", "dbSurtigas.medidor")
+                ->collapseOnMobile()
+                ->searchable(),
             Column::make("Anomalia", "anomalia")
                 ->format(function ($value) {
                     $ids = json_decode($value); // Decodifica el JSON

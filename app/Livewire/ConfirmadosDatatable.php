@@ -10,8 +10,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\reportes;
 use App\Models\vs_anomalias;
-
-class ReportesDatatable extends DataTableComponent
+class ConfirmadosDatatable extends DataTableComponent
 {
     protected $model = reportes::class;
     public ?int $searchFilterDebounce = 500;
@@ -21,12 +20,12 @@ class ReportesDatatable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id')->setTableRowUrl(function ($row) {
-            return route('coordinador.show', ['coordinador' => $row]);
+        $this->setPrimaryKey('id')->setTableRowUrl(function($row) {
+            return route('auditorias.show',['auditoria' => $row]);
         });
         $this->setColumnSelectStatus(false);
         $this->setTableAttributes([
-            'class' => 'table table-bordered custom-table',
+            'class' => 'table table-bordered  custom-table',
         ]);
     }
 
@@ -51,7 +50,8 @@ class ReportesDatatable extends DataTableComponent
     public function filters(): array
     {
         return [
-                  SelectFilter::make('Anomalias')
+            // Aquí es donde agregas otro filtro
+            SelectFilter::make('Anomalias')
                 ->options([
                     '' => 'All',
                     '1' => 'Sin anomalias',
@@ -97,10 +97,17 @@ class ReportesDatatable extends DataTableComponent
                     } elseif ($value === '13') {
                         $builder->whereJsonContains('reportes.anomalia', '67');
                     } elseif ($value === '14') {
-                        $builder->whereJsonContains('reportes.anomalia', '67');
+                        $builder->whereJsonContains('reportes.anomalia', '68');
+                    } elseif ($value === '15') {
+                        $builder->whereJsonContains('reportes.anomalia', '71');
+                    } elseif ($value === '16') {
+                        $builder->whereJsonContains('reportes.anomalia', '72');
+                    } elseif ($value === '17') {
+                        $builder->whereJsonContains('reportes.anomalia', '73');
+                    } elseif ($value === '18') {
+                        $builder->whereJsonContains('reportes.anomalia', '74');
                     }
                 }),
-
             SelectFilter::make('Ciclos')
                 ->options([
                     '' => 'All',
@@ -148,16 +155,18 @@ class ReportesDatatable extends DataTableComponent
     }
     public function builder(): Builder
     {
-        return reportes::query()->whereIn('reportes.estado', [5, 7])
-            ->with(['personal', 'report_comercio', 'dbSurtigas']);
+        return reportes::query()
+            ->where('reportes.confirmado', '1')
+            ->where('reportes.revisado', '1');
     }
-
 
     public function columns(): array
     {
         return [
-            Column::make("Nombres", "personal.nombres"),
-            Column::make("Apellidos", "personal.apellidos"),
+            Column::make("Nombres", "personal.nombres")
+            ->collapseAlways(),
+            Column::make("Apellidos", "personal.apellidos")
+            ->collapseAlways(),
             Column::make("Contrato", "dbSurtigas.contrato")
                 ->collapseOnMobile()
                 ->searchable(),
@@ -181,16 +190,13 @@ class ReportesDatatable extends DataTableComponent
                 ->collapseOnMobile(),
             Column::make("Direccion", "report_ubicacion.direccion")
                 ->collapseAlways(),
-            Column::make("Comercio", "report_comercio.vs_comercio.nombre")
+            Column::make("Comercio", "report_comercio.nombre")
                 ->collapseAlways(),
-            Column::make('Ciclos', 'dbSurtigas.ciclo'),
-            Column::make("Estado", "estado")
+            Column::make('Ciclos', 'dbSurtigas.ciclo')
+                ->searchable(),
+            Column::make("Estado", "confirmado")
                 ->format(
-                    fn ($value, $row, Column $column) => match ($value) {
-                        '5' => '<span class="badge badge-warning">Pendiente</span>',
-                        '6' => '<span class="badge badge-success">Revisado</span>',
-                        '7' => '<span class="badge badge-danger">Rechazado</span>',
-                    }
+                    fn ($value) => $value == 1 ? '<span class="badge badge-success">Confirmado</span>' : 'No Revisado'
                 )
                 ->html()
                 ->collapseOnMobile(),
@@ -198,8 +204,9 @@ class ReportesDatatable extends DataTableComponent
                 ->format(fn ($value) => $value->format('d/M/Y'))
                 ->collapseOnMobile(),
             Column::make('Acciones', 'id')
+            ->unclickable()
                 ->format(
-                    fn ($value, $row, Column $column) => view('coordinador.actions', compact('value'))
+                    fn ($value, $row, Column $column) => view('auditoria.actions', compact('value'))
                 ),
         ];
     }

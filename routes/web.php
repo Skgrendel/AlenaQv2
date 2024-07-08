@@ -32,7 +32,8 @@ Auth::routes();
 Route::middleware('check_user_status')->group(function () {
     Route::get('/home', adminController::class)->name('home');
     Route::resource('/reportes', ReportesController::class)->names('reportes')->except(['destroy', 'create']);
-    Route::get('/asignados', AsignadosController::class)->name('asignados');
+    Route::get('/asignados', [AsignadosController::class,'Asignados'])->name('asignados');
+    Route::get('/entregados', [AsignadosController::class,'Entregados'])->name('entregados');
     Route::resource('/coordinador', CoordinadorController::class)->names('coordinador')->except(['create']);
     Route::resource('/personals', PersonalsController::class)->names('personals');
     Route::get('/admin', adminController::class)->name('admin');
@@ -41,4 +42,5 @@ Route::middleware('check_user_status')->group(function () {
     Route::resource('/auditorias', AuditoriaController::class)->names('auditorias');
     Route::resource('Roles', RolesController::class)->names('roles');
     Route::resource('/config', ConfiguracionesController::class)->names('configs');
+
 });

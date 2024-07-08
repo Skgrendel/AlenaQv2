@@ -98,6 +98,9 @@
                         <li class="{{ Route::currentRouteName() == 'auditorias.create' ? 'active' : '' }}">
                             <a href="{{ route('auditorias.create') }}">Revisados</a>
                         </li>
+                        <li class="{{ Route::currentRouteName() == 'entregados' ? 'active' : '' }}">
+                            <a href="{{ route('entregados') }}">Entregados</a>
+                        </li>
                     </ul>
                 </li>
             @endcan
