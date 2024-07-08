@@ -14,9 +14,15 @@ return new class extends Migration
         Schema::create('reportes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('personals_id');
-            $table->foreignId('ubicacions_id');
-            $table->foreignId('comercios_id');
-            $table->foreignId('surtigas_id');
+            $table->foreignId('ubicacions_id')
+                ->constrained('ubicacions')
+                ->onDelete('cascade');
+            $table->foreignId('comercios_id')
+                ->constrained('comercios')
+                ->onDelete('cascade');
+            $table->foreignId('surtigas_id')
+                ->constrained('surtigas')
+                ->onDelete('cascade');
             $table->string('lectura');
             $table->json('anomalia');
             $table->string('imposibilidad');

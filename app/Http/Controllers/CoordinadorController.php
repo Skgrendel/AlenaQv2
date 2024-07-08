@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\comercio;
 use App\Models\reportes;
+use App\Models\surtigas;
+use App\Models\ubicacion;
 use App\Services\ProcessingServices;
 use App\Services\reporte\CreateReportServices;
 use App\Services\coordinador\DataGisServices;
@@ -14,8 +17,8 @@ use Illuminate\Http\Request;
 
 class CoordinadorController extends Controller
 {
-    private $Processing,$create,$info,$show,$report;
-    
+    private $Processing, $create, $info, $show, $report;
+
     public function __construct()
     {
         $this->report  = new ReportServices();
@@ -98,13 +101,22 @@ class CoordinadorController extends Controller
     public function destroy(string $id)
     {
         $reporte = reportes::find($id);
+        
+        $comercio = comercio::where('id', $reporte->comercios_id);
+        $ubicacion = ubicacion::where('id', $reporte->ubicacions_id);
+        $surtigas = surtigas::where('id', $reporte->surtigas_id);
 
-        if ($reporte == null) {
-
+        if ($reporte == null && $comercio == null && $ubicacion == null) {
             return redirect()->route('coordinador.index')->with('error', 'No se encontró el reporte');
-        }
+        } else {
 
-        $reporte->delete();
-        return redirect()->route('coordinador.index')->with('success', 'Reporte eliminado con éxito');
+            $surtigas->estado = '1';
+            $surtigas->update();
+            $ubicacion->delete();
+            $comercio->delete();
+            $reporte->delete();
+
+            return redirect()->route('coordinador.index')->with('success', 'Reporte eliminado con éxito');
+        }
     }
 }
