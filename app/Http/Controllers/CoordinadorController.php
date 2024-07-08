@@ -105,17 +105,16 @@ class CoordinadorController extends Controller
         $comercio = comercio::where('id', $reporte->comercios_id)->first();
         $ubicacion = ubicacion::where('id', $reporte->ubicacions_id)->first();
 
-
+        // Actualizar
+        $datosActualizar = [
+            'estado' => '1',
+        ];
+        $surtigas->update($datosActualizar);
+        
         if ($reporte == null) {
             return redirect()->route('coordinador.index')->with('error', 'No se encontró el reporte');
         } else {
 
-             // Actualizar y eliminar registros
-             $datosActualizar = [
-                'estado' => '1',
-            ];
-
-            $surtigas->update($datosActualizar);
             // Eliminar archivos de imágenes si existen
             if (!is_null($reporte->imagenes)) {
                 $imagenes = json_decode($reporte->imagenes, true);
@@ -132,7 +131,7 @@ class CoordinadorController extends Controller
                 foreach ($videos as $video) {
                     if (File::exists(public_path('video/' . $video))) {
                         File::delete(public_path('video/' . $video));
-                                        }
+                    }
                 }
             }
 
