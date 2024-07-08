@@ -112,8 +112,8 @@ class CoordinadorController extends Controller
             if (!is_null($reporte->imagenes)) {
                 $imagenes = json_decode($reporte->imagenes, true);
                 foreach ($imagenes as $imagen) {
-                    if (File::exists(public_path('imagenes/' . $imagen))) {
-                        File::delete(public_path('imagenes/' . $imagen));
+                    if (File::exists(public_path('imagen/' . $imagen))) {
+                        File::delete(public_path('imagen/' . $imagen));
                     }
                 }
             }
@@ -122,8 +122,8 @@ class CoordinadorController extends Controller
             if (!is_null($reporte->videos)) {
                 $videos = json_decode($reporte->videos, true);
                 foreach ($videos as $video) {
-                    if (File::exists(public_path('videos/' . $video))) {
-                        File::delete(public_path('videos/' . $video));
+                    if (File::exists(public_path('video/' . $video))) {
+                        File::delete(public_path('video/' . $video));
                                         }
                 }
             }
