@@ -126,7 +126,7 @@ class CoordinadorController extends Controller
             }
 
             // Eliminar archivos de video si existen
-            if (!is_null($reporte->video) && File::exists(public_path('videos/' . $reporte->video))) {
+            if (!is_null($reporte->video) && File::exists(public_path('video/' . $reporte->video))) {
                 File::delete(public_path('videos/' . $reporte->video));
             }
 
