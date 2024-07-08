@@ -110,7 +110,7 @@ class CoordinadorController extends Controller
             'estado' => '1',
         ];
         $surtigas->update($datosActualizar);
-        
+
         if ($reporte == null) {
             return redirect()->route('coordinador.index')->with('error', 'No se encontró el reporte');
         } else {
@@ -126,13 +126,8 @@ class CoordinadorController extends Controller
             }
 
             // Eliminar archivos de video si existen
-            if (!is_null($reporte->video)) {
-                $videos = json_decode($reporte->videos, true);
-                foreach ($videos as $video) {
-                    if (File::exists(public_path('video/' . $video))) {
-                        File::delete(public_path('video/' . $video));
-                    }
-                }
+            if (!is_null($reporte->video) && File::exists(public_path('videos/' . $reporte->video))) {
+                File::delete(public_path('videos/' . $reporte->video));
             }
 
 
