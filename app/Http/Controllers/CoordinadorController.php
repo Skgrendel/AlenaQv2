@@ -102,15 +102,18 @@ class CoordinadorController extends Controller
     {
         $reporte = reportes::find($id);
         $surtigas = surtigas::where('id', $reporte->surtigas_id);
+        $comercio = comercio::where('id', $reporte->comercios_id);
+        $ubicacion = ubicacion::where('id', $reporte->ubicacions_id);
 
         if ($reporte == null) {
             return redirect()->route('coordinador.index')->with('error', 'No se encontró el reporte');
         } else {
-
             $datosActualizar = [
                 'estado' => '1',
             ];
             $surtigas->update( $datosActualizar);
+            $comercio->delete();
+            $ubicacion->delete();
             $reporte->delete();
 
             return redirect()->route('coordinador.index')->with('success', 'Reporte eliminado con éxito');
