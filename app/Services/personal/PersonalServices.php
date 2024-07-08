@@ -32,6 +32,7 @@ class PersonalServices
         // Crear usuario
         $user = new User([
             'email' => $userCorreo,
+            'personal_id'=> $personal_id,
             'password' => bcrypt($request['numero_documento']),
         ]);
 
@@ -39,9 +40,6 @@ class PersonalServices
         $Role = Role::where('name', $userRol)->first();
         $user->assignRole($Role);
 
-        // Asociar usuario al personal creado
-        $user->personal_id = $personal_id; //
-        $user->save();
     }
 
     public function PersonalEdit($id)
