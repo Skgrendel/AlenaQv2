@@ -12,7 +12,7 @@ use App\Services\coordinador\DataGisServices;
 use App\Services\coordinador\ReportServices;
 use App\Services\coordinador\ShowReportServices;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\File;
 
 
 class CoordinadorController extends Controller
@@ -101,17 +101,39 @@ class CoordinadorController extends Controller
     public function destroy(string $id)
     {
         $reporte = reportes::find($id);
-        $surtigas = surtigas::where('id', $reporte->surtigas_id);
-        $comercio = comercio::where('id', $reporte->comercios_id);
-        $ubicacion = ubicacion::where('id', $reporte->ubicacions_id);
+        $surtigas = surtigas::where('id', $reporte->surtigas_id)->first();
+        $comercio = comercio::where('id', $reporte->comercios_id)->first();
+        $ubicacion = ubicacion::where('id', $reporte->ubicacions_id)->first();
 
         if ($reporte == null) {
             return redirect()->route('coordinador.index')->with('error', 'No se encontró el reporte');
         } else {
+            // Eliminar archivos de imágenes si existen
+            if (!is_null($reporte->imagenes)) {
+                $imagenes = json_decode($reporte->imagenes, true);
+                foreach ($imagenes as $imagen) {
+                    if (File::exists(public_path('imagenes/' . $imagen))) {
+                        File::delete(public_path('imagenes/' . $imagen));
+                    }
+                }
+            }
+
+            // Eliminar archivos de video si existen
+            if (!is_null($reporte->videos)) {
+                $videos = json_decode($reporte->videos, true);
+                foreach ($videos as $video) {
+                    if (File::exists(public_path('videos/' . $video))) {
+                        File::delete(public_path('videos/' . $video));
+                                        }
+                }
+            }
+
+            // Actualizar y eliminar registros
             $datosActualizar = [
                 'estado' => '1',
             ];
-            $surtigas->update( $datosActualizar);
+
+            $surtigas->update($datosActualizar);
             $comercio->delete();
             $ubicacion->delete();
             $reporte->delete();
