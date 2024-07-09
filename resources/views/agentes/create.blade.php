@@ -170,9 +170,9 @@
                             </div>
                             <div class="col-lg-12 d-none mb-2" id="anomaliaContainer">
                                 <div class="mt-1">
-                                    <label for="nueva_opcion" class="form-label">Seleccione La Anomalia Que
+                                    <label for="slcanomalia" class="form-label">Seleccione La Anomalia Que
                                         Detecto</label>
-                                    <select id="slcanomalia" class="form-select" name="anomalia[]" multiple
+                                    <select id="slcanomalia"  name="anomalia[]" multiple="multiple"
                                         data-placeholder="Seleccione la anomalia">
                                         @foreach ($data['anomalias'] as $id => $nombre)
                                             <option value="{{ $id }}">{{ $nombre }}</option>
