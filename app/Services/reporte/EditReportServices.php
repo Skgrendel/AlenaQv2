@@ -40,7 +40,7 @@ class EditReportServices
                 'anomalias'=> $anomaliasNames,
                 'imposibilidad'=>$data->vs_imposibilidad->nombre,
                 'medidoranomalia'=>$data->report_comercio->medidor_anomalia,
-                'comercios'=>$data->report_comercio->tipo_comercio
+                'comercios'=>$data->report_comercio->vs_comercio->nombre
             ],
             'location' => [
                 'link' => $src,
