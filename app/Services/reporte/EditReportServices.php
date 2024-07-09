@@ -26,7 +26,7 @@ class EditReportServices
         $imagenes = json_decode($data->imagenes);
         $anomaliasId = json_decode($data->anomalia);
         // Obtener los nombres de las anomalías como un array
-        $anomaliasNamesArray = vs_anomalias::whereIn('id', $anomalias)->pluck('nombre')->toArray();
+        $anomaliasNamesArray = vs_anomalias::whereIn('id',$anomaliasId)->pluck('nombre')->toArray();
         $anomaliasNames = implode(', ', $anomaliasNamesArray);
 
         return [

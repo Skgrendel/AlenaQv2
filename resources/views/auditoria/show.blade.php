@@ -50,7 +50,7 @@
                                 <ul>
                                     <li>
                                         <span
-                                            class="text-card text-sm">Imposibilidad :{{ $data['info']['imposibilidad'] ?? 'No registra imposibilidades' }}</span>
+                                            class="text-card text-sm">Imposibilidad: {{ $data['info']['imposibilidad'] ?? 'No registra imposibilidades' }}</span>
                                     </li>
                                     <li>
                                         <span class="text-card text-sm">
