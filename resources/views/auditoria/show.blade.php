@@ -50,11 +50,11 @@
                                 <ul>
                                     <li>
                                         <span
-                                            class="text-card text-sm">{{ $data['info']['imposibilidad'] ?? 'No registra imposibilidades' }}</span>
+                                            class="text-card text-sm">Imposibilidad :{{ $data['info']['imposibilidad'] ?? 'No registra imposibilidades' }}</span>
                                     </li>
                                     <li>
                                         <span class="text-card text-sm">
-                                            {{ $data['info']['anomalias'] ?? 'sin datos' }}
+                                           Anomalias: {{ $data['info']['anomalias'] ?? 'sin datos' }}
                                         </span>
                                     </li>
                                     <li>
@@ -234,7 +234,7 @@
                                             </div>
                                             <div class="form-group mb-1 ">
                                                 <label for="anomalia" class="form-label">Anomalias Detectadas</label>
-                                                <select id="anomalia" class="form-select" name="anomalias[]" multiple
+                                                <select id="anomalia" class="form-select select2" name="anomalias[]" multiple="multiple"
                                                     autocomplete="off" data-placeholder="anomalias">
                                                     @foreach ($data['anomalias'] as $id => $nombre)
                                                         <option
@@ -569,4 +569,9 @@
         });
     </script>
     <script src="{{ asset('script/agentes/AgentesGlobal.js') }}"></script>
+    <script>
+        $(".select2").select2({
+            theme: "classic"
+        });
+    </script>
 @endsection

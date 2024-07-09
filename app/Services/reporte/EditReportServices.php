@@ -25,6 +25,10 @@ class EditReportServices
         $imposibilidad = vs_imposibilidad::pluck('nombre', 'id');
         $imagenes = json_decode($data->imagenes);
         $anomaliasId = json_decode($data->anomalia);
+        // Obtener los nombres de las anomalías como un array
+        $anomaliasNamesArray = vs_anomalias::whereIn('id', $anomalias)->pluck('nombre')->toArray();
+        $anomaliasNames = implode(', ', $anomaliasNamesArray);
+
         return [
             'info' => [
                 'ubicacion' => $ubicacion,
@@ -32,7 +36,10 @@ class EditReportServices
                 'comercio' => $comerciosIds,
                 'anomaliasid' => $anomaliasId,
                 'reporte' => $data,
-                'estado' => $ciclo->estado
+                'estado' => $ciclo->estado,
+                'anomalias'=> $anomaliasNames,
+                'imposibilidad'=>$data->vs_imposibilidad->nombre,
+                'medidoranomalia'=>$data->report_comercio->medidor_anomalia
             ],
             'location' => [
                 'link' => $src,
