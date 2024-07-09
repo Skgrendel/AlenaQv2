@@ -39,7 +39,8 @@ class EditReportServices
                 'estado' => $ciclo->estado,
                 'anomalias'=> $anomaliasNames,
                 'imposibilidad'=>$data->vs_imposibilidad->nombre,
-                'medidoranomalia'=>$data->report_comercio->medidor_anomalia
+                'medidoranomalia'=>$data->report_comercio->medidor_anomalia,
+                'comercios'=>$data->report_comercio->tipo_comercio
             ],
             'location' => [
                 'link' => $src,
