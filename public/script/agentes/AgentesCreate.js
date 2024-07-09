@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         if (anomaliasi.checked) {
             anomaliaContainer.classList.remove("d-none");
-            Anomalia.value = "";
         }
 
         if (anomaliano.checked) {

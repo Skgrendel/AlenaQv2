@@ -168,12 +168,13 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-lg-12 d-none mb-2" id="anomaliaContainer">
                                 <div class="mt-1">
                                     <label for="slcanomalia" class="form-label">Seleccione La Anomalia Que
                                         Detecto</label>
-                                    <select id="slcanomalia"  name="anomalia[]" multiple="multiple"
-                                        data-placeholder="Seleccione la anomalia">
+                                    <select id="slcanomalia" class="form-select select2" name="anomalia[]"
+                                        multiple="multiple"  data-placeholder="Seleccione la anomalia">
                                         @foreach ($data['anomalias'] as $id => $nombre)
                                             <option value="{{ $id }}">{{ $nombre }}</option>
                                         @endforeach
@@ -458,14 +459,8 @@
     <script src="{{ asset('script/agentes/AgentesGlobal.js') }}"></script>
     <script src="{{ asset('script/agentes/AgentesCreate.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            $('#slcanomalia').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                closeOnSelect: false,
-            });
+        $(".select2").select2({
+            theme: "classic"
         });
     </script>
 @endsection
