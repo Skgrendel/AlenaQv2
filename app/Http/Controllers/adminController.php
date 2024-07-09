@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class adminController extends Controller
 {
-    
+
     /**
      * Handle the incoming request.
      */
     public function __invoke(Request $request)
     {
-        if ($request->user()->hasRole('Lector')) {
+        if ($request->user()->hasRole('Agente')) {
             return redirect()->action([ReportesController::class, 'index']);
         }
 
