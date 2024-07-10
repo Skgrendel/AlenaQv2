@@ -183,9 +183,83 @@
                                 id="observacion" enctype="multipart/form-data">
                                 @method('PUT')
                                 @csrf
+                                <div>
+                                    <div class="row mt-3">
+                                        <div class="col-3">
+                                            <span class="form-check-label">¿El medidor coincide con el Contrato?</span>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="medidor_coincide" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">si</label>
+                                            </div>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="medidor_coincide" value="0">
+                                                <label class="form-check-label" for="inlineCheckbox1">no</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <span class="form-check-label">¿La lectura es correcta?</span>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="lectura_correcta" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">si</label>
+                                            </div>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="lectura_correcta" value="0">
+                                                <label class="form-check-label" for="inlineCheckbox1">no</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <span class="form-check-label">¿La foto fue tomada en la posicion
+                                                correcta?</span>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="foto_correcta" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">si</label>
+                                            </div>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="foto_correcta" value="0">
+                                                <label class="form-check-label" for="inlineCheckbox1">no</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-4">
+                                            <span class="form-check-label">¿Coicide el tipo de comercio?</span>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="comercio_coincide" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">si</label>
+                                            </div>
+                                            <div class="form-check ">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="comercio_coincide" value="0">
+                                                <label class="form-check-label" for="inlineCheckbox1">no</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                                    name="revisado" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">Revisado</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                                    name="soborno" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">Intento de
+                                                    Soborno</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if ($data['info']['estado'] != '6')
                                 <textarea id="editor" rows="5" name="observaciones" class="form-control mb-3"
                                     placeholder="Escriba Sus Observaciones"></textarea>
-                                @if ($data['info']['estado'] != '6')
                                     <div class="mb-2">
                                         <div class="form-check form-check-success form-check-inline">
                                             <label class="form-check-label" for="inlineRadio1">

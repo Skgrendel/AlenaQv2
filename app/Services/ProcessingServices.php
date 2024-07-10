@@ -92,6 +92,14 @@ class ProcessingServices
         ];
         $reporte->update($datosActualizados);
     }
+    public function  UpdateReportrevisado(Request $request, $reportes)
+    {
+        $reporte = reportes::find($reportes);
+        $datosActualizados = [
+            'revisado' => $request->input('revisado'),
+        ];
+        $reporte->update($datosActualizados);
+    }
 
     public function UpdateReportAuditoria(Request $request, $reportes)
     {
@@ -123,7 +131,6 @@ class ProcessingServices
                 'lectura_correcta' => $request->input('lectura_correcta'),
                 'foto_correcta' => $request->input('foto_correcta'),
                 'comercio_coincide' => $request->input('comercio_coincide'),
-                'anomalias_coincide' => $request->input('anomalias_coincide'),
                 'intento_soborno' => $request->input('soborno'),
                 'observaciones' => $request->input('observaciones'),
             ]);

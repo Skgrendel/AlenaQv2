@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\auditoria;
 use App\Models\comercio;
 use App\Models\reportes;
 use App\Models\surtigas;
@@ -73,12 +74,24 @@ class CoordinadorController extends Controller
     {
         $request->validate([
             'estado' => 'required',
+        ], [
+            'estado.required' => 'Por favor, selecciona una opción.',
         ]);
+
+       // dd($request->all());
         $estado = $request->estado;
         $reporte = reportes::find($id);
 
         if ($reporte == null) {
             return redirect()->route('coordinador.index')->with('error', 'No se encontró el reporte');
+        }
+
+        $ServicesUpdate = $this->Processing;
+        if ($request->input('revisado') == 1) {
+            $ServicesUpdate->CreateAuditoria($request, $id);
+            $ServicesUpdate->UpdateReportrevisado($request, $id);
+
+            return redirect()->route('auditorias.index')->with('success', 'Reporte Actualizado');
         }
 
         if ($estado == 6) {
@@ -108,7 +121,7 @@ class CoordinadorController extends Controller
         if ($reporte == null) {
             return redirect()->route('coordinador.index')->with('error', 'No se encontró el reporte');
         } else {
-            
+
             //Actualizar estado
             $datosActualizar = [
                 'estado' => '1',
