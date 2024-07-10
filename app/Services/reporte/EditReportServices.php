@@ -41,7 +41,8 @@ class EditReportServices
                 'imposibilidad'=>$data->vs_imposibilidad->nombre,
                 'medidoranomalia'=>$data->report_comercio->medidor_anomalia,
                 'comercios'=>$data->report_comercio->vs_comercio->nombre,
-                'comentarios'=>$data->comentarios
+                'comentarios'=>$data->comentarios,
+                'lectura'=>$data->lectura
             ],
             'location' => [
                 'link' => $src,

@@ -379,7 +379,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                         <a href="/imagen/{{ $data['imagenes']['foto' . $i] }}"
                             class="withDescriptionGlightbox glightbox-content"
-                            data-glightbox="title: Contrato y medidor; description: Contrato #:{{ $data['info']['contrato'] }} - Medidor #:{{ $data['info']['medidor'] }};">
+                            data-glightbox="title: Contrato y medidor; description: Contrato #:{{ $data['info']['contrato'] }} - Medidor #:{{ $data['info']['medidor'] }} - Lectura #: {{ $data['info']['lectura']}};">
                             <img src="/imagen/{{ $data['imagenes']['foto' . $i] }}" alt="image" class="img-fluid"
                                 style="width:350px; height:250px; object-fit: cover;" />
                         </a>

@@ -500,7 +500,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                         <a href="/imagen/{{ $data['imagenes']['foto' . $i] }}"
                             class="withDescriptionGlightbox glightbox-content"
-                            data-glightbox="title: Contrato y medidor; description: Contrato #:{{ $gis['info']['contrato'] }} - Medidor #:{{ $gis['info']['medidor'] }};">
+                            data-glightbox="title: Contrato y medidor; description: Contrato #:{{ $gis['info']['contrato'] }} - Medidor #:{{ $gis['info']['medidor'] }} - Lectura #:{{ $gis['info']['lectura'] }};">
                             <img src="/imagen/{{ $data['imagenes']['foto' . $i] }}" alt="image" class="img-fluid"
                                 style="width:350px; height:250px; object-fit: cover;" />
                         </a>
@@ -576,7 +576,7 @@
                 width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
                     'style',
                 placeholder: $(this).data('placeholder'),
-                closeOnSelect: false, 
+                closeOnSelect: false,
             });
         });
     </script>
