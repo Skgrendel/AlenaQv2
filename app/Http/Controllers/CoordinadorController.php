@@ -77,21 +77,18 @@ class CoordinadorController extends Controller
         ], [
             'estado.required' => 'Por favor, selecciona una opción.',
         ]);
-
-       // dd($request->all());
+        
         $estado = $request->estado;
         $reporte = reportes::find($id);
+        $ServicesUpdate = $this->Processing;
 
         if ($reporte == null) {
             return redirect()->route('coordinador.index')->with('error', 'No se encontró el reporte');
         }
 
-        $ServicesUpdate = $this->Processing;
         if ($request->input('revisado') == 1) {
             $ServicesUpdate->CreateAuditoria($request, $id);
             $ServicesUpdate->UpdateReportrevisado($request, $id);
-
-            return redirect()->route('auditorias.index')->with('success', 'Reporte Actualizado');
         }
 
         if ($estado == 6) {
