@@ -43,6 +43,7 @@ class EditReportServices
                 'comercios' => $data->report_comercio->vs_comercio->nombre,
                 'comentarios' => $data->comentarios,
                 'lectura' => $data->lectura,
+                'contrato'=>$ciclo->contrato
             ],
             'location' => [
                 'link' => $src,
