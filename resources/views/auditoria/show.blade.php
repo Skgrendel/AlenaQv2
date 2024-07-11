@@ -187,14 +187,14 @@
                                     <div class="form-group mb-1 ">
                                         <label for="Contrato" class="form-label">Numero de Contrato</label>
                                         <span id="Contrato" class="form-control"
-                                            name="contrato">{{ $gis['info']['contrato'] }} </span>
+                                            name="contrato">{{ $gis['info']['contrato'] ?? 'sin datos'}} </span>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group mb-1 ">
                                                 <label for="medidor" class="form-label">Numero de Medidor</label>
                                                 <span type="text" class="form-control" id="medidor"
-                                                    name="medidor">{{ $gis['info']['medidor'] }}</span>
+                                                    name="medidor">{{ $gis['info']['medidor'] ?? 'sin datos' }}</span>
                                             </div>
                                             <div class="form-group mb-1 ">
                                                 <label for="lectura">Numero de Lectura</label>
