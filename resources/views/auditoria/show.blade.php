@@ -16,7 +16,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <span class="media-title">Numero de Contrato:
-                                                    <strong>{{ $gis['info']['contrato'] }}</strong> </span>
+                                                    <strong>{{ $gis['info']['contrato'] ?? 'Sin datos' }}</strong> </span>
                                             </div>
                                         </div>
                                     </h4>
