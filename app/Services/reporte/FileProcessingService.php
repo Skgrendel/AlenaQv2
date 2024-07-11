@@ -13,7 +13,7 @@ class FileProcessingService
         foreach (range(1, 5) as $i) {
             if ($imagen = $request->file('foto' . $i)) {
                 $path = 'imagen/';
-                $foto = rand(1000, 9999) . "_" . date('YmdHis') . "." . $imagen->getClientOriginalExtension();
+                $foto = $request->input('contrato') . "_" . rand(100, 999) . "_" . date('YmdHis') . "." . $imagen->getClientOriginalExtension();
                 $imagen->move(public_path($path), $foto);
                 $reportes['foto' . $i] = $foto;
 
@@ -50,7 +50,7 @@ class FileProcessingService
 
         if ($video = $request->file('video')) {
             $path = 'video/';
-            $videoname = rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();
+            $videoname = $request->input('contrato') . "_" . rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();
             $video->move($path, $videoname);
             $reportesData = $videoname;
         }
@@ -58,7 +58,8 @@ class FileProcessingService
         return $reportesData;
     }
 
-    public function processVideoUpdate(Request $request,$reporte){
+    public function processVideoUpdate(Request $request, $reporte)
+    {
 
         $reportesData = null;
 
@@ -82,7 +83,7 @@ class FileProcessingService
         return $reportesData;
     }
 
-    public function processImagesUpdate(Request $request,$reporte)
+    public function processImagesUpdate(Request $request, $reporte)
     {
         $reportesData = [];
         $fontSize = 40;
@@ -90,8 +91,8 @@ class FileProcessingService
 
         foreach (range(1, 5) as $i) {
             if ($imagen = $request->file('foto' . $i)) {
-              $path = 'imagen/';
-                $foto = rand(1000, 9999) . "_" . date('YmdHis') . "." . $imagen->getClientOriginalExtension();
+                $path = 'imagen/';
+                $foto = $reporte->dbSurtigas->contrato . "_" . rand(100, 999) . "_" . date('YmdHis') . "." . $imagen->getClientOriginalExtension();
                 $imagen->move(public_path($path), $foto);
                 $reportes['foto' . $i] = $foto;
 
@@ -129,7 +130,7 @@ class FileProcessingService
                 }
                 $reportesData['foto' . $i] = $foto;
             } else {
-                 // Asegurarse de que la entrada de la foto no exista si no hay una nueva foto
+                // Asegurarse de que la entrada de la foto no exista si no hay una nueva foto
                 unset($reportesData['foto' . $i]);
             }
         }
