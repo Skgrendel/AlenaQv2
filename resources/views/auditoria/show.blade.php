@@ -16,7 +16,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <span class="media-title">Numero de Contrato:
-                                                    <strong>{{ $gis['info']['contrato'] ?? 'Sin datos' }}</strong> </span>
+                                                    <strong>{{ $data['info']['contrato'] ?? 'Sin datos' }}</strong> </span>
                                             </div>
                                         </div>
                                     </h4>
@@ -30,7 +30,7 @@
 
                                     <li>
                                         <span class="text-card text-sm"> Numero del Medidor:
-                                            {{ $gis['info']['medidor'] ?? 'Sin medidor' }}</span>
+                                            {{ $data['info']['medidor'] ?? 'Sin medidor' }}</span>
                                     </li>
                                     <li>
                                         <span class="text-card text-sm"> Numero de Lectura:
