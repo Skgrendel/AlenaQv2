@@ -198,7 +198,7 @@
                                     <input type="text" name="lectura" id="lectura" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-12 d-none" id="container_imposibilidad" hidden>
+                            <div class="col-12 d-none" id="container_imposibilidad">
                                 <label for="imposibilidad" class="form-label">Imposibilidad</label>
                                 <select id="imposibilidad" class="form-select" name="imposibilidad"
                                     data-placeholder="Seleccione la imposibilidad">

@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const medidor_anomalia = document.getElementById("medidor_anomalia");
     const medidor_anomalia_container = document.getElementById("medidor_anomalia_container");
     const imposibilidad = document.getElementById("imposibilidad");
+    const Contimposibilidad = document.getElementById("container_imposibilidad");
     const anomaliaContainer = document.getElementById("anomaliaContainer");
     const lectura = document.getElementById("lectura");
 
@@ -53,6 +54,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         if (lecturano.checked) {
             contlectura.classList.add("d-none");
+            Contimposibilidad.classList.remove("d-none")
             lectura.value = 0;
         }
 
