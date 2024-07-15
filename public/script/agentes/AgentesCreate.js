@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         if (anomaliano.checked) {
             anomaliaContainer.classList.add("d-none");
+
             Anomalia.value = 8; // Sin anomalias
         }
 
@@ -60,6 +61,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         if (lecturasi.checked) {
             contlectura.classList.remove("d-none");
+            Contimposibilidad.classList.add("d-none")
             lectura.value = "";
         }
 
