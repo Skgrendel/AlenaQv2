@@ -47,8 +47,10 @@ class ProcessingServices
 
         //dbs_surtigas Cambio de Estado
         $dbs_surtigas = surtigas::where('id', $Resultado->surtigas_id)->first();
-        $dbs_surtigas->estado = '0';
-        $dbs_surtigas->update();
+        $datosActualizados = [
+            'estado' => '0',
+        ];
+        $dbs_surtigas->update($datosActualizados);
     }
 
     public function UpdateReport(Request $request, $reportes)
