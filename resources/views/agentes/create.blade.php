@@ -82,10 +82,10 @@
                             </div>
                             <div class="col-6 d-flex justify-content-end">
                                 <div class="btn-group me-2" role="group" aria-label="Second group">
-                                    <input type="radio" class="btn-check" name="options-outlined" id="prediosi"
+                                    <input type="radio" class="btn-check" name="options-predio" id="prediosi"
                                         autocomplete="off">
                                     <label class="btn btn-outline-success" for="prediosi">Si</label>
-                                    <input type="radio" class="btn-check" name="options-outlined" id="prediono"
+                                    <input type="radio" class="btn-check" name="options-predio" id="prediono"
                                         autocomplete="off">
                                     <label class="btn btn-outline-danger" for="prediono">No</label>
                                 </div>
@@ -115,10 +115,10 @@
                                 </div>
                                 <div class="col-6 d-flex justify-content-end ">
                                     <div class="btn-group me-2" role="group" aria-label="Second group">
-                                        <input type="radio" class="btn-check" name="options-outlined" id="medidorsi"
+                                        <input type="radio" class="btn-check" name="options-medidor" id="medidorsi"
                                             autocomplete="off">
                                         <label class="btn btn-outline-success text-center" for="medidorsi">Si</label>
-                                        <input type="radio" class="btn-check" name="options-outlined" id="medidorno"
+                                        <input type="radio" class="btn-check" name="options-medidor" id="medidorno"
                                             autocomplete="off">
                                         <label class="btn btn-outline-danger text-center" for="medidorno">No</label>
                                     </div>
@@ -133,10 +133,10 @@
                                     </div>
                                     <div class="col-6 d-flex justify-content-end">
                                         <div class="btn-group me-2" role="group" aria-label="Second group">
-                                            <input type="radio" class="btn-check" name="medidorcsi" id="medidorcsi"
+                                            <input type="radio" class="btn-check" name="options-medidorA" id="medidorcsi"
                                                 autocomplete="off">
                                             <label class="btn btn-outline-success text-center" for="medidorcsi">Si</label>
-                                            <input type="radio" class="btn-check" name="medidorcsi" id="medidorcno"
+                                            <input type="radio" class="btn-check" name="options-medidorA" id="medidorcno"
                                                 autocomplete="off">
                                             <label class="btn btn-outline-danger text-center" for="medidorcno">No</label>
                                         </div>
@@ -158,10 +158,10 @@
                                     </div>
                                     <div class="col-6 d-flex justify-content-end ">
                                         <div class="btn-group me-2" role="group" aria-label="Second group">
-                                            <input type="radio" class="btn-check" name="anomaliasi" id="anomaliasi"
+                                            <input type="radio" class="btn-check" name="options-anomalia" id="anomaliasi"
                                                 autocomplete="off">
                                             <label class="btn btn-outline-success text-center" for="anomaliasi">Si</label>
-                                            <input type="radio" class="btn-check" name="anomaliasi" id="anomaliano"
+                                            <input type="radio" class="btn-check" name="options-anomalia" id="anomaliano"
                                                 autocomplete="off">
                                             <label class="btn btn-outline-danger text-center" for="anomaliano">No</label>
                                         </div>
@@ -184,10 +184,10 @@
                             <div class="col-12 d-flex justify-content-between">
                                 <label for="switch-lectura" class="form-label">¿Puede tomar la lectura?</label>
                                 <div class="btn-group me-2" role="group" aria-label="Second group">
-                                    <input type="radio" class="btn-check" name="lecturasi" id="lecturasi"
+                                    <input type="radio" class="btn-check" name="options-lectura" id="lecturasi"
                                         autocomplete="off">
                                     <label class="btn btn-outline-success text-center" for="lecturasi">Si</label>
-                                    <input type="radio" class="btn-check" name="lecturasi" id="lecturano"
+                                    <input type="radio" class="btn-check" name="options-lectura" id="lecturano"
                                         autocomplete="off">
                                     <label class="btn btn-outline-danger text-center" for="lecturano">No</label>
                                 </div>
