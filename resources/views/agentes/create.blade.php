@@ -96,7 +96,7 @@
                     <div class="d-none" id="info">
                         <div class="col-12 mb-2">
                             <label for="comercio" class="form-label">¿Que Tipo de Comercio Encontro?</label>
-                            <select id="slcComercio" class="form-select" name="tipo_comercio"
+                            <select id="slcComercio" class="form-select" name="tipo_comercio" required
                                 data-placeholder="Seleccione el Tipo de Comercio">
                                 @foreach ($data['comercios'] as $id => $nombre)
                                     <option value="{{ $id }}">{{ $nombre }}</option>
@@ -104,7 +104,7 @@
                             </select>
                             <div class="mt-3">
                                 <label for="nueva_opcion" class="form-label">Nombre del Comercio Encontrado</label>
-                                <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control">
+                                <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-12 mt-2">
