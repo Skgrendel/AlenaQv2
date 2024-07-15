@@ -104,8 +104,7 @@
                             </select>
                             <div class="mt-3">
                                 <label for="nueva_opcion" class="form-label">Nombre del Comercio Encontrado</label>
-                                <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control"
-                                    required>
+                                <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control">
                             </div>
                         </div>
                         <div class="col-12 mt-2">
@@ -198,7 +197,7 @@
                                     <input type="text" name="lectura" id="lectura" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-12 d-none" id="container_imposibilidad">
+                            <div class="col-12 d-none mb-2" id="container_imposibilidad">
                                 <label for="imposibilidad" class="form-label">Imposibilidad</label>
                                 <select id="imposibilidad" class="form-select" name="imposibilidad"
                                     data-placeholder="Seleccione la imposibilidad">
