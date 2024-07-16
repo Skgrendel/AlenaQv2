@@ -33,14 +33,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
             Comercio.value = 55; // comercio no enconrado
             imposibilidad.value = 58; //imposibilidad falta de medidor
             lectura.value = 0;
-            console.log("entro aca")
         }
 
         if (prediosi.checked) {
             infoDiv.classList.remove("d-none");
             medidor_anomalia.disabled = false;
-            nombre_comercio.value = ""
-            Comercio.value = "";
+            //nombre_comercio.value = ""
+            //Comercio.value = "";
         }
 
         if (anomaliasi.checked) {
