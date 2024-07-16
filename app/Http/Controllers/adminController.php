@@ -25,6 +25,7 @@ class adminController extends Controller
             return redirect()->action([ReportesController::class, 'index']);
         }
 
+        return redirect()->action([CoordinadorController::class, 'index']);
         // Redirigir a otra ubicación si el usuario no tiene ninguno de los roles anteriores
     }
 }
