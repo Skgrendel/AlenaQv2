@@ -28,7 +28,5 @@ class adminController extends Controller
         if ($request->user()->hasRole('Pno')) {
             return redirect()->action([AuditoriaController::class, 'create']);
         }
-
-        // Redirigir a otra ubicación si el usuario no tiene ninguno de los roles anteriores
     }
 }
