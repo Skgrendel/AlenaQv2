@@ -56,8 +56,6 @@ class ProcessingServices
     public function UpdateReport(Request $request, $reportes)
     {
         $reporte = reportes::find($reportes);
-        $fotos = $this->file->processImagesUpdate($request, $reporte);
-        $video = $this->file->processVideoUpdate($request, $reporte);
         $ubicacion = $this->Service->StoreUbicacion($request);
         $updateComercio = $this->Service->UpdateComercio($request, $reporte);
         $updateUbicacion = $this->Service->UpdateUbicacion($ubicacion, $reporte);
@@ -65,8 +63,6 @@ class ProcessingServices
         $datosActualizados = [
             'anomalia' => json_encode($request->anomalia),
             'estado' => '5',
-            'video' => $video,
-            'imagenes' => $fotos,
             'lectura' => $request->input('lectura'),
             'imposibilidad' => $request->input('imposibilidad'),
             'comentarios' => $request->input('comentarios'),
