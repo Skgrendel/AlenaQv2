@@ -67,7 +67,8 @@
                     </a>
                 </li>
             @endcan
-            @can('coordi.show')
+
+            @can('audit.index')
                 <li
                     class="menu {{ Route::currentRouteName() == 'auditorias.index' || Route::currentRouteName() == 'auditorias.show' || Route::currentRouteName() == 'auditorias.create' ? 'active' : '' }}">
                     <a href="#Auditoria" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -92,18 +93,23 @@
                         </div>
                     </a>
                     <ul class="collapse submenu list-unstyled" id="Auditoria" data-bs-parent="#accordionExample">
-                        <li>
-                            <a href="{{ route('auditorias.index') }}">Pendientes</a>
-                        </li>
+                        @can('audit.create')
+                            <li>
+                                <a href="{{ route('auditorias.index') }}">Pendientes</a>
+                            </li>
+                        @endcan
+                        @can('audit.show')
                         <li class="{{ Route::currentRouteName() == 'auditorias.create' ? 'active' : '' }}">
                             <a href="{{ route('auditorias.create') }}">Revisados</a>
                         </li>
                         <li class="{{ Route::currentRouteName() == 'entregados' ? 'active' : '' }}">
                             <a href="{{ route('entregados') }}">Entregados</a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
             @endcan
+
             @can('admin.index')
                 <li
                     class="menu {{ Route::currentRouteName() == 'personals.index' || Route::currentRouteName() == 'personals.edit' ? 'active' : '' }}">
