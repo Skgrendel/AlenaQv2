@@ -30,7 +30,11 @@ class ReportServices
         $direccion = $data['items'][0]['address']['label'];
 
         $ubicacion = [];
-        $ubicacion['direccion'] = $direccion;
+        if ($direccion){
+            $ubicacion['direccion'] = $direccion;
+        }else{
+            $ubicacion['direccion'] = "";
+        }
         $ubicacion['latitud'] = $latitud;
         $ubicacion['longitud'] = $longitud;
 
