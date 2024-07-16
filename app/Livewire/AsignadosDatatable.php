@@ -64,6 +64,7 @@ class AsignadosDatatable extends DataTableComponent
                 ->searchable(),
             Column::make("Direccion", "direccion")
                 ->collapseOnMobile(),
+            Column::make("Barrio","barrio"),
             Column::make("Ciclo", "ciclo")
                 ->collapseOnMobile(),
             Column::make("Estado", "estado")
