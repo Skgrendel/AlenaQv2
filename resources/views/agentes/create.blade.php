@@ -438,11 +438,8 @@
                             </div>
                         </div>
 
-                        <div class="col-12">
-                            <button class="btn btn-success mb-2 me-4 d-none" id="progressBarReporte">
-                                <div class="spinner-border text-white me-2 align-self-center loader-sm "></div> Enviando
-                                Archivos Espere...
-                            </button>
+                        <div class="alert alert-warning d-none" role="alert" id="progressBarObservacion">
+                            <span class="text-sm">Guardando Cambios Porfavor Espere.....</span>
                         </div>
                     </div>
                     <div class="col-12">
@@ -460,6 +457,14 @@
     <script>
         $(".select2").select2({
             theme: "classic"
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#reportes').submit(function() {
+                $('#submitButtonReporte').addClass('d-none');
+                $('#progressBarObservacion').removeClass('d-none');
+            });
         });
     </script>
 @endsection
