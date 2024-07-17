@@ -26,23 +26,30 @@
                                                     <label for="numero_contrato" class="form-label">Numero de
                                                         Contrato:</label>
                                                     <span class="text-body staticEmail"
-                                                        id="numero_contrato">{{ $gis['info']['contrato'] ?? 'sin datos' }}</span>
+                                                        id="numero_contrato">{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}</span>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="numero_medidor" class="form-label">Numero de Medidor:
                                                     </label>
                                                     <span class=" text-body"
-                                                        id="numero_medidor">{{ $gis['info']['medidor'] ?? 'sin datos' }}</span>
+                                                        id="numero_medidor">{{ $data['info']['db_Surtigas']['medidor'] ?? 'sin datos' }}</span>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="direccion">Direccion: </label>
                                                     <span class=" text-body"
-                                                        id="direccion">{{ $gis['info']['direccion'] ?? 'sin datos' }}</span>
+                                                        id="direccion">{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}</span>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="ciclo">Ciclo: </label>
                                                     <span class=" text-body"
                                                         id="ciclo">{{ $data['info']['db_Surtigas']['ciclo'] ?? 'sin datos' }}</span>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="ciclo">Estado del Servicio: </label>
+                                                    <span class="text-card text-sm">Estado:
+                                                        {!! $data['info']['db_Surtigas']['estado_servicio'] == 1
+                                                            ? '<span class="badge bg-success">Activo</span>'
+                                                            : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="ciclo">Descripcion: </label>
@@ -104,7 +111,8 @@
                             </select>
                             <div class="mt-3">
                                 <label for="nueva_opcion" class="form-label">Nombre del Comercio Encontrado</label>
-                                <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control" required>
+                                <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control"
+                                    required>
                             </div>
                         </div>
                         <div class="col-12 mt-2">
@@ -132,11 +140,11 @@
                                     </div>
                                     <div class="col-6 d-flex justify-content-end">
                                         <div class="btn-group me-2" role="group" aria-label="Second group">
-                                            <input type="radio" class="btn-check" name="options-medidorA" id="medidorcsi"
-                                                autocomplete="off">
+                                            <input type="radio" class="btn-check" name="options-medidorA"
+                                                id="medidorcsi" autocomplete="off">
                                             <label class="btn btn-outline-success text-center" for="medidorcsi">Si</label>
-                                            <input type="radio" class="btn-check" name="options-medidorA" id="medidorcno"
-                                                autocomplete="off">
+                                            <input type="radio" class="btn-check" name="options-medidorA"
+                                                id="medidorcno" autocomplete="off">
                                             <label class="btn btn-outline-danger text-center" for="medidorcno">No</label>
                                         </div>
                                     </div>
@@ -157,11 +165,11 @@
                                     </div>
                                     <div class="col-6 d-flex justify-content-end ">
                                         <div class="btn-group me-2" role="group" aria-label="Second group">
-                                            <input type="radio" class="btn-check" name="options-anomalia" id="anomaliasi"
-                                                autocomplete="off">
+                                            <input type="radio" class="btn-check" name="options-anomalia"
+                                                id="anomaliasi" autocomplete="off">
                                             <label class="btn btn-outline-success text-center" for="anomaliasi">Si</label>
-                                            <input type="radio" class="btn-check" name="options-anomalia" id="anomaliano"
-                                                autocomplete="off">
+                                            <input type="radio" class="btn-check" name="options-anomalia"
+                                                id="anomaliano" autocomplete="off">
                                             <label class="btn btn-outline-danger text-center" for="anomaliano">No</label>
                                         </div>
                                     </div>
@@ -173,7 +181,7 @@
                                     <label for="slcanomalia" class="form-label">Seleccione La Anomalia Que
                                         Detecto</label>
                                     <select id="slcanomalia" class="form-select select2" name="anomalia[]"
-                                        multiple="multiple"  data-placeholder="Seleccione la anomalia">
+                                        multiple="multiple" data-placeholder="Seleccione la anomalia">
                                         @foreach ($data['anomalias'] as $id => $nombre)
                                             <option value="{{ $id }}">{{ $nombre }}</option>
                                         @endforeach
