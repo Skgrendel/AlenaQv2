@@ -445,7 +445,7 @@
                                 <hr class="my-2">
                             </div>
                         </div>
-                        <div class="alert alert-warning d-none" role="alert" id="progressBarObservacion">
+                        <div class="alert alert-warning mt-3 d-none" role="alert" id="progressBarObservacion">
                             <span class="text-sm">Guardando Cambios Porfavor Espere.....</span>
                         </div>
                     </div>
@@ -472,6 +472,38 @@
                 $('#submitButtonReporte').addClass('d-none');
                 $('#progressBarObservacion').removeClass('d-none');
             });
+        });
+    </script>
+    <script>
+        document.getElementById('reportes').addEventListener('submit', function(event) {
+            event.preventDefault();
+            fetch('/check-connection', {
+                    method: 'GET'
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'ok') {
+                        this.submit();
+                    }
+                })
+                .catch(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Sin conexión a internet',
+                        text: 'No tienes conexión a internet. Por favor, revisa tu conexión y vuelve a intentarlo.',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Acciones a ejecutar cuando se presiona "OK" en la alerta
+                            $('#submitButtonReporte').removeClass('d-none');
+                            $('#progressBarObservacion').addClass('d-none');
+                        }
+                    });
+                });
         });
     </script>
 @endsection

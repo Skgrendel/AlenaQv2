@@ -27,14 +27,16 @@ class ReportServices
 
         $response = Http::withoutVerifying()->get("https://revgeocode.search.hereapi.com/v1/revgeocode?apikey=auuOOORgqWd_T4DFf0onY2JlvMDhz4tP0G0o7fRYDRU&at=$latitud,$longitud&lang=es-ES");
         $data = $response->json();
-        $direccion = $data['items'][0]['address']['label'];
+        
+        if (isset($data)) {
+            $direccion = $data['items'][0]['address']['label'];
+        }else{
+            $direccion = "";
+        }
+
 
         $ubicacion = [];
-        if ($direccion){
-            $ubicacion['direccion'] = $direccion;
-        }else{
-            $ubicacion['direccion'] = "";
-        }
+        $ubicacion['direccion'] = $direccion;
         $ubicacion['latitud'] = $latitud;
         $ubicacion['longitud'] = $longitud;
 

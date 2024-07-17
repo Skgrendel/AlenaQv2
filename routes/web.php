@@ -42,5 +42,8 @@ Route::middleware('check_user_status')->group(function () {
     Route::resource('/auditorias', AuditoriaController::class)->names('auditorias');
     Route::resource('Roles', RolesController::class)->names('roles');
     Route::resource('/config', ConfiguracionesController::class)->names('configs');
+    Route::get('/check-connection', function () {
+        return response()->json(['status' => 'ok'], 200);
+    });
 
 });
