@@ -25,6 +25,10 @@ class RevisadosDatatable extends DataTableComponent
             return route('auditorias.show', ['auditoria' => $row]);
         });
         $this->setColumnSelectStatus(false);
+        $this->setPerPageAccepted([10, 25, 50, 100]);
+        $this->setPerPage(5);
+        $this->setPaginationMethod('simple');
+        $this->setPageName('revisados');
         $this->setTableAttributes([
             'class' => 'table table-bordered custom-table',
         ]);
