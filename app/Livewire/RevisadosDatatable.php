@@ -24,6 +24,7 @@ class RevisadosDatatable extends DataTableComponent
         $this->setPrimaryKey('id')->setTableRowUrl(function ($row) {
             return route('auditorias.show', ['auditoria' => $row]);
         });
+        $this->setPaginationMethod('simple');
         $this->setColumnSelectStatus(false);
         $this->setPerPageAccepted([10, 25, 50, 100]);
         $this->setPageName('revisados');

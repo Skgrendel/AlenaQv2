@@ -5,7 +5,7 @@
                 {{-- Previous Page Link --}}
                 @if ($paginator->onFirstPage())
                     <li class="page-item disabled" aria-disabled="true">
-                        <span class="page-link">@lang('pagination.previous')</span>
+                        <span class="page-link">&lsaquo;</span>
                     </li>
                 @else
                     @if(method_exists($paginator,'getCursorName'))
@@ -34,7 +34,7 @@
                     @endif
                 @else
                     <li class="page-item disabled" aria-disabled="true">
-                        <span class="page-link">@lang('pagination.next')</span>
+                        <span class="page-link">&rsaquo;</span>
                     </li>
                 @endif
             </ul>
