@@ -20,7 +20,7 @@
                                             <div class="mb-1">
                                                 <label for="nombre_cliente">Nombre:</label>
                                                 <span class=" text-body staticEmail "
-                                                    id="nombre_cliente">{{ $gis['info']['cliente'] ?? 'sin datos' }}</span>
+                                                    id="nombre_cliente">{{ $data['info']['db_Surtigas']['cliente'] ?? 'sin datos' }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="numero_contrato" class="form-label">Numero de
