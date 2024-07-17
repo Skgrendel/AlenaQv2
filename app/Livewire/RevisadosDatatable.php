@@ -25,6 +25,7 @@ class RevisadosDatatable extends DataTableComponent
             return route('auditorias.show', ['auditoria' => $row]);
         });
         $this->setColumnSelectStatus(false);
+        $this->setPerPageVisibilityEnabled();
         $this->setTableAttributes([
             'class' => 'table table-bordered custom-table',
         ]);
