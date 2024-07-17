@@ -122,10 +122,10 @@
                 </div>
             @elseif ($component->paginationIsEnabled() && $component->isPaginationMethod('simple'))
                 <div class="row mt-3">
-                    <div class="col-12 col-md-12 overflow-auto">
+                    <div class="col-12 col-md-6 overflow-auto">
                         {{ $rows->links('livewire-tables::specific.bootstrap-4.simple-pagination') }}
                     </div>
-                    <div class="col-12 col-md-12 text-center text-md-end text-muted">
+                    <div class="col-12 col-md-6 text-center text-md-end text-muted">
                         @if($component->showPaginationDetails())
                             <span>@lang('Showing')</span>
                             <strong>{{ $rows->count() ? $rows->firstItem() : 0 }}</strong>
