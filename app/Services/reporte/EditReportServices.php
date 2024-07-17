@@ -36,7 +36,7 @@ class EditReportServices
                 'comercio' => $comerciosIds,
                 'anomaliasid' => $anomaliasId,
                 'reporte' => $data,
-                'estado' => $ciclo->estado,
+                'estado' => $ciclo->estado_servicio,
                 'anomalias' => $anomaliasNames,
                 'imposibilidad' => $data->vs_imposibilidad->nombre,
                 'medidoranomalia' => $data->report_comercio->medidor_anomalia,
@@ -45,6 +45,7 @@ class EditReportServices
                 'lectura' => $data->lectura,
                 'contrato'=>$ciclo->contrato,
                 'medidor'=>$ciclo->medidor
+
             ],
             'location' => [
                 'link' => $src,

@@ -4,11 +4,13 @@
     <div class="container mt-3">
         <div class="card">
             <div class="card-body">
-                <form class="row g-3" id="reportes" action="{{ route('reportes.update',$data['info']['reporte']['id']) }}" method="POST" enctype="multipart/form-data">
+                <form class="row g-3" id="reportes" action="{{ route('reportes.update', $data['info']['reporte']['id']) }}"
+                    method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <input type="text" hidden id="latitud" name="latitud" value="">
-                    <input type="text" hidden id="longitud" name="longitud" value="">
+                    <input type="text" id="medidor" name="medidor" hidden value="{{ $data['info']['reporte']['medidor'] }}">
+                    <input type="text" id="contrato" name="contrato" hidden value="{{ $data['info']['reporte']['contrato'] }}">
+                    <input type="text" id="contrato" name="id" hidden value="{{ $data['info']['reporte']['id'] }}">
                     <div class="col-12 mb-1 " id="ubicacion">
                         <div class="">
                             <div class="col-lg-12 ">
@@ -40,21 +42,26 @@
                                             </div>
                                             <div class="mb-1">
                                                 <span for="ciclo">Ciclo: </span>
-                                                <span class=" text-body" id="ciclo">{{ $data['info']['ciclo']['ciclo'] }}</span>
+                                                <span class=" text-body"
+                                                    id="ciclo">{{ $data['info']['ciclo']['ciclo'] }}</span>
                                             </div>
-                                            <input type="text" id="medidor" name="medidor" hidden
-                                                value="{{ $data['info']['reporte']['medidor'] }}">
-                                            <input type="text" id="contrato" name="contrato" hidden
-                                                value="{{ $data['info']['reporte']['contrato'] }}">
+                                            <div class="mb-1">
+                                                <label for="ciclo">Estado del Servicio: </label>
+                                                <span class="text-card text-sm">
+                                                    {!! $data['info']['estado'] == 1
+                                                        ? '<span class="badge bg-success">Activo</span>'
+                                                        : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
+                                            </div>
                                             <hr>
                                             @if ($data['info']['reporte']['observaciones'])
                                                 <span class="form-label">Observaciones:</span>
-                                                <span class="form-control">{{ $data['info']['reporte']['observaciones'] ?? 'Sin Datos' }}</span>
+                                                <span
+                                                    class="form-control">{{ $data['info']['reporte']['observaciones'] ?? 'Sin Datos' }}</span>
                                             @endif
                                             <a class="btn btn-info me-4 rounded  bs-tooltip"
-                                                    title="Regresar Pagina Anterior" data-bs-placement="top"
-                                                    href="{{ route('reportes.index') }}"><i
-                                                        class="fas fa-arrow-circle-left"></i></a>
+                                                title="Regresar Pagina Anterior" data-bs-placement="top"
+                                                href="{{ route('reportes.index') }}"><i
+                                                    class="fas fa-arrow-circle-left"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -73,13 +80,16 @@
                         @if ($data['info']['comercio']['tipo_comercio'] == '20')
                             <div id="div-comercio-nuevo" class="">
                                 <label for="nueva_opcion" class="form-label"> Tipo Comercio Encontrado</label>
-                                <input type="text" name="nuevo_comercio" id="nueva_opcion" class="form-control" value="{{ $data['info']['comercio']['vs_comercio']['nombre'] }}" {{ $data['info']['comercio']['tipo_comercio'] != '20' ? 'disabled' : '' }}>
+                                <input type="text" name="nuevo_comercio" id="nueva_opcion" class="form-control"
+                                    value="{{ $data['info']['comercio']['vs_comercio']['nombre'] }}"
+                                    {{ $data['info']['comercio']['tipo_comercio'] != '20' ? 'disabled' : '' }}>
                             </div>
                         @endif
                     </div>
                     <div class="mt-3">
                         <label for="nueva_opcion" class="form-label"> Nombre del Comercio Encontrado</label>
-                        <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control" value="{{ $data['info']['comercio']['nombre_comercio'] }}">
+                        <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control"
+                            value="{{ $data['info']['comercio']['nombre_comercio'] }}">
                     </div>
                     <div class="col-12" id="cont-medidor">
                         <div class="col-lg-12 mb-2" id="medidor_anomalia_container">
@@ -109,12 +119,13 @@
                                     value="{{ $data['info']['reporte']['lectura'] }}">
                             </div>
                         </div>
-                        <div class="col-12" id="container_imposibilidad" >
+                        <div class="col-12" id="container_imposibilidad">
                             <label for="imposibilidad" class="form-label">Imposibilidad Detectada</label>
                             <select id="imposibilidad" class="form-select" name="imposibilidad">
                                 @foreach ($data['imposibilidad'] as $id => $nombre)
                                     <option value="{{ $id }}"
-                                        {{ $data['info']['reporte']['imposibilidad'] == $id ? 'selected' : '' }}>{{ $nombre }}
+                                        {{ $data['info']['reporte']['imposibilidad'] == $id ? 'selected' : '' }}>
+                                        {{ $nombre }}
                                     </option>
                                 @endforeach
                             </select>
@@ -137,7 +148,8 @@
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
                                                 data-bs-target="#profile-tab-pane" type="button" role="tab"
-                                                aria-controls="profile-tab-pane" aria-selected="false">Fotos y video</button>
+                                                aria-controls="profile-tab-pane" aria-selected="false">Fotos y
+                                                video</button>
                                         </li>
                                     </ul>
 
@@ -352,7 +364,8 @@
                                                         </g>
                                                     </svg>
                                                     <span class="btn-text-inner">Video</span>
-                                                    <input type="file" class="form-control d-none" id="video-input" name="video" accept="video/mp4" capture="camera">
+                                                    <input type="file" class="form-control d-none" id="video-input"
+                                                        name="video" accept="video/mp4" capture="camera">
                                                 </a>
                                             </div>
                                         </div>
@@ -360,13 +373,12 @@
                                             aria-labelledby="profile-tab" tabindex="0">
                                             <div class="widget-content widget-content-area mt-2 ">
                                                 <div class="row">
-
                                                     @foreach (range(1, 6) as $i)
                                                         @if (isset($data['imagenes']['foto' . $i]))
                                                             <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                                                                 <a href="/imagen/{{ $data['imagenes']['foto' . $i] }}"
                                                                     class="withDescriptionGlightbox glightbox-content"
-                                                                    data-glightbox="title: Contrato y medidor; description: Contrato #:{{$data['info']['reporte']['contrato']}} - Medidor #:{{$data['info']['reporte']['medidor']}};">
+                                                                    data-glightbox="title: Contrato y medidor; description: Contrato #:{{ $data['info']['reporte']['contrato'] }} - Medidor #:{{ $data['info']['reporte']['medidor'] }};">
                                                                     <img src="/imagen/{{ $data['imagenes']['foto' . $i] }}"
                                                                         alt="image" class="img-fluid"
                                                                         style="width:350px; height:250px; object-fit: cover;" />
@@ -378,8 +390,9 @@
                                                         @if (isset($data['video']))
                                                             <a href="{{ asset('video/' . $data['video']) }}"
                                                                 class="withDescriptionGlightbox glightbox-content">
-                                                                <img src="{{ asset('src/image/video.jpeg') }}" alt="image" class="img-fluid"
-                                                                style="width:350px; height:250px; object-fit: cover;" />
+                                                                <img src="{{ asset('src/image/video.jpeg') }}"
+                                                                    alt="image" class="img-fluid"
+                                                                    style="width:350px; height:250px; object-fit: cover;" />
                                                             </a>
                                                         @endif
                                                     </div>
