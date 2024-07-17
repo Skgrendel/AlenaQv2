@@ -105,7 +105,7 @@
         @if ($component->paginationVisibilityIsEnabled())
             @if ($component->paginationIsEnabled() && $component->isPaginationMethod('standard') && $rows->lastPage() > 1)
                 <div class="row mt-3">
-                    <div class="col-12 col-md-6 overflow-auto">
+                    <div class="col-12 col-md-12">
                         {{ $rows->links('livewire-tables::specific.bootstrap-4.pagination') }}
                     </div>
                     <div class="col-12 col-md-6 text-center text-md-end text-muted">
