@@ -68,10 +68,11 @@
                                             @endif
                                             <hr>
                                             <div class="d-flex justify-content-between ">
-                                                <a href="{{ $gis['geometry']['link'] ?? '#' }}" target="_blank"
-                                                    class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion"
-                                                    data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
-
+                                                @if (isset($gis['info']))
+                                                    <a href="{{ $gis['geometry']['link'] ?? '#' }}" target="_blank"
+                                                        class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion"
+                                                        data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
+                                                @endif
                                                 <a class="btn btn-info me-4 rounded  bs-tooltip"
                                                     title="Regresar Pagina Anterior" data-bs-placement="top"
                                                     href="{{ route('asignados') }}"><i
@@ -208,8 +209,8 @@
                             </div>
                             <div class="col-12 d-none mb-2" id="container_imposibilidad">
                                 <label for="imposibilidad" class="form-label">Imposibilidad</label>
-                                <select id="imposibilidad" class="form-select" name="imposibilidad"
-                                    data-placeholder="Seleccione la imposibilidad">
+                                <select id="imposibilidad" class="form-select" name="imposibilidad">
+                                    <option value="" selected disabled>Seleccione su tipo de imposibilidad</option>
                                     @foreach ($data['imposibilidad'] as $id => $nombre)
                                         <option value="{{ $id }}">{{ $nombre }}</option>
                                     @endforeach
@@ -446,7 +447,6 @@
                                 <hr class="my-2">
                             </div>
                         </div>
-
                         <div class="alert alert-warning d-none" role="alert" id="progressBarObservacion">
                             <span class="text-sm">Guardando Cambios Porfavor Espere.....</span>
                         </div>
