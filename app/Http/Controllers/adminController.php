@@ -13,20 +13,25 @@ class adminController extends Controller
      */
     public function __invoke(Request $request)
     {
-        if ($request->user()->hasRole('Agente')) {
+        $user = $request->user();
+
+        if ($user->can('agente.index')) {
             return redirect()->action([ReportesController::class, 'index']);
         }
 
-        if ($request->user()->hasRole('Coordinador')) {
+        if ($user->can('coordi.index')) {
             return redirect()->action([CoordinadorController::class, 'index']);
         }
 
-        if ($request->user()->hasRole('Administrador')) {
+        if ($user->can('admin.index')) {
             return redirect()->action([ReportesController::class, 'index']);
         }
 
-        if ($request->user()->hasRole('Pno')) {
+        if ($user->can('audit.create')) {
             return redirect()->action([AuditoriaController::class, 'create']);
         }
+
+        // Redirigir a una página por defecto o lanzar una excepción si no tiene ningún permiso
+        //return redirect()->route('default.route'); // Asegúrate de definir esta ruta
     }
 }
