@@ -106,7 +106,6 @@
                         <div class="col-12 mb-2">
                             <label for="comercio" class="form-label">¿Que Tipo de Comercio Encontro?</label>
                             <select id="slcComercio" class="form-select" name="tipo_comercio" required>
-                                <option value="" selected disabled>Seleccione su tipo de comercio</option>
                                 @foreach ($data['comercios'] as $id => $nombre)
                                     <option value="{{ $id }}">{{ $nombre }}</option>
                                 @endforeach
@@ -210,7 +209,6 @@
                             <div class="col-12 d-none mb-2" id="container_imposibilidad">
                                 <label for="imposibilidad" class="form-label">Imposibilidad</label>
                                 <select id="imposibilidad" class="form-select" name="imposibilidad">
-                                    <option value="" selected disabled>Seleccione su tipo de imposibilidad</option>
                                     @foreach ($data['imposibilidad'] as $id => $nombre)
                                         <option value="{{ $id }}">{{ $nombre }}</option>
                                     @endforeach
