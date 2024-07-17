@@ -26,7 +26,6 @@ class RevisadosDatatable extends DataTableComponent
         });
         $this->setColumnSelectStatus(false);
         $this->setPerPageAccepted([10, 25, 50, 100]);
-        $this->setPerPage(5);
         $this->setPaginationMethod('simple');
         $this->setPageName('revisados');
         $this->setTableAttributes([
