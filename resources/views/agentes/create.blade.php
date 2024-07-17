@@ -105,7 +105,7 @@
                         <div class="col-12 mb-2">
                             <label for="comercio" class="form-label">¿Que Tipo de Comercio Encontro?</label>
                             <select id="slcComercio" class="form-select" name="tipo_comercio" required>
-                                <option value="" disabled>Seleccione su tipo de comercio</option>
+                                <option value="" selected disabled>Seleccione su tipo de comercio</option>
                                 @foreach ($data['comercios'] as $id => $nombre)
                                     <option value="{{ $id }}">{{ $nombre }}</option>
                                 @endforeach
