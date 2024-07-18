@@ -54,13 +54,13 @@
                         <div class="col-12">
                             <div class="row">
                                 @if ($reporte->vs_estado->nombre != 'Rechazado')
-                                    <div class="col-sm-6 d-flex justify-content-md-start">
+                                    <div class="col-sm-12 d-flex justify-content-md-start">
                                         <a href="{{route('showreportes',$reporte->id)}}" class="btn btn-warning mb-2 me-4">
                                             Ver Información
                                         </a>
                                     </div>
                                 @elseif ($reporte->vs_estado->nombre == 'Rechazado')
-                                    <div class="col-sm-6 d-flex justify-content-md-start">
+                                    <div class="col-sm-12 d-flex justify-content-md-start">
                                         <a href="{{ route('reportes.edit', $reporte->id) }}"
                                             class="btn btn-danger mb-2 me-4">Revisar</a>
                                     </div>
