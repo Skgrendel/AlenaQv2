@@ -53,7 +53,10 @@ class DataGisServices
             }
 
             $attributes = $data['features'][0]['attributes'];
+            $geometry = $data['features'][0]['geometry'];
 
+            // Convertir coordenadas de Web Mercator a latitud y longitud
+            list($lat, $lng) = $this->convertWebMercatorToLatLng($geometry['x'], $geometry['y']);
             return [
                 'info' => [
                     'direccion' => $attributes['DIRECCION'],
@@ -67,7 +70,9 @@ class DataGisServices
                     'descripcion' => $attributes['DESCRIPCION'],
                     'contrato' => $attributes['SUBSCRIPTION_ID'],
                     'medidor' => $attributes['ELEMENTOMEDICION']
-                ],
+                ],'geometry' => [
+                    'link' => 'https://www.google.com/maps/place/' . $lat . ',' . $lng,
+                ]
             ];
         } catch (\Exception $e) {
             return [
