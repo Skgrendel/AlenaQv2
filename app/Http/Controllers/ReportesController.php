@@ -45,7 +45,7 @@ class ReportesController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $id = Auth::user()->personal->id;
         $ServicesStore = $this->Processing;
         $ServicesStore->StoreReport($request, $id);
@@ -78,9 +78,7 @@ class ReportesController extends Controller
     {
         $ServicesUpdate = $this->Processing;
         $ServicesUpdate->UpdateReport($request, $reporte);
-        if ($request->input('foto1')||$request->input('foto2')||$request->input('foto3'||$request->input('foto4')||$request->input('foto5'))) {
-           $ServicesUpdate->UpdateFile($request);
-        }
+        $ServicesUpdate->UpdateFile($request);
         return redirect()->route('reportes.index')->with('success', 'Reporte Actualizado Con Exito');
     }
 

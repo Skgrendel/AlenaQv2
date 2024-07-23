@@ -8,11 +8,11 @@
                     method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <input type="text" id="medidor" name="medidor" hidden
-                        value="{{ $data['info']['reporte']['medidor'] }}">
-                    <input type="text" id="contrato" name="contrato" hidden
-                        value="{{ $data['info']['reporte']['contrato'] }}">
-                    <input type="text" id="contrato" name="id" hidden value="{{ $data['info']['reporte']['id'] }}">
+                    <input type="text" id="medidor" name="medidor" hidden value="{{ $data['info']['reporte']['medidor'] }}">
+                    <input type="text" id="contrato" name="contrato" hidden value="{{ $data['info']['reporte']['contrato'] }}">
+                    <input type="text" id="id" name="id" hidden value="{{ $data['info']['reporte']['id'] }}">
+                    <input type="text" hidden id="latitud" name="latitud" value="">
+                    <input type="text" hidden id="longitud" name="longitud" value="">
                     <div class="col-12 mb-1 " id="ubicacion">
                         <div class="">
                             <div class="col-lg-12 ">
@@ -101,7 +101,8 @@
                     <div class="col-12" id="cont-medidor">
                         <div class="col-lg-12 mb-2" id="medidor_anomalia_container">
                             <div class="mt-1">
-                                <label for="nueva_opcion" class="form-label"> Numero de Medidor Encontrado Anomalia </label>
+                                <label for="nueva_opcion" class="form-label"> Numero de Medidor Encontrado Anomalia
+                                </label>
                                 <input type="text" name="medidor_anomalia" id="medidor_anomalia" class="form-control"
                                     value="{{ $data['info']['comercio']['medidor_anomalia'] }}">
                             </div>
