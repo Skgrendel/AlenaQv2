@@ -5,7 +5,7 @@
     <div class="widget widget-chart-three">
         <div class="widget-heading">
             <div class="widget-content">
-                <iframe title="qAnalitycreporte" width="100%" height="836" src="https://app.powerbi.com/view?r=eyJrIjoiYjUxOGY5ZTctMTZiZS00MWI0LWFjNjktMzRhNDhiMDBhNjU0IiwidCI6ImE3MDViNGI5LWE3Y2UtNDA3YS04YTdlLTY0NThlYjVkZDQxNiJ9" frameborder="0" allowFullScreen="true"></iframe>
+                <iframe title="qAnalitycreporte" width="100%" height="836" src="https://app.powerbi.com/view?r=eyJrIjoiZTAwMDA5MWItMjQ0Yy00ZWU2LTkwOGEtMGM1YWEyM2U0Mjk0IiwidCI6ImE3MDViNGI5LWE3Y2UtNDA3YS04YTdlLTY0NThlYjVkZDQxNiJ9" frameborder="0" allowFullScreen="true"></iframe>
             </div>
         </div>
     </div>
