@@ -60,15 +60,17 @@
                                                 <span
                                                     class="form-control">{{ $data['info']['reporte']['observaciones'] ?? 'Sin Datos' }}</span>
                                             @endif
-                                            @if (isset($gis['info']))
-                                                <a href="{{ $gis['geometry']['link'] ?? '#' }}" target="_blank"
-                                                    class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion"
-                                                    data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
-                                            @endif
-                                            <a class="btn btn-info me-4 rounded  bs-tooltip"
-                                                title="Regresar Pagina Anterior" data-bs-placement="top"
-                                                href="{{ route('reportes.index') }}"><i
-                                                    class="fas fa-arrow-circle-left"></i></a>
+                                            <div class="d-flex justify-content-between ">
+                                                @if (isset($gis['info']))
+                                                    <a href="{{ $gis['geometry']['link'] ?? '#' }}" target="_blank"
+                                                        class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion"
+                                                        data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
+                                                @endif
+                                                <a class="btn btn-info me-4 rounded  bs-tooltip"
+                                                    title="Regresar Pagina Anterior" data-bs-placement="top"
+                                                    href="{{ route('asignados') }}"><i
+                                                        class="fas fa-arrow-circle-left"></i></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
