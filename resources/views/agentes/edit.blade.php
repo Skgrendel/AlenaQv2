@@ -110,16 +110,13 @@
                         <div class="col-lg-12 mb-2" id="anomaliaContainer">
                             <div class="mt-1">
                                 <label for="nueva_opcion" class="form-label ">Anomalia Detectada</label>
-                                <select id="anomalia" class="form-control" name="anomalia[]" multiple>
+                                <select id="anomalia" class="form-control select2" name="anomalia[]" multiple>
                                     @foreach ($data['anomalias'] as $id => $nombre)
-                                        <option
-                                            value="{{ $id }}"{{ in_array($id, $data['info']['anomaliasid']) ? 'selected' : '' }}>
-                                            {{ $nombre }}</option>
+                                        <option value="{{ $id }}"{{ in_array($id, $data['info']['anomaliasid']) ? 'selected' : '' }}>{{ $nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-
                         <div class="col-lg-12 mb-2" id="lectura_container">
                             <div class="mt-1">
                                 <label for="lectura" class="form-label">Numero de Lectura ingresada</label>
@@ -431,4 +428,9 @@
 
 @section('scripts')
     <script src="{{ asset('script/agentes/AgentesGlobal.js') }}"></script>
+    <script>
+        $(".select2").select2({
+            theme: "classic"
+        });
+    </script>
 @endsection

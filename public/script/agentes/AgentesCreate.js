@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Función para actualizar el estado del checkbox
     const updateState = () => {
+        
         if (prediono.checked) {
             infoDiv.classList.add("d-none");
             medidor_anomalia.disabled = true;
