@@ -61,7 +61,7 @@
                                                 <div class="mb-1">
                                                     <label for="ciclo">Descripcion: </label>
                                                     <span class=" text-body"
-                                                        id="ciclo">{{ $gis['info']['descripcion'] ?? 'sin datos' }}</span>
+                                                        id="ciclo"><span class="badge bg-success">{{$gis['info']['descripcion'] ?? 'sin datos'}}</span> </span>
                                                 </div>
                                             @elseif (isset($gis['error']))
                                                 <div class="mb-1">
