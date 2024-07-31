@@ -32,8 +32,8 @@ class ReportExport implements FromCollection,WithHeadings
             return [
                 $reporte->personal->nombres,
                 $reporte->personal->apellidos,
-                $reporte->contrato,
-                $reporte->medidor,
+                $reporte->dbSurtigas->contrato,
+                $reporte->dbSurtigas->medidor,
                 $reporte->lectura,
                 $reporte->report_ubicacion->direccion,
                 implode(', ', $anomaliaNombres),
