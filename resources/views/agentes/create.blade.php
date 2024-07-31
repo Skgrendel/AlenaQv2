@@ -53,7 +53,7 @@
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Estado del Servicio en el Gis: </label>
-                                                <span class="text-card text-sm">{{ $gis['info']['estado'] ?? 'sin datos'}}</span>
+                                                <span class="text-card text-sm"><span class="badge bg-warning">{{ $gis['info']['estado'] ?? 'sin datos'}}</span></span>
                                             </div>
                                             <input type="text" id="medidor" name="surtigas_id" hidden
                                                 value="{{ $data['info']['db_Surtigas']['id'] }}">
@@ -61,7 +61,7 @@
                                                 <div class="mb-1">
                                                     <label for="ciclo">Descripcion: </label>
                                                     <span class=" text-body"
-                                                        id="ciclo"><span class="badge bg-success">{{$gis['info']['descripcion'] ?? 'sin datos'}}</span> </span>
+                                                        id="ciclo">{{$gis['info']['descripcion'] ?? 'sin datos'}} </span>
                                                 </div>
                                             @elseif (isset($gis['error']))
                                                 <div class="mb-1">
