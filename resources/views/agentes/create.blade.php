@@ -53,7 +53,7 @@
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Estado del Servicio en el Gis: </label>
-                                                <span class="text-card text-sm">{{ $data['gis']['estado'] ?? 'sin datos'}}</span>
+                                                <span class="text-card text-sm">{{ $gis['info']['estado'] ?? 'sin datos'}}</span>
                                             </div>
                                             <input type="text" id="medidor" name="surtigas_id" hidden
                                                 value="{{ $data['info']['db_Surtigas']['id'] }}">

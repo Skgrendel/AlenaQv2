@@ -54,6 +54,10 @@
                                                         ? '<span class="badge bg-success">Activo</span>'
                                                         : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
                                             </div>
+                                            <div class="mb-1">
+                                                <label for="ciclo">Estado del Servicio en el Gis: </label>
+                                                <span class="text-card text-sm">{{ $gis['info']['estado'] ?? 'sin datos'}}</span>
+                                            </div>
                                             <hr>
                                             @if ($data['info']['reporte']['observaciones'])
                                                 <span class="form-label">Observaciones:</span>
