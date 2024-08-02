@@ -19,38 +19,38 @@
                                 <div class="card shadow">
                                     <div class="card-body">
                                         <div class="col-md-12">
-                                            <div class="mb-2">
-                                                <span class="card-title mb-4 "> Informacion del Predio</span>
+                                            <label class="form-label"> Informacion del Predio</label>
+                                            <div class="mb-1">
+                                                <label for="nombre_cliente">Nombre:</label>
+                                                <span class=" text-body staticEmail "
+                                                    id="nombre_cliente">{{ $data['info']['db_Surtigas']['cliente'] ?? 'sin datos' }}</span>
                                             </div>
                                             <div class="mb-1">
-                                                <span for="nombre_cliente">Nombre:</span>
-                                                <span
-                                                    class=" text-body staticEmail "id="nombre_cliente">{{ $gis['info']['cliente'] ?? 'Sin Datos' }}</span>
-                                            </div>
-                                            <div class="mb-1">
-                                                <span for="numero_contrato" class="form-label">Numero de Contrato:</span>
+                                                <label for="numero_contrato" class="form-label">Numero de
+                                                    Contrato:</label>
                                                 <span class="text-body staticEmail"
-                                                    id="numero_contrato">{{ $gis['info']['contrato'] ?? 'Sin Datos' }}</span>
+                                                    id="numero_contrato">{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}</span>
                                             </div>
                                             <div class="mb-1">
-                                                <span for="numero_medidor" class="form-label">Numero de Medidor: </span>
-                                                <span class=" text-body" id="numero_medidor">
-                                                    <strong>{{ $gis['info']['medidor'] ?? 'Sin Datos' }}</strong></span>
-                                            </div>
-                                            <div class="mb-1">
-                                                <span for="direccion">Direccion: </span>
+                                                <label for="numero_medidor" class="form-label">Numero de Medidor:
+                                                </label>
                                                 <span class=" text-body"
-                                                    id="direccion">{{ $gis['info']['direccion'] ?? 'Sin Datos' }}</span>
+                                                    id="numero_medidor">{{ $data['info']['db_Surtigas']['medidor'] ?? 'sin datos' }}</span>
                                             </div>
                                             <div class="mb-1">
-                                                <span for="ciclo">Ciclo: </span>
+                                                <label for="direccion">Direccion: </label>
                                                 <span class=" text-body"
-                                                    id="ciclo">{{ $data['info']['ciclo']['ciclo'] }}</span>
+                                                    id="direccion">{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}</span>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="ciclo">Ciclo: </label>
+                                                <span class=" text-body"
+                                                    id="ciclo">{{ $data['info']['db_Surtigas']['ciclo'] ?? 'sin datos' }}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Estado del Servicio: </label>
                                                 <span class="text-card text-sm">
-                                                    {!! $data['info']['estado'] == 1
+                                                    {!! $data['info']['db_Surtigas']['estado_servicio'] == 1
                                                         ? '<span class="badge bg-success">Activo</span>'
                                                         : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
                                             </div>
@@ -58,12 +58,22 @@
                                                 <label for="ciclo">Estado del Servicio en el Gis: </label>
                                                 <span class="text-card text-sm"><span class="badge bg-warning">{{ $gis['info']['estado'] ?? 'sin datos'}}</span></span>
                                             </div>
-                                            <hr>
-                                            @if ($data['info']['reporte']['observaciones'])
-                                                <span class="form-label">Observaciones:</span>
-                                                <span
-                                                    class="form-control">{{ $data['info']['reporte']['observaciones'] ?? 'Sin Datos' }}</span>
+                                            <input type="text" id="medidor" name="surtigas_id" hidden
+                                                value="{{ $data['info']['db_Surtigas']['id'] }}">
+                                            @if (isset($gis['info']))
+                                                <div class="mb-1">
+                                                    <label for="ciclo">Descripcion: </label>
+                                                    <span class=" text-body"
+                                                        id="ciclo">{{$gis['info']['descripcion'] ?? 'sin datos'}} </span>
+                                                </div>
+                                            @elseif (isset($gis['error']))
+                                                <div class="mb-1">
+                                                    <label for="numero_contrato" class="form-label">Error:</label>
+                                                    <span class="text-body staticEmail"
+                                                        id="numero_contrato">{{ $gis['error'] ?? 'sin datos' }}</span>
+                                                </div>
                                             @endif
+                                            <hr>
                                             <div class="d-flex justify-content-between ">
                                                 @if (isset($gis['info']))
                                                     <a href="{{ $gis['geometry']['link'] ?? '#' }}" target="_blank"

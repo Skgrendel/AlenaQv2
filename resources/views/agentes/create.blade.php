@@ -16,7 +16,6 @@
                                     <div class="card-body">
                                         <div class="col-md-12">
                                             <label class="form-label"> Informacion del Predio</label>
-
                                             <div class="mb-1">
                                                 <label for="nombre_cliente">Nombre:</label>
                                                 <span class=" text-body staticEmail "
