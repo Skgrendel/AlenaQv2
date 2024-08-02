@@ -69,7 +69,7 @@
                                             @elseif (isset($gis['error']))
                                                 <div class="mb-1">
                                                     <label for="numero_contrato" class="form-label">Error:</label>
-                                                    <span class="text-body badge bg-danger" id="numero_contrato">{{ $gis['error'] ?? 'sin datos' }}</span>
+                                                    <span class="badge bg-danger" id="numero_contrato">{{ $gis['error'] ?? 'sin datos' }}</span>
                                                 </div>
                                             @endif
                                             <hr>
