@@ -76,9 +76,15 @@
                                             <hr>
                                             <div class="d-flex justify-content-between ">
                                                 @if (isset($gis['info']))
-                                                    <a href="{{ $gis['geometry']['link'] ?? '#' }}" target="_blank"
-                                                        class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion"
-                                                        data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
+                                                    <a id="ubication" href="{{ $gis['geometry']['link'] ?? '#' }}"
+                                                        target="_blank" class="btn btn-info me-4 bs-tooltip rounded "
+                                                        title="Ver Ubicacion Gis" data-bs-placement="top"><i
+                                                            class="fas fa-map-marker-alt"></i></a>
+                                                @else
+                                                    <a id="ubication" href="{{ $data['location']['link'] ?? '#' }}"
+                                                        target="_blank" class="btn btn-info me-4 bs-tooltip rounded "
+                                                        title="Ver Ubicacion Surtigas" data-bs-placement="top"><i
+                                                            class="fas fa-map-marker-alt"></i></a>
                                                 @endif
                                                 <a class="btn btn-info me-4 rounded  bs-tooltip"
                                                     title="Regresar Pagina Anterior" data-bs-placement="top"
