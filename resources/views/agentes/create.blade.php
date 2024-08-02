@@ -52,7 +52,8 @@
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Estado del Servicio en el Gis: </label>
-                                                <span class="text-card text-sm"><span class="badge bg-warning">{{ $gis['info']['estado'] ?? 'sin datos'}}</span></span>
+                                                <span class="text-card text-sm"><span
+                                                        class="badge bg-warning">{{ $gis['info']['estado'] ?? 'sin datos' }}</span></span>
                                             </div>
                                             <input type="text" id="medidor" name="surtigas_id" hidden
                                                 value="{{ $data['info']['db_Surtigas']['id'] }}">
@@ -60,7 +61,8 @@
                                                 <div class="mb-1">
                                                     <label for="ciclo">Descripcion: </label>
                                                     <span class=" text-body"
-                                                        id="ciclo">{{$gis['info']['descripcion'] ?? 'sin datos'}} </span>
+                                                        id="ciclo">{{ $gis['info']['descripcion'] ?? 'sin datos' }}
+                                                    </span>
                                                 </div>
                                             @elseif (isset($gis['error']))
                                                 <div class="mb-1">
@@ -72,15 +74,15 @@
                                             <hr>
                                             <div class="d-flex justify-content-between ">
                                                 @if (isset($gis['info']))
-                                                <label for="ubication">ubicacion Gis</label>
-                                                    <a id="ubication" href="{{ $gis['geometry']['link'] ?? '#' }}" target="_blank"
-                                                        class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion Gis"
-                                                        data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
+                                                    <a id="ubication" href="{{ $gis['geometry']['link'] ?? '#' }}"
+                                                        target="_blank" class="btn btn-info me-4 bs-tooltip rounded "
+                                                        title="Ver Ubicacion Gis" data-bs-placement="top"><i
+                                                            class="fas fa-map-marker-alt"></i></a>
                                                 @else
-                                                <label for="ubication">ubicacion Surtigas</label>
-                                                <a id="ubication" href="{{ $data['location']['link'] ?? '#' }}" target="_blank"
-                                                class="btn btn-info me-4 bs-tooltip rounded " title="Ver Ubicacion Surtigas"
-                                                data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
+                                                    <a id="ubication" href="{{ $data['location']['link'] ?? '#' }}"
+                                                        target="_blank" class="btn btn-info me-4 bs-tooltip rounded "
+                                                        title="Ver Ubicacion Surtigas" data-bs-placement="top"><i
+                                                            class="fas fa-map-marker-alt"></i></a>
                                                 @endif
                                                 <a class="btn btn-info me-4 rounded  bs-tooltip"
                                                     title="Regresar Pagina Anterior" data-bs-placement="top"
