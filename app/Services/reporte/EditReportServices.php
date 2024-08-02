@@ -55,6 +55,9 @@ class EditReportServices
             'imposibilidad' => $imposibilidad,
             'imagenes' => $imagenes,
             'video' => $data->video,
+            'data'=>[
+                'db_Surtigas'=>$data
+            ]
 
         ];
     }
