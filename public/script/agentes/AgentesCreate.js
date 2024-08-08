@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Función para actualizar el estado del checkbox
     const updateState = () => {
-        
+
         if (prediono.checked) {
             infoDiv.classList.add("d-none");
             medidor_anomalia.disabled = true;
@@ -49,13 +49,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         if (anomaliano.checked) {
             anomaliaContainer.classList.add("d-none");
-
             Anomalia.value = 8; // Sin anomalias
         }
 
         if (lecturano.checked) {
             contlectura.classList.add("d-none");
-            Contimposibilidad.classList.remove("d-none")
+            Contimposibilidad.classList.remove("d-none");
+            Anomalia.value = 17;
             lectura.value = 0;
         }
 
