@@ -142,6 +142,7 @@ class RevisadosDatatable extends DataTableComponent
         return reportes::query()
             ->where('reportes.revisado','1')
             ->where('reportes.confirmado','0')
+            ->where('reportes.estado','6')
             ->with(['personal', 'report_comercio', 'dbSurtigas']);
     }
 
