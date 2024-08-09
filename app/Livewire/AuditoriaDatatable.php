@@ -142,10 +142,7 @@ class AuditoriaDatatable extends DataTableComponent
         return reportes::query()
             ->with(['personal', 'report_comercio', 'dbSurtigas'])
             ->where('reportes.estado', 6)
-            ->where(function ($query) {
-                $query->whereNull('reportes.revisado')
-                    ->orWhere('reportes.revisado', 0);
-            });
+            ->where('reportes.revisado',1);
     }
 
     public function columns(): array
