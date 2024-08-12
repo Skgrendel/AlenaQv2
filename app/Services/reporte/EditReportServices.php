@@ -56,7 +56,7 @@ class EditReportServices
             'imagenes' => $imagenes,
             'video' => $data->video,
             'data'=>[
-                'db_Surtigas'=>$data
+                'db_Surtigas'=>$ciclo
             ]
 
         ];
