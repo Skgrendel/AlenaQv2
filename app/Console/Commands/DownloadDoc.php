@@ -31,7 +31,7 @@ class DownloadDoc extends Command
             $this->info('inicio');
             // Obtener los valores que coinciden con los contratos en el array
             $surtigas = surtigas::where('ciclo', '2001')->get();
-            $reportes = reportes::where('surtigas_id',$surtigas->id)->get();
+            $reportes = reportes::whereIn('surtigas_id', $surtigas->pluck('id'))->get();
             $controlador = new CoordinadorController();
 
             foreach ($reportes as $reporte) {
