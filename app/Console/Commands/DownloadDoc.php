@@ -36,7 +36,7 @@ class DownloadDoc extends Command
 
             foreach ($reportes as $reporte) {
                 $this->info('Descargando contrato #' . $reporte->contrato);
-                $controlador->exportdoc($reporte->id);
+                $controlador->exportdoc($reportes->id);
                 $this->info('Descargando');
             }
             $this->info('terminado');
