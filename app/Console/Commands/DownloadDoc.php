@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Http\Controllers\CoordinadorController;
 use App\Models\reportes;
 use App\Models\surtigas;
 
