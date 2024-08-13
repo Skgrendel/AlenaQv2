@@ -35,8 +35,8 @@ class DownloadDoc extends Command
             $controlador = new CoordinadorController();
 
             foreach ($reportes as $reporte) {
-                $this->info('Descargando contrato #' . $surtigas->contrato);
-                $controlador->exportdoc($reportes->id);
+                $this->info('Descargando contrato #' . $reporte->contrato);
+                $controlador->exportdoc($reporte->id);
                 $this->info('Descargando');
             }
             $this->info('terminado');
