@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Models\reportes;
+use App\Models\surtigas;
 
 class DownloadDoc extends Command
 {
