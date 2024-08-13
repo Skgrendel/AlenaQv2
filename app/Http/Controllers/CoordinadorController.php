@@ -77,7 +77,7 @@ class CoordinadorController extends Controller
         ], [
             'estado.required' => 'Por favor, selecciona una opción.',
         ]);
-        
+
         $estado = $request->estado;
         $reporte = reportes::find($id);
         $ServicesUpdate = $this->Processing;
@@ -149,5 +149,66 @@ class CoordinadorController extends Controller
 
             return redirect()->route('coordinador.index')->with('success', 'Reporte eliminado con éxito');
         }
+    }
+
+    public function exportdoc($id)
+    {
+        $reporte = reportes::find($id);
+
+        $imagenes = json_decode($reporte->imagenes, true); // Decodificar como un array asociativo
+
+        $anomaliasIds = json_decode($reporte->anomalia);
+
+        $anomalias = vs_anomalias::whereIn('id', $anomaliasIds)->get();
+
+        $direccion = surtigas::where('contrato', $reporte->dbSurtigas->contrato)->first();
+
+
+        // Ruta de la plantilla
+        $templateFile = public_path('template/temp.docx');
+
+        // Cargar la plantilla
+        $templateProcessor = new TemplateProcessor($templateFile);
+
+        // Reemplazar marcadores de posición con datos
+        $templateProcessor->setValue('contrato', $reporte->dbSurtigas->contrato);
+        $templateProcessor->setValue('fecha', $reporte->created_at);
+        $templateProcessor->setValue('direccion', $direccion->direccion);
+        $templateProcessor->setValue('medidor', $reporte->dbSurtigas->medidor);
+        $templateProcessor->setValue('medidor_anomalia', $reporte->report_comercio->medidor_anomalia);
+        $templateProcessor->setValue('lectura', $reporte->lectura);
+        $templateProcessor->setValue('comercio', $reporte->report_comercio->vs_comercio->nombre);
+        $nombresAnomalias = array();
+        foreach ($anomalias as $anomalia) {
+            $nombresAnomalias[] = $anomalia->nombre;
+        }
+        $stringAnomalias = implode(", ", $nombresAnomalias);
+        $templateProcessor->setValue('anomalia', $stringAnomalias);
+
+        $templateProcessor->setValue('imposibilidad', $reporte->vs_imposibilidad->nombre);
+        $templateProcessor->setValue('observaciones', $reporte->comentarios);
+
+        if (!empty($reporte->video) && file_exists(public_path('video/' . $reporte->video))) {
+            $templateProcessor->setValue('video', config('app.url') . '/video/' . $reporte->video);
+        } else {
+            $templateProcessor->setValue('video', 'Sin Registro');
+        }
+
+
+        for ($i = 1; $i <= 5; $i++) {
+            $foto = 'foto' . $i; // Para generar 'foto1', 'foto2', etc.
+            if (isset($imagenes[$foto])) { // Verificar si la imagen existe en el array
+                $this->ImgExist($imagenes[$foto], $templateProcessor, $foto);
+            } else { // Si no existe en el array, establecer "Sin Registro Fotografico"
+                $this->ImgExist(null, $templateProcessor, $foto);
+            }
+        }
+
+        $rand = rand(600, 1000);
+        $fecha = Carbon::now()->format('d-m-Y');
+
+        $outputFile = public_path('reportesmasivo/Reporte del contrato' . $reporte->dbSurtigas->contrato . '-' . $fecha . '-' . $rand . '.docx');
+        $templateProcessor->saveAs($outputFile);
+
     }
 }
