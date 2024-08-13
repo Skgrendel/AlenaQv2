@@ -214,4 +214,13 @@ class CoordinadorController extends Controller
         $templateProcessor->saveAs($outputFile);
 
     }
+
+    private function ImgExist($img, $templateProcessor, $var)
+    {
+        if (file_exists(public_path('imagen/' . $img)) and $img != null) {
+            return $templateProcessor->setImageValue($var, array('path' => public_path('imagen/' . $img), 'width' => 400, 'height' => 400, 'ratio' => true));
+        } else {
+            return $templateProcessor->setValue($var, 'Sin Registro Fotografico');
+        }
+    }
 }
