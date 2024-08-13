@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Http\Controllers\CoordinadorController;
 use App\Models\reportes;
 use App\Models\surtigas;
+use App\Models\vs_anomalias;
 
 class DownloadDoc extends Command
 {

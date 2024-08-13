@@ -7,6 +7,7 @@ use App\Models\comercio;
 use App\Models\reportes;
 use App\Models\surtigas;
 use App\Models\ubicacion;
+use App\Models\App\vs_anomalias;
 use App\Services\ProcessingServices;
 use App\Services\reporte\CreateReportServices;
 use App\Services\coordinador\DataGisServices;
