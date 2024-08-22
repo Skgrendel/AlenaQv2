@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
-    'gis_api_token' => '47_4-kxBw-zsxOzyzooIEBSgVsuwLa5Xo4iGgZWveFR7vGPOEZcUVqCRz8H_AmVKwHZn9jhyiyIxThLSDQw9FU0pzpVKBBn3RJ9i6LijSRoRBHpI_Epotm3CNZdKmz277WDhTQtHCXPH2LfAOxKUpyTKVT3tk9I5PjC4FrjkhYzPhrlVAkoS8OW68lap0ZD3biB0JKMER4kln9gXvCRgbR1YLHwnM7py7kvAAIaGLWLO400Z5TkClmHf3TuQmOsyY2sYmFFhIFrmudehJSWUEQ..',
+    'gis_api_token' => 'AHDoqbDZcBuul7dXMfawtSsNhDiwKI0ZOCllThXpH5dmhv0hl1mwUSK6zxEdxfxisqZg4oQrXsaF59IpOf42Iddr7VCwN4BA5iHANslMVBTnLB8lHJxojqub0dq3xBjEtwLQS8VlWxIz5b3c3Ixm6obkP8kBLt-4g-kha9nPzLFAHFwjUyDhGQaYVDv-w2C9qWqy_zYOnowGjKNP2zJ9-_YdbZnAk0WQbDQJzvv1zfdUc7qcBCq5vum7wJK9_4F9Vr3tIKTz4UK_36qsUQMJsw..',
     /*
     |--------------------------------------------------------------------------
     | Application Name
