@@ -87,7 +87,7 @@ class PersonalsController extends Controller
         }
 
         // Buscar el registro de usuario asociado con el registro personal
-        $usuario = User::where('personal_id', $personal->id)->first();
+        $usuario = User::where('personals_id', $personal->id)->first();
 
         // Verificar si el registro de usuario existe
         if (!$usuario) {
