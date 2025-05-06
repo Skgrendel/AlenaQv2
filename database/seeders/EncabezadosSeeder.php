@@ -29,5 +29,14 @@ class EncabezadosSeeder extends Seeder
         encabezados::create([
             'nombre' => 'imposibilidad',
         ]);
+        encabezados::create([
+            'nombre' => 'tipo_regulador',
+        ]);
+        encabezados::create([
+            'nombre' => 'marca_medidor',
+        ]);
+        encabezados::create([
+            'nombre' => 'marca_regulador',
+        ]);
     }
 }

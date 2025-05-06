@@ -6,6 +6,8 @@ use App\Models\surtigas;
 use App\Models\vs_anomalias;
 use App\Models\vs_comercios;
 use App\Models\vs_imposibilidad;
+use App\Models\vs_marca_medidor;
+use App\Models\vs_tipo_regulador;
 
 class CreateReportServices
 {
@@ -16,6 +18,9 @@ class CreateReportServices
         $anomalias = vs_anomalias::pluck('nombre', 'id');
         $comercios = vs_comercios::pluck('nombre', 'id');
         $imposibilidad = vs_imposibilidad::pluck('nombre', 'id');
+        $marca_medidor = vs_marca_medidor::pluck('nombre', 'id');
+        $marca_regulador = vs_marca_medidor::pluck('nombre', 'id');
+        $tipo_regulador = vs_tipo_regulador::pluck('nombre', 'id');
 
         return [
             'info' => [
@@ -27,6 +32,9 @@ class CreateReportServices
             'anomalias' => $anomalias,
             'comercios' => $comercios,
             'imposibilidad' => $imposibilidad,
+            'marca_medidor' => $marca_medidor,
+            'marca_regulador' => $marca_regulador,
+            'tipo_regulador' => $tipo_regulador,
         ];
     }
 }

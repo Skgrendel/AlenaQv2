@@ -21,6 +21,7 @@ class reportes extends Model
         'ubicacions_id',
         'comercios_id',
         'surtigas_id',
+        'numero_orden',
         'lectura',
         'anomalia',
         'imposibilidad',
@@ -35,7 +36,7 @@ class reportes extends Model
 
     public function personal()
     {
-        return $this->hasOne(personals::class,'id','personals_id');
+        return $this->hasOne(personals::class, 'id', 'personals_id');
     }
 
     public function vs_estado()
@@ -43,27 +44,42 @@ class reportes extends Model
         return $this->hasOne(vs_estado::class, 'id', 'estado');
     }
 
+
     public function vs_imposibilidad()
     {
         return $this->hasOne(vs_imposibilidad::class, 'id', 'imposibilidad');
     }
 
+    public function vs_marca_medidor()
+    {
+        return $this->hasOne(vs_marca_medidor::class, 'id', 'marca_medidor');
+    }
+    public function vs_tipo_regulador()
+    {
+        return $this->hasOne(vs_tipo_regulador::class, 'id', 'tipo_regulador');
+    }
+
+    public function vs_marca_regulador()
+    {
+        return $this->hasOne(vs_marca_regulador::class, 'id', 'marca_regulador');
+    }
+
     public function report_ubicacion()
     {
-        return $this->hasOne(ubicacion::class,'id','ubicacions_id');
+        return $this->hasOne(ubicacion::class, 'id', 'ubicacions_id');
     }
 
     public function report_comercio()
     {
-        return $this->hasOne(comercio::class,'id','comercios_id');
+        return $this->hasOne(comercio::class, 'id', 'comercios_id');
     }
     public function auditoria()
     {
-        return $this->hasOne(auditoria::class,'id');
+        return $this->hasOne(auditoria::class, 'id');
     }
     public function dbSurtigas()
     {
-        return $this->hasOne(surtigas::class,'id','surtigas_id');
+        return $this->hasOne(surtigas::class, 'id', 'surtigas_id');
     }
 
 

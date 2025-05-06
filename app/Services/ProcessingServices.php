@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\auditoria;
+use App\Services\reporte\AlertasService;
 use App\Services\reporte\FileProcessingService;
 use App\Services\reporte\ReportServices;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ class ProcessingServices
 {
     private $file;
     private $Service;
+    private $alertas;
 
 
     public function __construct()
@@ -22,6 +24,7 @@ class ProcessingServices
         // Inicializar propiedades
         $this->file = new FileProcessingService();
         $this->Service = new ReportServices();
+        $this->alertas = new AlertasService();
     }
 
     public function StoreReport(Request $request, $id)
@@ -30,7 +33,7 @@ class ProcessingServices
         $fotos = $this->file->processImages($request);
         $video = $this->file->processVideo($request);
 
-
+        $this->alertas->getAlertasAnomalia($request);
         //Procesar Ubicacion y Comercio
         $ubicacionData = $this->Service->StoreUbicacion($request);
         $comercioData = $this->Service->StoreComercio($request);

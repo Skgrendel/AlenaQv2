@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ubicacions', function (Blueprint $table) {
-            $table->id();
-            $table->string('direccion')->nullable();
-            $table->string('latitud')->nullable();
-            $table->string('longitud')->nullable();
-            $table->timestamps();
-        });
+        DB::statement('DROP VIEW IF EXISTS vs_tipo_regulador');
+        DB::statement('CREATE VIEW vs_tipo_regulador AS SELECT id, nombre,nomenclatura FROM encabezados_dets WHERE encabezados_id = 6');
     }
 
     /**
@@ -25,6 +20,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ubicacions');
+
     }
 };

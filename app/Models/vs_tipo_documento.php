@@ -16,6 +16,6 @@ class vs_tipo_documento extends Model
 
       public function personal()
       {
-          return $this->belongsTo(personals::class);
+            return $this->hasOne(personals::class, 'id', 'personals_id');
       }
 }

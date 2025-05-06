@@ -51,6 +51,7 @@ class ReportServices
         $reportes['ubicacions_id'] = $ubicacion;
         $reportes['comercios_id'] = $comercio;
         $reportes['surtigas_id'] = $request->surtigas_id;
+        $reportes['numero_orden'] = $request->input('numero_orden');
         $reportes['lectura'] = $request->input('lectura');
         $reportes['imposibilidad'] = $request->input('imposibilidad');
         $reportes['comentarios'] = $request->input('comentarios');

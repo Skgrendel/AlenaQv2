@@ -75,6 +75,8 @@ class Encabezados_DetSeeder extends Seeder
             ['encabezados_id' => '5', 'nombre' => 'Falta de Medidor', 'nomenclatura' => 'FD'],
             ['encabezados_id' => '5', 'nombre' => 'Usuario No Permite Lectura', 'nomenclatura' => 'UNP'],
             ['encabezados_id' => '5', 'nombre' => 'Lugar Deshabitado', 'nomenclatura' => 'LD'],
+            ['encabezados_id' => '6', 'nombre' => 'Valvula', 'nomenclatura' => 'LD'],
+
         ];
 
         foreach ($data as $item) {
