@@ -42,7 +42,7 @@ class ReportServices
         return $ubicacion;
     }
 
-    public function StoreReportes(Request $request, $foto, $id, $ubicacion, $comercio, $video)
+    public function StoreReportes(Request $request, $foto, $id, $ubicacion, $comercio)
     {
         $reportes = [];
         $AnomaliaJson = json_encode($request->anomalia);
@@ -56,9 +56,6 @@ class ReportServices
         $reportes['imposibilidad'] = $request->input('imposibilidad');
         $reportes['comentarios'] = $request->input('comentarios');
         $reportes['imagenes'] = json_encode($foto);
-        if ($video){
-            $reportes['video'] = $video;
-        }
 
         return $reportes;
     }

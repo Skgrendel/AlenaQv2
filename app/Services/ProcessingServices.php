@@ -31,9 +31,10 @@ class ProcessingServices
     {
         //Procesar Archivos Multimedia
         $fotos = $this->file->processImages($request);
-        $video = $this->file->processVideo($request);
+       // $video = $this->file->processVideo($request);
 
         $this->alertas->getAlertasAnomalia($request);
+        $this->alertas->getAlertaFuga($request);
         //Procesar Ubicacion y Comercio
         $ubicacionData = $this->Service->StoreUbicacion($request);
         $comercioData = $this->Service->StoreComercio($request);
@@ -43,7 +44,7 @@ class ProcessingServices
         $comercio = comercio::create($comercioData);
 
         //Procesar Reporte
-        $reportesData = $this->Service->StoreReportes($request, $fotos, $id, $ubicacion->id, $comercio->id, $video);
+        $reportesData = $this->Service->StoreReportes($request, $fotos, $id, $ubicacion->id, $comercio->id);
 
         //Guardar Reporte
         $Resultado = reportes::create($reportesData);
@@ -77,9 +78,9 @@ class ProcessingServices
     {
         $reporte = reportes::find($request->input('id'));
         $fotos = $this->file->processImagesUpdate($request, $reporte);
-        $video = $this->file->processVideoUpdate($request, $reporte);
+       // $video = $this->file->processVideoUpdate($request, $reporte);
         $datosActualizados = [
-            'video' => $video,
+            // 'video' => $video,
             'imagenes' => $fotos,
         ];
         $reporte->update($datosActualizados);

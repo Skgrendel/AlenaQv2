@@ -10,7 +10,7 @@ class FileProcessingService
     public function processImages(Request $request, $fontSize = 40)
     {
         $reportes = [];
-        foreach (range(1, 5) as $i) {
+        foreach (range(1, 6) as $i) {
             if ($imagen = $request->file('foto' . $i)) {
                 $path = 'imagen/';
                 $foto = $request->input('contrato') . "_" . rand(100, 999) . "_" . date('YmdHis') . "." . $imagen->getClientOriginalExtension();
@@ -44,44 +44,44 @@ class FileProcessingService
         return $reportes;
     }
 
-    public function processVideo(Request $request)
-    {
-        $reportesData = null;
+    // public function processVideo(Request $request)
+    // {
+    //     $reportesData = null;
 
-        if ($video = $request->file('video')) {
-            $path = 'video/';
-            $videoname = $request->input('contrato') . "_" . rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();
-            $video->move($path, $videoname);
-            $reportesData = $videoname;
-        }
+    //     if ($video = $request->file('video')) {
+    //         $path = 'video/';
+    //         $videoname = $request->input('contrato') . "_" . rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();
+    //         $video->move($path, $videoname);
+    //         $reportesData = $videoname;
+    //     }
 
-        return $reportesData;
-    }
+    //     return $reportesData;
+    // }
 
-    public function processVideoUpdate(Request $request, $reporte)
-    {
+    // public function processVideoUpdate(Request $request, $reporte)
+    // {
 
-        $reportesData = null;
+    //     $reportesData = null;
 
-        if ($video = $request->file('video')) {
-            $path = 'video/';
-            // Obtener el nombre del video anterior desde la base de datos
-            $videoAnterior = $reporte->video;
-            // Eliminar el video anterior si existe
-            if ($videoAnterior) {
-                $rutaVideoAnterior = public_path($path . $videoAnterior);
-                if (file_exists($rutaVideoAnterior)) {
-                    unlink($rutaVideoAnterior);
-                }
-            }
-            // Procesar y guardar el nuevo video
-            $videoname = rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();
-            $video->move($path, $videoname);
-            $reportesData = $videoname;
-        }
+    //     if ($video = $request->file('video')) {
+    //         $path = 'video/';
+    //         // Obtener el nombre del video anterior desde la base de datos
+    //         $videoAnterior = $reporte->video;
+    //         // Eliminar el video anterior si existe
+    //         if ($videoAnterior) {
+    //             $rutaVideoAnterior = public_path($path . $videoAnterior);
+    //             if (file_exists($rutaVideoAnterior)) {
+    //                 unlink($rutaVideoAnterior);
+    //             }
+    //         }
+    //         // Procesar y guardar el nuevo video
+    //         $videoname = rand(1000, 9999) . "_" . date('YmdHis') . "." . $video->getClientOriginalExtension();
+    //         $video->move($path, $videoname);
+    //         $reportesData = $videoname;
+    //     }
 
-        return $reportesData;
-    }
+    //     return $reportesData;
+    // }
 
     public function processImagesUpdate(Request $request, $reporte)
     {
