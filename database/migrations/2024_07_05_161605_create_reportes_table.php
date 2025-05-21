@@ -26,6 +26,9 @@ return new class extends Migration {
             $table->string('lectura');
             $table->json('anomalia');
             $table->string('imposibilidad');
+            $table->string('tipo_regulador');
+            $table->string('marca_medidor');
+            $table->string('marca_regulador');
             $table->json('imagenes')->nullable();
             $table->string('video')->nullable();
             $table->text('observaciones')->nullable();

@@ -17,9 +17,7 @@ class ShowReportServices
         $ciclo = surtigas::where('id', $data->surtigas_id)->first();
         $imagenes = json_decode($data->imagenes);
         $anomalias = json_decode($data->anomalia);
-        // Obtener los nombres de las anomalías como un array
-        $anomaliasNamesArray = vs_anomalias::whereIn('id', $anomalias)->pluck('nombre')->toArray();
-        $anomaliasNames = implode(', ', $anomaliasNamesArray);
+        $anomaliasNames = implode(', ', $anomalias);
 
         return [
             'info' => [
@@ -29,12 +27,15 @@ class ShowReportServices
                 'direccion' => $ubicacion->direccion,
                 'ciclo' => $data->dbSurtigas->ciclo,
                 'cliente' => $data->dbSurtigas->cliente,
-                'comercios' => $data->report_comercio->vs_comercio->nombre,
+                'comercios' => $data->report_comercio->tipo_comercio,
                 'comercionovedad' => $data->report_comercio->nuevo_comercio,
                 'medidoranomalia' => $data->report_comercio->medidor_anomalia,
                 'nombrecomercio' => $data->report_comercio->nombre_comercio,
                 'anomalias' => $anomaliasNames,
-                'imposibilidad' => $data->vs_imposibilidad->nombre,
+                'imposibilidad' => $data->imposibilidad,
+                'tipo regulador' => $data->tipo_regulador,
+                'marca de medidor' => $data->marca_medidor,
+                'marca de regulador' => $data->marca_regulador,
                 'lectura' => $data->lectura,
                 'observaciones' => $data->observaciones,
                 'comentarios' => $data->comentarios,

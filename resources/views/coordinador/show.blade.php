@@ -44,19 +44,19 @@
                                         <span class="text-card text-sm"> Ciclo:
                                             {{ $data['info']['ciclo'] ?? 'Sin Datos' }}</span>
                                     </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <ul>
                                     <li>
-                                        <span
-                                            class="text-card text-sm">Imposibilidad :{{ $data['info']['imposibilidad'] ?? 'No registra imposibilidades' }}</span>
+                                        <span class="text-card text-sm"> Tipo de Regulador:
+                                            {{ $data['info']['tipo regulador'] ?? 'Sin Datos' }}</span>
                                     </li>
                                     <li>
-                                        <span class="text-card text-sm">
-                                           Anomalias: {{ $data['info']['anomalias'] ?? 'sin datos' }}
-                                        </span>
+                                        <span class="text-card text-sm"> Marca del Regulador:
+                                            {{ $data['info']['marca de regulador'] ?? 'Sin Datos' }}</span>
                                     </li>
+                                    <li>
+                                        <span class="text-card text-sm"> Marca del Medidor:
+                                            {{ $data['info']['marca de medidor'] ?? 'Sin Datos' }}</span>
+                                    </li>
+
                                     <li>
                                         <span class="text-card text-sm">Medidor Encontrado:
                                             {{ $data['info']['medidoranomalia'] ?? 'Sin datos' }}</span>
@@ -64,8 +64,22 @@
                                     <li>
                                         <span class="text-card text-sm">Estado:
                                             {!! $data['info']['estado'] == 1
-                                                ? '<span class="badge bg-success">Activo</span>'
-                                                : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
+        ? '<span class="badge bg-success">Activo</span>'
+        : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>
+                                        <span class="text-card text-sm">Imposibilidad:
+                                            {{ $data['info']['imposibilidad'] ?? 'No registra imposibilidades' }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="text-card text-sm">
+                                            Anomalias:
+                                            {{ $data['info']['anomalias'] ?? 'sin datos' }}
+                                        </span>
                                     </li>
                                 </ul>
                             </div>
@@ -78,8 +92,8 @@
                     </div>
                     <div class="card-footer pt-0 border-0">
                         <div class="progress br-30 progress-sm">
-                            <div class="progress-bar" role="progressbar" style="width: 100%;background:#0E1726" aria-valuenow="100"
-                                aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" style="width: 100%;background:#0E1726"
+                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </div>
@@ -258,21 +272,21 @@
                                     </div>
                                 </div>
                                 @if ($data['info']['estado'] != '6')
-                                <textarea id="editor" rows="5" name="observaciones" class="form-control mb-3"
-                                    placeholder="Escriba Sus Observaciones"></textarea>
+                                    <textarea id="editor" rows="5" name="observaciones" class="form-control mb-3"
+                                        placeholder="Escriba Sus Observaciones"></textarea>
                                     <div class="mb-2">
                                         <div class="form-check form-check-success form-check-inline">
                                             <label class="form-check-label" for="inlineRadio1">
                                                 <span class="badge badge-success">Revisado</span>
-                                                <input class="form-check-input" type="radio" name="estado"
-                                                    id="inlineRadio1" value="6">
+                                                <input class="form-check-input" type="radio" name="estado" id="inlineRadio1"
+                                                    value="6">
                                             </label>
                                         </div>
                                         <div class="form-check form-check-danger form-check-inline">
                                             <label class="form-check-label" for="inlineRadio2">
                                                 <span class="badge badge-danger">Rechazado</span>
-                                                <input class="form-check-input" type="radio" name="estado"
-                                                    id="inlineRadio2" value="7">
+                                                <input class="form-check-input" type="radio" name="estado" id="inlineRadio2"
+                                                    value="7">
                                             </label>
                                         </div>
                                         @if ($errors->has('estado'))
@@ -316,43 +330,40 @@
                                 <input type="text" name="id" value="{{ $data['info']['id'] }}" hidden>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="input-group mb-1 ">
-                                            <input type="file" class="form-control " id="foto1" name="foto1"
-                                                accept="image/jpeg">
-                                            <span class="input-group-text" id="foto1">Inmueble</span>
+                                        <div id="foto1-button">
+                                            <span class="input-group-text  m-2" for="foto1-input">Foto de la
+                                                Fachada</span>
+                                            <input type="file" class="form-control" id="foto1-input" name="foto1"
+                                                accept="image/jpeg" capture="camera">
                                         </div>
-                                        <div class="input-group mb-1">
-                                            <input type="file" class="form-control" id="foto2" name="foto2"
-                                                accept="image/jpeg">
-                                            <span class="input-group-text" for="foto2">Sellos del Medidor</span>
+                                        <div id="foto2-button">
+                                            <span class="input-group-text m-2" for="foto2-input">Foto del Medidor</span>
+                                            <input type="file" class="form-control" id="foto2-input" name="foto2"
+                                                accept="image/jpeg" capture="camera">
                                         </div>
-
+                                        <div id="foto5-button">
+                                            <span class="input-group-text m-2" for="foto5-input">Foto Detector de
+                                                Fuga</span>
+                                            <input type="file" class="form-control" id="foto5-input" name="foto5"
+                                                accept="image/jpeg" capture="camera">
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="input-group mb-1">
-                                            <input type="file" class="form-control" id="foto4" name="foto4"
-                                                accept="image/jpeg">
-                                            <span class="input-group-text" for="foto5">Estado Medidor</span>
+                                        <div id="foto3-button">
+                                            <span class="input-group-text m-2" for="foto3-input">Foto del Odómetro</span>
+                                            <input type="file" class="form-control" id="foto3-input" name="foto3"
+                                                accept="image/jpeg" capture="camera">
                                         </div>
-                                        <div class="input-group mb-1">
-                                            <input type="file" class="form-control" id="foto5" name="foto5"
-                                                accept="image/jpeg">
-                                            <span class="input-group-text" for="foto6">Opcional</span>
+                                        <div id="foto4-button">
+                                            <span class="input-group-text m-2" for="foto4-input">Foto del Regulador</span>
+                                            <input type="file" class="form-control" id="foto4-input" name="foto4"
+                                                accept="image/jpeg" capture="camera">
                                         </div>
+                                         <div id="foto6-button">
+                                        <span class="input-group-text m-2" for="foto6-input">Foto Exceso de Capacidad</span>
+                                        <input type="file" class="form-control" id="foto6-input" name="foto6"
+                                            accept="image/jpeg" capture="camera">
                                     </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-12">
-                                        <div class="input-group mb-1">
-                                            <input type="file" class="form-control" id="foto3" name="foto3"
-                                                accept="image/jpeg">
-                                            <span class="input-group-text" for="foto3">Numero Lectura y medidor</span>
-                                        </div>
-                                        <div class="input-group">
-                                            <input class="form-control" type="file" id="video" name="video"
-                                                accept="video/mp4">
-                                            <span class="input-group-text" id="video">video</span>
-                                        </div>
                                     </div>
                                 </div>
                                 <hr class="my-2">
@@ -375,25 +386,29 @@
     <div class="widget-content widget-content-area mt-2 ">
         <div class="row">
             @foreach (range(1, 6) as $i)
-                @if (isset($data['imagenes']['foto' . $i]))
+                @php
+                    // La variable $rutaImagen ya debe contener la ruta completa desde la base de datos
+                    $rutaImagen = $data['imagenes']['foto' . $i] ?? null;
+
+                    // Opcional: Si quieres un título descriptivo para el lightbox, puedes extraerlo del nombre del archivo
+                    $nombreArchivo = $rutaImagen ? pathinfo($rutaImagen, PATHINFO_FILENAME) : 'Imagen';
+                    $tituloGlightbox = $nombreArchivo . ' - Contrato #: ' . ($data['info']['contrato'] ?? 'N/A');
+
+                    // La descripción adicional para el lightbox
+                    $descripcionGlightbox = 'Contrato #: ' . ($data['info']['contrato'] ?? 'N/A') . ' - Medidor #: ' . ($data['info']['medidor'] ?? 'N/A');
+                @endphp
+                {{-- Solo muestra el div si la ruta de la imagen existe --}}
+                @if ($rutaImagen)
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                        <a href="/imagen/{{ $data['imagenes']['foto' . $i] }}"
-                            class="withDescriptionGlightbox glightbox-content"
-                            data-glightbox="title: Contrato y medidor; description: Contrato #:{{ $data['info']['contrato'] }} - Medidor #:{{ $data['info']['medidor'] }} - Lectura #: {{ $data['info']['lectura']}};">
-                            <img src="/imagen/{{ $data['imagenes']['foto' . $i] }}" alt="image" class="img-fluid"
+                        {{-- Usa asset() para generar la URL pública correcta --}}
+                        <a href="{{ asset($rutaImagen) }}" class="withDescriptionGlightbox glightbox-content"
+                            data-glightbox="title: {{ $tituloGlightbox }}; description: {{ $descripcionGlightbox }};">
+                            <img src="{{ asset($rutaImagen) }}" alt="{{ $nombreArchivo }}" class="img-fluid"
                                 style="width:350px; height:250px; object-fit: cover;" />
                         </a>
                     </div>
                 @endif
             @endforeach
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4 me-auto">
-                @if (isset($data['video']))
-                    <a href="{{ asset('video/' . $data['video']) }}" class="withDescriptionGlightbox glightbox-content">
-                        <img src="{{ asset('src/image/video.jpeg') }}" alt="image" class="img-fluid"
-                            style="width:350px; height:250px; object-fit: cover;" />
-                    </a>
-                @endif
-            </div>
         </div>
     </div>
 @endsection
@@ -401,10 +416,10 @@
 @section('scripts')
     <script>
         for (let i = 1; i <= 6; i++) {
-            document.getElementById("foto" + i).addEventListener("change", function() {
+            document.getElementById("foto" + i).addEventListener("change", function () {
                 var reader = new FileReader();
 
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     document.getElementById('fotoPreview' + i).src = e.target.result;
                 }
                 reader.readAsDataURL(this.files[0]);
@@ -412,16 +427,16 @@
         }
     </script>
     <script>
-        $(document).ready(function() {
-            $('#observacion').submit(function() {
+        $(document).ready(function () {
+            $('#observacion').submit(function () {
                 $('#submitButtonObservacion').addClass('d-none');
                 $('#progressBarObservacion').removeClass('d-none');
             });
         });
     </script>
     <script>
-        $(document).ready(function() {
-            $('#evidencias').submit(function(e) {
+        $(document).ready(function () {
+            $('#evidencias').submit(function (e) {
                 e.preventDefault();
                 $('#submitButtonEvidencias').addClass('d-none');
                 $('#progressBarEvidencias').removeClass('d-none');
@@ -437,7 +452,7 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success: function(response) {
+                    success: function (response) {
                         $('#alert').removeClass('d-none');
                         $('.alert-evidencia').text(response.success).show();
                         $('#progressBarEvidencias').addClass('d-none');

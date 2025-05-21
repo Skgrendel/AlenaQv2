@@ -20,9 +20,6 @@ class ShowReportServices
         $comercios = vs_comercios::pluck('nombre', 'id');
         $anomalias = vs_anomalias::pluck('nombre', 'id');
         $imposibilidad = vs_imposibilidad::pluck('nombre', 'id');
-        $imagenes = json_decode($data->imagenes);
-        $anomaliasId = json_decode($data->anomalia);
-
         return [
             'info' => [
                 'id'=>$data->id,
@@ -35,8 +32,11 @@ class ShowReportServices
                 'comercionovedad'=> $comerciosIds->nuevo_comercio,
                 'medidoranomalia'=>$comerciosIds->medidor_anomalia,
                 'nombrecomercio'=>$comerciosIds->nombre_comercio,
-                'anomaliasid' => $anomaliasId,
-                'imposibilidadid' =>$data->imposibilidad,
+                'anomalias' => json_decode($data->anomalia),
+                'imposibilidad' =>$data->imposibilidad,
+                'tipo regulador' => $data->tipo_regulador,
+                'marca de medidor' => $data->marca_medidor,
+                'marca de regulador' => $data->marca_regulador,
                 'lectura' => $data->lectura,
                 'observaciones' =>$data->observaciones,
                 'estado' => $data->estado
@@ -44,8 +44,7 @@ class ShowReportServices
             'comercios' => $comercios,
             'anomalias' => $anomalias,
             'imposibilidad' => $imposibilidad,
-            'imagenes' => $imagenes,
-            'video' =>$data->video,
+            'imagenes' => json_decode($data->imagenes),
 
         ];
     }

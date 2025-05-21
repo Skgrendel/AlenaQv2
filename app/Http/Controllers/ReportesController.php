@@ -45,11 +45,9 @@ class ReportesController extends Controller
      */
     public function store(Request $request)
     {
-       // dd($request);
         $id = Auth::user()->personal->id;
         $ServicesStore = $this->Processing;
         $ServicesStore->StoreReport($request, $id);
-
         return redirect()->route('reportes.index')->with('success', 'Reporte Creado Con Exito');
     }
     /**

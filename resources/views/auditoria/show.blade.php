@@ -44,6 +44,29 @@
                                         <span class="text-card text-sm"> Ciclo:
                                             {{ $data['info']['ciclo']['ciclo'] ?? 'Sin Datos' }}</span>
                                     </li>
+                                     <li>
+                                        <span class="text-card text-sm"> Tipo de Regulador:
+                                            {{ $data['info']['tipo regulador'] ?? 'Sin Datos' }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="text-card text-sm"> Marca del Regulador:
+                                            {{ $data['info']['marca de regulador'] ?? 'Sin Datos' }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="text-card text-sm"> Marca del Medidor:
+                                            {{ $data['info']['marca de medidor'] ?? 'Sin Datos' }}</span>
+                                    </li>
+
+                                    <li>
+                                        <span class="text-card text-sm">Medidor Encontrado:
+                                            {{ $data['info']['medidoranomalia'] ?? 'Sin datos' }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="text-card text-sm">Estado:
+                                            {!! $data['info']['estado'] == 1
+        ? '<span class="badge bg-success">Activo</span>'
+        : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="col-md-6">
@@ -57,16 +80,7 @@
                                            Anomalias: {{ $data['info']['anomalias'] ?? 'sin datos' }}
                                         </span>
                                     </li>
-                                    <li>
-                                        <span class="text-card text-sm">Medidor Encontrado:
-                                            {{ $data['info']['medidoranomalia'] ?? 'Sin datos' }}</span>
-                                    </li>
-                                    <li>
-                                        <span class="text-card text-sm">Estado:
-                                            {!! $data['info']['estado'] == 1
-                                                ? '<span class="badge bg-success">Activo</span>'
-                                                : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
-                                    </li>
+
                                 </ul>
                             </div>
                         </div>
@@ -187,26 +201,26 @@
                                     <div class="form-group mb-1 ">
                                         <label for="Contrato" class="form-label">Numero de Contrato</label>
                                         <span id="Contrato" class="form-control"
-                                            name="contrato">{{ $gis['info']['contrato'] ?? 'sin datos'}} </span>
+                                            name="contrato">{{ $gis['info']['contrato'] ?? $data['info']['contrato']}} </span>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group mb-1 ">
                                                 <label for="medidor" class="form-label">Numero de Medidor</label>
                                                 <span type="text" class="form-control" id="medidor"
-                                                    name="medidor">{{ $gis['info']['medidor'] ?? 'sin datos' }}</span>
+                                                    name="medidor">{{ $gis['info']['medidor'] ?? $data['info']['medidor'] }}</span>
                                             </div>
                                             <div class="form-group mb-1 ">
                                                 <label for="lectura">Numero de Lectura</label>
                                                 <input type="text" class="form-control" id="lectura" name="lectura"
-                                                    value="{{ $data['info']['reporte']['lectura'] }}">
+                                                    value="{{ $data['info']['lectura'] }}">
                                             </div>
                                             <div class="form-group mb-1 ">
                                                 <label for="imposibilidad" class="form-label">Imposibilidad</label>
                                                 <select id="imposibilidad" class="form-select" name="imposibilidad">
                                                     @foreach ($data['imposibilidad'] as $id => $nombre)
-                                                        <option value="{{ $id }}"
-                                                            {{ $data['info']['reporte']['imposibilidad'] == $id ? 'selected' : '' }}>
+                                                        <option value="{{ $nombre}}"
+                                                            {{ $data['info']['reporte']['imposibilidad'] == $nombre ? 'selected' : '' }}>
                                                             {{ $nombre }}
                                                         </option>
                                                     @endforeach
@@ -225,8 +239,8 @@
                                                 <label for="comercio" class="form-label">Tipo de Comercio</label>
                                                 <select id="comercio" class="form-select" name="tipo_comercio">
                                                     @foreach ($data['comercios'] as $id => $nombre)
-                                                        <option value="{{ $id }}"
-                                                            {{ $data['info']['comercio']['tipo_comercio'] == $id ? 'selected' : '' }}>
+                                                        <option value="{{ $nombre }}"
+                                                            {{ $data['info']['comercio']['tipo_comercio'] == $nombre ? 'selected' : '' }}>
                                                             {{ $nombre }}
                                                         </option>
                                                     @endforeach
@@ -238,7 +252,7 @@
                                                     autocomplete="off" data-placeholder="anomalias">
                                                     @foreach ($data['anomalias'] as $id => $nombre)
                                                         <option
-                                                            value="{{ $id }}"{{ in_array($id, $data['info']['anomaliasid']) ? 'selected' : '' }}>
+                                                            value="{{ $nombre }}"{{ in_array($nombre, $data['info']['anomaliasid']) ? 'selected' : '' }}>
                                                             {{ $nombre }}</option>
                                                     @endforeach
                                                 </select>
@@ -382,47 +396,44 @@
                                         id="evidencias">
                                         @csrf
                                         <input type="text" name="id" value="{{ $data['info']['reporte']['id'] }}" hidden>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="input-group mb-1 ">
-                                                    <input type="file" class="form-control " id="foto1" name="foto1"
-                                                        accept="image/jpeg">
-                                                    <span class="input-group-text" id="foto1">Inmueble</span>
-                                                </div>
-                                                <div class="input-group mb-1">
-                                                    <input type="file" class="form-control" id="foto2" name="foto2"
-                                                        accept="image/jpeg">
-                                                    <span class="input-group-text" for="foto2">Sellos del Medidor</span>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="input-group mb-1">
-                                                    <input type="file" class="form-control" id="foto4" name="foto4"
-                                                        accept="image/jpeg">
-                                                    <span class="input-group-text" for="foto5">Estado Medidor</span>
-                                                </div>
-                                                <div class="input-group mb-1">
-                                                    <input type="file" class="form-control" id="foto5" name="foto5"
-                                                        accept="image/jpeg">
-                                                    <span class="input-group-text" for="foto6">Opcional</span>
-                                                </div>
-                                            </div>
+                                       <div class="row">
+                                    <div class="col-md-6">
+                                        <div id="foto1-button">
+                                            <span class="input-group-text  m-2" for="foto1-input">Foto de la
+                                                Fachada</span>
+                                            <input type="file" class="form-control" id="foto1-input" name="foto1"
+                                                accept="image/jpeg" capture="camera">
                                         </div>
-                                        <div class="row mt-2">
-                                            <div class="col-md-12">
-                                                <div class="input-group mb-1">
-                                                    <input type="file" class="form-control" id="foto3" name="foto3"
-                                                        accept="image/jpeg">
-                                                    <span class="input-group-text" for="foto3">Numero Lectura y medidor</span>
-                                                </div>
-                                                <div class="input-group">
-                                                    <input class="form-control" type="file" id="video" name="video"
-                                                        accept="video/mp4">
-                                                    <span class="input-group-text" id="video">video</span>
-                                                </div>
-                                            </div>
+                                        <div id="foto2-button">
+                                            <span class="input-group-text m-2" for="foto2-input">Foto del Medidor</span>
+                                            <input type="file" class="form-control" id="foto2-input" name="foto2"
+                                                accept="image/jpeg" capture="camera">
                                         </div>
+                                        <div id="foto5-button">
+                                            <span class="input-group-text m-2" for="foto5-input">Foto Detector de
+                                                Fuga</span>
+                                            <input type="file" class="form-control" id="foto5-input" name="foto5"
+                                                accept="image/jpeg" capture="camera">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div id="foto3-button">
+                                            <span class="input-group-text m-2" for="foto3-input">Foto del Odómetro</span>
+                                            <input type="file" class="form-control" id="foto3-input" name="foto3"
+                                                accept="image/jpeg" capture="camera">
+                                        </div>
+                                        <div id="foto4-button">
+                                            <span class="input-group-text m-2" for="foto4-input">Foto del Regulador</span>
+                                            <input type="file" class="form-control" id="foto4-input" name="foto4"
+                                                accept="image/jpeg" capture="camera">
+                                        </div>
+                                         <div id="foto6-button">
+                                        <span class="input-group-text m-2" for="foto6-input">Foto Exceso de Capacidad</span>
+                                        <input type="file" class="form-control" id="foto6-input" name="foto6"
+                                            accept="image/jpeg" capture="camera">
+                                    </div>
+                                    </div>
+                                </div>
                                         <hr class="my-2">
                                         <div class="alert alert-success d-none alert-evidencia" role="alert" id="alert">
                                         </div>
@@ -494,27 +505,31 @@
 
     @endif
     <div class="widget-content widget-content-area mt-2 ">
-        <div class="row">
+           <div class="row">
             @foreach (range(1, 6) as $i)
-                @if (isset($data['imagenes']['foto' . $i]))
+                @php
+                    // La variable $rutaImagen ya debe contener la ruta completa desde la base de datos
+                    $rutaImagen = $data['imagenes']['foto' . $i] ?? null;
+
+                    // Opcional: Si quieres un título descriptivo para el lightbox, puedes extraerlo del nombre del archivo
+                    $nombreArchivo = $rutaImagen ? pathinfo($rutaImagen, PATHINFO_FILENAME) : 'Imagen';
+                    $tituloGlightbox = $nombreArchivo . ' - Contrato #: ' . ($data['info']['contrato'] ?? 'N/A');
+
+                    // La descripción adicional para el lightbox
+                    $descripcionGlightbox = 'Contrato #: ' . ($data['info']['contrato'] ?? 'N/A') . ' - Medidor #: ' . ($data['info']['medidor'] ?? 'N/A');
+                @endphp
+                {{-- Solo muestra el div si la ruta de la imagen existe --}}
+                @if ($rutaImagen)
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                        <a href="/imagen/{{ $data['imagenes']['foto' . $i] }}"
-                            class="withDescriptionGlightbox glightbox-content"
-                            data-glightbox="title: Contrato y medidor; description: Contrato #:{{ $data['info']['contrato'] ?? 'Sin datos' }} - Medidor #:{{ $data['info']['medidor'] ?? 'Sin datos' }} - Lectura #: {{ $data['info']['lectura'] ?? 'Sin datos'}};">
-                            <img src="/imagen/{{ $data['imagenes']['foto' . $i] }}" alt="image" class="img-fluid"
+                        {{-- Usa asset() para generar la URL pública correcta --}}
+                        <a href="{{ asset($rutaImagen) }}" class="withDescriptionGlightbox glightbox-content"
+                            data-glightbox="title: {{ $tituloGlightbox }}; description: {{ $descripcionGlightbox }};">
+                            <img src="{{ asset($rutaImagen) }}" alt="{{ $nombreArchivo }}" class="img-fluid"
                                 style="width:350px; height:250px; object-fit: cover;" />
                         </a>
                     </div>
                 @endif
             @endforeach
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4 me-auto">
-                @if (isset($data['video']))
-                    <a href="{{ asset('video/' . $data['video']) }}" class="withDescriptionGlightbox glightbox-content">
-                        <img src="{{ asset('src/image/video.jpeg') }}" alt="image" class="img-fluid"
-                            style="width:350px; height:250px; object-fit: cover;" />
-                    </a>
-                @endif
-            </div>
         </div>
     </div>
 @endsection

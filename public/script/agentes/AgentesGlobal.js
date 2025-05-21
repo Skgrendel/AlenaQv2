@@ -1,24 +1,3 @@
-// Mostrar Validacion de Subida de Archivos
-document.addEventListener("DOMContentLoaded", function() {
-    for (let i = 1; i <= 5; i++) {
-        document.getElementById(`foto${i}-button`).addEventListener("click", function() {
-            document.getElementById(`foto${i}-input`).click();
-        });
-
-        document.getElementById(`foto${i}-input`).addEventListener("change", function() {
-            var button = document.getElementById(`foto${i}-button`);
-            if (this.files && this.files.length > 0) {
-                document.querySelector(`#foto${i}-button .btn-text-inner`).textContent = "Archivo seleccionado";
-                button.classList.remove("btn-info");
-                button.classList.add("btn-success");
-            } else {
-                document.querySelector(`#foto${i}-button .btn-text-inner`).textContent = "Foto Inmueble";
-                button.classList.remove("btn-success");
-                button.classList.add("btn-info");
-            }
-        });
-    }
-});
 
 // Mostrar la barra de Procesos
 

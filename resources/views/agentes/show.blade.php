@@ -53,8 +53,7 @@
                                                     data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
                                                 <a class="btn btn-info me-4 rounded  bs-tooltip"
                                                     title="Regresar Pagina Anterior" data-bs-placement="top"
-                                                    href="{{ route('asignados') }}"><i
-                                                        class="fas fa-arrow-circle-left"></i></a>
+                                                    href="{{ route('asignados') }}"><i class="fas fa-arrow-circle-left"></i></a>
                                             </div>
                                         @endif
                                         @if (isset($gis['error']))
@@ -72,10 +71,9 @@
                 </div>
                 <div class="col-12">
                     <label for="comercio" class="form-label"> Tipo de Comercio Encontrado</label>
-                    <select id="comercio" class="form-select" name="tipo_comercio" disabled >
+                    <select id="comercio" class="form-select" name="tipo_comercio" disabled>
                         @foreach ($data['comercios'] as $id => $nombre)
-                            <option value="{{ $id }}"
-                                {{ $data['info']['comerciosid'] == $id ? 'selected' : '' }}>{{ $nombre }}
+                            <option value="{{ $id }}" {{ $data['info']['comerciosid'] == $id ? 'selected' : '' }}>{{ $nombre }}
                             </option>
                         @endforeach
                     </select>
@@ -93,14 +91,9 @@
                     </div>
                     <div class="col-lg-12 mb-2" id="anomaliaContainer">
                         <div class="mt-1">
-                            <label for="nueva_opcion" class="form-label ">Anomalia Detectada</label>
-                            <select id="anomalia" class="form-control" name="anomalia[]" multiple disabled >
-                                @foreach ($data['anomalias'] as $id => $nombre)
-                                    <option
-                                        value="{{ $id }}"{{ in_array($id, $data['info']['anomaliasid']) ? 'selected' : '' }}>
-                                        {{ $nombre }}</option>
-                                @endforeach
-                            </select>
+                            <label for="anomalia_texto" class="form-label">Anomalia Detectada</label>
+                            <span class="form-control" id="anomalia_texto" name="anomalia_texto" rows="3"
+                                disabled>{{ implode(', ', $data['info']['anomalias']) }}</span>
                         </div>
                     </div>
 
@@ -112,20 +105,17 @@
                     </div>
                     <div class="col-12 mb-2 " id="container_imposibilidad">
                         <label for="imposibilidad" class="form-label">Imposibilidad Detectada</label>
-                        <select id="imposibilidad" class="form-select" name="imposibilidad" disabled>
-                            @foreach ($data['imposibilidad'] as $id => $nombre)
-                                <option value="{{ $id }}"
-                                    {{ $data['info']['imposibilidadid'] == $id ? 'selected' : '' }}>{{ $nombre }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <div class="mt-1">
+                            <span class="form-control" id="imposibilidad">{{ $data['info']['imposibilidad'] }}</span>
+                        </div>
                     </div>
                 </div>
                 @if (isset($data['info']['observaciones']))
-                <div class="col-12">
-                    <label for="comentarios" class="form-label">Observaciones</label>
-                   <span id="comentarios" cols="30" rows="3" class="form-control">{{ $data['info']['observaciones'] }}</span>
-                </div>
+                    <div class="col-12">
+                        <label for="comentarios" class="form-label">Observaciones</label>
+                        <span id="comentarios" cols="30" rows="3"
+                            class="form-control">{{ $data['info']['observaciones'] }}</span>
+                    </div>
                 @endif
                 <div id="evidencias" class="col-lg-12 layout-spacing ">
                     <div class="statbox widget box box-shadow">
@@ -144,28 +134,32 @@
                                         <div class="widget-content widget-content-area mt-2 ">
                                             <div class="row">
                                                 @foreach (range(1, 6) as $i)
-                                                    @if (isset($data['imagenes']['foto' . $i]))
+                                                    @php
+                                                        // La variable $rutaImagen ya debe contener la ruta completa desde la base de datos
+                                                        $rutaImagen = $data['imagenes']['foto' . $i] ?? null;
+
+                                                        // Opcional: Si quieres un título descriptivo para el lightbox, puedes extraerlo del nombre del archivo
+                                                        $nombreArchivo = $rutaImagen ? pathinfo($rutaImagen, PATHINFO_FILENAME) : 'Imagen';
+                                                        $tituloGlightbox = $nombreArchivo . ' - Contrato #: ' . ($data['info']['contrato'] ?? 'N/A');
+
+                                                        // La descripción adicional para el lightbox
+                                                        $descripcionGlightbox = 'Contrato #: ' . ($data['info']['contrato'] ?? 'N/A') . ' - Medidor #: ' . ($data['info']['medidor'] ?? 'N/A');
+                                                    @endphp
+
+                                                    {{-- Solo muestra el div si la ruta de la imagen existe --}}
+                                                    @if ($rutaImagen)
                                                         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                                                            <a href="/imagen/{{ $data['imagenes']['foto' . $i] }}"
+                                                            {{-- Usa asset() para generar la URL pública correcta --}}
+                                                            <a href="{{ asset($rutaImagen) }}"
                                                                 class="withDescriptionGlightbox glightbox-content"
-                                                                data-glightbox="title: Contrato y medidor; description: Contrato #:{{ $data['info']['contrato'] }} - Medidor #:{{ $data['info']['medidor'] }};">
-                                                                <img src="/imagen/{{ $data['imagenes']['foto' . $i] }}"
-                                                                    alt="image" class="img-fluid"
+                                                                data-glightbox="title: {{ $tituloGlightbox }}; description: {{ $descripcionGlightbox }};">
+                                                                <img src="{{ asset($rutaImagen) }}" alt="{{ $nombreArchivo }}"
+                                                                    class="img-fluid"
                                                                     style="width:350px; height:250px; object-fit: cover;" />
                                                             </a>
                                                         </div>
                                                     @endif
                                                 @endforeach
-                                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4 me-auto">
-                                                    @if (isset($data['video']))
-                                                        <a href="{{ asset('video/' . $data['video']) }}"
-                                                            class="withDescriptionGlightbox glightbox-content">
-                                                            <img src="{{ asset('src/image/video.jpeg') }}" alt="image"
-                                                                class="img-fluid"
-                                                                style="width:350px; height:250px; object-fit: cover;" />
-                                                        </a>
-                                                    @endif
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

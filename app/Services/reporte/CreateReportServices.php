@@ -7,6 +7,7 @@ use App\Models\vs_anomalias;
 use App\Models\vs_comercios;
 use App\Models\vs_imposibilidad;
 use App\Models\vs_marca_medidor;
+use App\Models\vs_marca_regulador;
 use App\Models\vs_tipo_regulador;
 
 class CreateReportServices
@@ -19,7 +20,7 @@ class CreateReportServices
         $comercios = vs_comercios::pluck('nombre', 'id');
         $imposibilidad = vs_imposibilidad::pluck('nombre', 'id');
         $marca_medidor = vs_marca_medidor::pluck('nombre', 'id');
-        $marca_regulador = vs_marca_medidor::pluck('nombre', 'id');
+        $marca_regulador = vs_marca_regulador::pluck('nombre', 'id');
         $tipo_regulador = vs_tipo_regulador::pluck('nombre', 'id');
 
         return [

@@ -54,6 +54,9 @@ class ReportServices
         $reportes['numero_orden'] = $request->input('numero_orden');
         $reportes['lectura'] = $request->input('lectura');
         $reportes['imposibilidad'] = $request->input('imposibilidad');
+        $reportes['tipo_regulador'] = $request->input('tipo_regulador');
+        $reportes['marca_medidor'] = $request->input('marca_medidor');
+        $reportes['marca_regulador'] = $request->input('marca_regulador');
         $reportes['comentarios'] = $request->input('comentarios');
         $reportes['imagenes'] = json_encode($foto);
 

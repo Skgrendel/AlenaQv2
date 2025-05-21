@@ -78,9 +78,7 @@ class ProcessingServices
     {
         $reporte = reportes::find($request->input('id'));
         $fotos = $this->file->processImagesUpdate($request, $reporte);
-       // $video = $this->file->processVideoUpdate($request, $reporte);
         $datosActualizados = [
-            // 'video' => $video,
             'imagenes' => $fotos,
         ];
         $reporte->update($datosActualizados);
