@@ -47,19 +47,19 @@ class AsignadosDatatable extends DataTableComponent
         ];
     }
 
-    public function builder(): Builder
-    {
-        $user = Auth::user();
-        $config = configuraciones::find('1');
-        $personalId = $user->personals_id;
+    // public function builder(): Builder
+    // {
+    //     $user = Auth::user();
+    //     $config = configuraciones::find('1');
+    //     $personalId = $user->personals_id;
 
-        if (!$config || !$config->ciclo) {
-            return surtigas::query()->whereNull('id'); // Devuelve consulta vacía
-        }
+    //     if (!$config || !$config->ciclo) {
+    //         return surtigas::query()->whereNull('id'); // Devuelve consulta vacía
+    //     }
 
-        return surtigas::query()->where('surtigas.personals_id', $personalId)
-            ->where('ciclo', $config->ciclo);
-    }
+    //     return surtigas::query()->where('surtigas.personals_id', $personalId)
+    //         ->where('ciclo', $config->ciclo);
+    // }
 
     public function columns(): array
     {

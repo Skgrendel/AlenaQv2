@@ -24,10 +24,9 @@ class ReportExport implements FromCollection,WithHeadings
         ->get()
         ->map(function ($reporte) {
             // Decodifica el JSON a un array de PHP
-            $anomaliaIds = json_decode($reporte->anomalia);
+            $anomalias = json_decode($reporte->anomalia);
 
-            // Busca los nombres de las anomalías correspondientes a los IDs
-            $anomaliaNombres = vs_anomalias::whereIn('id', $anomaliaIds)->pluck('nombre')->toArray();
+
 
             return [
                 $reporte->personal->nombres,
@@ -36,10 +35,13 @@ class ReportExport implements FromCollection,WithHeadings
                 $reporte->dbSurtigas->medidor,
                 $reporte->lectura,
                 $reporte->dbSurtigas->ciclo,
-                $reporte->report_ubicacion->direccion,
-                implode(', ', $anomaliaNombres),
-                $reporte->vs_imposibilidad->nombre,
-                $reporte->report_comercio->vs_comercio->nombre,
+                $reporte->dbSurtigas->direccion,
+                implode(', ', $anomalias ),
+                $reporte->imposibilidad,
+                $reporte->report_comercio->tipo_comercio,
+                $reporte->tipo_regulador,
+                $reporte->marca_medidor,
+                $reporte->marca_regulador,
                 $reporte->vs_estado->nombre,
                 $reporte->created_at->format('Y-m-d'),
                 $reporte->created_at->format('H:i:s '),
@@ -61,6 +63,9 @@ class ReportExport implements FromCollection,WithHeadings
             'Anomalía',
             'Imposibilidad',
             'Comercio',
+            'Tipo de Regulador',
+            'Marca de Medidor',
+            'Marca de Regulador',
             'Estado',
             'Fecha de Creación',
             'Hora de Creación',
