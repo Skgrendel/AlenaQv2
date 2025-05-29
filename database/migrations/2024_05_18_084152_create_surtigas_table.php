@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('ciclo');
             $table->boolean('estado')->default('1');
             $table->boolean('estado_servicio');
+            $table->string('descripcion')->nullable();
+            $table->string('tipo_medidor')->nullable();
             $table->timestamps();
         });
     }
