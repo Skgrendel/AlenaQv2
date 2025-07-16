@@ -47,8 +47,8 @@
                                                 <label for="ciclo">Estado del Servicio: </label>
                                                 <span class="text-card text-sm">
                                                     {!! $data['info']['db_Surtigas']['estado_servicio'] == 1
-        ? '<span class="badge bg-success">Activo</span>'
-        : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
+                                                        ? '<span class="badge bg-success">Activo</span>'
+                                                        : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Estado del Servicio en el Gis: </label>
@@ -118,7 +118,8 @@
                                 <div class="mt-1">
                                     <label for="nueva_opcion" class="form-label">Digite el numero de Medidor Que
                                         Encontro</label>
-                                    <input type="text" name="medidor_anomalia" id="medidor_anomalia" class="form-control">
+                                    <input type="text" name="medidor_anomalia" id="medidor_anomalia"
+                                        class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-12 mb-2" id="anomaliaContainer">
@@ -156,7 +157,7 @@
                                 </select>
                             </div>
                             <div class="col-12  mb-2" id="marca_regulador_container">
-                                <label for="marca_regulador" class="form-label">Marca del Regulador</label>
+                                <label for="marca_regulador" class="form-label">Modelo del Regulador</label>
                                 <select id="marca_regulador" class="form-select" name="marca_regulador">
                                     @foreach ($data['marca_regulador'] as $id => $nombre)
                                         <option value="{{ $nombre }}">{{ $nombre }}</option>
@@ -171,11 +172,25 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="col-12  mb-2" id="cau_container">
+                                <label for="cau" class="form-label">Alertas del Medidor</label>
+                                <select id="cau" class="form-select" name="cau">
+                                    <option disabled>──────────</option>
+                                    <option value="Sin Alertas">Sin Alertas</option>
+                                    <option value="CAU 01">CAU 01</option>
+                                    <option value="CAU 02">CAU 02</option>
+                                    <option value="CAU 03">CAU 03</option>
+                                    <option value="CAU 04">CAU 04</option>
+                                    <option value="Retro Flujo">Retro Flujo</option>
+                                    <option value="Bateria Baja">Bateria Baja</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="true" id="fuga_gas" name="fuga_gas">
+                            <input class="form-check-input" type="checkbox" value="true" id="fuga_gas"
+                                name="fuga_gas">
                             <label class="form-check-label" for="fuga_gas">Hay Fuga de gas</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -226,7 +241,8 @@
                                             accept="image/jpeg" capture="camera">
                                     </div>
                                     <div class="d-none" id="foto6-button">
-                                        <span class="input-group-text m-2" for="foto6-input">Foto Exceso de Capacidad</span>
+                                        <span class="input-group-text m-2" for="foto6-input">Foto Exceso de
+                                            Capacidad</span>
                                         <input type="file" class="form-control" id="foto6-input" name="foto6"
                                             accept="image/jpeg" capture="camera">
                                     </div>
@@ -255,19 +271,19 @@
         });
     </script>
     <script>
-        $(document).ready(function () {
-            $('#reportes').submit(function () {
+        $(document).ready(function() {
+            $('#reportes').submit(function() {
                 $('#submitButtonReporte').addClass('d-none');
                 $('#progressBarObservacion').removeClass('d-none');
             });
         });
     </script>
     <script>
-        document.getElementById('reportes').addEventListener('submit', function (event) {
+        document.getElementById('reportes').addEventListener('submit', function(event) {
             event.preventDefault();
             fetch('/check-connection', {
-                method: 'GET'
-            })
+                    method: 'GET'
+                })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -295,11 +311,11 @@
         });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const fugaGasCheckbox = document.getElementById('fuga_gas');
             const foto5Button = document.getElementById('foto5-button');
 
-            fugaGasCheckbox.addEventListener('change', function () {
+            fugaGasCheckbox.addEventListener('change', function() {
                 if (this.checked) {
                     foto5Button.classList.remove('d-none');
                 } else {
@@ -309,11 +325,11 @@
         });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const fugaGasCheckbox = document.getElementById('ex_capacidad');
             const foto6Button = document.getElementById('foto6-button');
 
-            fugaGasCheckbox.addEventListener('change', function () {
+            fugaGasCheckbox.addEventListener('change', function() {
                 if (this.checked) {
                     foto6Button.classList.remove('d-none');
                 } else {

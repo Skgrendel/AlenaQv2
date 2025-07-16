@@ -35,6 +35,7 @@ class reportes extends Model
         'confirmado',
         'video',
         'estado',
+        'cau'
     ];
 
     public function personal()
