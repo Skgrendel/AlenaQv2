@@ -384,33 +384,27 @@
         </div>
     </div>
     <div class="widget-content widget-content-area mt-2 ">
-        <div class="row">
-            @foreach (range(1, 6) as $i)
-                @php
-                    // La variable $rutaImagen ya debe contener la ruta completa desde la base de datos
-                    $rutaImagen = $data['imagenes']['foto' . $i] ?? null;
+    <div class="row">
+        @foreach (range(1, 6) as $i)
+            @php
+                $rutaImagen = $data['imagenes']['foto' . $i] ?? null;
+                $nombreArchivo = $rutaImagen ? pathinfo($rutaImagen, PATHINFO_FILENAME) : 'Imagen';
+                $tituloGlightbox = $nombreArchivo . ' - Contrato #: ' . ($data['info']['contrato'] ?? 'N/A');
+                $descripcionGlightbox = 'Contrato #: ' . ($data['info']['contrato'] ?? 'N/A') . ' - Medidor #: ' . ($data['info']['medidor'] ?? 'N/A');
+            @endphp
 
-                    // Opcional: Si quieres un título descriptivo para el lightbox, puedes extraerlo del nombre del archivo
-                    $nombreArchivo = $rutaImagen ? pathinfo($rutaImagen, PATHINFO_FILENAME) : 'Imagen';
-                    $tituloGlightbox = $nombreArchivo . ' - Contrato #: ' . ($data['info']['contrato'] ?? 'N/A');
-
-                    // La descripción adicional para el lightbox
-                    $descripcionGlightbox = 'Contrato #: ' . ($data['info']['contrato'] ?? 'N/A') . ' - Medidor #: ' . ($data['info']['medidor'] ?? 'N/A');
-                @endphp
-                {{-- Solo muestra el div si la ruta de la imagen existe --}}
-                @if ($rutaImagen)
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                        {{-- Usa asset() para generar la URL pública correcta --}}
-                        <a href="{{ asset($rutaImagen) }}" class="withDescriptionGlightbox glightbox-content"
-                            data-glightbox="title: {{ $tituloGlightbox }}; description: {{ $descripcionGlightbox }};">
-                            <img src="{{ asset($rutaImagen) }}" alt="{{ $nombreArchivo }}" class="img-fluid"
-                                style="width:350px; height:250px; object-fit: cover;" />
-                        </a>
-                    </div>
-                @endif
-            @endforeach
-        </div>
+            @if ($rutaImagen)
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <a href="{{ $rutaImagen }}" class="withDescriptionGlightbox glightbox-content"
+                        data-glightbox="title: {{ $tituloGlightbox }}; description: {{ $descripcionGlightbox }};">
+                        <img src="{{ $rutaImagen }}" alt="{{ $nombreArchivo }}" class="img-fluid"
+                            style="width:350px; height:250px; object-fit: cover;" />
+                    </a>
+                </div>
+            @endif
+        @endforeach
     </div>
+</div>
 @endsection
 
 @section('scripts')
