@@ -35,10 +35,10 @@ public function processImages(Request $request)
             $ruta = "alenaqv2/{$numeroContrato}/{$nombreFoto}";
 
             // Sube el archivo al bucket con visibilidad pública
-            Storage::disk('spaces')->put($ruta, file_get_contents($imagen), 'public');
+            Storage::disk('s3')->put($ruta, file_get_contents($imagen), 'public');
 
             // Genera la URL pública
-            $urlFoto = Storage::disk('spaces')->url($ruta);
+            $urlFoto = Storage::disk('s3')->url($ruta);
 
             // Guarda la URL en el array
             $reportesData[$nombreInputFoto] = $urlFoto;
