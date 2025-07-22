@@ -83,7 +83,7 @@ class ReportesController extends Controller
     public function showreporte(string $id)
     {
         $data = $this->show->ShowReport($id);
-        $gis = $this->gis->DataGis($id);
+        $gis = $this->gis->DataGishow($id);
         $data['imagenes'] = (array) $data['imagenes'];
         return view('agentes.show', compact('data', 'gis'));
     }
