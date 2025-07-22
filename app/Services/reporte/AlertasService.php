@@ -2,10 +2,10 @@
 
 namespace App\Services\reporte;
 
+use App\Mail\Notification_Alertas_cau;
 use App\Mail\Notification_anomalia;
+use App\Mail\Notification_exceso_capacidad;
 use App\Mail\Notification_fuga;
-use App\Models\surtigas;
-use DB;
 use Illuminate\Support\Facades\Mail;
 
 class AlertasService
@@ -13,48 +13,72 @@ class AlertasService
     public function getAlertasAnomalia($request)
     {
         $enviarCorreo = false;
-        $surtigasId = $request->surtigas_id; // Obtener el ID desde la petición
 
-        // Buscar el registro en la base de datos
-        $data = surtigas::where('id', $surtigasId)->first();
+        // Obtener anomalías del request (ya vienen por nombre)
+        $anomalias = $request->input('anomalia', []); // Ej: ["Bypass", "Medidor con sellos manipulados"]
 
-        // Obtener las anomalías seleccionadas (vienen como array)
-        $anomalias = $request->input('anomalia', []); // Ej: [1, 3, 5]
-
-        // Filtrar solo las anomalías diferentes de 8
-        $anomaliasFiltradas = array_filter($anomalias, function ($anomalia) {
-            return $anomalia != 8; // Cambia "8" por el valor que representa "Sin anomalía"
+        // Filtrar cualquier entrada que diga "Sin Anomalias"
+        $anomaliasFiltradas = array_filter($anomalias, function ($nombre) {
+            return $nombre !== 'Sin Anomalias';
         });
-        // Si hay al menos una anomalía diferente de 8, enviar correo
+
         if (!empty($anomaliasFiltradas)) {
             $enviarCorreo = true;
-            // Obtener los nombres de las anomalías desde la base de datos
-            $anomaliasNombres = DB::table('vs_anomalias')
-                ->whereIn('id', $anomaliasFiltradas)
-                ->pluck('nombre', 'id')
-                ->toArray();
+            $anomaliasNombres = $anomaliasFiltradas;
         }
 
-        $alertas = [
-            'alerta' => 'brayhan.suarez@surtigas.co',
-            'alerta2' => 'brayan.mogollon@surtigas.co',
-            'alerta3' => 'william.castano@surtigas.co'
+        // Construir el array `$data` desde los inputs ocultos
+        $data = [
+            'info' => [
+                'db_Surtigas' => [
+                    'cliente' => $request->input('nombre_cliente', 'sin datos'),
+                    'contrato' => $request->input('numero_contrato', 'sin datos'),
+                    'medidor' => $request->input('numero_medidor', 'sin datos'),
+                    'direccion' => $request->input('direccion', 'sin datos'),
+                    'ciclo' => $request->input('ciclo', 'sin datos'),
+                    'barrio' => $request->input('barrio', 'sin datos'),
+                    'estado_servicio' => $request->input('estado_servicio', 'sin datos'),
+                    'cau' => $request->input('cau', 'sin datos'),
+                ]
+            ]
         ];
 
+        // Correos
+        $destinatarios = [
+            'principal' => 'william.castano@surtigas.co',
+            'cc' => [
+                'brayan.mogollon@surtigas.co',
+                'brayhan.suarez@surtigas.co'
+            ]
+        ];
+        // Enviar correo
         if ($enviarCorreo) {
-            Mail::to($alertas['alerta']) // destinatario principal
-                ->cc([$alertas['alerta2'], $alertas['alerta3']]) // destinatarios en copia
+            Mail::to($destinatarios['principal'])
+                ->cc($destinatarios['cc'])
                 ->queue(new Notification_anomalia($data, $anomaliasNombres));
         }
     }
 
+
+
     public function getAlertaFuga($request)
     {
         $enviarCorreo = false;
-        $surtigasId = $request->surtigas_id; // Obtener el ID desde la petición
+        // Construir el array `$data` desde los inputs ocultos
 
-        // Buscar el registro en la base de datos
-        $data = surtigas::where('id', $surtigasId)->first();
+        $data = [
+            'info' => [
+                'db_Surtigas' => [
+                    'cliente' => $request->input('nombre_cliente', 'sin datos'),
+                    'contrato' => $request->input('numero_contrato', 'sin datos'),
+                    'medidor' => $request->input('numero_medidor', 'sin datos'),
+                    'direccion' => $request->input('direccion', 'sin datos'),
+                    'ciclo' => $request->input('ciclo', 'sin datos'),
+                    'barrio' => $request->input('barrio', 'sin datos'),
+                    'estado_servicio' => $request->input('estado_servicio', 'sin datos'),
+                ]
+            ]
+        ];
 
         // Obtener las anomalías seleccionadas (vienen como array)
         $anomalias = $request->input('fuga_gas'); // Ej: [1, 3, 5]
@@ -62,15 +86,97 @@ class AlertasService
         if (!empty($anomalias) && $anomalias == true) {
             $enviarCorreo = true;
         }
-        $alertas = [
-            'alerta' => 'brayhan.suarez@surtigas.co',
-            'alerta2' => 'brayan.mogollon@surtigas.co',
-            'alerta3' => 'william.castano@surtigas.co'
+        // Correos
+        $destinatarios = [
+            'principal' => 'william.castano@surtigas.co',
+            'cc' => [
+                'brayan.mogollon@surtigas.co',
+                'brayhan.suarez@surtigas.co'
+            ]
         ];
         if ($enviarCorreo) {
-            Mail::to($alertas['alerta'])
-                ->cc([$alertas['alerta2'], $alertas['alerta3']])
+            Mail::to($destinatarios['principal'])
+                ->cc($destinatarios['cc'])
                 ->queue(new Notification_fuga($data));
+        }
+    }
+
+    public function getAlertaExcesoCapacidad($request)
+    {
+        $enviarCorreo = false;
+        // Construir el array `$data` desde los inputs ocultos
+
+        $data = [
+            'info' => [
+                'db_Surtigas' => [
+                    'cliente' => $request->input('nombre_cliente', 'sin datos'),
+                    'contrato' => $request->input('numero_contrato', 'sin datos'),
+                    'medidor' => $request->input('numero_medidor', 'sin datos'),
+                    'direccion' => $request->input('direccion', 'sin datos'),
+                    'ciclo' => $request->input('ciclo', 'sin datos'),
+                    'barrio' => $request->input('barrio', 'sin datos'),
+                    'estado_servicio' => $request->input('estado_servicio', 'sin datos'),
+                ]
+            ]
+        ];
+
+        // Obtener las anomalías seleccionadas (vienen como array)
+        $anomalias = $request->input('ex_capacidad'); // Ej: [1, 3, 5]
+
+        if (!empty($anomalias) && $anomalias == true) {
+            $enviarCorreo = true;
+        }
+        $destinatarios = [
+            'principal' => 'william.castano@surtigas.co',
+            'cc' => [
+                'brayan.mogollon@surtigas.co',
+                'brayhan.suarez@surtigas.co'
+            ]
+        ];
+        if ($enviarCorreo) {
+            Mail::to($destinatarios['principal'])
+                ->cc($destinatarios['cc'])
+                ->queue(new Notification_exceso_capacidad($data));
+        }
+    }
+    public function getAlertaCau($request)
+    {
+        $enviarCorreo = false;
+        // Construir el array `$data` desde los inputs ocultos
+
+        $data = [
+            'info' => [
+                'db_Surtigas' => [
+                    'cliente' => $request->input('nombre_cliente', 'sin datos'),
+                    'contrato' => $request->input('numero_contrato', 'sin datos'),
+                    'medidor' => $request->input('numero_medidor', 'sin datos'),
+                    'direccion' => $request->input('direccion', 'sin datos'),
+                    'ciclo' => $request->input('ciclo', 'sin datos'),
+                    'barrio' => $request->input('barrio', 'sin datos'),
+                    'estado_servicio' => $request->input('estado_servicio', 'sin datos'),
+                    'cau' => $request->input('cau', 'sin datos'),
+                ]
+            ]
+        ];
+
+        // Obtener las anomalías seleccionadas (vienen como array)
+        $anomalias = $request->input('cau');
+
+        if (!empty($anomalias) && $anomalias !== 'Sin Alertas') {
+            $enviarCorreo = true;
+        }
+        $destinatarios = [
+            'principal' => 'william.castano@surtigas.co',
+            'cc' => [
+                'brayan.mogollon@surtigas.co',
+                'brayhan.suarez@surtigas.co'
+
+            ]
+        ];
+        if ($enviarCorreo) {
+            Mail::to($destinatarios['principal'])
+                ->cc($destinatarios['cc'])
+                ->queue(new Notification_Alertas_cau($data));
         }
     }
 }

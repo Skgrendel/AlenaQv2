@@ -5,19 +5,19 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Notification_anomalia extends Mailable
+class Notification_exceso_capacidad extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $data;
-    public $anomalias;
-
     /**
      * Create a new message instance.
      */
-    public function __construct($reportes, $anomalias)
+    public function __construct($reportes)
     {
         // Transformamos los datos del array en un objeto plano para la vista
         $db = $reportes['info']['db_Surtigas'] ?? [];
@@ -31,20 +31,15 @@ class Notification_anomalia extends Mailable
             'barrio' => $db['barrio'] ?? 'sin datos',
             'estado_servicio' => $db['estado_servicio'] == 1 ? 'Activo' : 'Inactivo',
         ];
-
-        $this->anomalias = is_array($anomalias) ? $anomalias : [];
     }
-
     /**
      * Build the message.
      */
+
     public function build()
     {
-        return $this->subject('Notificación de Anomalía Detectada')
-            ->view('emails.notificacion_anomalia')
-            ->with([
-                'data' => $this->data,
-                'anomalias' => $this->anomalias,
-            ]);
+        return $this->subject('Alerta: Exceso de Capacidad Detectado')
+            ->view('emails.notificacion_exceso_capacidad')
+            ->with(['data' => $this->data,]);
     }
 }

@@ -18,30 +18,42 @@
                                             <label class="form-label"> Informacion del Predio</label>
                                             <div class="mb-1">
                                                 <label for="nombre_cliente">Nombre:</label>
-                                                <span class=" text-body staticEmail "
+                                                <span class="text-body staticEmail"
                                                     id="nombre_cliente">{{ $data['info']['db_Surtigas']['cliente'] ?? 'sin datos' }}</span>
+                                                <input type="text" name="nombre_cliente" id="nombre_cliente" hidden
+                                                    value="{{ $data['info']['db_Surtigas']['cliente'] ?? 'sin datos' }}">
                                             </div>
                                             <div class="mb-1">
                                                 <label for="numero_contrato" class="form-label">Numero de
                                                     Contrato:</label>
                                                 <span class="text-body staticEmail"
                                                     id="numero_contrato">{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}</span>
+                                                <input type="text" name="numero_contrato" id="numero_contrato" hidden
+                                                    value="{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}">
                                             </div>
                                             <div class="mb-1">
                                                 <label for="numero_medidor" class="form-label">Numero de Medidor:
                                                 </label>
                                                 <span class=" text-body"
                                                     id="numero_medidor">{{ $data['info']['db_Surtigas']['medidor'] ?? 'sin datos' }}</span>
+                                                <input type="text" name="numero_medidor" id="numero_medidor" hidden
+                                                    value="{{ $data['info']['db_Surtigas']['medidor'] ?? 'sin datos' }}">
                                             </div>
                                             <div class="mb-1">
                                                 <label for="direccion">Direccion: </label>
                                                 <span class=" text-body"
                                                     id="direccion">{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}</span>
+                                                <input type="text" name="direccion" id="direccion" hidden
+                                                    value="{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}">
+                                                    <input type="text" name="barrio" id="barrio" hidden
+                                                    value="{{ $data['info']['db_Surtigas']['barrio'] ?? 'sin datos' }}">
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Ciclo: </label>
                                                 <span class=" text-body"
                                                     id="ciclo">{{ $data['info']['db_Surtigas']['ciclo'] ?? 'sin datos' }}</span>
+                                                <input type="text" name="ciclo" id="ciclo" hidden
+                                                    value="{{ $data['info']['db_Surtigas']['ciclo'] ?? 'sin datos' }}">
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Estado del Servicio: </label>
@@ -49,12 +61,15 @@
                                                     {!! $data['info']['db_Surtigas']['estado_servicio'] == 1
                                                         ? '<span class="badge bg-success">Activo</span>'
                                                         : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
+                                                <input type="text" id="estado_servicio" name="estado_servicio" hidden
+                                                    value="{{ $data['info']['db_Surtigas']['estado_servicio'] ?? 'sin datos' }}">
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Estado del Servicio en el Gis: </label>
-                                                <span class="text-card text-sm"><span
-                                                        class="badge bg-warning">{{ $gis['info']['estado'] ?? 'sin datos' }}</span></span>
+                                                <span class="text-card text-sm"><span class="badge bg-warning">{{ $gis['info']['estado'] ?? 'sin datos' }}</span>
+                                            </span>
                                             </div>
+
                                             <input type="text" id="medidor" name="surtigas_id" hidden
                                                 value="{{ $data['info']['db_Surtigas']['id'] }}">
                                             @if (isset($gis['info']))

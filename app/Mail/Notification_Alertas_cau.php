@@ -5,19 +5,19 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Notification_anomalia extends Mailable
+class Notification_Alertas_cau extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
-    public $anomalias;
-
+     public $data;
     /**
      * Create a new message instance.
      */
-    public function __construct($reportes, $anomalias)
+    public function __construct($reportes)
     {
         // Transformamos los datos del array en un objeto plano para la vista
         $db = $reportes['info']['db_Surtigas'] ?? [];
@@ -30,9 +30,8 @@ class Notification_anomalia extends Mailable
             'ciclo' => $db['ciclo'] ?? 'sin datos',
             'barrio' => $db['barrio'] ?? 'sin datos',
             'estado_servicio' => $db['estado_servicio'] == 1 ? 'Activo' : 'Inactivo',
+            'cau' => $db['cau'] ?? 'sin datos',
         ];
-
-        $this->anomalias = is_array($anomalias) ? $anomalias : [];
     }
 
     /**
@@ -40,11 +39,8 @@ class Notification_anomalia extends Mailable
      */
     public function build()
     {
-        return $this->subject('Notificación de Anomalía Detectada')
-            ->view('emails.notificacion_anomalia')
-            ->with([
-                'data' => $this->data,
-                'anomalias' => $this->anomalias,
-            ]);
+        return $this->subject('Alerta: Notificación de Alertas CAU')
+            ->view('emails.notificacion_alertas_cau')
+            ->with(['data' => $this->data,]);
     }
 }

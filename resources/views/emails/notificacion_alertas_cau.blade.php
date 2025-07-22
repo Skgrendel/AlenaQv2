@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Reporte de Anomalias</title>
+<title>Alerta Técnica CAU</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="margin:0;padding:0;background-color:#f0f0f0;font-family:Arial, sans-serif;">
@@ -24,56 +24,60 @@
         <!-- CONTENIDO -->
         <tr>
             <td style="padding:40px 40px 30px 40px;">
-                <h2 style="margin:0 0 20px 0;font-size:20px;color:#003366;font-weight:bold;text-align:center;">Reporte de Anomalía Detectada</h2>
+                <h2 style="margin:0 0 20px 0;font-size:20px;color:#003366;font-weight:bold;text-align:center;">
+                    Reporte de Alerta Técnica Detectada
+                </h2>
 
-                <p style="margin:0 0 16px 0;font-size:16px;line-height:1.6;color:#333333;">
-                    Se ha detectado una anomalía en el siguiente registro:
+                <p style="margin:0 0 16px 0;font-size:16px;line-height:1.6;color:#333333;text-align:center;">
+                    El medidor ha generado la siguiente alerta:
                 </p>
+
+                <div style="margin:20px 0;text-align:center;">
+                    <span style="font-size:20px;color:#dc3545;font-weight:bold;">
+                        🔔 {{ strtoupper($data->cau) }}
+                    </span>
+                </div>
 
                 <table style="width:100%;margin:20px 0;border-collapse:collapse;font-size:16px;">
                     <tr style="background-color:#f8f9fa;">
                         <td style="padding:12px;border:1px solid #ddd;font-weight:bold;">Número de Contrato</td>
-                        <td style="padding:12px;border:1px solid #ddd;">{{$data->contrato}}</td>
+                        <td style="padding:12px;border:1px solid #ddd;">{{ $data->contrato }}</td>
                     </tr>
                     <tr>
                         <td style="padding:12px;border:1px solid #ddd;font-weight:bold;">Usuario</td>
-                        <td style="padding:12px;border:1px solid #ddd;">{{$data->cliente}}</td>
+                        <td style="padding:12px;border:1px solid #ddd;">{{ $data->cliente }}</td>
                     </tr>
                     <tr style="background-color:#f8f9fa;">
                         <td style="padding:12px;border:1px solid #ddd;font-weight:bold;">Dirección</td>
-                        <td style="padding:12px;border:1px solid #ddd;">{{$data->direccion}}</td>
+                        <td style="padding:12px;border:1px solid #ddd;">{{ $data->direccion }}</td>
                     </tr>
                     <tr>
                         <td style="padding:12px;border:1px solid #ddd;font-weight:bold;">Barrio</td>
-                        <td style="padding:12px;border:1px solid #ddd;">{{$data->barrio}}</td>
+                        <td style="padding:12px;border:1px solid #ddd;">{{ $data->barrio }}</td>
                     </tr>
                     <tr style="background-color:#f8f9fa;">
                         <td style="padding:12px;border:1px solid #ddd;font-weight:bold;">Número de Medidor</td>
-                        <td style="padding:12px;border:1px solid #ddd;">{{$data->medidor}}</td>
+                        <td style="padding:12px;border:1px solid #ddd;">{{ $data->medidor }}</td>
                     </tr>
                 </table>
 
-                <!-- Sección de Anomalías Detectadas -->
+                <!-- Sección de advertencia -->
                 <div style="margin:30px 0;border:1px solid #ddd;border-radius:4px;overflow:hidden;">
-                    <div style="background-color:#dc3545;padding:12px;color:white;font-weight:bold;font-size:16px;">
-                        Anomalías Detectadas
+                    <div style="background-color:#dc3545;padding:12px;color:white;font-weight:bold;font-size:16px;text-align:center;">
+                        🚨 Se requiere seguimiento técnico a esta alerta
                     </div>
-                    <ul style="margin:0;padding:20px;list-style-type:none;font-size:16px;">
-                        @foreach($anomalias as $nombre)
-                        <li style="padding:8px 0;border-bottom:1px solid #eee;display:flex;">
-                            <span style="width:30px;color:#dc3545;font-weight:bold;">•</span>
-                            <span>{{ $nombre }}</span>
-                        </li>
-                        @endforeach
-                    </ul>
                 </div>
 
-                <p style="margin:30px 0 30px 0;font-size:18px;line-height:1.6;color:#dc3545;text-align:center;font-weight:bold;">
-                    ¡Se requiere atención inmediata a esta(s) anomalía(s)!
-                    <p style="text-align:center">Fecha del reporte: {{ now()->format('d/m/Y h:i A') }}</p>
+                <p style="margin:30px 0;font-size:18px;line-height:1.6;color:#dc3545;text-align:center;font-weight:bold;">
+                    Tipo de alerta: {{ $data->cau }}
                 </p>
-                <p style="margin:0 0 16px 0;font-size:16px;line-height:1.6;color:#333333;text-align:center">
-                    Por favor, tome las acciones necesarias y notifique al equipo técnico correspondiente.
+
+                <p style="text-align:center;font-size:14px;color:#555;">
+                    Fecha del reporte: {{ now()->format('d/m/Y h:i A') }}
+                </p>
+
+                <p style="margin:0 0 16px 0;font-size:16px;line-height:1.6;color:#333333;text-align:center;">
+                    Por favor, tome las acciones necesarias y notifique al equipo correspondiente.
                 </p>
             </td>
         </tr>
@@ -99,4 +103,3 @@
 
 </body>
 </html>
-

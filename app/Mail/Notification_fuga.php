@@ -13,8 +13,7 @@ class Notification_fuga extends Mailable
 {
     use Queueable, SerializesModels;
 
-
-    public $reportes;
+    public $data;
 
 
     /**
@@ -22,8 +21,18 @@ class Notification_fuga extends Mailable
      */
     public function __construct($reportes)
     {
-        $this->reportes = $reportes;
+        // Transformamos los datos del array en un objeto plano para la vista
+        $db = $reportes['info']['db_Surtigas'] ?? [];
 
+        $this->data = (object)[
+            'cliente' => $db['cliente'] ?? 'sin datos',
+            'contrato' => $db['contrato'] ?? 'sin datos',
+            'medidor' => $db['medidor'] ?? 'sin datos',
+            'direccion' => $db['direccion'] ?? 'sin datos',
+            'ciclo' => $db['ciclo'] ?? 'sin datos',
+            'barrio' => $db['barrio'] ?? 'sin datos',
+            'estado_servicio' => $db['estado_servicio'] == 1 ? 'Activo' : 'Inactivo',
+        ];
     }
 
     /**
@@ -32,9 +41,9 @@ class Notification_fuga extends Mailable
     public function build()
     {
         return $this->subject('Notificacion de Anomalia')
-                    ->view('emails.notificacion_fuga')
-                    ->with([
-                        'data' => $this->reportes,
-                    ]);
+            ->view('emails.notificacion_fuga')
+            ->with([
+                'data' => $this->data,
+            ]);
     }
 }

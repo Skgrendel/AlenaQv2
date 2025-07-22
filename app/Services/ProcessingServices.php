@@ -33,8 +33,14 @@ class ProcessingServices
         $fotos = $this->file->processImages($request);
        // $video = $this->file->processVideo($request);
 
-        //$this->alertas->getAlertasAnomalia($request);
-        //$this->alertas->getAlertaFuga($request);
+        //Procesar Alertas
+        // Se asume que el request contiene los datos necesarios para las alertas
+        // Aquí se pueden agregar más alertas según sea necesario
+        $this->alertas->getAlertasAnomalia($request);
+        $this->alertas->getAlertaFuga($request);
+        $this->alertas->getAlertaExcesoCapacidad($request);
+        $this->alertas->getAlertaCau($request);
+        
         //Procesar Ubicacion y Comercio
         $ubicacionData = $this->Service->StoreUbicacion($request);
         $comercioData = $this->Service->StoreComercio($request);

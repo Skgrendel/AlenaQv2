@@ -53,8 +53,8 @@ class AsignadosDatatable extends DataTableComponent
         $personalId = $user->personals_id;
 
 
-        return surtigas::query()->where('surtigas.personals_id', $personalId)
-            ->where('ciclo', '1004');
+        return surtigas::query()->where('surtigas.personals_id', $personalId);
+            //->where('ciclo', '1004');
     }
 
     public function columns(): array

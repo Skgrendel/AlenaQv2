@@ -58,20 +58,6 @@
                     <div style="background-color:#dc3545;padding:12px;color:white;font-weight:bold;font-size:16px;">
                         🚨 ALERTA CRÍTICA: Fuga de gas confirmada
                     </div>
-                    <ul style="margin:0;padding:20px;list-style-type:none;font-size:16px;">
-                        <li style="padding:8px 0;border-bottom:1px solid #eee;display:flex;align-items:center;">
-                            <span style="color:#dc3545;font-weight:bold;margin-right:8px;">•</span>
-                            <strong>Nivel de riesgo:</strong> ALTO (Posible explosión o intoxicación)
-                        </li>
-                        <li style="padding:8px 0;border-bottom:1px solid #eee;display:flex;align-items:center;">
-                            <span style="color:#dc3545;font-weight:bold;margin-right:8px;">•</span>
-                            <strong>Acción requerida:</strong> Evacuación inmediata y cierre de válvulas
-                        </li>
-                        <li style="padding:8px 0;display:flex;align-items:center;">
-                            <span style="color:#dc3545;font-weight:bold;margin-right:8px;">•</span>
-                            <strong>Protocolo de emergencia:</strong> Activar equipo de respuesta en menos de 30 minutos
-                        </li>
-                    </ul>
                 </div>
 
                 <p style="margin:30px 0 30px 0;font-size:18px;line-height:1.6;color:#dc3545;text-align:center;font-weight:bold;">
