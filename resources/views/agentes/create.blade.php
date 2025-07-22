@@ -100,7 +100,7 @@
                             value="{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}">
                         <div class="col-12 mb-2">
                             <label for="nueva_opcion" class="form-label">Numero de Orden</label>
-                            <input type="text" name="numero_orden" id="numero_orden" class="form-control" required>
+                            <input type="text" name="numero_orden" id="numero_orden" class="form-control">
                             <label for="comercio" class="form-label mt-3">¿Que Tipo de Comercio Encontro?</label>
                             <select id="slcComercio" class="form-select" name="tipo_comercio" required>
                                 @foreach ($data['comercios'] as $id => $nombre)
@@ -149,15 +149,15 @@
                                 </select>
                             </div>
                             <div class="col-12  mb-2" id="tipo_regulador_container">
-                                <label for="tipo_regulador" class="form-label">Tipo del Regulador</label>
-                                <select id="tipo_regulador" class="form-select" name="tipo_regulador">
-                                    @foreach ($data['tipo_regulador'] as $id => $nombre)
+                                <label for="tipo_presion" class="form-label">Tipo de Presion</label>
+                                <select id="tipo_presion" class="form-select" name="tipo_presion">
+                                    @foreach ($data['tipo_presion'] as $id => $nombre)
                                         <option value="{{ $nombre }}">{{ $nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-12  mb-2" id="marca_regulador_container">
-                                <label for="marca_regulador" class="form-label">Modelo del Regulador</label>
+                                <label for="marca_regulador" class="form-label">Tipo del Regulador</label>
                                 <select id="marca_regulador" class="form-select" name="marca_regulador">
                                     @foreach ($data['marca_regulador'] as $id => $nombre)
                                         <option value="{{ $nombre }}">{{ $nombre }}</option>
@@ -173,10 +173,11 @@
                                 </select>
                             </div>
                             <div class="col-12  mb-2" id="cau_container">
-                                <label for="cau" class="form-label">Alertas del Medidor</label>
+                                <label for="cau" class="form-label">Notificacion de Alertas</label>
                                 <select id="cau" class="form-select" name="cau">
                                     <option disabled>──────────</option>
                                     <option value="Sin Alertas">Sin Alertas</option>
+                                    <option value="Exceso de Capacidad">Exceso de Capacidad</option>
                                     <option value="CAU 01">CAU 01</option>
                                     <option value="CAU 02">CAU 02</option>
                                     <option value="CAU 03">CAU 03</option>

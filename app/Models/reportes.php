@@ -25,7 +25,7 @@ class reportes extends Model
         'lectura',
         'anomalia',
         'imposibilidad',
-        'tipo_regulador',
+        'tipo_presion',
         'marca_medidor',
         'marca_regulador',
         'comentarios',

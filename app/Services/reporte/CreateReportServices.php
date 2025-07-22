@@ -21,7 +21,7 @@ class CreateReportServices
         $imposibilidad = vs_imposibilidad::pluck('nombre', 'id');
         $marca_medidor = vs_marca_medidor::pluck('nombre', 'id');
         $marca_regulador = vs_marca_regulador::pluck('nombre', 'id');
-        $tipo_regulador = vs_tipo_regulador::pluck('nombre', 'id');
+        $tipo_presion = vs_tipo_regulador::pluck('nombre', 'id');
 
         return [
             'info' => [
@@ -35,7 +35,7 @@ class CreateReportServices
             'imposibilidad' => $imposibilidad,
             'marca_medidor' => $marca_medidor,
             'marca_regulador' => $marca_regulador,
-            'tipo_regulador' => $tipo_regulador,
+            'tipo_presion' => $tipo_presion,
         ];
     }
 }

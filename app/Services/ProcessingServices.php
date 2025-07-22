@@ -70,6 +70,7 @@ class ProcessingServices
             'lectura' => $request->input('lectura'),
             'imposibilidad' => $request->input('imposibilidad'),
             'comentarios' => $request->input('comentarios'),
+            'cau' => $request->input('cau'),
         ];
         $reporte->update($datosActualizados);
     }
