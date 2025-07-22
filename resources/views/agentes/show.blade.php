@@ -53,7 +53,7 @@
                                                     data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
                                                 <a class="btn btn-info me-4 rounded  bs-tooltip"
                                                     title="Regresar Pagina Anterior" data-bs-placement="top"
-                                                    href="{{ route('asignados') }}"><i class="fas fa-arrow-circle-left"></i></a>
+                                                    href="{{ route('reportes.index') }}"><i class="fas fa-arrow-circle-left"></i></a>
                                             </div>
                                         @endif
                                         @if (isset($gis['error']))
