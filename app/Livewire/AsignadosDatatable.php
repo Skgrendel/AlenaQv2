@@ -78,7 +78,8 @@ class AsignadosDatatable extends DataTableComponent
                 ->format(
                     fn ($value, $row, Column $column) => view('agentes.asignados.actions', [
                         'value' => $value,
-                        'estado' => $row->estado // Suponiendo que "estado" es la columna que contiene el valor de estado
+                        'estado' => $row->estado, // Suponiendo que "estado" es la columna que contiene el valor de estado
+                        'contrato' => $row->contrato,
                     ])
                 ),
         ];
