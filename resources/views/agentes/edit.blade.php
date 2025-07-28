@@ -141,8 +141,14 @@
                                 <label for="nueva_opcion" class="form-label ">Anomalia Detectada</label>
                                 <select id="anomalia" class="form-control select2" name="anomalia[]" multiple>
                                     @foreach ($data['anomalias'] as $id => $nombre)
-                                        <option
-                                            value="{{ $nombre }}"{{ $data['info']['reporte']['anomaliasId'] ? 'selected' : '' }}>{{ $nombre }}</option>
+                                        @php
+                                            $seleccionadas = $data['info']['anomalias']; // <- array con las seleccionadas desde la BD (ya decodificadas)
+                                        @endphp
+
+                                        @foreach ($data['anomalias'] as $id => $nombre)
+    <option value="{{ $nombre }}" {{ in_array($nombre, $seleccionadas ?? []) ? 'selected' : '' }}>
+        {{ $nombre }}
+    </option> @endforeach
                                     @endforeach
                                 </select>
                             </div>
