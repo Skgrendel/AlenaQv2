@@ -9,6 +9,9 @@ use App\Models\ubicacion;
 use App\Models\vs_anomalias;
 use App\Models\vs_comercios;
 use App\Models\vs_imposibilidad;
+use App\Models\vs_marca_medidor;
+use App\Models\vs_marca_regulador;
+use App\Models\vs_tipo_regulador;
 
 class EditReportServices
 {
@@ -23,6 +26,9 @@ class EditReportServices
         $comercios = vs_comercios::pluck('nombre', 'id');
         $anomalias = vs_anomalias::pluck('nombre', 'id');
         $imposibilidad = vs_imposibilidad::pluck('nombre', 'id');
+        $tipo_presion = vs_tipo_regulador::pluck('nombre', 'id');
+        $marca_medidor = vs_marca_medidor::pluck('nombre', 'id');
+        $marca_regulador = vs_marca_regulador::pluck('nombre', 'id');
         $imagenes = json_decode($data->imagenes);
         $anomaliasId = json_decode($data->anomalia);
         // Obtener los nombres de las anomalías como un array
@@ -39,8 +45,10 @@ class EditReportServices
                 'anomalias' => $anomaliasNames,
                 'imposibilidad' => $data->imposibilidad,
                 'tipo regulador' => $data->tipo_regulador,
-                'marca de medidor' => $data->marca_medidor,
-                'marca de regulador' => $data->marca_regulador,
+                'marca de medidor' => $marca_medidor,
+                'marca de regulador' => $marca_regulador,
+                'alerta' => $data->cau,
+                'tipo presion' => $tipo_presion,
                 'medidoranomalia' => $data->report_comercio->medidor_anomalia,
                 'comercios' => $data->report_comercio->tipo_comercio,
                 'comentarios' => $data->comentarios,

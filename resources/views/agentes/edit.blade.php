@@ -8,8 +8,10 @@
                     method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <input type="text" id="medidor" name="medidor" hidden value="{{ $data['info']['reporte']['medidor'] }}">
-                    <input type="text" id="contrato" name="contrato" hidden value="{{ $data['info']['reporte']['contrato'] }}">
+                    <input type="text" id="medidor" name="medidor" hidden
+                        value="{{ $data['info']['reporte']['medidor'] }}">
+                    <input type="text" id="contrato" name="contrato" hidden
+                        value="{{ $data['info']['reporte']['contrato'] }}">
                     <input type="text" id="id" name="id" hidden value="{{ $data['info']['reporte']['id'] }}">
                     <input type="text" hidden id="latitud" name="latitud" value="">
                     <input type="text" hidden id="longitud" name="longitud" value="">
@@ -56,7 +58,8 @@
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Estado del Servicio en el Gis: </label>
-                                                <span class="text-card text-sm"><span class="badge bg-warning">{{ $gis['info']['estado'] ?? 'sin datos'}}</span></span>
+                                                <span class="text-card text-sm"><span
+                                                        class="badge bg-warning">{{ $gis['info']['estado'] ?? 'sin datos' }}</span></span>
                                             </div>
                                             <input type="text" id="medidor" name="surtigas_id" hidden
                                                 value="{{ $data['data']['db_Surtigas']['id'] }}">
@@ -64,12 +67,14 @@
                                                 <div class="mb-1">
                                                     <label for="ciclo">Descripcion: </label>
                                                     <span class=" text-body"
-                                                        id="ciclo">{{$gis['info']['descripcion'] ?? 'sin datos'}} </span>
+                                                        id="ciclo">{{ $gis['info']['descripcion'] ?? 'sin datos' }}
+                                                    </span>
                                                 </div>
                                             @elseif (isset($gis['error']))
                                                 <div class="mb-1">
                                                     <label for="numero_contrato" class="form-label">Error:</label>
-                                                    <span class="text-body" id="numero_contrato">{{ $gis['error'] ?? 'sin datos' }}</span>
+                                                    <span class="text-body"
+                                                        id="numero_contrato">{{ $gis['error'] ?? 'sin datos' }}</span>
                                                 </div>
                                             @endif
                                             <hr>
@@ -97,6 +102,9 @@
                         </div>
                     </div>
                     <div class="col-12">
+                        <label for="nueva_opcion" class="form-label">Numero de Orden</label>
+                        <input type="text" name="numero_orden" id="numero_orden" class="form-control"
+                            value="{{ $data['info']['reporte']['numero_orden'] }}">
                         <label for="comercio" class="form-label"> Tipo de Comercio Encontrado</label>
                         <select id="comercio" class="form-select" name="tipo_comercio">
                             @foreach ($data['comercios'] as $id => $nombre)
@@ -133,7 +141,9 @@
                                 <label for="nueva_opcion" class="form-label ">Anomalia Detectada</label>
                                 <select id="anomalia" class="form-control select2" name="anomalia[]" multiple>
                                     @foreach ($data['anomalias'] as $id => $nombre)
-                                        <option value="{{ $id }}"{{ in_array($id, $data['info']['anomaliasid']) ? 'selected' : '' }}>{{ $nombre }}</option>
+                                        <option
+                                            value="{{ $nombre }}"{{ $data['info']['anomalias'] ? 'selected' : '' }}>
+                                            {{ $nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -145,17 +155,74 @@
                                     value="{{ $data['info']['reporte']['lectura'] }}">
                             </div>
                         </div>
-                        <div class="col-12" id="container_imposibilidad">
+                        <div class="col-12 mb-2" id="container_imposibilidad">
                             <label for="imposibilidad" class="form-label">Imposibilidad Detectada</label>
                             <select id="imposibilidad" class="form-select" name="imposibilidad">
                                 @foreach ($data['imposibilidad'] as $id => $nombre)
-                                    <option value="{{ $id }}"
-                                        {{ $data['info']['reporte']['imposibilidad'] == $id ? 'selected' : '' }}>
+                                    <option
+                                        value="{{ $nombre }}"{{ $data['info']['reporte']['imposibilidad'] == $nombre ? 'selected' : '' }}>
                                         {{ $nombre }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
+                        <div class="col-12  mb-2" id="tipo_regulador_container">
+                            <label for="tipo_presion" class="form-label">Tipo de Presion</label>
+                            <select id="tipo_presion" class="form-select" name="tipo_presion">
+                                @foreach ($data['info']['tipo presion'] as $id => $nombre)
+                                    <option
+                                        value="{{ $nombre }}"{{ $data['info']['reporte']['tipo_presion'] == $nombre ? 'selected' : '' }}>
+                                        {{ $nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12  mb-2" id="marca_regulador_container">
+                        <label for="marca_regulador" class="form-label">Tipo del Regulador</label>
+                        <select id="marca_regulador" class="form-select" name="marca_regulador">
+                            @foreach ($data['info']['marca de regulador'] as $id => $nombre)
+                                <option
+                                    value="{{ $nombre }}"{{ $data['info']['reporte']['marca_regulador'] == $nombre ? 'selected' : '' }}>
+                                    {{ $nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-12  mb-2" id="marca_medidor_container">
+                        <label for="marca_medidor" class="form-label">Marca del Medidor</label>
+                        <select id="marca_medidor" class="form-select" name="marca_medidor">
+                            @foreach ($data['info']['marca de medidor'] as $id => $nombre)
+                                <option
+                                    value="{{ $nombre }}"{{ $data['info']['reporte']['marca_medidor'] == $nombre ? 'selected' : '' }}>
+                                    {{ $nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-12 mb-2" id="cau_container">
+                        <label for="cau" class="form-label">Notificación de Alertas</label>
+                        <select id="cau" class="form-select" name="cau">
+                            <option disabled>──────────</option>
+                            @php
+                                $opcionesCau = [
+                                    'Sin Alertas',
+                                    'Exceso de Capacidad',
+                                    'CAU 01',
+                                    'CAU 02',
+                                    'CAU 03',
+                                    'CAU 04',
+                                    'Retro Flujo',
+                                    'Bateria Baja',
+                                ];
+                                $valorSeleccionado = $data['info']['reporte']['cau'] ?? null; // o ajusta según tu estructura
+                            @endphp
+
+                            @foreach ($opcionesCau as $opcion)
+                                <option value="{{ $opcion }}"
+                                    {{ $valorSeleccionado == $opcion ? 'selected' : '' }}>
+                                    {{ $opcion }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-12">
                         <label for="comentarios" class="form-label">Observaciones</label>
@@ -181,71 +248,86 @@
                                     <div class="tab-content" id="myTabContent">
                                         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel"
                                             aria-labelledby="home-tab" tabindex="0">
-                                             <div class="col-md-12">
-                                    <div id="foto1-button">
-                                        <span class="input-group-text  m-2" for="foto1-input">Foto de la
-                                            Fachada</span>
-                                        <input type="file" class="form-control" id="foto1-input" name="foto1"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
-                                    <div id="foto2-button">
-                                        <span class="input-group-text m-2" for="foto2-input">Foto del Medidor</span>
-                                        <input type="file" class="form-control" id="foto2-input" name="foto2"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
-                                    <div id="foto3-button">
-                                        <span class="input-group-text m-2" for="foto3-input">Foto del Odómetro</span>
-                                        <input type="file" class="form-control" id="foto3-input" name="foto3"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
-                                    <div id="foto4-button">
-                                        <span class="input-group-text m-2" for="foto4-input">Foto del Regulador</span>
-                                        <input type="file" class="form-control" id="foto4-input" name="foto4"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
-                                    <div class="d-none" id="foto5-button">
-                                        <span class="input-group-text m-2" for="foto5-input">Foto Detector de Fuga</span>
-                                        <input type="file" class="form-control" id="foto5-input" name="foto5"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
-                                    <div class="d-none" id="foto6-button">
-                                        <span class="input-group-text m-2" for="foto6-input">Foto Exceso de Capacidad</span>
-                                        <input type="file" class="form-control" id="foto6-input" name="foto6"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
-                                </div>
+                                            <div class="col-md-12">
+                                                <div id="foto1-button">
+                                                    <span class="input-group-text  m-2" for="foto1-input">Foto de la
+                                                        Fachada</span>
+                                                    <input type="file" class="form-control" id="foto1-input"
+                                                        name="foto1" accept="image/jpeg" capture="camera">
+                                                </div>
+                                                <div id="foto2-button">
+                                                    <span class="input-group-text m-2" for="foto2-input">Foto del
+                                                        Medidor</span>
+                                                    <input type="file" class="form-control" id="foto2-input"
+                                                        name="foto2" accept="image/jpeg" capture="camera">
+                                                </div>
+                                                <div id="foto3-button">
+                                                    <span class="input-group-text m-2" for="foto3-input">Foto del
+                                                        Odómetro</span>
+                                                    <input type="file" class="form-control" id="foto3-input"
+                                                        name="foto3" accept="image/jpeg" capture="camera">
+                                                </div>
+                                                <div id="foto4-button">
+                                                    <span class="input-group-text m-2" for="foto4-input">Foto del
+                                                        Regulador</span>
+                                                    <input type="file" class="form-control" id="foto4-input"
+                                                        name="foto4" accept="image/jpeg" capture="camera">
+                                                </div>
+                                                <div class="d-none" id="foto5-button">
+                                                    <span class="input-group-text m-2" for="foto5-input">Foto Detector de
+                                                        Fuga</span>
+                                                    <input type="file" class="form-control" id="foto5-input"
+                                                        name="foto5" accept="image/jpeg" capture="camera">
+                                                </div>
+                                                <div class="d-none" id="foto6-button">
+                                                    <span class="input-group-text m-2" for="foto6-input">Foto Exceso de
+                                                        Capacidad</span>
+                                                    <input type="file" class="form-control" id="foto6-input"
+                                                        name="foto6" accept="image/jpeg" capture="camera">
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel"
                                             aria-labelledby="profile-tab" tabindex="0">
                                             <div class="widget-content widget-content-area mt-2 ">
-                                            <div class="row">
-                                                @foreach (range(1, 6) as $i)
-                                                    @php
-                                                        // La variable $rutaImagen ya debe contener la ruta completa desde la base de datos
-                                                        $rutaImagen = $data['imagenes']['foto' . $i] ?? null;
+                                                <div class="row">
+                                                    @foreach (range(1, 6) as $i)
+                                                        @php
+                                                            // La variable $rutaImagen ya debe contener la ruta completa desde la base de datos
+                                                            $rutaImagen = $data['imagenes']['foto' . $i] ?? null;
 
-                                                        // Opcional: Si quieres un título descriptivo para el lightbox, puedes extraerlo del nombre del archivo
-                                                        $nombreArchivo = $rutaImagen ? pathinfo($rutaImagen, PATHINFO_FILENAME) : 'Imagen';
-                                                        $tituloGlightbox = $nombreArchivo . ' - Contrato #: ' . ($data['info']['contrato'] ?? 'N/A');
+                                                            // Opcional: Si quieres un título descriptivo para el lightbox, puedes extraerlo del nombre del archivo
+                                                            $nombreArchivo = $rutaImagen
+                                                                ? pathinfo($rutaImagen, PATHINFO_FILENAME)
+                                                                : 'Imagen';
+                                                            $tituloGlightbox =
+                                                                $nombreArchivo .
+                                                                ' - Contrato #: ' .
+                                                                ($data['info']['contrato'] ?? 'N/A');
 
-                                                        // La descripción adicional para el lightbox
-                                                        $descripcionGlightbox = 'Contrato #: ' . ($data['info']['contrato'] ?? 'N/A') . ' - Medidor #: ' . ($data['info']['medidor'] ?? 'N/A');
-                                                    @endphp
-                                                    {{-- Solo muestra el div si la ruta de la imagen existe --}}
-                                                    @if ($rutaImagen)
-                                                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                                                            {{-- Usa asset() para generar la URL pública correcta --}}
-                                                            <a href="{{ asset($rutaImagen) }}"
-                                                                class="withDescriptionGlightbox glightbox-content"
-                                                                data-glightbox="title: {{ $tituloGlightbox }}; description: {{ $descripcionGlightbox }};">
-                                                                <img src="{{ asset($rutaImagen) }}" alt="{{ $nombreArchivo }}"
-                                                                    class="img-fluid"
-                                                                    style="width:350px; height:250px; object-fit: cover;" />
-                                                            </a>
-                                                        </div>
-                                                    @endif
-                                                  @endforeach
-                                            </div>
+                                                            // La descripción adicional para el lightbox
+                                                            $descripcionGlightbox =
+                                                                'Contrato #: ' .
+                                                                ($data['info']['contrato'] ?? 'N/A') .
+                                                                ' - Medidor #: ' .
+                                                                ($data['info']['medidor'] ?? 'N/A');
+                                                        @endphp
+
+                                                        {{-- Solo muestra el div si la ruta de la imagen existe --}}
+                                                        @if ($rutaImagen)
+                                                            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                                                {{-- Usa asset() para generar la URL pública correcta --}}
+                                                                <a href="{{ asset($rutaImagen) }}"
+                                                                    class="withDescriptionGlightbox glightbox-content"
+                                                                    data-glightbox="title: {{ $tituloGlightbox }}; description: {{ $descripcionGlightbox }};">
+                                                                    <img src="{{ asset($rutaImagen) }}"
+                                                                        alt="{{ $nombreArchivo }}" class="img-fluid"
+                                                                        style="width:350px; height:250px; object-fit: cover;" />
+                                                                </a>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

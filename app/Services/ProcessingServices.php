@@ -40,7 +40,7 @@ class ProcessingServices
         $this->alertas->getAlertaFuga($request);
         $this->alertas->getAlertaExcesoCapacidad($request);
         $this->alertas->getAlertaCau($request);
-        
+
         //Procesar Ubicacion y Comercio
         $ubicacionData = $this->Service->StoreUbicacion($request);
         $comercioData = $this->Service->StoreComercio($request);
@@ -71,11 +71,14 @@ class ProcessingServices
         $updateUbicacion = $this->Service->UpdateUbicacion($ubicacion, $reporte);
         $AnomaliaJson = json_encode($request->anomalia);
         $datosActualizados = [
-            'anomalia' => json_encode($request->anomalia),
+            'anomalia' => $AnomaliaJson,
             'estado' => '5',
             'lectura' => $request->input('lectura'),
             'imposibilidad' => $request->input('imposibilidad'),
             'comentarios' => $request->input('comentarios'),
+            'marca_medidor' => $request->input('marca_medidor'),
+            'marca_regulador' => $request->input('marca_regulador'),
+            'tipo_presion' => $request->input('tipo_presion'),
             'cau' => $request->input('cau'),
         ];
         $reporte->update($datosActualizados);
