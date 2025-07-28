@@ -32,7 +32,7 @@ class EditReportServices
         $imagenes = json_decode($data->imagenes);
         $anomaliasId = json_decode($data->anomalia);
         // Obtener los nombres de las anomalías como un array
-        $anomaliasNames = implode(', ', $anomaliasId);
+  
 
         return [
             'info' => [
@@ -42,7 +42,7 @@ class EditReportServices
                 'anomaliasid' => $anomaliasId,
                 'reporte' => $data,
                 'estado' => $ciclo->estado_servicio,
-                'anomalias' => $anomaliasNames,
+                'anomalias' => $anomaliasId,
                 'imposibilidad' => $data->imposibilidad,
                 'tipo regulador' => $data->tipo_regulador,
                 'marca de medidor' => $marca_medidor,
