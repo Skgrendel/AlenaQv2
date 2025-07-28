@@ -142,7 +142,7 @@
                                 <select id="anomalia" class="form-control select2" name="anomalia[]" multiple>
                                     @foreach ($data['anomalias'] as $id => $nombre)
                                         <option
-                                            value="{{ $nombre }}"{{ $data['info']['reporte']['anomalias'] ? 'selected' : '' }}>{{ $nombre }}</option>
+                                            value="{{ $nombre }}"{{ $data['info']['reporte']['anomaliasid'] ? 'selected' : '' }}>{{ $nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
