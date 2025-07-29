@@ -108,19 +108,10 @@
                         <label for="comercio" class="form-label"> Tipo de Comercio Encontrado</label>
                         <select id="comercio" class="form-select" name="tipo_comercio">
                             @foreach ($data['comercios'] as $id => $nombre)
-                                <option value="{{ $id }}"
-                                    {{ $data['info']['comercio']['id'] == $id ? 'selected' : '' }}>{{ $nombre }}
+                                <option value="{{ $nombre }}"{{ $data['info']['comercio'] == $nombre ? 'selected' : '' }}>{{ $nombre }}
                                 </option>
                             @endforeach
                         </select>
-                        @if ($data['info']['comercio']['tipo_comercio'] == '20')
-                            <div id="div-comercio-nuevo" class="">
-                                <label for="nueva_opcion" class="form-label"> Tipo Comercio Encontrado</label>
-                                <input type="text" name="nuevo_comercio" id="nueva_opcion" class="form-control"
-                                    value="{{ $data['info']['comercio']['vs_comercio']['nombre'] }}"
-                                    {{ $data['info']['comercio']['tipo_comercio'] != '20' ? 'disabled' : '' }}>
-                            </div>
-                        @endif
                     </div>
                     <div class="mt-3">
                         <label for="nueva_opcion" class="form-label"> Nombre del Comercio Encontrado</label>

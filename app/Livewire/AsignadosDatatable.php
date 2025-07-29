@@ -51,10 +51,11 @@ class AsignadosDatatable extends DataTableComponent
     {
         $user = Auth::user();
         $personalId = $user->personals_id;
-
-
-        return surtigas::query()->where('surtigas.personals_id', $personalId)
-            ->where('ciclo', '1003');
+        // Aquí puedes ajustar la consulta según tus necesidades
+        // Por ejemplo, si quieres filtrar por el ID del personal del usuario autenticado:
+      return surtigas::query()
+            ->where('surtigas.personals_id', $personalId)
+            ->whereIn('ciclo', ['1003', '1004']);
     }
 
     public function columns(): array

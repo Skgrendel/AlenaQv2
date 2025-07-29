@@ -97,7 +97,7 @@ class DataGisServices
             ];
         } catch (\Exception $e) {
             return [
-                'error' => 'Se produjo un error al intentar acceder al servicio : '  . $e->getMessage()
+                'error' => 'Se produjo un error al intentar acceder al servicio : '  //. $e->getMessage()
             ];
         }
     }
