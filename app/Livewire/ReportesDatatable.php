@@ -64,7 +64,7 @@ class ReportesDatatable extends DataTableComponent
                         $builder->where('reportes.estado', '7');
                     }
                 }),
-                  SelectFilter::make('Anomalias')
+            SelectFilter::make('Anomalias')
                 ->options([
                     '' => 'All',
                     '1' => 'Sin anomalias',
@@ -113,7 +113,7 @@ class ReportesDatatable extends DataTableComponent
                         $builder->whereJsonContains('reportes.anomalia', '67');
                     }
                 }),
-                SelectFilter::make('Ciclos')
+            SelectFilter::make('Ciclos')
                 ->options([
                     '' => 'All',
                     '1' => '2001',
@@ -158,25 +158,24 @@ class ReportesDatatable extends DataTableComponent
     {
         return [
             Column::make("Nombres", "personal.nombres")
-            ->collapseAlways(),
+                ->collapseAlways(),
             Column::make("Apellidos", "personal.apellidos")
-            ->collapseAlways(),
+                ->collapseAlways(),
             Column::make("Contrato", "dbSurtigas.contrato")
                 ->collapseOnMobile()
                 ->searchable(),
             Column::make("Lectura", "lectura")
                 ->collapseOnMobile(),
-                Column::make("Medidor", "dbSurtigas.medidor")
+            Column::make("Medidor", "dbSurtigas.medidor")
                 ->collapseOnMobile()
                 ->searchable(),
             Column::make("Anomalia", "anomalia")
                 ->format(function ($value) {
-                    $ids = json_decode($value); // Decodifica el JSON
+                    $anomalias = json_decode($value); // Decodifica el JSON
                     $nombres = [];
-                    foreach ($ids as $id) {
-                        $anomalia = vs_anomalias::find($id); // Busca la Anomalia por ID
-                        if ($anomalia) {
-                            $nombres[] = $anomalia->nombre; // Agrega el nombre a la lista
+                    foreach ($anomalias as $nombre) {
+                        if ($anomalias) {
+                            $nombres[] = $nombre; // Agrega el nombre a la lista
                         }
                     }
                     return implode(', ', $nombres); // Devuelve los nombres como una cadena separada por comas
@@ -189,7 +188,7 @@ class ReportesDatatable extends DataTableComponent
             Column::make('Ciclos', 'dbSurtigas.ciclo'),
             Column::make("Estado", "estado")
                 ->format(
-                    fn ($value, $row, Column $column) => match ($value) {
+                    fn($value, $row, Column $column) => match ($value) {
                         '5' => '<span class="badge badge-warning">Pendiente</span>',
                         '6' => '<span class="badge badge-success">Revisado</span>',
                         '7' => '<span class="badge badge-danger">Rechazado</span>',
@@ -198,11 +197,11 @@ class ReportesDatatable extends DataTableComponent
                 ->html()
                 ->collapseOnMobile(),
             Column::make("Fecha", "created_at")
-                ->format(fn ($value) => $value->format('d/M/Y'))
+                ->format(fn($value) => $value->format('d/M/Y'))
                 ->collapseOnMobile(),
             Column::make('Acciones', 'id')
                 ->format(
-                    fn ($value, $row, Column $column) => view('coordinador.actions', compact('value'))
+                    fn($value, $row, Column $column) => view('coordinador.actions', ['value' => $value, 'estado' => $row->estado])
                 ),
         ];
     }

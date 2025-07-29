@@ -142,7 +142,7 @@ class AuditoriaDatatable extends DataTableComponent
         return reportes::query()
             ->with(['personal', 'report_comercio', 'dbSurtigas'])
             ->where('reportes.estado', 6)
-            ->where('reportes.revisado',0);
+            ->where('reportes.revisado', 0);
     }
 
     public function columns(): array
@@ -158,17 +158,16 @@ class AuditoriaDatatable extends DataTableComponent
                 ->searchable(),
             Column::make("Lectura", "lectura")
                 ->collapseOnMobile(),
-                Column::make("Medidor", "dbSurtigas.medidor")
+            Column::make("Medidor", "dbSurtigas.medidor")
                 ->collapseOnMobile()
                 ->searchable(),
             Column::make("Anomalia", "anomalia")
                 ->format(function ($value) {
-                    $ids = json_decode($value); // Decodifica el JSON
+                    $anomalias = json_decode($value); // Decodifica el JSON
                     $nombres = [];
-                    foreach ($ids as $id) {
-                        $anomalia = vs_anomalias::find($id); // Busca la Anomalia por ID
-                        if ($anomalia) {
-                            $nombres[] = $anomalia->nombre; // Agrega el nombre a la lista
+                    foreach ($anomalias as $nombre) {
+                        if ($anomalias) {
+                            $nombres[] = $nombre; // Agrega el nombre a la lista
                         }
                     }
                     return implode(', ', $nombres); // Devuelve los nombres como una cadena separada por comas
@@ -181,16 +180,16 @@ class AuditoriaDatatable extends DataTableComponent
             Column::make('Ciclos', 'dbSurtigas.ciclo'),
             Column::make("Estado", "revisado")
                 ->format(
-                    fn ($value) => $value == 0 || $value === null ? '<span class="badge badge-warning">Pendiente por auditar</span>' : 'No Revisado'
+                    fn($value) => $value == 0 || $value === null ? '<span class="badge badge-warning">Pendiente por auditar</span>' : 'No Revisado'
                 )
                 ->html()
                 ->collapseOnMobile(),
             Column::make("Fecha", "created_at")
-                ->format(fn ($value) => $value->format('d/M/Y'))
+                ->format(fn($value) => $value->format('d/M/Y'))
                 ->collapseOnMobile(),
             Column::make('Acciones', 'id')
                 ->format(
-                    fn ($value, $row, Column $column) => view('auditoria.actions', compact('value'))
+                    fn($value, $row, Column $column) => view('auditoria.actions', compact('value'))
                 ),
         ];
     }
