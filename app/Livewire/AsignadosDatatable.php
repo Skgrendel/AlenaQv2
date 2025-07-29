@@ -48,7 +48,7 @@ class AsignadosDatatable extends DataTableComponent
     }
 
     public function builder(): Builder
-     {
+    {
         $user = Auth::user();
         $personalId = $user->personals_id;
 
@@ -64,19 +64,19 @@ class AsignadosDatatable extends DataTableComponent
                 ->searchable(),
             Column::make("Direccion", "direccion")
                 ->collapseOnMobile(),
-            Column::make("Barrio","barrio")
-            ->sortable(),
+            Column::make("Barrio", "barrio")
+                ->sortable(),
             Column::make("Ciclo", "ciclo")
                 ->collapseOnMobile(),
             Column::make("Estado", "estado")
                 ->format(
-                    fn ($value) => $value == 0 ? '<span class="badge badge-success">Registrado</span>' : '<span class="badge badge-warning">Pendiente</span>'
+                    fn($value) => $value == 0 ? '<span class="badge badge-success">Registrado</span>' : '<span class="badge badge-warning">Pendiente</span>'
                 )
                 ->html()
                 ->collapseOnMobile(),
             Column::make('Acciones', 'contrato')
                 ->format(
-                    fn ($value, $row, Column $column) => view('agentes.asignados.actions', [
+                    fn($value, $row, Column $column) => view('agentes.asignados.actions', [
                         'value' => $value,
                         'estado' => $row->estado, // Suponiendo que "estado" es la columna que contiene el valor de estado
                         'contrato' => $row->contrato,

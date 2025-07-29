@@ -45,8 +45,8 @@
                                             {{ $data['info']['ciclo'] ?? 'Sin Datos' }}</span>
                                     </li>
                                     <li>
-                                        <span class="text-card text-sm"> Tipo de Regulador:
-                                            {{ $data['info']['tipo regulador'] ?? 'Sin Datos' }}</span>
+                                        <span class="text-card text-sm"> Tipo de Presion:
+                                            {{ $data['info']['tipo presion'] ?? 'Sin Datos' }}</span>
                                     </li>
                                     <li>
                                         <span class="text-card text-sm"> Marca del Regulador:
@@ -58,19 +58,29 @@
                                     </li>
 
                                     <li>
-                                        <span class="text-card text-sm">Medidor Encontrado:
-                                            {{ $data['info']['medidoranomalia'] ?? 'Sin datos' }}</span>
+                                        <span class="text-card text-sm">
+                                            Alertas del Medidor:
+                                            @if (trim($data['info']['alertas']) === 'Sin Alertas')
+                                                <span class="badge bg-success">Sin Alertas</span>
+                                            @else
+                                                <span class="badge bg-danger">{{ $data['info']['alertas'] }}</span>
+                                            @endif
+                                        </span>
                                     </li>
                                     <li>
                                         <span class="text-card text-sm">Estado:
                                             {!! $data['info']['estado'] == 1
-        ? '<span class="badge bg-success">Activo</span>'
-        : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
+                                                ? '<span class="badge bg-success">Activo</span>'
+                                                : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
                                     </li>
                                 </ul>
                             </div>
                             <div class="col-md-6">
                                 <ul>
+                                    <li>
+                                        <span class="text-card text-sm">Medidor Encontrado:
+                                            {{ $data['info']['medidoranomalia'] ?? 'Sin datos' }}</span>
+                                    </li>
                                     <li>
                                         <span class="text-card text-sm">Imposibilidad:
                                             {{ $data['info']['imposibilidad'] ?? 'No registra imposibilidades' }}</span>
@@ -121,7 +131,7 @@
                                     <ul>
                                         <li class="mb-2">
                                             Usuario :
-                                            {{ $gis['info']['cliente'] ?? 'sin datos'}}
+                                            {{ $gis['info']['cliente'] ?? 'sin datos' }}
                                         </li>
                                         <li class="mb-2">
                                             Direccion: {{ $gis['info']['direccion'] ?? 'sin datos' }}
@@ -278,15 +288,15 @@
                                         <div class="form-check form-check-success form-check-inline">
                                             <label class="form-check-label" for="inlineRadio1">
                                                 <span class="badge badge-success">Revisado</span>
-                                                <input class="form-check-input" type="radio" name="estado" id="inlineRadio1"
-                                                    value="6">
+                                                <input class="form-check-input" type="radio" name="estado"
+                                                    id="inlineRadio1" value="6">
                                             </label>
                                         </div>
                                         <div class="form-check form-check-danger form-check-inline">
                                             <label class="form-check-label" for="inlineRadio2">
                                                 <span class="badge badge-danger">Rechazado</span>
-                                                <input class="form-check-input" type="radio" name="estado" id="inlineRadio2"
-                                                    value="7">
+                                                <input class="form-check-input" type="radio" name="estado"
+                                                    id="inlineRadio2" value="7">
                                             </label>
                                         </div>
                                         @if ($errors->has('estado'))
@@ -359,11 +369,12 @@
                                             <input type="file" class="form-control" id="foto4-input" name="foto4"
                                                 accept="image/jpeg" capture="camera">
                                         </div>
-                                         <div id="foto6-button">
-                                        <span class="input-group-text m-2" for="foto6-input">Foto Exceso de Capacidad</span>
-                                        <input type="file" class="form-control" id="foto6-input" name="foto6"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
+                                        <div id="foto6-button">
+                                            <span class="input-group-text m-2" for="foto6-input">Foto Exceso de
+                                                Capacidad</span>
+                                            <input type="file" class="form-control" id="foto6-input" name="foto6"
+                                                accept="image/jpeg" capture="camera">
+                                        </div>
                                     </div>
                                 </div>
                                 <hr class="my-2">
@@ -384,36 +395,40 @@
         </div>
     </div>
     <div class="widget-content widget-content-area mt-2 ">
-    <div class="row">
-        @foreach (range(1, 6) as $i)
-            @php
-                $rutaImagen = $data['imagenes']['foto' . $i] ?? null;
-                $nombreArchivo = $rutaImagen ? pathinfo($rutaImagen, PATHINFO_FILENAME) : 'Imagen';
-                $tituloGlightbox = $nombreArchivo . ' - Contrato #: ' . ($data['info']['contrato'] ?? 'N/A');
-                $descripcionGlightbox = 'Contrato #: ' . ($data['info']['contrato'] ?? 'N/A') . ' - Medidor #: ' . ($data['info']['medidor'] ?? 'N/A');
-            @endphp
+        <div class="row">
+            @foreach (range(1, 6) as $i)
+                @php
+                    $rutaImagen = $data['imagenes']['foto' . $i] ?? null;
+                    $nombreArchivo = $rutaImagen ? pathinfo($rutaImagen, PATHINFO_FILENAME) : 'Imagen';
+                    $tituloGlightbox = $nombreArchivo . ' - Contrato #: ' . ($data['info']['contrato'] ?? 'N/A');
+                    $descripcionGlightbox =
+                        'Contrato #: ' .
+                        ($data['info']['contrato'] ?? 'N/A') .
+                        ' - Medidor #: ' .
+                        ($data['info']['medidor'] ?? 'N/A');
+                @endphp
 
-            @if ($rutaImagen)
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                    <a href="{{ $rutaImagen }}" class="withDescriptionGlightbox glightbox-content"
-                        data-glightbox="title: {{ $tituloGlightbox }}; description: {{ $descripcionGlightbox }};">
-                        <img src="{{ $rutaImagen }}" alt="{{ $nombreArchivo }}" class="img-fluid"
-                            style="width:350px; height:250px; object-fit: cover;" />
-                    </a>
-                </div>
-            @endif
-        @endforeach
+                @if ($rutaImagen)
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <a href="{{ $rutaImagen }}" class="withDescriptionGlightbox glightbox-content"
+                            data-glightbox="title: {{ $tituloGlightbox }}; description: {{ $descripcionGlightbox }};">
+                            <img src="{{ $rutaImagen }}" alt="{{ $nombreArchivo }}" class="img-fluid"
+                                style="width:350px; height:250px; object-fit: cover;" />
+                        </a>
+                    </div>
+                @endif
+            @endforeach
+        </div>
     </div>
-</div>
 @endsection
 
 @section('scripts')
     <script>
         for (let i = 1; i <= 6; i++) {
-            document.getElementById("foto" + i).addEventListener("change", function () {
+            document.getElementById("foto" + i).addEventListener("change", function() {
                 var reader = new FileReader();
 
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     document.getElementById('fotoPreview' + i).src = e.target.result;
                 }
                 reader.readAsDataURL(this.files[0]);
@@ -421,16 +436,16 @@
         }
     </script>
     <script>
-        $(document).ready(function () {
-            $('#observacion').submit(function () {
+        $(document).ready(function() {
+            $('#observacion').submit(function() {
                 $('#submitButtonObservacion').addClass('d-none');
                 $('#progressBarObservacion').removeClass('d-none');
             });
         });
     </script>
     <script>
-        $(document).ready(function () {
-            $('#evidencias').submit(function (e) {
+        $(document).ready(function() {
+            $('#evidencias').submit(function(e) {
                 e.preventDefault();
                 $('#submitButtonEvidencias').addClass('d-none');
                 $('#progressBarEvidencias').removeClass('d-none');
@@ -446,7 +461,7 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success: function (response) {
+                    success: function(response) {
                         $('#alert').removeClass('d-none');
                         $('.alert-evidencia').text(response.success).show();
                         $('#progressBarEvidencias').addClass('d-none');

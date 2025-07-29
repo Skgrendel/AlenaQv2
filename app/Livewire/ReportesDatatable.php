@@ -180,12 +180,24 @@ class ReportesDatatable extends DataTableComponent
                     }
                     return implode(', ', $nombres); // Devuelve los nombres como una cadena separada por comas
                 })
-                ->collapseOnMobile(),
+                ->collapseAlways(),
             Column::make("Direccion", "report_ubicacion.direccion")
                 ->collapseAlways(),
             Column::make("Comercio", "report_comercio.vs_comercio.nombre")
                 ->collapseAlways(),
             Column::make('Ciclos', 'dbSurtigas.ciclo'),
+            column::make('Alertas', 'cau')
+                ->format(function ($value) {
+                    $texto = trim($value);
+
+                    if (strtolower($texto) === 'sin alertas') {
+                        return '<span class="badge bg-success">Sin Alertas</span>';
+                    } else {
+                        return '<span class="badge bg-danger">' . e($texto) . '</span>';
+                    }
+                })
+                ->Html() // muy importante para que se renderice el HTML
+                ->collapseOnMobile(),
             Column::make("Estado", "estado")
                 ->format(
                     fn($value, $row, Column $column) => match ($value) {
