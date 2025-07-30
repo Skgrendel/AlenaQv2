@@ -134,7 +134,7 @@
                                     <label for="nueva_opcion" class="form-label">Digite el numero de Medidor Que
                                         Encontro</label>
                                     <input type="text" name="medidor_anomalia" id="medidor_anomalia"
-                                        class="form-control">
+                                        class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-lg-12 mb-2" id="anomaliaContainer">
@@ -142,7 +142,7 @@
                                     <label for="slcanomalia" class="form-label">Seleccione La Anomalia Que
                                         Detecto</label>
                                     <select id="slcanomalia" class="form-select select2" name="anomalia[]"
-                                        multiple="multiple" data-placeholder="Seleccione la anomalia">
+                                        multiple="multiple" data-placeholder="Seleccione la anomalia" required>
                                         @foreach ($data['anomalias'] as $id => $nombre)
                                             <option value="{{ $nombre }}">{{ $nombre }}</option>
                                         @endforeach
@@ -152,20 +152,20 @@
                             <div class="col-lg-12  mb-2" id="lectura_container">
                                 <div class="mt-1">
                                     <label for="lectura" class="form-label">Digite el numero de Lectura</label>
-                                    <input type="text" name="lectura" id="lectura" class="form-control">
+                                    <input type="text" name="lectura" id="lectura" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-12 mb-2" id="container_imposibilidad">
                                 <label for="imposibilidad" class="form-label">Imposibilidad</label>
-                                <select id="imposibilidad" class="form-select" name="imposibilidad">
+                                <select id="imposibilidad" class="form-select" name="imposibilidad" required>
                                     @foreach ($data['imposibilidad'] as $id => $nombre)
-                                        <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                        <option value="{{ $nombre }}">{{ $nombre }} </option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-12  mb-2" id="tipo_regulador_container">
                                 <label for="tipo_presion" class="form-label">Tipo de Presion</label>
-                                <select id="tipo_presion" class="form-select" name="tipo_presion">
+                                <select id="tipo_presion" class="form-select" name="tipo_presion" required>
                                     @foreach ($data['tipo_presion'] as $id => $nombre)
                                         <option value="{{ $nombre }}">{{ $nombre }}</option>
                                     @endforeach
@@ -173,7 +173,7 @@
                             </div>
                             <div class="col-12  mb-2" id="marca_regulador_container">
                                 <label for="marca_regulador" class="form-label">Tipo del Regulador</label>
-                                <select id="marca_regulador" class="form-select" name="marca_regulador">
+                                <select id="marca_regulador" class="form-select" name="marca_regulador" required>
                                     @foreach ($data['marca_regulador'] as $id => $nombre)
                                         <option value="{{ $nombre }}">{{ $nombre }}</option>
                                     @endforeach
@@ -181,7 +181,7 @@
                             </div>
                             <div class="col-12  mb-2" id="marca_medidor_container">
                                 <label for="marca_medidor" class="form-label">Marca del Medidor</label>
-                                <select id="marca_medidor" class="form-select" name="marca_medidor">
+                                <select id="marca_medidor" class="form-select" name="marca_medidor" required>
                                     @foreach ($data['marca_medidor'] as $id => $nombre)
                                         <option value="{{ $nombre }}">{{ $nombre }}</option>
                                     @endforeach
@@ -189,7 +189,7 @@
                             </div>
                             <div class="col-12  mb-2" id="cau_container">
                                 <label for="cau" class="form-label">Notificacion de Alertas</label>
-                                <select id="cau" class="form-select" name="cau">
+                                <select id="cau" class="form-select" name="cau" required>
                                     <option disabled>──────────</option>
                                     <option value="Sin Alertas">Sin Alertas</option>
                                     <option value="Exceso de Capacidad">Exceso de Capacidad</option>
