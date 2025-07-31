@@ -44,7 +44,7 @@
                                         <span class="text-card text-sm"> Ciclo:
                                             {{ $data['info']['ciclo']['ciclo'] ?? 'Sin Datos' }}</span>
                                     </li>
-                                     <li>
+                                    <li>
                                         <span class="text-card text-sm"> Tipo de Regulador:
                                             {{ $data['info']['tipo regulador'] ?? 'Sin Datos' }}</span>
                                     </li>
@@ -64,20 +64,20 @@
                                     <li>
                                         <span class="text-card text-sm">Estado:
                                             {!! $data['info']['estado'] == 1
-        ? '<span class="badge bg-success">Activo</span>'
-        : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
+                                                ? '<span class="badge bg-success">Activo</span>'
+                                                : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
                                     </li>
                                 </ul>
                             </div>
                             <div class="col-md-6">
                                 <ul>
                                     <li>
-                                        <span
-                                            class="text-card text-sm">Imposibilidad: {{ $data['info']['imposibilidad'] ?? 'No registra imposibilidades' }}</span>
+                                        <span class="text-card text-sm">Imposibilidad:
+                                            {{ $data['info']['imposibilidad'] ?? 'No registra imposibilidades' }}</span>
                                     </li>
                                     <li>
                                         <span class="text-card text-sm">
-                                           Anomalias: {{ $data['info']['anomalias'] ?? 'sin datos' }}
+                                            Anomalias: {{ is_string($data['info']['anomalias']) ? $data['info']['anomalias'] : 'sin datos' }}
                                         </span>
                                     </li>
 
@@ -201,7 +201,8 @@
                                     <div class="form-group mb-1 ">
                                         <label for="Contrato" class="form-label">Numero de Contrato</label>
                                         <span id="Contrato" class="form-control"
-                                            name="contrato">{{ $gis['info']['contrato'] ?? $data['info']['contrato']}} </span>
+                                            name="contrato">{{ $gis['info']['contrato'] ?? $data['info']['contrato'] }}
+                                        </span>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -219,7 +220,7 @@
                                                 <label for="imposibilidad" class="form-label">Imposibilidad</label>
                                                 <select id="imposibilidad" class="form-select" name="imposibilidad">
                                                     @foreach ($data['imposibilidad'] as $id => $nombre)
-                                                        <option value="{{ $nombre}}"
+                                                        <option value="{{ $nombre }}"
                                                             {{ $data['info']['reporte']['imposibilidad'] == $nombre ? 'selected' : '' }}>
                                                             {{ $nombre }}
                                                         </option>
@@ -248,8 +249,8 @@
                                             </div>
                                             <div class="form-group mb-1 ">
                                                 <label for="anomalia" class="form-label">Anomalias Detectadas</label>
-                                                <select id="anomalia" class="form-select select2" name="anomalias[]" multiple="multiple"
-                                                    autocomplete="off" data-placeholder="anomalias">
+                                                <select id="anomalia" class="form-select select2" name="anomalias[]"
+                                                    multiple="multiple" autocomplete="off" data-placeholder="anomalias">
                                                     @foreach ($data['anomalias'] as $id => $nombre)
                                                         <option
                                                             value="{{ $nombre }}"{{ in_array($nombre, $data['info']['anomaliasid']) ? 'selected' : '' }}>
@@ -392,50 +393,56 @@
                                     <hr class="my-2">
                                 </div>
                                 <div class="row">
-                                    <form action="{{ route('coordinador.store') }}" method="POST" enctype="multipart/form-data"
-                                        id="evidencias">
+                                    <form action="{{ route('coordinador.store') }}" method="POST"
+                                        enctype="multipart/form-data" id="evidencias">
                                         @csrf
-                                        <input type="text" name="id" value="{{ $data['info']['reporte']['id'] }}" hidden>
-                                       <div class="row">
-                                    <div class="col-md-6">
-                                        <div id="foto1-button">
-                                            <span class="input-group-text  m-2" for="foto1-input">Foto de la
-                                                Fachada</span>
-                                            <input type="file" class="form-control" id="foto1-input" name="foto1"
-                                                accept="image/jpeg" capture="camera">
+                                        <input type="text" name="id" value="{{ $data['info']['reporte']['id'] }}"
+                                            hidden>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div id="foto1-button">
+                                                    <span class="input-group-text  m-2" for="foto1-input">Foto de la
+                                                        Fachada</span>
+                                                    <input type="file" class="form-control" id="foto1-input"
+                                                        name="foto1" accept="image/jpeg" capture="camera">
+                                                </div>
+                                                <div id="foto2-button">
+                                                    <span class="input-group-text m-2" for="foto2-input">Foto del
+                                                        Medidor</span>
+                                                    <input type="file" class="form-control" id="foto2-input"
+                                                        name="foto2" accept="image/jpeg" capture="camera">
+                                                </div>
+                                                <div id="foto5-button">
+                                                    <span class="input-group-text m-2" for="foto5-input">Foto Detector de
+                                                        Fuga</span>
+                                                    <input type="file" class="form-control" id="foto5-input"
+                                                        name="foto5" accept="image/jpeg" capture="camera">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="foto3-button">
+                                                    <span class="input-group-text m-2" for="foto3-input">Foto del
+                                                        Odómetro</span>
+                                                    <input type="file" class="form-control" id="foto3-input"
+                                                        name="foto3" accept="image/jpeg" capture="camera">
+                                                </div>
+                                                <div id="foto4-button">
+                                                    <span class="input-group-text m-2" for="foto4-input">Foto del
+                                                        Regulador</span>
+                                                    <input type="file" class="form-control" id="foto4-input"
+                                                        name="foto4" accept="image/jpeg" capture="camera">
+                                                </div>
+                                                <div id="foto6-button">
+                                                    <span class="input-group-text m-2" for="foto6-input">Foto Exceso de
+                                                        Capacidad</span>
+                                                    <input type="file" class="form-control" id="foto6-input"
+                                                        name="foto6" accept="image/jpeg" capture="camera">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div id="foto2-button">
-                                            <span class="input-group-text m-2" for="foto2-input">Foto del Medidor</span>
-                                            <input type="file" class="form-control" id="foto2-input" name="foto2"
-                                                accept="image/jpeg" capture="camera">
-                                        </div>
-                                        <div id="foto5-button">
-                                            <span class="input-group-text m-2" for="foto5-input">Foto Detector de
-                                                Fuga</span>
-                                            <input type="file" class="form-control" id="foto5-input" name="foto5"
-                                                accept="image/jpeg" capture="camera">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div id="foto3-button">
-                                            <span class="input-group-text m-2" for="foto3-input">Foto del Odómetro</span>
-                                            <input type="file" class="form-control" id="foto3-input" name="foto3"
-                                                accept="image/jpeg" capture="camera">
-                                        </div>
-                                        <div id="foto4-button">
-                                            <span class="input-group-text m-2" for="foto4-input">Foto del Regulador</span>
-                                            <input type="file" class="form-control" id="foto4-input" name="foto4"
-                                                accept="image/jpeg" capture="camera">
-                                        </div>
-                                         <div id="foto6-button">
-                                        <span class="input-group-text m-2" for="foto6-input">Foto Exceso de Capacidad</span>
-                                        <input type="file" class="form-control" id="foto6-input" name="foto6"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
-                                    </div>
-                                </div>
                                         <hr class="my-2">
-                                        <div class="alert alert-success d-none alert-evidencia" role="alert" id="alert">
+                                        <div class="alert alert-success d-none alert-evidencia" role="alert"
+                                            id="alert">
                                         </div>
                                         <div class="alert alert-warning d-none" role="alert" id="progressBarEvidencias">
                                             <span class="text-sm">Cargando Archivos Porfavor Espere.....</span>
@@ -454,58 +461,58 @@
         @endcan
     @endif
     @if ($data['info']['reporte']['revisado'] === 1 && $data['info']['reporte']['confirmado'] === 0)
-    <div class="widget-content widget-content-area my-2">
-        <div class="row d-flex justify-content-center">
-            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                <div class="card style-4" style="width: 100%; height: 100%;">
-                    <div class="card-body pt-3">
-                        <div class="m-o-dropdown-list">
-                            <div class="media mt-0 mb-3">
-                                <div class="badge--group me-3">
-                                    <div class="badge badge-success badge-dot"></div>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading mb-0">
-                                        <span class="media-title">Informacion de Reportes</span>
-                                    </h4>
-                                </div>
-                            </div>
-                            <hr class="my-2">
-                        </div>
-                        <div class="row">
-                            <form action="{{ route('auditorias.update', $data['info']['reporte']['id']) }}" method="post">
-                                @csrf
-                                @method('PUT')
-                                <div class="row">
-                                    <div class="col-3">
-                                        <span class="form-check-label">¿Anomalia Confirmada?</span>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                name="confirmado" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox1">si</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                name="confirmado" value="0">
-                                            <label class="form-check-label" for="inlineCheckbox1">no</label>
-                                        </div>
+        <div class="widget-content widget-content-area my-2">
+            <div class="row d-flex justify-content-center">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="card style-4" style="width: 100%; height: 100%;">
+                        <div class="card-body pt-3">
+                            <div class="m-o-dropdown-list">
+                                <div class="media mt-0 mb-3">
+                                    <div class="badge--group me-3">
+                                        <div class="badge badge-success badge-dot"></div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading mb-0">
+                                            <span class="media-title">Informacion de Reportes</span>
+                                        </h4>
                                     </div>
                                 </div>
-                                <div class=" d-flex justify-content-between ">
-                                    <button type="submit" id="submitButtonRevisado"
-                                        class="btn btn-success">Guardar</button>
-                                </div>
-                            </form>
+                                <hr class="my-2">
+                            </div>
+                            <div class="row">
+                                <form action="{{ route('auditorias.update', $data['info']['reporte']['id']) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <span class="form-check-label">¿Anomalia Confirmada?</span>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="confirmado" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">si</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
+                                                    name="confirmado" value="0">
+                                                <label class="form-check-label" for="inlineCheckbox1">no</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" d-flex justify-content-between ">
+                                        <button type="submit" id="submitButtonRevisado"
+                                            class="btn btn-success">Guardar</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
     @endif
     <div class="widget-content widget-content-area mt-2 ">
-           <div class="row">
+        <div class="row">
             @foreach (range(1, 6) as $i)
                 @php
                     // La variable $rutaImagen ya debe contener la ruta completa desde la base de datos
@@ -516,7 +523,11 @@
                     $tituloGlightbox = $nombreArchivo . ' - Contrato #: ' . ($data['info']['contrato'] ?? 'N/A');
 
                     // La descripción adicional para el lightbox
-                    $descripcionGlightbox = 'Contrato #: ' . ($data['info']['contrato'] ?? 'N/A') . ' - Medidor #: ' . ($data['info']['medidor'] ?? 'N/A');
+                    $descripcionGlightbox =
+                        'Contrato #: ' .
+                        ($data['info']['contrato'] ?? 'N/A') .
+                        ' - Medidor #: ' .
+                        ($data['info']['medidor'] ?? 'N/A');
                 @endphp
                 {{-- Solo muestra el div si la ruta de la imagen existe --}}
                 @if ($rutaImagen)

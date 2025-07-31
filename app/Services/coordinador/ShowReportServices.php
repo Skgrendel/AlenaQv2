@@ -16,8 +16,8 @@ class ShowReportServices
         $ubicacion = ubicacion::where('id', $data->ubicacions_id)->first();
         $ciclo = surtigas::where('id', $data->surtigas_id)->first();
         $imagenes = json_decode($data->imagenes);
-        $anomalias = json_decode($data->anomalia);
-        $anomaliasNames = implode(', ', $anomalias);
+        $anomalias = json_decode($data->anomalia, true); // Decodifica como array asociativo
+        $anomaliasNames = is_array($anomalias) ? implode(', ', $anomalias) : '';
 
         return [
             'info' => [
