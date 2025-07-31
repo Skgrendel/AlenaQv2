@@ -73,7 +73,7 @@
                                                 ? '<span class="badge bg-success">Activo</span>'
                                                 : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
                                     </li>
-                                     <li>
+                                    <li>
                                         <span class="text-card text-sm">
                                             Alertas del Medidor:
                                             @if (trim($data['info']['alertas']) === 'Sin Alertas')
@@ -245,6 +245,16 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-12  mb-2" id="tipo_regulador_container">
+                                                <label for="tipo_presion" class="form-label">Tipo de Presion</label>
+                                                <select id="tipo_presion" class="form-select" name="tipo_presion">
+                                                    @foreach ($data['info']['tipo presion'] as $id => $nombre)
+                                                        <option
+                                                            value="{{ $nombre }}"{{ $data['info']['reporte']['tipo_presion'] == $nombre ? 'selected' : '' }}>
+                                                            {{ $nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                             <div class="col-12  mb-2" id="descripcion_medidor_container">
                                                 <label for="descripcion_medidor" class="form-label">Descripcion del
                                                     Medidor</label>
@@ -336,9 +346,9 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                                <label for="comentarios" class="form-label">Observaciones</label>
-                                                <textarea name="comentarios" id="comentarios" cols="30" rows="3" class="form-control"></textarea>
-                                            </div>
+                                            <label for="comentarios" class="form-label">Observaciones</label>
+                                            <textarea name="comentarios" id="comentarios" cols="30" rows="3" class="form-control"></textarea>
+                                        </div>
                                     </div>
                             </div>
                         </div>
