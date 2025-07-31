@@ -73,6 +73,16 @@
                                                 ? '<span class="badge bg-success">Activo</span>'
                                                 : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
                                     </li>
+                                     <li>
+                                        <span class="text-card text-sm">
+                                            Alertas del Medidor:
+                                            @if (trim($data['info']['alertas']) === 'Sin Alertas')
+                                                <span class="badge bg-success">Sin Alertas</span>
+                                            @else
+                                                <span class="badge bg-danger">{{ $data['info']['alertas'] }}</span>
+                                            @endif
+                                        </span>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="col-md-6">

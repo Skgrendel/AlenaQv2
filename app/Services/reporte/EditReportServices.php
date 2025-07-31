@@ -73,6 +73,7 @@ class EditReportServices
                 'contrato' => $ciclo->contrato,
                 'medidor' => $ciclo->medidor,
                 'descripcion_medidor' => $data->descripcion_medidor ?? 'Sin datos',
+                'alertas' => $data->cau,
             ],
             'location' => [
                 'link' => $src,
