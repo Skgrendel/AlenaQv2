@@ -166,17 +166,16 @@ class ConfirmadosDatatable extends DataTableComponent
                 ->searchable(),
             Column::make("Anomalia", "anomalia")
                 ->format(function ($value) {
-                    $ids = json_decode($value); // Decodifica el JSON
+                    $anomalias = json_decode($value); // Decodifica el JSON
                     $nombres = [];
-                    foreach ($ids as $id) {
-                        $anomalia = vs_anomalias::find($id); // Busca la Anomalia por ID
-                        if ($anomalia) {
-                            $nombres[] = $anomalia->nombre; // Agrega el nombre a la lista
+                    foreach ($anomalias as $nombre) {
+                        if ($anomalias) {
+                            $nombres[] = $nombre; // Agrega el nombre a la lista
                         }
                     }
                     return implode(', ', $nombres); // Devuelve los nombres como una cadena separada por comas
                 })
-                ->collapseOnMobile(),
+                ->collapseAlways(),
             Column::make("Direccion", "report_ubicacion.direccion")
                 ->collapseAlways(),
             Column::make("Comercio", "report_comercio.nombre")

@@ -103,7 +103,7 @@ class RevisadosDatatable extends DataTableComponent
                         $builder->whereJsonContains('reportes.anomalia', '67');
                     }
                 }),
-                SelectFilter::make('Ciclos')
+            SelectFilter::make('Ciclos')
                 ->options([
                     '' => 'All',
                     '1' => '2001',
@@ -140,8 +140,8 @@ class RevisadosDatatable extends DataTableComponent
     public function builder(): Builder
     {
         return reportes::query()
-            ->where('reportes.revisado','1')
-            ->where('reportes.confirmado','0')
+            ->where('reportes.revisado', '1')
+            ->where('reportes.confirmado', '0')
             ->with(['personal', 'report_comercio', 'dbSurtigas']);
     }
 
@@ -149,9 +149,9 @@ class RevisadosDatatable extends DataTableComponent
     {
         return [
             Column::make("Nombres", "personal.nombres")
-            ->collapseAlways(),
+                ->collapseAlways(),
             Column::make("Apellidos", "personal.apellidos")
-            ->collapseAlways(),
+                ->collapseAlways(),
             Column::make("Contrato", "dbSurtigas.contrato")
                 ->collapseOnMobile()
                 ->searchable(),
@@ -159,17 +159,16 @@ class RevisadosDatatable extends DataTableComponent
                 ->collapseOnMobile(),
             Column::make("Anomalia", "anomalia")
                 ->format(function ($value) {
-                    $ids = json_decode($value); // Decodifica el JSON
+                    $anomalias = json_decode($value); // Decodifica el JSON
                     $nombres = [];
-                    foreach ($ids as $id) {
-                        $anomalia = vs_anomalias::find($id); // Busca la Anomalia por ID
-                        if ($anomalia) {
-                            $nombres[] = $anomalia->nombre; // Agrega el nombre a la lista
+                    foreach ($anomalias as $nombre) {
+                        if ($anomalias) {
+                            $nombres[] = $nombre; // Agrega el nombre a la lista
                         }
                     }
                     return implode(', ', $nombres); // Devuelve los nombres como una cadena separada por comas
                 })
-                ->collapseOnMobile(),
+                ->collapseAlways(),
             Column::make("Direccion", "report_ubicacion.direccion")
                 ->collapseAlways(),
             Column::make("Comercio", "report_comercio.vs_comercio.nombre")
@@ -177,16 +176,16 @@ class RevisadosDatatable extends DataTableComponent
             Column::make('Ciclos', 'dbSurtigas.ciclo'),
             Column::make("Estado", "revisado")
                 ->format(
-                    fn ($value) => $value == 1 ? '<span class="badge badge-success">Auditado</span>' : 'No Revisado'
+                    fn($value) => $value == 1 ? '<span class="badge badge-success">Auditado</span>' : 'No Revisado'
                 )
                 ->html()
                 ->collapseOnMobile(),
             Column::make("Fecha", "created_at")
-                ->format(fn ($value) => $value->format('d/M/Y'))
+                ->format(fn($value) => $value->format('d/M/Y'))
                 ->collapseOnMobile(),
             Column::make('Acciones', 'id')
                 ->format(
-                    fn ($value, $row, Column $column) => view('auditoria.actions', compact('value'))
+                    fn($value, $row, Column $column) => view('auditoria.actions', compact('value'))
                 ),
         ];
     }
