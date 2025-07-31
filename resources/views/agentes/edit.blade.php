@@ -186,7 +186,7 @@
                     <div class="col-12  mb-2" id="marca_regulador_container">
                         <label for="marca_regulador" class="form-label">Tipo del Regulador</label>
                         <select id="marca_regulador" class="form-select" name="marca_regulador">
-                            @foreach ($data['info']['marca de regulador'] as $id => $nombre)
+                            @foreach ($data['marca de regulador'] as $id => $nombre)
                                 <option
                                     value="{{ $nombre }}"{{ $data['info']['reporte']['marca_regulador'] == $nombre ? 'selected' : '' }}>
                                     {{ $nombre }}</option>
@@ -196,7 +196,7 @@
                     <div class="col-12  mb-2" id="marca_medidor_container">
                         <label for="marca_medidor" class="form-label">Marca del Medidor</label>
                         <select id="marca_medidor" class="form-select" name="marca_medidor">
-                            @foreach ($data['info']['marca de medidor'] as $id => $nombre)
+                            @foreach ($data['marca de medidor'] as $id => $nombre)
                                 <option
                                     value="{{ $nombre }}"{{ $data['info']['reporte']['marca_medidor'] == $nombre ? 'selected' : '' }}>
                                     {{ $nombre }}</option>
