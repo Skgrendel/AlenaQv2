@@ -31,8 +31,26 @@ class EditReportServices
         $marca_regulador = vs_marca_regulador::pluck('nombre', 'id');
         $imagenes = json_decode($data->imagenes);
         $anomaliasId = json_decode($data->anomalia);
+        $descripcion_medidor = [
+            "G-1.6",
+            "G-4",
+            "G10",
+            "G16",
+            "G-2.5",
+            "G-16",
+            "G-6",
+            "AL-425",
+            "AL-1000",
+            "AC-630",
+            "AC-250",
+            "AL-800",
+            "MR-8",
+            "MR-10",
+            "MR-12"
+        ];
+
         // Obtener los nombres de las anomalías como un array
-  
+
 
         return [
             'info' => [
@@ -54,7 +72,8 @@ class EditReportServices
                 'comentarios' => $data->comentarios,
                 'lectura' => $data->lectura,
                 'contrato'=>$ciclo->contrato,
-                'medidor'=>$ciclo->medidor
+                'medidor'=>$ciclo->medidor,
+                'descripcion' => $data->descripcion_medidor ?? 'Sin datos',
             ],
             'location' => [
                 'link' => $src,
@@ -62,6 +81,7 @@ class EditReportServices
             'comercios' => $comercios,
             'anomalias' => $anomalias,
             'imposibilidad' => $imposibilidad,
+            'descripcion_medidor' => $descripcion_medidor,
             'imagenes' => $imagenes,
             'video' => $data->video,
             'data'=>[

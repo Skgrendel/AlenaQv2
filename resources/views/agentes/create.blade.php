@@ -171,6 +171,14 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="col-12  mb-2" id="descripcion_medidor_container">
+                                <label for="descripcion_medidor" class="form-label">Descripcion del Medidor</label>
+                                <select id="descripcion_medidor" class="form-select" name="descripcion_medidor" required>
+                                    @foreach ($data['descripcion_medidor'] as $id => $nombre)
+                                        <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-12  mb-2" id="marca_regulador_container">
                                 <label for="marca_regulador" class="form-label">Tipo del Regulador</label>
                                 <select id="marca_regulador" class="form-select" name="marca_regulador" required>

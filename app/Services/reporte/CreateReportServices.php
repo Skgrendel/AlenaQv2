@@ -22,6 +22,24 @@ class CreateReportServices
         $marca_medidor = vs_marca_medidor::pluck('nombre', 'id');
         $marca_regulador = vs_marca_regulador::pluck('nombre', 'id');
         $tipo_presion = vs_tipo_regulador::pluck('nombre', 'id');
+        $descripcion_medidor = [
+            "G-1.6",
+            "G-4",
+            "G10",
+            "G16",
+            "G-2.5",
+            "G-16",
+            "G-6",
+            "AL-425",
+            "AL-1000",
+            "AC-630",
+            "AC-250",
+            "AL-800",
+            "MR-8",
+            "MR-10",
+            "MR-12"
+        ];
+
 
         return [
             'info' => [
@@ -36,6 +54,7 @@ class CreateReportServices
             'marca_medidor' => $marca_medidor,
             'marca_regulador' => $marca_regulador,
             'tipo_presion' => $tipo_presion,
+            'descripcion_medidor' => $descripcion_medidor ?? 'Sin datos',
         ];
     }
 }

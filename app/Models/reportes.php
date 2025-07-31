@@ -22,6 +22,7 @@ class reportes extends Model
         'comercios_id',
         'surtigas_id',
         'numero_orden',
+        'descripcion_medidor',
         'lectura',
         'anomalia',
         'imposibilidad',

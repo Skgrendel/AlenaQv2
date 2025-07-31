@@ -45,9 +45,8 @@
                                             {{ $data['info']['ciclo']['ciclo'] ?? 'Sin Datos' }}</span>
                                     </li>
                                     <li>
-                                        <span class="text-card text-sm"> Tipo de Regulador:
-                                            {{ $data['info']['tipo regulador'] ?? 'Sin Datos' }}</span>
-                                    </li>
+                                        <span class="text-card text-sm"> Tipo de Presion:
+                                            {{ $data['info']['tipo presion'] ?? 'Sin Datos' }}</span>
                                     <li>
                                         <span class="text-card text-sm"> Marca del Regulador:
                                             {{ $data['info']['marca de regulador'] ?? 'Sin Datos' }}</span>
