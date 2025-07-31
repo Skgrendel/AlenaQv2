@@ -27,10 +27,10 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <ul>
-
                                     <li>
                                         <span class="text-card text-sm"> Numero del Medidor:
                                             {{ $data['info']['medidor'] ?? 'Sin medidor' }}</span>
+                                           
                                     </li>
                                     <li>
                                         <span class="text-card text-sm"> Numero de Lectura:

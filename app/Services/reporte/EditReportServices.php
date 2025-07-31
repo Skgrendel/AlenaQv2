@@ -31,7 +31,7 @@ class EditReportServices
         $marca_regulador = vs_marca_regulador::pluck('nombre', 'id');
         $imagenes = json_decode($data->imagenes);
         $anomaliasId = json_decode($data->anomalia);
-        $descripcion_medidor = [
+        $descripcion = [
             "G-1.6",
             "G-4",
             "G10",
@@ -62,30 +62,32 @@ class EditReportServices
                 'estado' => $ciclo->estado_servicio,
                 'anomalias' => $anomaliasId,
                 'imposibilidad' => $data->imposibilidad,
-                'tipo regulador' => $data->tipo_regulador,
-                'marca de medidor' => $marca_medidor,
-                'marca de regulador' => $marca_regulador,
+                'marca de medidor' => $data->marca_medidor,
+                'marca de regulador' => $data->marca_regulador,
                 'alerta' => $data->cau,
-                'tipo presion' => $tipo_presion,
+                'tipo presion' => $data->tipo_presion,
                 'medidoranomalia' => $data->report_comercio->medidor_anomalia,
                 'comercios' => $data->report_comercio->tipo_comercio,
                 'comentarios' => $data->comentarios,
                 'lectura' => $data->lectura,
-                'contrato'=>$ciclo->contrato,
-                'medidor'=>$ciclo->medidor,
-                'descripcion' => $data->descripcion_medidor ?? 'Sin datos',
+                'contrato' => $ciclo->contrato,
+                'medidor' => $ciclo->medidor,
+                'descripcion_medidor' => $data->descripcion_medidor ?? 'Sin datos',
             ],
             'location' => [
                 'link' => $src,
             ],
+            'marca de medidor' => $marca_medidor,
+            'marca de regulador' => $marca_regulador,
+            'tipo presion' => $tipo_presion,
             'comercios' => $comercios,
             'anomalias' => $anomalias,
             'imposibilidad' => $imposibilidad,
-            'descripcion_medidor' => $descripcion_medidor,
+            'descripcion' => $descripcion,
             'imagenes' => $imagenes,
             'video' => $data->video,
-            'data'=>[
-                'db_Surtigas'=>$ciclo
+            'data' => [
+                'db_Surtigas' => $ciclo
             ]
 
         ];

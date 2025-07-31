@@ -19,7 +19,9 @@ class ShowReportServices
         $anomalias = json_decode($data->anomalia, true); // Decodifica como array asociativo
         $anomaliasNames = is_array($anomalias) ? implode(', ', $anomalias) : '';
 
-        return [
+
+        return
+        [
             'info' => [
                 'id' => $data->id,
                 'contrato' => $data->dbSurtigas->contrato,

@@ -122,6 +122,11 @@ class ProcessingServices
             'imposibilidad' => $request->input('imposibilidad'),
             'comentarios' => $request->input('comentarios'),
             'revisado' => $request->input('revisado'),
+            'marca_medidor' => $request->input('marca_medidor'),
+            'marca_regulador' => $request->input('marca_regulador'),
+            'tipo_presion' => $request->input('tipo_presion'),
+            'cau' => $request->input('cau'),
+            'descripcion_medidor' => $request->input('descripcion_medidor'),
         ];
         $reporte->update($datosActualizados);
     }

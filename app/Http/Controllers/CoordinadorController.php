@@ -56,6 +56,7 @@ class CoordinadorController extends Controller
         $data = $this->show->ShowReport($id);
         $gis = $this->info->DataGis($id);
         $data['imagenes'] = (array) $data['imagenes'];
+
         return view('coordinador.show', compact('data', 'gis'));
     }
 

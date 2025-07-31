@@ -47,9 +47,16 @@
                                     <li>
                                         <span class="text-card text-sm"> Tipo de Presion:
                                             {{ $data['info']['tipo presion'] ?? 'Sin Datos' }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="text-card text-sm"> Descipcion del Medidor:
+                                            {{ $data['info']['descripcion_medidor'] ?? 'Sin Datos' }}</span>
+                                    </li>
+
                                     <li>
                                         <span class="text-card text-sm"> Marca del Regulador:
                                             {{ $data['info']['marca de regulador'] ?? 'Sin Datos' }}</span>
+
                                     </li>
                                     <li>
                                         <span class="text-card text-sm"> Marca del Medidor:
@@ -76,7 +83,8 @@
                                     </li>
                                     <li>
                                         <span class="text-card text-sm">
-                                            Anomalias: {{ is_string($data['info']['anomalias']) ? $data['info']['anomalias'] : 'sin datos' }}
+                                            Anomalias:
+                                            {{ is_string($data['info']['anomalias']) ? $data['info']['anomalias'] : 'sin datos' }}
                                         </span>
                                     </li>
 
@@ -209,6 +217,7 @@
                                                 <label for="medidor" class="form-label">Numero de Medidor</label>
                                                 <span type="text" class="form-control" id="medidor"
                                                     name="medidor">{{ $gis['info']['medidor'] ?? $data['info']['medidor'] }}</span>
+
                                             </div>
                                             <div class="form-group mb-1 ">
                                                 <label for="lectura">Numero de Lectura</label>
@@ -222,6 +231,64 @@
                                                         <option value="{{ $nombre }}"
                                                             {{ $data['info']['reporte']['imposibilidad'] == $nombre ? 'selected' : '' }}>
                                                             {{ $nombre }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-12  mb-2" id="descripcion_medidor_container">
+                                                <label for="descripcion_medidor" class="form-label">Descripcion del
+                                                    Medidor</label>
+                                                <select id="descripcion_medidor" class="form-select"
+                                                    name="descripcion_medidor" required>
+                                                    @foreach ($data['descripcion'] as $id => $nombre)
+                                                        <option
+                                                            value="{{ $nombre }}"{{ $data['info']['reporte']['descripcion'] == $nombre ? 'selected' : '' }}>
+                                                            {{ $nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-12  mb-2" id="marca_regulador_container">
+                                                <label for="marca_regulador" class="form-label">Tipo del Regulador</label>
+                                                <select id="marca_regulador" class="form-select" name="marca_regulador">
+                                                    @foreach ($data['marca de regulador'] as $id => $nombre)
+                                                        <option
+                                                            value="{{ $nombre }}"{{ $data['info']['reporte']['marca_regulador'] == $nombre ? 'selected' : '' }}>
+                                                            {{ $nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-12  mb-2" id="marca_medidor_container">
+                                                <label for="marca_medidor" class="form-label">Marca del Medidor</label>
+                                                <select id="marca_medidor" class="form-select" name="marca_medidor">
+                                                    @foreach ($data['marca de medidor'] as $id => $nombre)
+                                                        <option
+                                                            value="{{ $nombre }}"{{ $data['info']['reporte']['marca_medidor'] == $nombre ? 'selected' : '' }}>
+                                                            {{ $nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-12 mb-2" id="cau_container">
+                                                <label for="cau" class="form-label">Notificación de Alertas</label>
+                                                <select id="cau" class="form-select" name="cau">
+                                                    <option disabled>──────────</option>
+                                                    @php
+                                                        $opcionesCau = [
+                                                            'Sin Alertas',
+                                                            'Exceso de Capacidad',
+                                                            'CAU 01',
+                                                            'CAU 02',
+                                                            'CAU 03',
+                                                            'CAU 04',
+                                                            'Retro Flujo',
+                                                            'Bateria Baja',
+                                                        ];
+                                                        $valorSeleccionado = $data['info']['reporte']['cau'] ?? null; // o ajusta según tu estructura
+                                                    @endphp
+
+                                                    @foreach ($opcionesCau as $opcion)
+                                                        <option value="{{ $opcion }}"
+                                                            {{ $valorSeleccionado == $opcion ? 'selected' : '' }}>
+                                                            {{ $opcion }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -258,6 +325,10 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                                <label for="comentarios" class="form-label">Observaciones</label>
+                                                <textarea name="comentarios" id="comentarios" cols="30" rows="3" class="form-control"></textarea>
+                                            </div>
                                     </div>
                             </div>
                         </div>
