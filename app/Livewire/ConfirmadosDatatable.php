@@ -182,6 +182,18 @@ class ConfirmadosDatatable extends DataTableComponent
                 ->collapseAlways(),
             Column::make('Ciclos', 'dbSurtigas.ciclo')
                 ->searchable(),
+                column::make('Alertas', 'cau')
+                ->format(function ($value) {
+                    $texto = trim($value);
+
+                    if (strtolower($texto) === 'sin alertas') {
+                        return '<span class="badge bg-success">Sin Alertas</span>';
+                    } else {
+                        return '<span class="badge bg-danger">' . e($texto) . '</span>';
+                    }
+                })
+                ->Html() // muy importante para que se renderice el HTML
+                ->collapseOnMobile(),
             Column::make("Estado", "confirmado")
                 ->format(
                     fn ($value) => $value == 1 ? '<span class="badge badge-success">Confirmado</span>' : 'No Revisado'

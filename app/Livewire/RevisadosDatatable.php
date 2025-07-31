@@ -174,6 +174,18 @@ class RevisadosDatatable extends DataTableComponent
             Column::make("Comercio", "report_comercio.vs_comercio.nombre")
                 ->collapseAlways(),
             Column::make('Ciclos', 'dbSurtigas.ciclo'),
+            column::make('Alertas', 'cau')
+                ->format(function ($value) {
+                    $texto = trim($value);
+
+                    if (strtolower($texto) === 'sin alertas') {
+                        return '<span class="badge bg-success">Sin Alertas</span>';
+                    } else {
+                        return '<span class="badge bg-danger">' . e($texto) . '</span>';
+                    }
+                })
+                ->Html() // muy importante para que se renderice el HTML
+                ->collapseOnMobile(),
             Column::make("Estado", "revisado")
                 ->format(
                     fn($value) => $value == 1 ? '<span class="badge badge-success">Auditado</span>' : 'No Revisado'
