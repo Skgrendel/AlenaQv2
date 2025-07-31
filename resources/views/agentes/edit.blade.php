@@ -165,7 +165,7 @@
                         <div class="col-12  mb-2" id="tipo_regulador_container">
                             <label for="tipo_presion" class="form-label">Tipo de Presion</label>
                             <select id="tipo_presion" class="form-select" name="tipo_presion">
-                                @foreach ($data['info']['tipo presion'] as $id => $nombre)
+                                @foreach ($data['tipo presion'] as $id => $nombre)
                                     <option
                                         value="{{ $nombre }}"{{ $data['info']['reporte']['tipo_presion'] == $nombre ? 'selected' : '' }}>
                                         {{ $nombre }}</option>
