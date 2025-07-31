@@ -7,6 +7,7 @@ use App\Models\surtigas;
 use App\Models\reportes;
 use App\Models\ubicacion;
 use App\Models\vs_anomalias;
+use App\Models\vs_tipo_regulador;
 
 class ShowReportServices
 {
@@ -18,6 +19,7 @@ class ShowReportServices
         $imagenes = json_decode($data->imagenes);
         $anomalias = json_decode($data->anomalia, true); // Decodifica como array asociativo
         $anomaliasNames = is_array($anomalias) ? implode(', ', $anomalias) : '';
+       $tipo_presion = vs_tipo_regulador::pluck('nombre', 'id');
 
 
         return
@@ -44,6 +46,7 @@ class ShowReportServices
                 'comentarios' => $data->comentarios,
                 'estado' => $ciclo->estado_servicio
             ],
+            'tipo_presion' => $tipo_presion,
             'imagenes' => $imagenes,
             'video' => $data->video,
 

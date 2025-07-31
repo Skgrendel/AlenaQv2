@@ -9,6 +9,7 @@ use App\Models\ubicacion;
 use App\Models\vs_anomalias;
 use App\Models\vs_comercios;
 use App\Models\vs_imposibilidad;
+use App\Models\vs_tipo_regulador;
 
 class ShowReportServices
 {
@@ -20,6 +21,7 @@ class ShowReportServices
         $comercios = vs_comercios::pluck('nombre', 'id');
         $anomalias = vs_anomalias::pluck('nombre', 'id');
         $imposibilidad = vs_imposibilidad::pluck('nombre', 'id');
+        $tipo_presion = vs_tipo_regulador::pluck('nombre', 'id');
         return [
             'info' => [
                 'id'=>$data->id,
@@ -41,6 +43,7 @@ class ShowReportServices
                 'observaciones' =>$data->observaciones,
                 'estado' => $data->estado
             ],
+            'tipo presion' => $tipo_presion,
             'comercios' => $comercios,
             'anomalias' => $anomalias,
             'imposibilidad' => $imposibilidad,
