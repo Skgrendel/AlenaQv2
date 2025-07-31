@@ -59,6 +59,7 @@ class ReportServices
         $reportes['marca_regulador'] = $request->input('marca_regulador');
         $reportes['comentarios'] = $request->input('comentarios');
         $reportes['cau'] = $request->input('cau');
+        $reportes['descripcion_medidor'] = $request->input('descripcion_medidor');
         $reportes['imagenes'] = json_encode($foto);
 
         return $reportes;
