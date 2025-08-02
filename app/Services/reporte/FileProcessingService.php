@@ -95,10 +95,10 @@ class FileProcessingService
                 $ruta = "imagen/{$numeroContrato}/{$nombreFotoFinal}";
 
                 // Sube al bucket y reemplaza si ya existe
-                Storage::disk('spaces')->put($ruta, file_get_contents($imagen), 'public');
+                Storage::disk('s3')->put($ruta, file_get_contents($imagen), 'public');
 
                 // Genera URL pública
-                $urlFoto = Storage::disk('spaces')->url($ruta);
+                $urlFoto = Storage::disk('s3')->url($ruta);
 
                 // Actualiza en el array final
                 $reportesData[$nombreInputFoto] = $urlFoto;
