@@ -196,7 +196,7 @@ class ConfirmadosDatatable extends DataTableComponent
                 ->collapseOnMobile(),
             Column::make("Estado", "confirmado")
                 ->format(
-                    fn ($value) => $value == 1 ? '<span class="badge badge-success">Confirmado</span>' : 'No Revisado'
+                    fn ($value) => $value == 1 ? '<span class="badge badge-success">Entregados</span>' : 'No Revisado'
                 )
                 ->html()
                 ->collapseOnMobile(),
