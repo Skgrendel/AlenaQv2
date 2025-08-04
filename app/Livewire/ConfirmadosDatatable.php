@@ -178,7 +178,7 @@ class ConfirmadosDatatable extends DataTableComponent
                 ->collapseAlways(),
             Column::make("Direccion", "report_ubicacion.direccion")
                 ->collapseAlways(),
-            Column::make("Comercio", "report_comercio.nombre")
+            Column::make("Comercio", "report_comercio.nombre_comercio")
                 ->collapseAlways(),
             Column::make('Ciclos', 'dbSurtigas.ciclo')
                 ->searchable(),
