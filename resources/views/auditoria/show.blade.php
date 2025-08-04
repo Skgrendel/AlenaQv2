@@ -576,7 +576,7 @@
                                     @method('PUT')
                                     <div class="row">
                                         <div class="col-3">
-                                            <span class="form-check-label">¿Anomalia Confirmada?</span>
+                                            <span class="form-check-label">Revisado por Balance y Control</span>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" id="inlineCheckbox1"
                                                     name="confirmado" value="1">
