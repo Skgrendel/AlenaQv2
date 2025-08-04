@@ -30,7 +30,8 @@ class EditReportServices
         $marca_medidor = vs_marca_medidor::pluck('nombre', 'id');
         $marca_regulador = vs_marca_regulador::pluck('nombre', 'id');
         $imagenes = json_decode($data->imagenes);
-        $anomaliasId = json_decode($data->anomalia);
+        $anomalias = json_decode($data->anomalia, true); // Decodifica como array asociativo
+        $anomaliasNames = is_array($anomalias) ? implode(', ', $anomalias) : '';
         $descripcion = [
             "No hay Medidor",
             "G-1.6",
@@ -58,10 +59,9 @@ class EditReportServices
                 'ubicacion' => $ubicacion,
                 'ciclo' => $ciclo,
                 'comercio' => $comerciosIds,
-                'anomaliasid' => $anomaliasId,
                 'reporte' => $data,
                 'estado' => $ciclo->estado_servicio,
-                'anomaliasname' => $anomaliasId,
+                'anomaliasname' => $anomaliasNames,
                 'imposibilidad' => $data->imposibilidad,
                 'marca de medidor' => $data->marca_medidor,
                 'marca de regulador' => $data->marca_regulador,
