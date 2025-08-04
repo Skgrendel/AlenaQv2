@@ -32,6 +32,7 @@ class EditReportServices
         $imagenes = json_decode($data->imagenes);
         $anomaliasId = json_decode($data->anomalia);
         $descripcion = [
+            "No hay Medidor",
             "G-1.6",
             "G-4",
             "G10",

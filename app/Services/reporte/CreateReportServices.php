@@ -23,6 +23,7 @@ class CreateReportServices
         $marca_regulador = vs_marca_regulador::pluck('nombre', 'id');
         $tipo_presion = vs_tipo_regulador::pluck('nombre', 'id');
         $descripcion_medidor = [
+            "No hay Medidor",
             "G-1.6",
             "G-4",
             "G10",
