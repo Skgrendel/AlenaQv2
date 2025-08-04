@@ -94,7 +94,7 @@
                                     <li>
                                         <span class="text-card text-sm">
                                             Anomalias:
-                                            {{ is_string($data['info']['anomalias']) ? $data['info']['anomalias'] : 'sin datos' }}
+                                            {{ is_string($data['info']['anomaliasname']) ? $data['info']['anomaliasname'] : 'sin datos' }}
                                         </span>
                                     </li>
 
