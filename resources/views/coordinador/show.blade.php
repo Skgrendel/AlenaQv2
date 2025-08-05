@@ -30,7 +30,7 @@
                                     <li>
                                         <span class="text-card text-sm"> Numero del Medidor:
                                             {{ $data['info']['medidor'] ?? 'Sin medidor' }}</span>
-                                           
+
                                     </li>
                                     <li>
                                         <span class="text-card text-sm"> Numero de Lectura:
@@ -88,7 +88,7 @@
                                     <li>
                                         <span class="text-card text-sm">
                                             Anomalias:
-                                            {{ $data['info']['anomalias'] ?? 'sin datos' }}
+                                            {{ $data['info']['anomaliasname'] ?? 'sin datos' }}
                                         </span>
                                     </li>
                                 </ul>
