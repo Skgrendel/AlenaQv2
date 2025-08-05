@@ -28,9 +28,9 @@ class ConfirmadosDatatable extends DataTableComponent
         $this->setTableAttributes([
             'class' => 'table table-bordered  custom-table',
         ]);
-        $this->setConfigurableAreas([
-            'before-toolbar' => 'livewire.reportes-zip-header',
-        ]);
+        // $this->setConfigurableAreas([
+        //     'before-toolbar' => 'livewire.reportes-zip-header',
+        // ]);
     }
 
     public function bulkActions(): array
