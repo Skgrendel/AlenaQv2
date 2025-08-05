@@ -29,8 +29,7 @@ class ReportExport implements FromCollection,WithHeadings
 
 
             return [
-                $reporte->personal->nombres,
-                $reporte->personal->apellidos,
+                $reporte->personal->nombres . $reporte->personal->apellidos,
                 $reporte->dbSurtigas->contrato,
                 $reporte->dbSurtigas->medidor,
                 $reporte->lectura,
@@ -55,8 +54,7 @@ class ReportExport implements FromCollection,WithHeadings
     public function headings(): array
     {
         return [
-            'Nombres',
-            'Apellidos',
+            'Asignado a',
             'Contrato',
             'Medidor',
             'Lectura',
