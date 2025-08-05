@@ -134,7 +134,7 @@
                                 <label for="nueva_opcion" class="form-label ">Anomalia Detectada</label>
                                 <select id="anomalia" class="form-control select2" name="anomalia[]" multiple>
                                     @php
-                                        $seleccionadas = $data['info']['anomalias']; // <- array con las seleccionadas desde la BD (ya decodificadas)
+                                        $seleccionadas = $data['info']['anomaliasname']; // <- array con las seleccionadas desde la BD (ya decodificadas)
                                     @endphp
 
                                     @foreach ($data['anomalias'] as $id => $nombre)
