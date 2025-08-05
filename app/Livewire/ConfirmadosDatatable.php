@@ -10,6 +10,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\reportes;
 use App\Models\vs_anomalias;
+
 class ConfirmadosDatatable extends DataTableComponent
 {
     protected $model = reportes::class;
@@ -20,12 +21,15 @@ class ConfirmadosDatatable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id')->setTableRowUrl(function($row) {
-            return route('auditorias.show',['auditoria' => $row]);
+        $this->setPrimaryKey('id')->setTableRowUrl(function ($row) {
+            return route('auditorias.show', ['auditoria' => $row]);
         });
         $this->setColumnSelectStatus(false);
         $this->setTableAttributes([
             'class' => 'table table-bordered  custom-table',
+        ]);
+        $this->setConfigurableAreas([
+            'before-toolbar' => 'livewire.reportes-zip-header',
         ]);
     }
 
@@ -108,7 +112,7 @@ class ConfirmadosDatatable extends DataTableComponent
                         $builder->whereJsonContains('reportes.anomalia', '74');
                     }
                 }),
-                SelectFilter::make('Ciclos')
+            SelectFilter::make('Ciclos')
                 ->options([
                     '' => 'All',
                     '1' => '2001',
@@ -153,15 +157,15 @@ class ConfirmadosDatatable extends DataTableComponent
     {
         return [
             Column::make("Nombres", "personal.nombres")
-            ->collapseAlways(),
+                ->collapseAlways(),
             Column::make("Apellidos", "personal.apellidos")
-            ->collapseAlways(),
+                ->collapseAlways(),
             Column::make("Contrato", "dbSurtigas.contrato")
                 ->collapseOnMobile()
                 ->searchable(),
             Column::make("Lectura", "lectura")
                 ->collapseOnMobile(),
-                Column::make("Medidor", "dbSurtigas.medidor")
+            Column::make("Medidor", "dbSurtigas.medidor")
                 ->collapseOnMobile()
                 ->searchable(),
             Column::make("Anomalia", "anomalia")
@@ -182,7 +186,7 @@ class ConfirmadosDatatable extends DataTableComponent
                 ->collapseAlways(),
             Column::make('Ciclos', 'dbSurtigas.ciclo')
                 ->searchable(),
-                column::make('Alertas', 'cau')
+            column::make('Alertas', 'cau')
                 ->format(function ($value) {
                     $texto = trim($value);
 
@@ -196,17 +200,17 @@ class ConfirmadosDatatable extends DataTableComponent
                 ->collapseOnMobile(),
             Column::make("Estado", "confirmado")
                 ->format(
-                    fn ($value) => $value == 1 ? '<span class="badge badge-success">Entregados</span>' : 'No Revisado'
+                    fn($value) => $value == 1 ? '<span class="badge badge-success">Entregados</span>' : 'No Revisado'
                 )
                 ->html()
                 ->collapseOnMobile(),
             Column::make("Fecha", "created_at")
-                ->format(fn ($value) => $value->format('d/M/Y'))
+                ->format(fn($value) => $value->format('d/M/Y'))
                 ->collapseOnMobile(),
             Column::make('Acciones', 'id')
-            ->unclickable()
+                ->unclickable()
                 ->format(
-                    fn ($value, $row, Column $column) => view('auditoria.actions', compact('value'))
+                    fn($value, $row, Column $column) => view('auditoria.actions', compact('value'))
                 ),
         ];
     }

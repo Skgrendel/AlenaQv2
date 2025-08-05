@@ -49,6 +49,7 @@ class AuditoriaDatatable extends DataTableComponent
 
         return Excel::download(new ReportExport($users), $date . '.xlsx');
     }
+    
 
     public function filters(): array
     {
