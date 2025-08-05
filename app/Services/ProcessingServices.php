@@ -79,6 +79,7 @@ class ProcessingServices
             'marca_medidor' => $request->input('marca_medidor'),
             'marca_regulador' => $request->input('marca_regulador'),
             'tipo_presion' => $request->input('tipo_presion'),
+            'descripcion_medidor' => $request->input('descripcion_medidor'),
             'cau' => $request->input('cau'),
         ];
         $reporte->update($datosActualizados);
