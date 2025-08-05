@@ -35,7 +35,7 @@ class ShowReportServices
                 'comercionovedad' => $data->report_comercio->nuevo_comercio,
                 'medidoranomalia' => $data->report_comercio->medidor_anomalia,
                 'nombrecomercio' => $data->report_comercio->nombre_comercio,
-                'anomalias' => $anomaliasNames,
+                'anomaliasN' => $anomaliasNames,
                 'imposibilidad' => $data->imposibilidad,
                 'tipo presion' => $data->tipo_presion,
                 'marca de medidor' => is_string($data->marca_medidor) ? $data->marca_medidor : 'Sin datos',

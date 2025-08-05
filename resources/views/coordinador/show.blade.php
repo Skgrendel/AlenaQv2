@@ -88,7 +88,7 @@
                                     <li>
                                         <span class="text-card text-sm">
                                             Anomalias:
-                                            {{ $data['info']['anomaliasname'] ?? 'sin datos' }}
+                                            {{ $data['info']['anomaliasN'] ?? 'sin datos' }}
                                         </span>
                                     </li>
                                 </ul>
