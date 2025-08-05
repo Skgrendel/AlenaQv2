@@ -339,8 +339,7 @@
                                                     multiple="multiple" autocomplete="off" data-placeholder="anomalias">
                                                     @foreach ($data['anomalias'] as $id => $nombre)
                                                         <option
-                                                            value="{{ $nombre }}"{{ in_array($nombre, $data['info']['anomaliasid']) ? 'selected' : '' }}>
-                                                            {{ $nombre }}</option>
+                                                            value="{{ $nombre }}"{{ in_array($nombre, $data['info']['anomaliasid']) ? 'selected' : '' }}>{{ $nombre }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
