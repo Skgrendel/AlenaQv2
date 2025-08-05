@@ -45,7 +45,7 @@ class ReportServices
         $stringAnomalias = implode(", ", $anomalias);
         $templateProcessor->setValue('anomalia', $stringAnomalias ?? 'Sin Anomalias');
         $templateProcessor->setValue('tipo_presion', $reporte->tipo_presion ?? 'Sin Tipo de Presion');
-        $templateProcessor->setValue('descripcion_medidor', $reporte->descripción_medidor ?? 'Sin Descripcion de Medidor');
+        $templateProcessor->setValue('descripcion_medidor', $reporte->descripcion_medidor ?? 'Sin Descripcion de Medidor');
         $templateProcessor->setValue('marca_medidor', $reporte->marca_medidor ?? 'Sin Marca Medidor');
         $templateProcessor->setValue('marca_regulador', $reporte->marca_regulador ?? 'Sin Marca Regulador');
         $templateProcessor->setValue('cau', $reporte->cau ?? 'Sin Marca Alertas');
