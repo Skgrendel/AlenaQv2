@@ -62,7 +62,7 @@ class EditReportServices
                 'reporte' => $data,
                 'estado' => $ciclo->estado_servicio,
                 'anomaliasid' => $anomaliasA,
-                'anomaliasnames' => $anomaliasNames,
+                'anomaliasN' => $anomaliasNames,
                 'imposibilidad' => $data->imposibilidad,
                 'marca de medidor' => $data->marca_medidor,
                 'marca de regulador' => $data->marca_regulador,
