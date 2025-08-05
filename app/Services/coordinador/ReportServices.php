@@ -45,7 +45,7 @@ class ReportServices
         $stringAnomalias = implode(", ", $anomalias);
         $templateProcessor->setValue('anomalia', $stringAnomalias ?? 'Sin Anomalias');
         $templateProcessor->setValue('tipo_presion', $reporte->tipo_presion ?? 'Sin Tipo de Presion');
-        $templateProcessor->setValue('descripción_medidor', $reporte->descripción_medidor ?? 'Sin Descripcion de Medidor');
+        $templateProcessor->setValue('descripcion_medidor', $reporte->descripción_medidor ?? 'Sin Descripcion de Medidor');
         $templateProcessor->setValue('marca_medidor', $reporte->marca_medidor ?? 'Sin Marca Medidor');
         $templateProcessor->setValue('marca_regulador', $reporte->marca_regulador ?? 'Sin Marca Regulador');
         $templateProcessor->setValue('cau', $reporte->cau ?? 'Sin Marca Alertas');
@@ -69,29 +69,38 @@ class ReportServices
         ];
     }
 
- private function ImgExist($imgPath, $templateProcessor, $var)
+private function ImgExist($imgUrl, $templateProcessor, $var)
 {
-    if ($imgPath != null && Storage::disk('s3')->exists($imgPath)) {
-        // Crear una ruta temporal única
-        $tempImagePath = storage_path('app/' . uniqid('temp_') . '_' . basename($imgPath));
+    if ($imgUrl != null) {
+        try {
+            // Obtener contenido de la imagen desde URL pública
+            $imageContents = file_get_contents($imgUrl);
 
-        // Descargar el archivo desde DigitalOcean Spaces
-        $fileContent = Storage::disk('s3')->get($imgPath);
-        file_put_contents($tempImagePath, $fileContent);
+            if ($imageContents !== false) {
+                // Guardar temporalmente en local
+                $tempPath = storage_path('app/' . uniqid('img_') . '.jpg');
+                file_put_contents($tempPath, $imageContents);
 
-        // Insertar imagen al Word
-        $templateProcessor->setImageValue($var, [
-            'path' => $tempImagePath,
-            'width' => 400,
-            'height' => 400,
-            'ratio' => true
-        ]);
+                // Insertar en el Word
+                $templateProcessor->setImageValue($var, [
+                    'path' => $tempPath,
+                    'width' => 400,
+                    'height' => 400,
+                    'ratio' => true
+                ]);
 
-        // Eliminar temporal después
-        unlink($tempImagePath);
-    } else {
-        $templateProcessor->setValue($var, 'Sin Registro Fotografico');
+                // Eliminar archivo temporal
+                unlink($tempPath);
+                return;
+            }
+        } catch (\Exception $e) {
+            // Puedes loguear el error si deseas
+        }
     }
+
+    // Si no hay URL o no se pudo descargar
+    $templateProcessor->setValue($var, 'Sin Registro Fotografico');
 }
+
 
 }
