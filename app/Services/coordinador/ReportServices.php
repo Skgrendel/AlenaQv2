@@ -69,19 +69,17 @@ class ReportServices
         ];
     }
 
-  private function ImgExist($imgPath, $templateProcessor, $var)
+ private function ImgExist($imgPath, $templateProcessor, $var)
 {
-    // Verifica si el archivo existe en S3
     if ($imgPath != null && Storage::disk('s3')->exists($imgPath)) {
-        // Descarga temporalmente la imagen a un archivo local
-        $tempImagePath = storage_path('app/temp_' . basename($imgPath));
-        Storage::disk('s3')->getDriver()->getAdapter()->getClient()->getObject([
-            'Bucket' => config('filesystems.disks.s3.bucket'),
-            'Key' => $imgPath,
-            'SaveAs' => $tempImagePath
-        ]);
+        // Crear una ruta temporal única
+        $tempImagePath = storage_path('app/' . uniqid('temp_') . '_' . basename($imgPath));
 
-        // Usa la imagen temporal en el template
+        // Descargar el archivo desde DigitalOcean Spaces
+        $fileContent = Storage::disk('s3')->get($imgPath);
+        file_put_contents($tempImagePath, $fileContent);
+
+        // Insertar imagen al Word
         $templateProcessor->setImageValue($var, [
             'path' => $tempImagePath,
             'width' => 400,
@@ -89,10 +87,9 @@ class ReportServices
             'ratio' => true
         ]);
 
-        // Elimina el archivo temporal después de usarlo
+        // Eliminar temporal después
         unlink($tempImagePath);
     } else {
-        // Si no existe, escribe texto en su lugar
         $templateProcessor->setValue($var, 'Sin Registro Fotografico');
     }
 }
