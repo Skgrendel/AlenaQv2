@@ -5,6 +5,7 @@ namespace App\Services\coordinador;
 use App\Models\surtigas;
 use App\Models\reportes;
 use App\Models\vs_anomalias;
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use PhpOffice\PhpWord\TemplateProcessor;
 
@@ -68,18 +69,31 @@ class ReportServices
         ];
     }
 
-   private function ImgExist($imgPath, $templateProcessor, $var)
+  private function ImgExist($imgPath, $templateProcessor, $var)
 {
-    if ($imgPath != null && file_exists(public_path($imgPath))) {
-        // La ruta ya incluye la carpeta y el nombre de la imagen
-        return $templateProcessor->setImageValue($var, [
-            'path' => public_path($imgPath),
+    // Verifica si el archivo existe en S3
+    if ($imgPath != null && Storage::disk('s3')->exists($imgPath)) {
+        // Descarga temporalmente la imagen a un archivo local
+        $tempImagePath = storage_path('app/temp_' . basename($imgPath));
+        Storage::disk('s3')->getDriver()->getAdapter()->getClient()->getObject([
+            'Bucket' => config('filesystems.disks.s3.bucket'),
+            'Key' => $imgPath,
+            'SaveAs' => $tempImagePath
+        ]);
+
+        // Usa la imagen temporal en el template
+        $templateProcessor->setImageValue($var, [
+            'path' => $tempImagePath,
             'width' => 400,
             'height' => 400,
             'ratio' => true
         ]);
+
+        // Elimina el archivo temporal después de usarlo
+        unlink($tempImagePath);
     } else {
-        return $templateProcessor->setValue($var, 'Sin Registro Fotografico');
+        // Si no existe, escribe texto en su lugar
+        $templateProcessor->setValue($var, 'Sin Registro Fotografico');
     }
 }
 
