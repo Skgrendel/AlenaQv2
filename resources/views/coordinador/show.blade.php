@@ -49,6 +49,10 @@
                                             {{ $data['info']['tipo presion'] ?? 'Sin Datos' }}</span>
                                     </li>
                                     <li>
+                                        <span class="text-card text-sm"> Descripcion del Medidor:
+                                            {{ $data['info']['descripcion_medidor'] ?? 'Sin Datos' }}</span>
+                                    </li>
+                                    <li>
                                         <span class="text-card text-sm"> Marca del Regulador:
                                             {{ $data['info']['marca de regulador'] ?? 'Sin Datos' }}</span>
                                     </li>
