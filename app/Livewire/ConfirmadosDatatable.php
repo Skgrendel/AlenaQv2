@@ -132,7 +132,7 @@ class ConfirmadosDatatable extends DataTableComponent
                 ->options([
                     '' => 'All',
                     '1' => 'Confirmado',
-                    '0' => 'No Confirmado',
+                    '2' => 'No Confirmado',
                 ])
                 ->filter(function (Builder $builder, $value) {
                     if ($value !== '') {
