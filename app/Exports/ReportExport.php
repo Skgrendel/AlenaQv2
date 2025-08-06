@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 
-class ReportExport implements FromCollection,WithHeadings
+class ReportExport implements FromCollection, WithHeadings
 {
     protected $reporteIds;
 
@@ -19,37 +19,37 @@ class ReportExport implements FromCollection,WithHeadings
 
     public function collection()
     {
-        return Reportes::with(['report_comercio','report_ubicacion', 'vs_estado','vs_imposibilidad','personal'])
-        ->whereIn('id', $this->reporteIds)
-        ->get()
-        ->map(function ($reporte) {
-            // Decodifica el JSON a un array de PHP
-            $anomalias = json_decode($reporte->anomalia);
+        return Reportes::with(['report_comercio', 'report_ubicacion', 'vs_estado', 'vs_imposibilidad', 'personal'])
+            ->whereIn('id', $this->reporteIds)
+            ->get()
+            ->map(function ($reporte) {
+                // Decodifica el JSON a un array de PHP
+                $anomalias = json_decode($reporte->anomalia);
 
 
 
-            return [
-                $reporte->personal->nombres .' '. $reporte->personal->apellidos,
-                $reporte->dbSurtigas->contrato,
-                $reporte->dbSurtigas->medidor,
-                $reporte->lectura,
-                $reporte->dbSurtigas->ciclo,
-                $reporte->dbSurtigas->direccion,
-                implode(', ', $anomalias ),
-                $reporte->imposibilidad,
-                $reporte->report_comercio->tipo_comercio,
-                $reporte->tipo_presion,
-                $reporte->descripcion_medidor,
-                $reporte->marca_medidor,
-                $reporte->marca_regulador,
-                $reporte->cau,
-                $reporte->vs_estado->nombre,
-                $reporte->confirmado == 1 ? 'Confirmado' : 'No Confirmado',
-                $reporte->created_at->format('Y-m-d'),
-                $reporte->created_at->format('H:i:s '),
+                return [
+                    $reporte->personal->nombres . ' ' . $reporte->personal->apellidos,
+                    $reporte->dbSurtigas->contrato,
+                    $reporte->dbSurtigas->medidor,
+                    $reporte->lectura,
+                    $reporte->dbSurtigas->ciclo,
+                    $reporte->dbSurtigas->direccion,
+                    implode(', ', $anomalias),
+                    $reporte->imposibilidad,
+                    $reporte->report_comercio->tipo_comercio,
+                    $reporte->tipo_presion,
+                    $reporte->descripcion_medidor,
+                    $reporte->marca_medidor,
+                    $reporte->marca_regulador,
+                    $reporte->cau,
+                    $reporte->vs_estado->nombre,
+                    $reporte->confirmado == 1 ? 'Confirmado' : ($reporte->confirmado == 2 ? 'No Confirmado' : 'No Revisado'),
+                    $reporte->created_at->format('Y-m-d'),
+                    $reporte->created_at->format('H:i:s '),
 
-            ];
-        });
+                ];
+            });
     }
 
     public function headings(): array
