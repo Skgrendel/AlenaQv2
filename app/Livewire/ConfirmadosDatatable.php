@@ -56,62 +56,31 @@ class ConfirmadosDatatable extends DataTableComponent
         return [
             // Aquí es donde agregas otro filtro
             SelectFilter::make('Anomalias')
-                ->options([
-                    '' => 'All',
-                    '1' => 'Sin anomalias',
-                    '2' => 'Bypass',
-                    '3' => 'Medidor con sellos manipulados',
-                    '4' => 'Medidor con digitos desalineados',
-                    '5' => 'Medidor sin talco',
-                    '6' => 'Medidor enterrado',
-                    '7' => 'Conexión directa',
-                    '8' => 'Medidor frenado',
-                    '9' => 'Medidor gira hacia atrás',
-                    '10' => 'Medidor fuera de ruta',
-                    '11' => 'Medidor trocado',
-                    '12' => 'Inactivo y en Consumo',
-                    '13' => 'Medidor no encontrado',
-                    '14' => 'Medidor no concuerda con el contrato',
-                ])
-                ->filter(function (Builder $builder, $value) {
-                    if ($value === '1') {
-                        $builder->whereJsonContains('reportes.anomalia', '8');
-                    } elseif ($value === '2') {
-                        $builder->whereJsonContains('reportes.anomalia', '9');
-                    } elseif ($value === '3') {
-                        $builder->whereJsonContains('reportes.anomalia', '10');
-                    } elseif ($value === '4') {
-                        $builder->whereJsonContains('reportes.anomalia', '11');
-                    } elseif ($value === '5') {
-                        $builder->whereJsonContains('reportes.anomalia', '12');
-                    } elseif ($value === '6') {
-                        $builder->whereJsonContains('reportes.anomalia', '13');
-                    } elseif ($value === '7') {
-                        $builder->whereJsonContains('reportes.anomalia', '14');
-                    } elseif ($value === '8') {
-                        $builder->whereJsonContains('reportes.anomalia', '15');
-                    } elseif ($value === '9') {
-                        $builder->whereJsonContains('reportes.anomalia', '16');
-                    } elseif ($value === '10') {
-                        $builder->whereJsonContains('reportes.anomalia', '17');
-                    } elseif ($value === '11') {
-                        $builder->whereJsonContains('reportes.anomalia', '18');
-                    } elseif ($value === '12') {
-                        $builder->whereJsonContains('reportes.anomalia', '63');
-                    } elseif ($value === '13') {
-                        $builder->whereJsonContains('reportes.anomalia', '67');
-                    } elseif ($value === '14') {
-                        $builder->whereJsonContains('reportes.anomalia', '68');
-                    } elseif ($value === '15') {
-                        $builder->whereJsonContains('reportes.anomalia', '71');
-                    } elseif ($value === '16') {
-                        $builder->whereJsonContains('reportes.anomalia', '72');
-                    } elseif ($value === '17') {
-                        $builder->whereJsonContains('reportes.anomalia', '73');
-                    } elseif ($value === '18') {
-                        $builder->whereJsonContains('reportes.anomalia', '74');
-                    }
-                }),
+    ->options([
+        '' => 'All',
+        'Sin Anomalias' => 'Sin Anomalias',
+        'Bypass' => 'Bypass',
+        'Medidor con sellos manipulados' => 'Medidor con sellos manipulados',
+        'Medidor con digitos desalineados' => 'Medidor con digitos desalineados',
+        'Medidor sin talco' => 'Medidor sin talco',
+        'Medidor enterrado' => 'Medidor enterrado',
+        'Conexión directa' => 'Conexión directa',
+        'Medidor frenado' => 'Medidor frenado',
+        'Medidor gira hacia atrás' => 'Medidor gira hacia atrás',
+        'Medidor No encontrado' => 'Medidor No encontrado',
+        'Medidor No Concuerda con el contrato' => 'Medidor No Concuerda con el contrato',
+        'Medidor trocado' => 'Medidor trocado',
+        'Inactivo y en Consumo' => 'Inactivo y en Consumo',
+        'Inspección y revisión' => 'Inspección y revisión',
+        'Posible fuga' => 'Posible fuga',
+        'Pendiente de Retiro / Revisión' => 'Pendiente de Retiro / Revisión',
+        'Medidor con doble local Comercial' => 'Medidor con doble local Comercial',
+    ])
+    ->filter(function (Builder $builder, $value) {
+        if (!empty($value)) {
+            $builder->whereJsonContains('reportes.anomalia', $value);
+        }
+    }),
             SelectFilter::make('Ciclos')
                 ->options([
                     '' => 'All',
@@ -195,8 +164,6 @@ class ConfirmadosDatatable extends DataTableComponent
                     return implode(', ', $nombres); // Devuelve los nombres como una cadena separada por comas
                 })
                 ->collapseOnMobile(),
-            Column::make("Direccion", "report_ubicacion.direccion")
-                ->collapseAlways(),
             Column::make("Comercio", "report_comercio.nombre_comercio")
                 ->collapseAlways(),
             Column::make('Ciclos', 'dbSurtigas.ciclo')
