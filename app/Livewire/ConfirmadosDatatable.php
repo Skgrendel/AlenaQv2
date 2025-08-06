@@ -190,12 +190,17 @@ class ConfirmadosDatatable extends DataTableComponent
                 ->Html() // muy importante para que se renderice el HTML
                 ->collapseOnMobile(),
             Column::make("Estado", "confirmado")
-                ->format(
-                    fn($value) => $value == 1 ? '<span class="badge badge-success">Confirmado</span>' : 'No Revisado',
-                    fn($value) => $value == 2 ? '<span class="badge badge-danger">No Confirmado</span>' : 'No Revisado'
-                )
-                ->html()
-                ->collapseOnMobile(),
+    ->format(function ($value) {
+        if ($value == 1) {
+            return '<span class="badge badge-success">Confirmado</span>';
+        } elseif ($value == 0) {
+            return '<span class="badge badge-danger">No Confirmado</span>';
+        } else {
+            return '<span class="badge badge-secondary">No Revisado</span>';
+        }
+    })
+    ->html()
+    ->collapseOnMobile(),
             Column::make("Fecha", "created_at")
                 ->format(fn($value) => $value->format('d/M/Y'))
                 ->collapseOnMobile(),
