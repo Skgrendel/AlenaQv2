@@ -135,8 +135,8 @@ class ConfirmadosDatatable extends DataTableComponent
                     '0' => 'No Confirmado',
                 ])
                 ->filter(function (Builder $builder, $value) {
-                    if (!empty($value)) {
-                        $builder->whereJsonContains('reportes.confirmado', $value);
+                    if ($value !== '') {
+                        $builder->where('reportes.confirmado', $value);
                     }
                 }),
         ];
@@ -144,6 +144,7 @@ class ConfirmadosDatatable extends DataTableComponent
     public function builder(): Builder
     {
         return reportes::query()
+            ->where('reportes.confirmado', '1')
             ->where('reportes.revisado', '1');
     }
 
