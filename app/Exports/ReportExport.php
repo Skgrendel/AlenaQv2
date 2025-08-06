@@ -44,6 +44,7 @@ class ReportExport implements FromCollection,WithHeadings
                 $reporte->marca_regulador,
                 $reporte->cau,
                 $reporte->vs_estado->nombre,
+                $reporte->confirmado == 1 ? 'Confirmado' : 'No Confirmado',
                 $reporte->created_at->format('Y-m-d'),
                 $reporte->created_at->format('H:i:s '),
 
@@ -69,6 +70,7 @@ class ReportExport implements FromCollection,WithHeadings
             'Marca de Regulador',
             'Alerta CAU',
             'Estado',
+            'Revision',
             'Fecha de Creación',
             'Hora de Creación',
         ];
