@@ -56,31 +56,31 @@ class ConfirmadosDatatable extends DataTableComponent
         return [
             // Aquí es donde agregas otro filtro
             SelectFilter::make('Anomalias')
-    ->options([
-        '' => 'All',
-        'Sin Anomalias' => 'Sin Anomalias',
-        'Bypass' => 'Bypass',
-        'Medidor con sellos manipulados' => 'Medidor con sellos manipulados',
-        'Medidor con digitos desalineados' => 'Medidor con digitos desalineados',
-        'Medidor sin talco' => 'Medidor sin talco',
-        'Medidor enterrado' => 'Medidor enterrado',
-        'Conexión directa' => 'Conexión directa',
-        'Medidor frenado' => 'Medidor frenado',
-        'Medidor gira hacia atrás' => 'Medidor gira hacia atrás',
-        'Medidor No encontrado' => 'Medidor No encontrado',
-        'Medidor No Concuerda con el contrato' => 'Medidor No Concuerda con el contrato',
-        'Medidor trocado' => 'Medidor trocado',
-        'Inactivo y en Consumo' => 'Inactivo y en Consumo',
-        'Inspección y revisión' => 'Inspección y revisión',
-        'Posible fuga' => 'Posible fuga',
-        'Pendiente de Retiro / Revisión' => 'Pendiente de Retiro / Revisión',
-        'Medidor con doble local Comercial' => 'Medidor con doble local Comercial',
-    ])
-    ->filter(function (Builder $builder, $value) {
-        if (!empty($value)) {
-            $builder->whereJsonContains('reportes.anomalia', $value);
-        }
-    }),
+                ->options([
+                    '' => 'All',
+                    'Sin Anomalias' => 'Sin Anomalias',
+                    'Bypass' => 'Bypass',
+                    'Medidor con sellos manipulados' => 'Medidor con sellos manipulados',
+                    'Medidor con digitos desalineados' => 'Medidor con digitos desalineados',
+                    'Medidor sin talco' => 'Medidor sin talco',
+                    'Medidor enterrado' => 'Medidor enterrado',
+                    'Conexión directa' => 'Conexión directa',
+                    'Medidor frenado' => 'Medidor frenado',
+                    'Medidor gira hacia atrás' => 'Medidor gira hacia atrás',
+                    'Medidor No encontrado' => 'Medidor No encontrado',
+                    'Medidor No Concuerda con el contrato' => 'Medidor No Concuerda con el contrato',
+                    'Medidor trocado' => 'Medidor trocado',
+                    'Inactivo y en Consumo' => 'Inactivo y en Consumo',
+                    'Inspección y revisión' => 'Inspección y revisión',
+                    'Posible fuga' => 'Posible fuga',
+                    'Pendiente de Retiro / Revisión' => 'Pendiente de Retiro / Revisión',
+                    'Medidor con doble local Comercial' => 'Medidor con doble local Comercial',
+                ])
+                ->filter(function (Builder $builder, $value) {
+                    if (!empty($value)) {
+                        $builder->whereJsonContains('reportes.anomalia', $value);
+                    }
+                }),
             SelectFilter::make('Ciclos')
                 ->options([
                     '' => 'All',
@@ -128,12 +128,22 @@ class ConfirmadosDatatable extends DataTableComponent
                         $builder->where('dbSurtigas.ciclo', $value);
                     }
                 }),
+            SelectFilter::make('confirmado')
+                ->options([
+                    '' => 'All',
+                    '1' => 'Confirmado',
+                    '0' => 'No Confirmado',
+                ])
+                ->filter(function (Builder $builder, $value) {
+                    if (!empty($value)) {
+                        $builder->whereJsonContains('reportes.confirmado', $value);
+                    }
+                }),
         ];
     }
     public function builder(): Builder
     {
         return reportes::query()
-            ->where('reportes.confirmado', '1')
             ->where('reportes.revisado', '1');
     }
 
@@ -180,7 +190,8 @@ class ConfirmadosDatatable extends DataTableComponent
                 ->collapseOnMobile(),
             Column::make("Estado", "confirmado")
                 ->format(
-                    fn($value) => $value == 1 ? '<span class="badge badge-success">Entregados</span>' : 'No Revisado'
+                    fn($value) => $value == 1 ? '<span class="badge badge-success">Confirmado</span>' : 'No Revisado',
+                    fn($value) => $value == 0 ? '<span class="badge badge-danger">No Confirmado</span>' : 'No Revisado'
                 )
                 ->html()
                 ->collapseOnMobile(),
