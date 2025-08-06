@@ -144,7 +144,7 @@ class ConfirmadosDatatable extends DataTableComponent
     public function builder(): Builder
     {
         return reportes::query()
-            ->where('reportes.confirmado', '1')
+            ->whereIn('reportes.confirmado', ['1','2'])
             ->where('reportes.revisado', '1');
     }
 
@@ -192,7 +192,7 @@ class ConfirmadosDatatable extends DataTableComponent
             Column::make("Estado", "confirmado")
                 ->format(
                     fn($value) => $value == 1 ? '<span class="badge badge-success">Confirmado</span>' : 'No Revisado',
-                    fn($value) => $value == 0 ? '<span class="badge badge-danger">No Confirmado</span>' : 'No Revisado'
+                    fn($value) => $value == 2 ? '<span class="badge badge-danger">No Confirmado</span>' : 'No Revisado'
                 )
                 ->html()
                 ->collapseOnMobile(),

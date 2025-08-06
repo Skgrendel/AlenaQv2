@@ -584,7 +584,7 @@
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                    name="confirmado" value="0">
+                                                    name="confirmado" value="2">
                                                 <label class="form-check-label" for="inlineCheckbox1">no</label>
                                             </div>
                                         </div>
