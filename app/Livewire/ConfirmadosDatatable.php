@@ -193,7 +193,7 @@ class ConfirmadosDatatable extends DataTableComponent
     ->format(function ($value) {
         if ($value == 1) {
             return '<span class="badge badge-success">Confirmado</span>';
-        } elseif ($value == 0) {
+        } elseif ($value == 2) {
             return '<span class="badge badge-danger">No Confirmado</span>';
         } else {
             return '<span class="badge badge-secondary">No Revisado</span>';
