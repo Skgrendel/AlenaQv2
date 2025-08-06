@@ -38,9 +38,11 @@ class ShowReportServices
                 'nombrecomercio' => $comerciosIds->nombre_comercio,
                 'anomalias' => json_decode($data->anomalia),
                 'imposibilidad' => $data->imposibilidad,
-                'tipo regulador' => $data->tipo_regulador,
+                'tipo de presion' => $data->tipo_presion,
+                'descripcion del medidor' => $data->descripcion_medidor,
                 'marca de medidor' => $data->marca_medidor,
                 'marca de regulador' => $data->marca_regulador,
+                'alertas' => $data->cau,
                 'lectura' => $data->lectura,
                 'observaciones' => $data->observaciones,
                 'estado' => $data->estado

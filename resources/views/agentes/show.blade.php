@@ -53,7 +53,8 @@
                                                     data-bs-placement="top"><i class="fas fa-map-marker-alt"></i></a>
                                                 <a class="btn btn-info me-4 rounded  bs-tooltip"
                                                     title="Regresar Pagina Anterior" data-bs-placement="top"
-                                                    href="{{ route('reportes.index') }}"><i class="fas fa-arrow-circle-left"></i></a>
+                                                    href="{{ route('reportes.index') }}"><i
+                                                        class="fas fa-arrow-circle-left"></i></a>
                                             </div>
                                         @endif
                                         @if (isset($gis['error']))
@@ -73,7 +74,8 @@
                     <label for="comercio" class="form-label"> Tipo de Comercio Encontrado</label>
                     <select id="comercio" class="form-select" name="tipo_comercio" disabled>
                         @foreach ($data['comercios'] as $id => $nombre)
-                            <option value="{{ $id }}" {{ $data['info']['comerciosid'] == $id ? 'selected' : '' }}>{{ $nombre }}
+                            <option value="{{ $id }}"
+                                {{ $data['info']['comerciosid'] == $id ? 'selected' : '' }}>{{ $nombre }}
                             </option>
                         @endforeach
                     </select>
@@ -109,6 +111,38 @@
                             <span class="form-control" id="imposibilidad">{{ $data['info']['imposibilidad'] }}</span>
                         </div>
                     </div>
+                    <div class="col-12 mb-2 " id="container_presion">
+                        <label for="tipo_presion" class="form-label">Tipo de Presion</label>
+                        <div class="mt-1">
+                            <span class="form-control" id="tipo_presion">{{ $data['info']['tipo de presion'] }}</span>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-2 " id="container_descripcion_medidor">
+                        <label for="descripcion_medidor" class="form-label">Descripcion del Medidor</label>
+                        <div class="mt-1">
+                            <span class="form-control"
+                                id="descripcion_medidor">{{ $data['info']['descripcion del medidor'] ?? 'Sin Datos' }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-2 " id="container_marca_medidor">
+                        <label for="marca_medidor" class="form-label">Marca del Medidor</label>
+                        <div class="mt-1">
+                            <span class="form-control" id="marca_medidor">{{ $data['info']['marca de medidor'] }}</span>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-2 " id="container_marca_regulador">
+                        <label for="marca_regulador" class="form-label">Marca del Regulador</label>
+                        <div class="mt-1">
+                            <span class="form-control" id="marca_regulador">{{ $data['info']['marca de regulador'] }}</span>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-2 " id="container_alertas">
+                        <label for="alertas" class="form-label">Alertas del Medidor</label>
+                        <div class="mt-1">
+                            <span class="form-control" id="alertas">{{ $data['info']['alertas'] }}</span>
+                        </div>
+                    </div>
                 </div>
                 @if (isset($data['info']['observaciones']))
                     <div class="col-12">
@@ -139,11 +173,20 @@
                                                         $rutaImagen = $data['imagenes']['foto' . $i] ?? null;
 
                                                         // Opcional: Si quieres un título descriptivo para el lightbox, puedes extraerlo del nombre del archivo
-                                                        $nombreArchivo = $rutaImagen ? pathinfo($rutaImagen, PATHINFO_FILENAME) : 'Imagen';
-                                                        $tituloGlightbox = $nombreArchivo . ' - Contrato #: ' . ($data['info']['contrato'] ?? 'N/A');
+                                                        $nombreArchivo = $rutaImagen
+                                                            ? pathinfo($rutaImagen, PATHINFO_FILENAME)
+                                                            : 'Imagen';
+                                                        $tituloGlightbox =
+                                                            $nombreArchivo .
+                                                            ' - Contrato #: ' .
+                                                            ($data['info']['contrato'] ?? 'N/A');
 
                                                         // La descripción adicional para el lightbox
-                                                        $descripcionGlightbox = 'Contrato #: ' . ($data['info']['contrato'] ?? 'N/A') . ' - Medidor #: ' . ($data['info']['medidor'] ?? 'N/A');
+                                                        $descripcionGlightbox =
+                                                            'Contrato #: ' .
+                                                            ($data['info']['contrato'] ?? 'N/A') .
+                                                            ' - Medidor #: ' .
+                                                            ($data['info']['medidor'] ?? 'N/A');
                                                     @endphp
 
                                                     {{-- Solo muestra el div si la ruta de la imagen existe --}}
@@ -153,8 +196,8 @@
                                                             <a href="{{ asset($rutaImagen) }}"
                                                                 class="withDescriptionGlightbox glightbox-content"
                                                                 data-glightbox="title: {{ $tituloGlightbox }}; description: {{ $descripcionGlightbox }};">
-                                                                <img src="{{ asset($rutaImagen) }}" alt="{{ $nombreArchivo }}"
-                                                                    class="img-fluid"
+                                                                <img src="{{ asset($rutaImagen) }}"
+                                                                    alt="{{ $nombreArchivo }}" class="img-fluid"
                                                                     style="width:350px; height:250px; object-fit: cover;" />
                                                             </a>
                                                         </div>
