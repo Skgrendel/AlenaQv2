@@ -115,33 +115,48 @@ class ConfirmadosDatatable extends DataTableComponent
             SelectFilter::make('Ciclos')
                 ->options([
                     '' => 'All',
-                    '1' => '2001',
-                    '2' => '2002',
-                    '3' => '2003',
-                    '4' => '2004',
-                    '5' => '2005',
-                    '6' => '2006',
-                    '7' => '2007',
-                    '8' => '2008',
-
+                    '1001' => '1001',
+                    '1002' => '1002',
+                    '1003' => '1003',
+                    '1004' => '1004',
+                    '1005' => '1005',
+                    '1006' => '1006',
+                    '1007' => '1007',
+                    '1008' => '1008',
+                    '1009' => '1009',
+                    '1010' => '1010',
+                    '1011' => '1011',
+                    '1012' => '1012',
+                    '1051' => '1051',
+                    '1101' => '1101',
+                    '1144' => '1144',
+                    '1161' => '1161',
+                    '1162' => '1162',
+                    '1163' => '1163',
+                    '1191' => '1191',
+                    '1221' => '1221',
+                    '1231' => '1231',
+                    '1271' => '1271',
+                    '1272' => '1272',
+                    '1274' => '1274',
+                    '2002' => '2002',
+                    '2004' => '2004',
+                    '2006' => '2006',
+                    '2007' => '2007',
+                    '2341' => '2341',
+                    '4001' => '4001',
+                    '4002' => '4002',
+                    '4003' => '4003',
+                    '4004' => '4004',
+                    '4101' => '4101',
+                    '4153' => '4153',
+                    '4231' => '4231',
+                    '4232' => '4232',
+                    '4261' => '4261',
                 ])
                 ->filter(function (Builder $builder, $value) {
-                    if ($value === '1') {
-                        $builder->where('dbSurtigas.ciclo', '2001');
-                    } elseif ($value === '2') {
-                        $builder->where('dbSurtigas.ciclo', '2002');
-                    } elseif ($value === '3') {
-                        $builder->where('dbSurtigas.ciclo', '2003');
-                    } elseif ($value === '4') {
-                        $builder->where('dbSurtigas.ciclo', '2004');
-                    } elseif ($value === '5') {
-                        $builder->where('dbSurtigas.ciclo', '2005');
-                    } elseif ($value === '6') {
-                        $builder->where('dbSurtigas.ciclo', '2006');
-                    } elseif ($value === '7') {
-                        $builder->where('dbSurtigas.ciclo', '2007');
-                    } elseif ($value === '8') {
-                        $builder->where('dbSurtigas.ciclo', '2008');
+                    if (!empty($value)) {
+                        $builder->where('dbSurtigas.ciclo', $value);
                     }
                 }),
         ];
