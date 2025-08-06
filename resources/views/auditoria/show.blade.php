@@ -76,10 +76,10 @@
                                     <li>
                                         <span class="text-card text-sm">
                                             Alertas del Medidor:
-                                            @if (trim($data['info']['alertas']) === 'Sin Alertas')
+                                            @if (trim($data['info']['alerta']) === 'Sin Alertas')
                                                 <span class="badge bg-success">Sin Alertas</span>
                                             @else
-                                                <span class="badge bg-danger">{{ $data['info']['alertas'] }}</span>
+                                                <span class="badge bg-danger">{{ $data['info']['alerta'] }}</span>
                                             @endif
                                         </span>
                                     </li>
@@ -239,7 +239,7 @@
                                                 <select id="imposibilidad" class="form-select" name="imposibilidad">
                                                     @foreach ($data['imposibilidad'] as $id => $nombre)
                                                         <option value="{{ $nombre }}"
-                                                            {{ $data['info']['reporte']['imposibilidad'] == $nombre ? 'selected' : '' }}>
+                                                            {{ $data['info']['imposibilidad'] == $nombre ? 'selected' : '' }}>
                                                             {{ $nombre }}
                                                         </option>
                                                     @endforeach
@@ -250,7 +250,7 @@
                                                 <select id="tipo_presion" class="form-select" name="tipo_presion">
                                                     @foreach ($data['tipo presion'] as $id => $nombre)
                                                         <option
-                                                            value="{{ $nombre }}"{{ $data['info']['reporte']['tipo_presion'] == $nombre ? 'selected' : '' }}>
+                                                            value="{{ $nombre }}"{{ $data['info']['tipo presion'] == $nombre ? 'selected' : '' }}>
                                                             {{ $nombre }}</option>
                                                     @endforeach
                                                 </select>
@@ -262,7 +262,7 @@
                                                     name="descripcion_medidor" required>
                                                     @foreach ($data['descripcion'] as $id => $nombre)
                                                         <option
-                                                            value="{{ $nombre }}"{{ $data['info']['reporte']['descripcion'] == $nombre ? 'selected' : '' }}>
+                                                            value="{{ $nombre }}"{{ $data['info']['descripcion_medidor'] == $nombre ? 'selected' : '' }}>
                                                             {{ $nombre }}</option>
                                                     @endforeach
                                                 </select>
@@ -272,7 +272,7 @@
                                                 <select id="marca_regulador" class="form-select" name="marca_regulador">
                                                     @foreach ($data['marca de regulador'] as $id => $nombre)
                                                         <option
-                                                            value="{{ $nombre }}"{{ $data['info']['reporte']['marca_regulador'] == $nombre ? 'selected' : '' }}>
+                                                            value="{{ $nombre }}"{{ $data['info']['marca de regulador'] == $nombre ? 'selected' : '' }}>
                                                             {{ $nombre }}</option>
                                                     @endforeach
                                                 </select>
@@ -282,34 +282,16 @@
                                                 <select id="marca_medidor" class="form-select" name="marca_medidor">
                                                     @foreach ($data['marca de medidor'] as $id => $nombre)
                                                         <option
-                                                            value="{{ $nombre }}"{{ $data['info']['reporte']['marca_medidor'] == $nombre ? 'selected' : '' }}>
-                                                            {{ $nombre }}</option>
+                                                            value="{{ $nombre }}"{{ $data['info']['marca de medidor'] == $nombre ? 'selected' : '' }}>{{ $nombre }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="col-12 mb-2" id="cau_container">
                                                 <label for="cau" class="form-label">Notificación de Alertas</label>
                                                 <select id="cau" class="form-select" name="cau">
-                                                    <option disabled>──────────</option>
-                                                    @php
-                                                        $opcionesCau = [
-                                                            'Sin Alertas',
-                                                            'Exceso de Capacidad',
-                                                            'CAU 01',
-                                                            'CAU 02',
-                                                            'CAU 03',
-                                                            'CAU 04',
-                                                            'Retro Flujo',
-                                                            'Bateria Baja',
-                                                        ];
-                                                        $valorSeleccionado = $data['info']['reporte']['cau'] ?? null; // o ajusta según tu estructura
-                                                    @endphp
-
-                                                    @foreach ($opcionesCau as $opcion)
-                                                        <option value="{{ $opcion }}"
-                                                            {{ $valorSeleccionado == $opcion ? 'selected' : '' }}>
-                                                            {{ $opcion }}
-                                                        </option>
+                                                    @foreach ($data['alertas'] as $id => $nombre)
+                                                        <option
+                                                            value="{{ $nombre }}"{{ $data['info']['alerta'] == $nombre ? 'selected' : '' }}>{{ $nombre }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -339,7 +321,8 @@
                                                     multiple="multiple" autocomplete="off" data-placeholder="anomalias">
                                                     @foreach ($data['anomalias'] as $id => $nombre)
                                                         <option
-                                                            value="{{ $nombre }}"{{ in_array($nombre, $data['info']['anomaliasid']) ? 'selected' : '' }}>{{ $nombre }}</option>
+                                                            value="{{ $nombre }}"{{ in_array($nombre, $data['info']['anomaliasid']) ? 'selected' : '' }}>
+                                                            {{ $nombre }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

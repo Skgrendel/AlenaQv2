@@ -45,7 +45,7 @@
                                                     id="direccion">{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}</span>
                                                 <input type="text" name="direccion" id="direccion" hidden
                                                     value="{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}">
-                                                    <input type="text" name="barrio" id="barrio" hidden
+                                                <input type="text" name="barrio" id="barrio" hidden
                                                     value="{{ $data['info']['db_Surtigas']['barrio'] ?? 'sin datos' }}">
                                             </div>
                                             <div class="mb-1">
@@ -66,8 +66,9 @@
                                             </div>
                                             <div class="mb-1">
                                                 <label for="ciclo">Estado del Servicio en el Gis: </label>
-                                                <span class="text-card text-sm"><span class="badge bg-warning">{{ $gis['info']['estado'] ?? 'sin datos' }}</span>
-                                            </span>
+                                                <span class="text-card text-sm"><span
+                                                        class="badge bg-warning">{{ $gis['info']['estado'] ?? 'sin datos' }}</span>
+                                                </span>
                                             </div>
 
                                             <input type="text" id="medidor" name="surtigas_id" hidden
@@ -198,15 +199,9 @@
                             <div class="col-12  mb-2" id="cau_container">
                                 <label for="cau" class="form-label">Notificacion de Alertas</label>
                                 <select id="cau" class="form-select" name="cau" required>
-                                    <option disabled>──────────</option>
-                                    <option value="Sin Alertas">Sin Alertas</option>
-                                    <option value="Exceso de Capacidad">Exceso de Capacidad</option>
-                                    <option value="CAU 01">CAU 01</option>
-                                    <option value="CAU 02">CAU 02</option>
-                                    <option value="CAU 03">CAU 03</option>
-                                    <option value="CAU 04">CAU 04</option>
-                                    <option value="Retro Flujo">Retro Flujo</option>
-                                    <option value="Bateria Baja">Bateria Baja</option>
+                                    @foreach ($data['alertas'] as $id => $nombre)
+                                        <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

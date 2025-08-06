@@ -22,25 +22,8 @@ class CreateReportServices
         $marca_medidor = vs_marca_medidor::pluck('nombre', 'id');
         $marca_regulador = vs_marca_regulador::pluck('nombre', 'id');
         $tipo_presion = vs_tipo_regulador::pluck('nombre', 'id');
-        $descripcion_medidor = [
-            "No hay Medidor",
-            "G-1.6",
-            "G-4",
-            "G10",
-            "G16",
-            "G-2.5",
-            "G-16",
-            "G-6",
-            "AL-425",
-            "AL-1000",
-            "AC-630",
-            "AC-250",
-            "AL-800",
-            "MR-8",
-            "MR-10",
-            "MR-12"
-        ];
-
+        $descripcion_medidor = ["No hay Medidor","G-1.6","G-4","G10","G16","G-2.5","G-16","G-6","AL-425","AL-1000","AC-630","AC-250","AL-800","MR-8","MR-10","MR-12"];
+        $alertas = ["Sin Alertas","Exceso de Capacidad","Retro Flujo","Posible fuga intera","Fuga Pequeña Const 7 Dias","Bateria Baja","CAU 01","CAU 02","CAU 03","CAU 04"];
 
         return [
             'info' => [
@@ -49,6 +32,7 @@ class CreateReportServices
             'location' => [
                 'link' => $src,
             ],
+            'alertas' => $alertas,
             'anomalias' => $anomalias,
             'comercios' => $comercios,
             'imposibilidad' => $imposibilidad,

@@ -32,25 +32,8 @@ class EditReportServices
         $imagenes = json_decode($data->imagenes);
         $anomaliasA = json_decode($data->anomalia, true); // Decodifica como array asociativo
         $anomaliasNames = is_array($anomaliasA) ? implode(', ', $anomaliasA) : '';
-        $descripcion = [
-            "No hay Medidor",
-            "G-1.6",
-            "G-4",
-            "G10",
-            "G16",
-            "G-2.5",
-            "G-16",
-            "G-6",
-            "AL-425",
-            "AL-1000",
-            "AC-630",
-            "AC-250",
-            "AL-800",
-            "MR-8",
-            "MR-10",
-            "MR-12"
-        ];
-
+        $descripcion = ["No hay Medidor", "G-1.6", "G-4", "G10", "G16", "G-2.5", "G-16", "G-6", "AL-425", "AL-1000", "AC-630", "AC-250", "AL-800", "MR-8", "MR-10", "MR-12"];
+        $alertas = ["Sin Alertas", "Exceso de Capacidad", "Retro Flujo", "Posible fuga intera", "Fuga Pequeña Const 7 Dias", "Bateria Baja", "CAU 01", "CAU 02", "CAU 03", "CAU 04"];
         // Obtener los nombres de las anomalías como un array
 
 
@@ -66,7 +49,6 @@ class EditReportServices
                 'imposibilidad' => $data->imposibilidad,
                 'marca de medidor' => $data->marca_medidor,
                 'marca de regulador' => $data->marca_regulador,
-                'alerta' => $data->cau,
                 'tipo presion' => $data->tipo_presion,
                 'medidoranomalia' => $data->report_comercio->medidor_anomalia,
                 'comercios' => $data->report_comercio->tipo_comercio,
@@ -75,7 +57,7 @@ class EditReportServices
                 'contrato' => $ciclo->contrato,
                 'medidor' => $ciclo->medidor,
                 'descripcion_medidor' => $data->descripcion_medidor ?? 'Sin datos',
-                'alertas' => $data->cau,
+                'alerta' => $data->cau,
             ],
             'location' => [
                 'link' => $src,
@@ -85,6 +67,7 @@ class EditReportServices
             'tipo presion' => $tipo_presion,
             'comercios' => $comercios,
             'anomalias' => $anomalias,
+            'alertas' => $alertas,
             'imposibilidad' => $imposibilidad,
             'descripcion' => $descripcion,
             'imagenes' => $imagenes,

@@ -16,10 +16,10 @@ class ShowReportServices
         $data = reportes::find($id);
         $ubicacion = ubicacion::where('id', $data->ubicacions_id)->first();
         $ciclo = surtigas::where('id', $data->surtigas_id)->first();
+        $tipo_presion = vs_tipo_regulador::pluck('nombre', 'id');
         $imagenes = json_decode($data->imagenes);
         $anomalias = json_decode($data->anomalia, true); // Decodifica como array asociativo
         $anomaliasNames = is_array($anomalias) ? implode(', ', $anomalias) : '';
-       $tipo_presion = vs_tipo_regulador::pluck('nombre', 'id');
 
 
         return
