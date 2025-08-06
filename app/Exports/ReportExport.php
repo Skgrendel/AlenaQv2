@@ -6,9 +6,14 @@ use App\Models\reportes;
 use App\Models\vs_anomalias;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-
-class ReportExport implements FromCollection, WithHeadings
+class ReportExport implements FromCollection, WithHeadings, WithStyles, WithColumnWidths, ShouldAutoSize, WithEvents
 {
     protected $reporteIds;
 
@@ -23,10 +28,7 @@ class ReportExport implements FromCollection, WithHeadings
             ->whereIn('id', $this->reporteIds)
             ->get()
             ->map(function ($reporte) {
-                // Decodifica el JSON a un array de PHP
                 $anomalias = json_decode($reporte->anomalia);
-
-
 
                 return [
                     $reporte->personal->nombres . ' ' . $reporte->personal->apellidos,
@@ -46,8 +48,7 @@ class ReportExport implements FromCollection, WithHeadings
                     $reporte->vs_estado->nombre,
                     $reporte->confirmado == 1 ? 'Confirmado' : ($reporte->confirmado == 2 ? 'No Confirmado' : 'No Revisado'),
                     $reporte->created_at->format('Y-m-d'),
-                    $reporte->created_at->format('H:i:s '),
-
+                    $reporte->created_at->format('H:i:s'),
                 ];
             });
     }
@@ -70,9 +71,77 @@ class ReportExport implements FromCollection, WithHeadings
             'Marca de Regulador',
             'Alerta CAU',
             'Estado',
-            'Revision',
+            'Revisión',
             'Fecha de Creación',
             'Hora de Creación',
         ];
     }
+
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            1 => [ // Encabezado (fila 1)
+                'font' => ['bold' => true, 'size' => 12],
+                'alignment' => ['horizontal' => 'center'],
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'D9EDF7'],
+                ],
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                        'color' => ['argb' => '000000'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    public function columnWidths(): array
+    {
+        return [
+            'A' => 20,
+            'B' => 15,
+            'C' => 15,
+            'D' => 10,
+            'E' => 10,
+            'F' => 30,
+            'G' => 40,
+            'H' => 25,
+            'I' => 20,
+            'J' => 20,
+            'K' => 25,
+            'L' => 20,
+            'M' => 20,
+            'N' => 20,
+            'O' => 20,
+            'P' => 18,
+            'Q' => 18,
+            'R' => 15,
+        ];
+    }
+
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class => function (AfterSheet $event) {
+                $sheet = $event->sheet->getDelegate();
+                $highestRow = $sheet->getHighestRow();
+                $highestColumn = $sheet->getHighestColumn();
+
+                $sheet->getStyle("A1:{$highestColumn}{$highestRow}")->applyFromArray([
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '999999'],
+                        ],
+                    ],
+                    'alignment' => [
+                        'vertical' => 'center',
+                    ],
+                ]);
+            },
+        ];
+    }
 }
+
