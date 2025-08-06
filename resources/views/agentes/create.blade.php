@@ -9,102 +9,127 @@
                     @csrf
                     <input type="text" hidden id="latitud" name="latitud" value="">
                     <input type="text" hidden id="longitud" name="longitud" value="">
-                    <div class="col-12 mb-1 " id="ubicacion">
+                    <div class="col-12 mb-1" id="ubicacion">
                         <div class="col-12">
-                            <div class="col-lg-12 ">
+                            <div class="col-lg-12">
                                 <div class="card shadow">
                                     <div class="card-body">
                                         <div class="col-md-12">
-                                            <label class="form-label"> Informacion del Predio</label>
-                                            <div class="mb-1">
-                                                <label for="nombre_cliente">Nombre:</label>
-                                                <span class="text-body staticEmail"
-                                                    id="nombre_cliente">{{ $data['info']['db_Surtigas']['cliente'] ?? 'sin datos' }}</span>
-                                                <input type="text" name="nombre_cliente" id="nombre_cliente" hidden
-                                                    value="{{ $data['info']['db_Surtigas']['cliente'] ?? 'sin datos' }}">
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="numero_contrato" class="form-label">Numero de
-                                                    Contrato:</label>
-                                                <span class="text-body staticEmail"
-                                                    id="numero_contrato">{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}</span>
-                                                <input type="text" name="numero_contrato" id="numero_contrato" hidden
-                                                    value="{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}">
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="numero_medidor" class="form-label">Numero de Medidor:
-                                                </label>
-                                                <span class=" text-body"
-                                                    id="numero_medidor">{{ $data['info']['db_Surtigas']['medidor'] ?? 'sin datos' }}</span>
-                                                <input type="text" name="numero_medidor" id="numero_medidor" hidden
-                                                    value="{{ $data['info']['db_Surtigas']['medidor'] ?? 'sin datos' }}">
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="direccion">Direccion: </label>
-                                                <span class=" text-body"
-                                                    id="direccion">{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}</span>
-                                                <input type="text" name="direccion" id="direccion" hidden
-                                                    value="{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}">
-                                                <input type="text" name="barrio" id="barrio" hidden
-                                                    value="{{ $data['info']['db_Surtigas']['barrio'] ?? 'sin datos' }}">
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="ciclo">Ciclo: </label>
-                                                <span class=" text-body"
-                                                    id="ciclo">{{ $data['info']['db_Surtigas']['ciclo'] ?? 'sin datos' }}</span>
-                                                <input type="text" name="ciclo" id="ciclo" hidden
-                                                    value="{{ $data['info']['db_Surtigas']['ciclo'] ?? 'sin datos' }}">
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="ciclo">Estado del Servicio: </label>
-                                                <span class="text-card text-sm">
-                                                    {!! $data['info']['db_Surtigas']['estado_servicio'] == 1
-                                                        ? '<span class="badge bg-success">Activo</span>'
-                                                        : '<span class="badge bg-danger">Inactivo </span>' !!}</span>
-                                                <input type="text" id="estado_servicio" name="estado_servicio" hidden
-                                                    value="{{ $data['info']['db_Surtigas']['estado_servicio'] ?? 'sin datos' }}">
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="ciclo">Estado del Servicio en el Gis: </label>
-                                                <span class="text-card text-sm"><span
-                                                        class="badge bg-warning">{{ $gis['info']['estado'] ?? 'sin datos' }}</span>
-                                                </span>
+                                            <h5 class="text-center fw-bold">Información del Predio</h5>
+                                            <hr>
+
+                                            <div class="row">
+                                                <!-- Columna Izquierda -->
+                                                <div class="col-md-6">
+                                                    <div class="mb-1">
+                                                        <label for="nombre_cliente">Nombre:</label>
+                                                        <span class="fw-bold text-body staticEmail"
+                                                            id="nombre_cliente">{{ $data['info']['db_Surtigas']['cliente'] ?? 'sin datos' }}</span>
+                                                        <input type="text" name="nombre_cliente" id="nombre_cliente"
+                                                            hidden
+                                                            value="{{ $data['info']['db_Surtigas']['cliente'] ?? 'sin datos' }}">
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label for="numero_contrato" class="form-label">Número de
+                                                            Contrato:</label>
+                                                        <span class="fw-bold text-body staticEmail"
+                                                            id="numero_contrato">{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}</span>
+                                                        <input type="text" name="numero_contrato" id="numero_contrato"
+                                                            hidden
+                                                            value="{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}">
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label for="numero_medidor" class="form-label">Número de
+                                                            Medidor:</label>
+                                                        <span class="fw-bold text-body"
+                                                            id="numero_medidor">{{ $data['info']['db_Surtigas']['medidor'] ?? 'sin datos' }}</span>
+                                                        <input type="text" name="numero_medidor" id="numero_medidor"
+                                                            hidden
+                                                            value="{{ $data['info']['db_Surtigas']['medidor'] ?? 'sin datos' }}">
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label for="direccion">Dirección:</label>
+                                                        <span class="fw-bold text-body"
+                                                            id="direccion">{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}</span>
+                                                        <input type="text" name="direccion" id="direccion" hidden
+                                                            value="{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}">
+                                                        <input type="text" name="barrio" id="barrio" hidden
+                                                            value="{{ $data['info']['db_Surtigas']['barrio'] ?? 'sin datos' }}">
+                                                    </div>
+                                                </div>
+
+                                                <!-- Columna Derecha -->
+                                                <div class="col-md-6">
+                                                    <div class="mb-1">
+                                                        <label for="ciclo">Ciclo:</label>
+                                                        <span class="fw-bold text-body"
+                                                            id="ciclo">{{ $data['info']['db_Surtigas']['ciclo'] ?? 'sin datos' }}</span>
+                                                        <input type="text" name="ciclo" id="ciclo" hidden
+                                                            value="{{ $data['info']['db_Surtigas']['ciclo'] ?? 'sin datos' }}">
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label for="estado_servicio">Estado del Servicio:</label>
+                                                        <span class="text-card text-sm fw-bold">
+                                                            {!! $data['info']['db_Surtigas']['estado_servicio'] == 1
+                                                                ? '<span class="badge bg-success">Activo</span>'
+                                                                : '<span class="badge bg-danger">Inactivo </span>' !!}
+                                                        </span>
+                                                        <input type="text" id="estado_servicio" name="estado_servicio"
+                                                            hidden
+                                                            value="{{ $data['info']['db_Surtigas']['estado_servicio'] ?? 'sin datos' }}">
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label for="estado_gis">Estado del Servicio en el Gis:</label>
+                                                        <span class="fw-bold text-card text-sm">
+                                                            <span
+                                                                class="badge bg-warning">{{ $gis['info']['estado'] ?? 'sin datos' }}</span>
+                                                        </span>
+                                                    </div>
+
+                                                    <input type="text" id="medidor" name="surtigas_id" hidden
+                                                        value="{{ $data['info']['db_Surtigas']['id'] }}">
+
+                                                    @if (isset($gis['info']))
+                                                        <div class="mb-1">
+                                                            <label for="descripcion">Descripción:</label>
+                                                            <span class="fw-bold text-body"
+                                                                id="descripcion">{{ $gis['info']['descripcion'] ?? 'sin datos' }}</span>
+                                                        </div>
+                                                    @elseif (isset($gis['error']))
+                                                        <div class="mb-1">
+                                                            <label for="error">Error:</label>
+                                                            <span class="fw-bold text-body"
+                                                                id="error">{{ $gis['error'] ?? 'sin datos' }}</span>
+                                                        </div>
+                                                    @endif
+                                                </div>
                                             </div>
 
-                                            <input type="text" id="medidor" name="surtigas_id" hidden
-                                                value="{{ $data['info']['db_Surtigas']['id'] }}">
-                                            @if (isset($gis['info']))
-                                                <div class="mb-1">
-                                                    <label for="ciclo">Descripcion: </label>
-                                                    <span class=" text-body"
-                                                        id="ciclo">{{ $gis['info']['descripcion'] ?? 'sin datos' }}
-                                                    </span>
-                                                </div>
-                                            @elseif (isset($gis['error']))
-                                                <div class="mb-1">
-                                                    <label for="numero_contrato" class="form-label">Error:</label>
-                                                    <span class="text-body"
-                                                        id="numero_contrato">{{ $gis['error'] ?? 'sin datos' }}</span>
-                                                </div>
-                                            @endif
                                             <hr>
-                                            <div class="d-flex justify-content-between ">
+
+                                            <div class="d-flex justify-content-between">
                                                 @if (isset($gis['info']))
                                                     <a id="ubication" href="{{ $gis['geometry']['link'] ?? '#' }}"
-                                                        target="_blank" class="btn btn-info me-4 bs-tooltip rounded "
-                                                        title="Ver Ubicacion Gis" data-bs-placement="top"><i
+                                                        target="_blank" class="btn btn-info me-4 bs-tooltip rounded"
+                                                        title="Ver Ubicación Gis" data-bs-placement="top"><i
                                                             class="fas fa-map-marker-alt"></i></a>
                                                 @else
                                                     <a id="ubication" href="{{ $data['location']['link'] ?? '#' }}"
-                                                        target="_blank" class="btn btn-danger me-4 bs-tooltip rounded "
-                                                        title="Ver Ubicacion Surtigas" data-bs-placement="top"><i
+                                                        target="_blank" class="btn btn-danger me-4 bs-tooltip rounded"
+                                                        title="Ver Ubicación Surtigas" data-bs-placement="top"><i
                                                             class="fas fa-map-marker-alt"></i></a>
                                                 @endif
-                                                <a class="btn btn-info me-4 rounded  bs-tooltip"
-                                                    title="Regresar Pagina Anterior" data-bs-placement="top"
+                                                <a class="btn btn-info me-4 rounded bs-tooltip"
+                                                    title="Regresar Página Anterior" data-bs-placement="top"
                                                     href="{{ route('asignados') }}"><i
                                                         class="fas fa-arrow-circle-left"></i></a>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
