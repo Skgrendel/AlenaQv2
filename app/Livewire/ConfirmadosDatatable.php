@@ -164,8 +164,6 @@ class ConfirmadosDatatable extends DataTableComponent
                     return implode(', ', $nombres); // Devuelve los nombres como una cadena separada por comas
                 })
                 ->collapseOnMobile(),
-            Column::make("Comercio", "report_comercio.nombre_comercio")
-                ->collapseAlways(),
             Column::make('Ciclos', 'dbSurtigas.ciclo')
                 ->searchable(),
             column::make('Alertas', 'cau')

@@ -161,8 +161,6 @@ class RevisadosDatatable extends DataTableComponent
                     return implode(', ', $nombres); // Devuelve los nombres como una cadena separada por comas
                 })
                 ->collapseOnMobile(),
-            Column::make("Comercio", "report_comercio.vs_comercio.nombre")
-                ->collapseAlways(),
             Column::make('Ciclos', 'dbSurtigas.ciclo'),
             column::make('Alertas', 'cau')
                 ->format(function ($value) {
