@@ -151,6 +151,7 @@
                             class="form-control">{{ $data['info']['comentarios'] }}</span>
                     </div>
                 @endif
+                <br>
                 <div id="evidencias" class="col-lg-12 layout-spacing ">
                     <div class="statbox widget box box-shadow">
                         <div class="widget-content widget-content-area">
