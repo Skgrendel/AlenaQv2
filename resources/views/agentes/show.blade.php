@@ -144,11 +144,11 @@
                         </div>
                     </div>
                 </div>
-                @if (isset($data['info']['observaciones']))
+                @if (isset($data['info']['comentarios']))
                     <div class="col-12">
-                        <label for="comentarios" class="form-label">Observaciones</label>
+                        <label for="comentarios" class="form-label">comentarios</label>
                         <span id="comentarios" cols="30" rows="3"
-                            class="form-control">{{ $data['info']['observaciones'] }}</span>
+                            class="form-control">{{ $data['info']['comentarios'] }}</span>
                     </div>
                 @endif
                 <div id="evidencias" class="col-lg-12 layout-spacing ">

@@ -45,6 +45,7 @@ class ShowReportServices
                 'alertas' => $data->cau,
                 'lectura' => $data->lectura,
                 'observaciones' => $data->observaciones,
+                'comentarios' => $data->comentarios,
                 'estado' => $data->estado
             ],
             'descripcion_medidor' => $descripcion ?? 'Sin datos',
