@@ -102,6 +102,7 @@ class AsignadosDatatable extends DataTableComponent
         // Por ejemplo, si quieres filtrar por el ID del personal del usuario autenticado:
       return surtigas::query()
             ->where('surtigas.personals_id', $personalId)
+            ->with(['personal', 'report_comercio', 'dbSurtigas'])
             ->whereIn('estado', ['1']);
     }
 
