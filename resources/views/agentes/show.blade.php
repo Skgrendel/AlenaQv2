@@ -134,7 +134,8 @@
                     <div class="col-12 mb-2 " id="container_marca_regulador">
                         <label for="marca_regulador" class="form-label">Marca del Regulador</label>
                         <div class="mt-1">
-                            <span class="form-control" id="marca_regulador">{{ $data['info']['marca de regulador'] }}</span>
+                            <span class="form-control"
+                                id="marca_regulador">{{ $data['info']['marca de regulador'] }}</span>
                         </div>
                     </div>
                     <div class="col-12 mb-2 " id="container_alertas">
