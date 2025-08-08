@@ -88,7 +88,7 @@ class AsignadosDatatable extends DataTableComponent
                 ])
                 ->filter(function (Builder $builder, $value) {
                     if (!empty($value)) {
-                        $builder->where('dbSurtigas.ciclo', $value);
+                        $builder->where('ciclo', $value);
                     }
                 }),
         ];
@@ -102,7 +102,6 @@ class AsignadosDatatable extends DataTableComponent
         // Por ejemplo, si quieres filtrar por el ID del personal del usuario autenticado:
       return surtigas::query()
             ->where('surtigas.personals_id', $personalId)
-            ->with(['dbSurtigas'])
             ->whereIn('estado', ['1']);
     }
 
