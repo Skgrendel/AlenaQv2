@@ -142,7 +142,7 @@
                             value="{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}">
                         <div class="col-12 mb-2">
                             <label for="nueva_opcion" class="form-label">Numero de Orden</label>
-                            <input type="text" name="numero_orden" id="numero_orden" class="form-control">
+                            <input type="text" name="numero_orden" id="numero_orden" class="form-control" required>
                             <label for="comercio" class="form-label mt-3">¿Que Tipo de Comercio Encontro?</label>
                             <select id="slcComercio" class="form-select" name="tipo_comercio" required>
                                 @foreach ($data['comercios'] as $id => $nombre)
