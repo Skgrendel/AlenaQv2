@@ -11,6 +11,7 @@ use App\Models\vs_anomalias;
 use App\Services\ProcessingServices;
 use App\Services\reporte\CreateReportServices;
 use App\Services\coordinador\DataGisServices;
+use App\Services\coordinador\DataGisServicesToken;
 use App\Services\coordinador\ReportServices;
 use App\Services\coordinador\ShowReportServices;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\File;
 
 class CoordinadorController extends Controller
 {
-    private $Processing, $create, $info, $show, $report;
+    private $Processing, $create, $info, $show, $report,$token;
 
     public function __construct()
     {
@@ -30,6 +31,7 @@ class CoordinadorController extends Controller
         $this->info = new DataGisServices();
         $this->show = new ShowReportServices();
         $this->create = new CreateReportServices();
+        $this->token = new DataGisServicesToken();
     }
     /**
      * Display a listing of the resource.
@@ -55,6 +57,8 @@ class CoordinadorController extends Controller
     {
         $data = $this->show->ShowReport($id);
         $gis = $this->info->DataGis($id);
+        $tokenlogin = $this->token->logingis();
+        $token = $this->token->getToken($tokenlogin);
         $data['imagenes'] = (array) $data['imagenes'];
 
         return view('coordinador.show', compact('data', 'gis'));

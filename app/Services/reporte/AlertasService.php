@@ -58,9 +58,6 @@ class AlertasService
                 ->queue(new Notification_anomalia($data, $anomaliasNombres));
         }
     }
-
-
-
     public function getAlertaFuga($request)
     {
         $enviarCorreo = false;
