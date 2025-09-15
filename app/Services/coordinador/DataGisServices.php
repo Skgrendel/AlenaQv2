@@ -15,10 +15,10 @@ class DataGisServices
     {
         try {
             // Token de acceso para el servicio GIS
-            
-            $loginSgt = new DataGisServicesToken();
-            //$token = config('app.gis_api_token');
-            $token =  $loginSgt->logingis()->getToken();
+
+            //$loginSgt = new DataGisServicesToken();
+            //$tokens =  $loginSgt->logingis()->getToken();
+            $token = config('app.gis_api_token');
             $reportes = reportes::where('id', $id)->first();
             $surtigas = surtigas::where('id', $reportes->surtigas_id)->first();
             // URL de consulta
