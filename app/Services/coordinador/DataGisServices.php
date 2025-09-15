@@ -8,13 +8,16 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 
+
 class DataGisServices
 {
     public function DataGis($id)
     {
         try {
             // Token de acceso para el servicio GIS
-            $token = config('app.gis_api_token');
+            $loginSgt = new DataGisServicesToken();
+            //$token = config('app.gis_api_token');
+            $token =  $loginSgt->logingis()->getToken();
             $reportes = reportes::where('id', $id)->first();
             $surtigas = surtigas::where('id', $reportes->surtigas_id)->first();
             // URL de consulta
@@ -106,7 +109,8 @@ class DataGisServices
     {
         try {
 
-            $token = config('app.gis_api_token');
+            $loginSgt = new DataGisServicesToken();
+            $token =  $loginSgt->logingis()->getToken();
             $surtigas = surtigas::where('contrato', $contrato)->first();
             $url = "https://arcgisportal.surtigas.com.co/geaserver/rest/services/Ingenieria/FC_PTDIRECCIONES/MapServer/0/query?f=json&where=(SUBSCRIPTION_ID%20IS%20NOT%20NULL)%20AND%20(SUBSCRIPTION_ID%20%3D%20$contrato)&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=OBJECTID%2CORDEN%2CRID%2COBJECTID_1%2CDEPARTAMENTO%2CLOCALIDAD%2CNOMBRE%2CADDRESS_ID%2CID_PREMISE%2CNUP%2CDIRECCION%2CTAG%2CANILLADO%2CTIPOPREDIO%2CCICLO%2CDESCRIPCION%2CBARRIO%2CNOMBREBARRIO%2CCATEGORIA%2CDESCATEGORIA%2CESTRATO%2CPRODUCT_ID%2CPRODUCT_STATUS_ID%2CESTADOPRODUCTO%2CSUBSCRIPTION_ID%2CDESCESTADOCORTE%2CCODIDOESTADOCORTE%2CNOMBREUSUARIO%2CAPELLIDO%2CELEMENTOMEDICION%2CORIG_FID&outSR=102100&resultOffset=0&resultRecordCount=1000&token=$token";
 
@@ -194,7 +198,8 @@ class DataGisServices
     {
         try {
 
-            $token = config('app.gis_api_token');
+            $loginSgt = new DataGisServicesToken();
+            $token =  $loginSgt->logingis()->getToken();
             $reportes = reportes::where('id', $contrato)->first();
             $surtigas = surtigas::where('id', $reportes->surtigas_id)->first();
             $url = "https://arcgisportal.surtigas.com.co/geaserver/rest/services/Ingenieria/FC_PTDIRECCIONES/MapServer/0/query?f=json&where=(SUBSCRIPTION_ID%20IS%20NOT%20NULL)%20AND%20(SUBSCRIPTION_ID%20%3D%20$surtigas->contrato)&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=OBJECTID%2CORDEN%2CRID%2COBJECTID_1%2CDEPARTAMENTO%2CLOCALIDAD%2CNOMBRE%2CADDRESS_ID%2CID_PREMISE%2CNUP%2CDIRECCION%2CTAG%2CANILLADO%2CTIPOPREDIO%2CCICLO%2CDESCRIPCION%2CBARRIO%2CNOMBREBARRIO%2CCATEGORIA%2CDESCATEGORIA%2CESTRATO%2CPRODUCT_ID%2CPRODUCT_STATUS_ID%2CESTADOPRODUCTO%2CSUBSCRIPTION_ID%2CDESCESTADOCORTE%2CCODIDOESTADOCORTE%2CNOMBREUSUARIO%2CAPELLIDO%2CELEMENTOMEDICION%2CORIG_FID&outSR=102100&resultOffset=0&resultRecordCount=1000&token=$token";

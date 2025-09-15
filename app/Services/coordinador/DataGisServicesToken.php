@@ -42,8 +42,8 @@ class DataGisServicesToken
                 ->withOptions([
                     'version' => 2.0,
                     'proxy' => [
-                        'http'  => $proxy,
-                        'https' => $proxy,
+                        'http'  => $this->proxy,
+                        'https' => $this->proxy,
                     ],
                     'force_ip_resolve' => 'v4',
                     // 'curl' => [
@@ -105,8 +105,8 @@ class DataGisServicesToken
             ->withOptions([
                 'version' => 2.0,
                 'proxy' => [
-                    'http'  => $proxy,
-                    'https' => $proxy,
+                    'http'  => $this->proxy,
+                    'https' => $this->proxy,
                 ],
                 'force_ip_resolve' => 'v4',
                 // 'curl' => [
@@ -172,8 +172,8 @@ class DataGisServicesToken
             ->withOptions([
                 'version' => 2.0,
                 'proxy' => [
-                    'http'  => $proxy,
-                    'https' => $proxy,
+                    'http'  => $this->proxy,
+                    'https' => $this->proxy,
                 ],
                 'force_ip_resolve' => 'v4',
                 // 'curl' => [
