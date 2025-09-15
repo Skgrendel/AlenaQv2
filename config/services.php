@@ -30,5 +30,11 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'proxy' => [
+        "user"   => env('PROXY_USER'),
+        "pass"   => env('PROXY_PASS'),
+        "server" => env('PROXY_SERVER'),
+        "port"   => env('PROXY_PORT')
+    ]
 
 ];

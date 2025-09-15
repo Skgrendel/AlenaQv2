@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Log;
 class DataGisServicesToken
 {
 
+    private $proxy;
+
+    public function __construct()
+    {
+        $proxy = "http://".config('services.proxy.user').":".config('services.proxy.pass')."@".config('services.proxy.server').":".config('services.proxy.port');
+        $this->proxy = $proxy;
+    }
+
     public function DataGis()
     {
         try {
@@ -33,6 +41,16 @@ class DataGisServicesToken
                 ])
                 ->withOptions([
                     'version' => 2.0,
+                    'proxy' => [
+                        'http'  => $proxy,
+                        'https' => $proxy,
+                    ],
+                    'force_ip_resolve' => 'v4',
+                    // 'curl' => [
+                    //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    //     CURLOPT_HTTPPROXYTUNNEL => true,
+                    //     CURLOPT_SSLVERSION   => CURL_SSLVERSION_TLSv1_2,
+                    // ],
                 ])
                 ->get($Gen_token);
 
@@ -49,7 +67,7 @@ class DataGisServicesToken
                     return null; // Token not found
                 }
             } else {
-                Log::error('Failed to retrieve token from DataGis Service.', [
+                Log::error('Failed to retrieve token from DataGis Service (Datagis).', [
                     'status' => $response->status(),
                     'body' => $response->body(),
                     'headers' => $response->headers(),
@@ -84,17 +102,27 @@ class DataGisServicesToken
                 "sec-fetch-site" => "same-origin",
                 "user-agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
             ])
-                ->withOptions([
-                    'version' => 2.0,
-                ])
-                ->withoutRedirecting()
-                ->asForm()
-                ->post($url, [
-                    'oauth_state' => $login,
-                    'authorize' => true,
-                    'username' => 'riesgosproderi',
-                    'password' => 'riesgosproderi2024',
-                ]);
+            ->withOptions([
+                'version' => 2.0,
+                'proxy' => [
+                    'http'  => $proxy,
+                    'https' => $proxy,
+                ],
+                'force_ip_resolve' => 'v4',
+                // 'curl' => [
+                //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                //     CURLOPT_HTTPPROXYTUNNEL => true,
+                //     CURLOPT_SSLVERSION   => CURL_SSLVERSION_TLSv1_2,
+                // ],
+            ])
+            ->withoutRedirecting()
+            ->asForm()
+            ->post($url, [
+                'oauth_state' => $login,
+                'authorize' => true,
+                'username' => 'riesgosproderi',
+                'password' => 'riesgosproderi2024',
+            ]);
 
 
             //redirect to the URL
@@ -143,6 +171,16 @@ class DataGisServicesToken
             ])
             ->withOptions([
                 'version' => 2.0,
+                'proxy' => [
+                    'http'  => $proxy,
+                    'https' => $proxy,
+                ],
+                'force_ip_resolve' => 'v4',
+                // 'curl' => [
+                //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                //     CURLOPT_HTTPPROXYTUNNEL => true,
+                //     CURLOPT_SSLVERSION   => CURL_SSLVERSION_TLSv1_2,
+                // ],
             ])
             ->get($url);
         $data = $response->json();
