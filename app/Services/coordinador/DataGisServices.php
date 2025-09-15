@@ -15,6 +15,7 @@ class DataGisServices
     {
         try {
             // Token de acceso para el servicio GIS
+            
             $loginSgt = new DataGisServicesToken();
             //$token = config('app.gis_api_token');
             $token =  $loginSgt->logingis()->getToken();
