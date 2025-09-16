@@ -9,6 +9,7 @@ use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\reportes;
+use Illuminate\Support\Facades\DB;
 use App\Models\vs_anomalias;
 
 class ReportesDatatable extends DataTableComponent
@@ -50,6 +51,11 @@ class ReportesDatatable extends DataTableComponent
 
     public function filters(): array
     {
+        // Traes las anomalías desde tu vista
+    $anomalias = DB::table('vs_anomalias')
+        ->orderBy('nombre')
+        ->pluck('nombre', 'nombre') // clave = id, valor = nombre
+        ->toArray();
         return [
             SelectFilter::make('Estados')
                 ->options([
@@ -65,26 +71,7 @@ class ReportesDatatable extends DataTableComponent
                     }
                 }),
             SelectFilter::make('Anomalias')
-    ->options([
-        '' => 'All',
-        'Sin Anomalias' => 'Sin Anomalias',
-        'Bypass' => 'Bypass',
-        'Medidor con sellos manipulados' => 'Medidor con sellos manipulados',
-        'Medidor con digitos desalineados' => 'Medidor con digitos desalineados',
-        'Medidor sin talco' => 'Medidor sin talco',
-        'Medidor enterrado' => 'Medidor enterrado',
-        'Conexión directa' => 'Conexión directa',
-        'Medidor frenado' => 'Medidor frenado',
-        'Medidor gira hacia atrás' => 'Medidor gira hacia atrás',
-        'Medidor No encontrado' => 'Medidor No encontrado',
-        'Medidor No Concuerda con el contrato' => 'Medidor No Concuerda con el contrato',
-        'Medidor trocado' => 'Medidor trocado',
-        'Inactivo y en Consumo' => 'Inactivo y en Consumo',
-        'Inspección y revisión' => 'Inspección y revisión',
-        'Posible fuga' => 'Posible fuga',
-        'Pendiente de Retiro / Revisión' => 'Pendiente de Retiro / Revisión',
-        'Medidor con doble local Comercial' => 'Medidor con doble local Comercial',
-    ])
+    ->options($anomalias )
     ->filter(function (Builder $builder, $value) {
         if (!empty($value)) {
             $builder->whereJsonContains('reportes.anomalia', $value);
