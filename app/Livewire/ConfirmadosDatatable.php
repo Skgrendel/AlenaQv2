@@ -10,6 +10,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\reportes;
 use App\Models\vs_anomalias;
+use Illuminate\Support\Facades\DB;
 
 class ConfirmadosDatatable extends DataTableComponent
 {
