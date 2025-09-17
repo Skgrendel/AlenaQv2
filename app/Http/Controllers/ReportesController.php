@@ -178,4 +178,17 @@ class ReportesController extends Controller
         }
         $templateProcessor->setValue($var, 'Sin Registro Fotografico');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+
+    public function Rechazar($id)
+    {
+        $reportes = reportes::find($id);
+        $reportes->estado = 7;
+        $reportes->update();
+        return redirect()->route('entregados')->with('success', 'Reporte Rechazado');
+    }
+
 }
