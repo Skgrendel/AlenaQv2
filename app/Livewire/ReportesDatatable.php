@@ -129,6 +129,8 @@ class ReportesDatatable extends DataTableComponent
     public function builder(): Builder
     {
         return reportes::query()->whereIn('reportes.estado', [5, 7])
+            ->where('reportes.revisado', '0')
+            ->where('reportes.confirmado', '0')
             ->with(['personal', 'report_comercio', 'dbSurtigas']);
     }
 

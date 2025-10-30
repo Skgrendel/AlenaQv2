@@ -132,6 +132,7 @@ class ConfirmadosDatatable extends DataTableComponent
     {
         return reportes::query()
             ->whereIn('reportes.confirmado', ['1','2'])
+            ->where('reportes.estado', '6')
             ->where('reportes.revisado', '1');
     }
 
