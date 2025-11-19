@@ -9,6 +9,7 @@ use App\Http\Controllers\InformesController;
 use App\Http\Controllers\PersonalsController;
 use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\SurtugasController;
 use App\Models\configuraciones;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,15 @@ Route::middleware('check_user_status')->group(function () {
     Route::resource('/reportes', ReportesController::class)->names('reportes')->except(['destroy', 'create']);
     Route::get('/asignados', [AsignadosController::class,'Asignados'])->name('asignados');
     Route::get('/entregados', [AsignadosController::class,'Entregados'])->name('entregados');
+
+    // Rutas para gestión de surtigas pendientes
+    Route::get('/surtigas/pendientes', [SurtugasController::class, 'pendientes'])->name('surtigas.pendientes');
+    Route::get('/surtigas/asignar/{id}', [SurtugasController::class, 'asignar'])->name('surtigas.asignar');
+    Route::post('/surtigas/asignar/{id}', [SurtugasController::class, 'guardarAsignacion'])->name('surtigas.guardar-asignacion');
+    Route::get('/surtigas/asignar-masivo', [SurtugasController::class, 'asignarMasivo'])->name('surtigas.asignar-masivo');
+    Route::post('/surtigas/asignar-masivo', [SurtugasController::class, 'guardarAsignacionMasiva'])->name('surtigas.guardar-asignacion-masiva');
+    Route::get('/surtigas/estadisticas', [SurtugasController::class, 'estadisticasPendientes'])->name('surtigas.estadisticas');
+
     Route::resource('/coordinador', CoordinadorController::class)->names('coordinador')->except(['create']);
     Route::resource('/personals', PersonalsController::class)->names('personals');
     Route::get('/admin', adminController::class)->name('admin');
