@@ -42,7 +42,7 @@ Route::middleware('check_user_status')->group(function () {
     Route::post('/surtigas/asignar/{id}', [SurtugasController::class, 'guardarAsignacion'])->name('surtigas.guardar-asignacion');
     Route::get('/surtigas/asignar-masivo', [SurtugasController::class, 'asignarMasivo'])->name('surtigas.asignar-masivo');
     Route::post('/surtigas/asignar-masivo', [SurtugasController::class, 'guardarAsignacionMasiva'])->name('surtigas.guardar-asignacion-masiva');
-    Route::get('/surtigas/estadisticas', [SurtugasController::class, 'estadisticasPendientes'])->name('surtigas.estadisticas');
+    Route::get('/surtigas/exportar-pendientes', [SurtugasController::class, 'exportarPendientes'])->name('surtigas.exportar-pendientes');
 
     Route::resource('/coordinador', CoordinadorController::class)->names('coordinador')->except(['create']);
     Route::resource('/personals', PersonalsController::class)->names('personals');

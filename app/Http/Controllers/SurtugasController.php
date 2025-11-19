@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\surtigas;
 use App\Models\personals;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\SurtugasPendientesExport;
 
 class SurtugasController extends Controller
 {
@@ -103,16 +105,14 @@ class SurtugasController extends Controller
     /**
      * Mostrar cantidad de pendientes por ciclo
      */
-    public function estadisticasPendientes()
+    /**
+     * Exportar surtigas pendientes a Excel
+     */
+    public function exportarPendientes()
     {
-        $pendientes = surtigas::where('estado', 1)
-            ->where('personals_id', 0)
-            ->select('ciclo')
-            ->selectRaw('COUNT(*) as cantidad')
-            ->groupBy('ciclo')
-            ->orderBy('ciclo', 'asc')
-            ->get();
+        $fecha = now()->format('Y-m-d_H-i-s');
+        $filename = "Surtigas_Pendientes_{$fecha}.xlsx";
 
-        return view('surtigas.pendientes.estadisticas', compact('pendientes'));
+        return Excel::download(new SurtugasPendientesExport(), $filename);
     }
 }
