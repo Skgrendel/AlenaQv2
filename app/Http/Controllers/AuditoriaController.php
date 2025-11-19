@@ -41,9 +41,9 @@ class AuditoriaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(string $id)
     {
-        //
+
     }
 
     /**
@@ -92,6 +92,8 @@ class AuditoriaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $reportes = reportes::find($id);
+        $reportes->estado = 7;
+        $reportes->update();
     }
 }

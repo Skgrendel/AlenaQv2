@@ -9,3 +9,6 @@
             </g>
         </svg></a>
 </div>
+@can('admin.destroy')
+    <a href="{{ route('Rechazar', $value) }}" class="btn text-danger">Rechazar</a>
+@endcan

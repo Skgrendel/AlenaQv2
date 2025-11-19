@@ -53,6 +53,7 @@ Route::middleware('check_user_status')->group(function () {
     Route::resource('Roles', RolesController::class)->names('roles');
     Route::resource('/config', ConfiguracionesController::class)->names('configs');
     Route::get('/generar-reportes-zip', [ReportesController::class, 'descargarZipReportes'])->name('reportes.zip');
+    Route::get('/Rechazar/{id}', [ReportesController::class, 'Rechazar'])->name('Rechazar');
     Route::get('/check-connection', function () {
         return response()->json(['status' => 'ok'], 200);
     });
