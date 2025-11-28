@@ -32,9 +32,10 @@ Auth::routes();
 Route::middleware('check_user_status')->group(function () {
     Route::get('/home', adminController::class)->name('home');
     Route::resource('/reportes', ReportesController::class)->names('reportes')->except(['destroy', 'create']);
-    Route::get('/asignados', [AsignadosController::class,'Asignados'])->name('asignados');
-    Route::get('/entregados', [AsignadosController::class,'Entregados'])->name('entregados');
+    Route::get('/asignados', [AsignadosController::class, 'Asignados'])->name('asignados');
+    Route::get('/entregados', [AsignadosController::class, 'Entregados'])->name('entregados');
     Route::resource('/coordinador', CoordinadorController::class)->names('coordinador')->except(['create']);
+    Route::post('/personals/{id}/activate', [PersonalsController::class, 'activate'])->name('personals.activate');
     Route::resource('/personals', PersonalsController::class)->names('personals');
     Route::get('/admin', adminController::class)->name('admin');
     Route::get('/informes', [InformesController::class, 'InfoGeneral'])->name('informes');

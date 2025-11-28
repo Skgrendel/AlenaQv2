@@ -41,7 +41,7 @@ class PersonalsController extends Controller
     public function store(Request $request)
     {
         $data = $this->store->PersonalStore($request);
-        return  redirect()->route('personals.index')->with('icon', 'success')->with('success', 'Personal Creado con Exito')
+        return redirect()->route('personals.index')->with('icon', 'success')->with('success', 'Personal Creado con Exito')
             ->with('title', 'Guardado');
     }
 
@@ -65,10 +65,10 @@ class PersonalsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,  $id)
+    public function update(Request $request, $id)
     {
-        $data = $this->store->PersonalUpdate($request,$id);
-        return redirect()->route('personals.index')-> with('icon', 'success')->with('success', 'Personal Actualizado con Exito');
+        $data = $this->store->PersonalUpdate($request, $id);
+        return redirect()->route('personals.index')->with('icon', 'success')->with('success', 'Personal Actualizado con Exito');
     }
 
     /**
@@ -106,5 +106,36 @@ class PersonalsController extends Controller
 
         // Redirigir a la ruta de índice
         return redirect()->route('personals.index')->with('icon', 'success')->with('success', 'Personal Eliminado con Exito');
+    }
+    /**
+     * Activate the specified resource.
+     */
+    public function activate(string $id)
+    {
+        // Buscar el registro personal
+        $personal = personals::find($id);
+
+        // Verificar si el registro personal existe
+        if (!$personal) {
+            return redirect()->back()->with('icon', 'error')->with('success', 'Registro no encontrado');
+        }
+
+        // Buscar el registro de usuario asociado con el registro personal
+        $usuario = User::where('personals_id', $personal->id)->first();
+
+        // Verificar si el registro de usuario existe
+        if (!$usuario) {
+            return redirect()->back()->with('icon', 'error')->with('success', 'Registro no encontrado');
+        }
+
+        // Actualizar la propiedad estado para ambos registros
+        $personal->estado = 3; // 3 = Activo
+        $personal->save();
+
+        $usuario->estado = 3; // 3 = Activo
+        $usuario->save();
+
+        // Redirigir a la ruta de índice
+        return redirect()->route('personals.index')->with('icon', 'success')->with('success', 'Personal Activado con Exito');
     }
 }

@@ -44,22 +44,22 @@ class PersonalsDatatable extends DataTableComponent
             Column::make("Apellidos", "apellidos")
                 ->sortable()
                 ->searchable(),
-            Column::make("Telefono", "telefono" ),
+            Column::make("Telefono", "telefono"),
             Column::make("Correo", "correo"),
             Column::make("Estado", "estado")
                 ->format(
-                    fn ($value, $row, Column $column) => match ($value) {
-                        '0' =>'<span class="badge badge-danger">Cuenta Desactivada</span>',
+                    fn($value, $row, Column $column) => match ($value) {
+                        '0' => '<span class="badge badge-danger">Cuenta Desactivada</span>',
                         '3' => '<span class="badge badge-success">Activo</span>',
                         '4' => '<span class="badge badge-danger">Inactivo</span>',
                     }
                 )
                 ->html(),
             Column::make("Creacion", "created_at")
-                ->format(fn ($value) => $value->format('d/M/Y')),
+                ->format(fn($value) => $value->format('d/M/Y')),
             Column::make('Acciones', 'id')
                 ->format(
-                    fn ($value, $row, Column $column) => view('personals.actions', compact('value'))
+                    fn($value, $row, Column $column) => view('personals.actions', compact('value', 'row'))
                 ),
         ];
     }

@@ -63,7 +63,7 @@ class PersonalServices
         ];
     }
 
-    public function PersonalUpdate($request,  $id)
+    public function PersonalUpdate($request, $id)
     {
 
         $personal = personals::find($id);
@@ -74,9 +74,15 @@ class PersonalServices
             $user = User::where('personals_id', $personal->id)->first();
             // Verificar si el registro de usuario existe
             if ($user) {
-                $user->update([
+                $userData = [
                     'email' => $request['correo'],
-                ]);
+                ];
+
+                if ($request->filled('password')) {
+                    $userData['password'] = bcrypt($request['password']);
+                }
+
+                $user->update($userData);
                 // Asignar roles al usuario
                 $user->syncRoles($request['rol']);
             }
