@@ -33,10 +33,8 @@ Auth::routes();
 Route::middleware('check_user_status')->group(function () {
     Route::get('/home', adminController::class)->name('home');
     Route::resource('/reportes', ReportesController::class)->names('reportes')->except(['destroy', 'create']);
-<<<<<<< HEAD
     Route::get('/asignados', [AsignadosController::class, 'Asignados'])->name('asignados');
     Route::get('/entregados', [AsignadosController::class, 'Entregados'])->name('entregados');
-=======
     Route::get('/asignados', [AsignadosController::class,'Asignados'])->name('asignados');
     Route::get('/entregados', [AsignadosController::class,'Entregados'])->name('entregados');
 
@@ -48,7 +46,6 @@ Route::middleware('check_user_status')->group(function () {
     Route::post('/surtigas/asignar-masivo', [SurtugasController::class, 'guardarAsignacionMasiva'])->name('surtigas.guardar-asignacion-masiva');
     Route::get('/surtigas/exportar-pendientes', [SurtugasController::class, 'exportarPendientes'])->name('surtigas.exportar-pendientes');
 
->>>>>>> 973a7cc1d15a83ed932a3074f07760ccf236151c
     Route::resource('/coordinador', CoordinadorController::class)->names('coordinador')->except(['create']);
     Route::post('/personals/{id}/activate', [PersonalsController::class, 'activate'])->name('personals.activate');
     Route::resource('/personals', PersonalsController::class)->names('personals');
