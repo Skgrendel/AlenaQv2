@@ -47,6 +47,22 @@
                         </div>
                     </a>
                 </li>
+                <li class="menu {{ Route::currentRouteName() == 'surtigas.pendientes' ? 'active' : '' }}">
+                    <a href="{{ route('surtigas.pendientes') }}" aria-expanded="true" class="dropdown-toggle">
+                        <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 48 48"
+                                id="Tasks--Streamline-Core" height="48" width="48">
+                                <desc>Tasks Streamline Icon: https://streamlinehq.com</desc>
+                                <g id="tasks">
+                                    <path id="Union" fill="#000000" fill-rule="evenodd"
+                                        d="M4 0c-2.2091 0 -4 1.7909 -4 4v40c0 2.2091 1.7909 4 4 4h40c2.2091 0 4 -1.7909 4 -4V4c0 -2.2091 -1.7909 -4 -4 -4H4Zm6 13c0 -1.6569 1.3431 -3 3 -3s3 1.3431 3 3 -1.3431 3 -3 3 -3 -1.3431 -3 -3Zm0 16c0 -1.6569 1.3431 -3 3 -3s3 1.3431 3 3 -1.3431 3 -3 3 -3 -1.3431 -3 -3Zm18 -16c-0.5523 0 -1 0.4477 -1 1s0.4477 1 1 1h10c0.5523 0 1 -0.4477 1 -1s-0.4477 -1 -1 -1h-10Zm0 16c-0.5523 0 -1 0.4477 -1 1s0.4477 1 1 1h10c0.5523 0 1 -0.4477 1 -1s-0.4477 -1 -1 -1h-10Z"
+                                        clip-rule="evenodd" stroke-width="1"></path>
+                                </g>
+                            </svg>
+                            <span>Asig. Contratos</span>
+                        </div>
+                    </a>
+                </li>
             @endcan
             @can('coordi.index')
                 <li
@@ -97,7 +113,7 @@
                             <li>
                                 <a href="{{ route('auditorias.index') }}">Pendientes</a>
                             </li>
-                        @endcan 
+                        @endcan
                         @can('audit.show')
                         <li class="{{ Route::currentRouteName() == 'auditorias.create' ? 'active' : '' }}">
                             <a href="{{ route('auditorias.create') }}">Revisados</a>
