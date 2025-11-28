@@ -7,6 +7,8 @@ use Spatie\Permission\Models\Role;
 use App\Models\User;
 use App\Models\vs_tipo_documento;
 
+use App\Models\vs_estado;
+
 class PersonalServices
 {
     public function PersonalStore($request)
@@ -53,13 +55,15 @@ class PersonalServices
         $userRoles = $user->roles->pluck('name')->toArray();
         // Verificar si el registro de usuario existe
         $tipodocumento = vs_tipo_documento::pluck('nombre', 'id');
+        $estados = vs_estado::pluck('nombre', 'id');
 
         return [
             'personal' => $personal,
             'roles' => $roles,
             'user' => $user,
             'userRoles' => $userRoles,
-            'tipodocumento' => $tipodocumento
+            'tipodocumento' => $tipodocumento,
+            'estados' => $estados
         ];
     }
 
@@ -76,6 +80,7 @@ class PersonalServices
             if ($user) {
                 $userData = [
                     'email' => $request['correo'],
+                    'estado' => $request['estado'],
                 ];
 
                 if ($request->filled('password')) {

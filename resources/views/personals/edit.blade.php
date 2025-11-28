@@ -15,21 +15,40 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
+                                    <h5 class="mb-3">Información Personal</h5>
                                     <div class="form-group">
                                         <label for="tipo_documento">Tipo de Documento</label>
                                         <select class="form-select" aria-label="tipo_documento" name="tipo_documento"
                                             id="tipo_documento" required>
                                             <option selected disabled>Seleccione tipo de documento</option>
                                             @foreach ($data['tipodocumento'] as $id => $nombre)
-                                                <option value="{{ $id }}" {{ $data['personal']['tipodocumento'] = $id ? 'selected' : '' }}>{{ $nombre }}</option>
+                                                <option value="{{ $id }}" {{ $data['personal']['tipodocumento'] == $id ? 'selected' : '' }}>{{ $nombre }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <label for="numero_documento">Número de Documento</label>
+                                        <input type="tel" class="form-control" id="numero_documento" name="numero_documento"
+                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                            value="{{ $data['personal']['numero_documento'] }}">
+                                        @error('numero_documento')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group mt-2">
                                         <label for="nombres">Nombres</label>
                                         <input type="text" class="form-control @error('nombres') is-invalid @enderror"
                                             id="nombres" name="nombres" value="{{ $data['personal']['nombres'] }}">
                                         @error('nombres')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mt-2
+                                            @error('apellidos') is-invalid @enderror">
+                                        <label for="apellidos">Apellidos</label>
+                                        <input type="text" class="form-control" id="apellidos" name="apellidos"
+                                            value="{{ $data['personal']['apellidos']}}">
+                                        @error('apellidos')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -43,28 +62,10 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group mt-2">
-                                        <label for="numero_documento">Número de Documento</label>
-                                        <input type="tel" class="form-control" id="numero_documento" name="numero_documento"
-                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                            value="{{ $data['personal']['numero_documento'] }}">
-                                        @error('numero_documento')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group mt-2
-                                            @error('apellidos') is-invalid @enderror">
-                                        <label for="apellidos">Apellidos</label>
-                                        <input type="text" class="form-control" id="apellidos" name="apellidos"
-                                            value="{{ $data['personal']['apellidos']}}">
-                                        @error('apellidos')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group mt-2
+                                    <h5 class="mb-3">Información de Cuenta</h5>
+                                    <div class="form-group
                                             @error('correo') is-invalid @enderror">
                                         <label for="correo">Correo</label>
                                         <input type="email" class="form-control" id="correo" name="correo"
@@ -72,6 +73,28 @@
                                         @error('correo')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <label for="rol">Rol</label>
+                                        <select name="rol" class="form-control" id="rol">
+                                            <option value="">Seleccionar rol</option>
+                                            @foreach ($data['roles'] as $id => $name)
+                                                <option value="{{ $id }}" {{ is_array($data['userRoles']) && in_array($id, $data['userRoles']) ? 'selected' : '' }}>
+                                                    {{ $name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <label for="estado">Estado</label>
+                                        <select name="estado" class="form-control" id="estado">
+                                            <option value="">Seleccionar estado</option>
+                                            @foreach ($data['estados'] as $id => $nombre)
+                                                <option value="{{ $id }}" {{ $data['personal']['estado'] == $id ? 'selected' : '' }}>
+                                                    {{ $nombre }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group mt-2">
                                         <label for="password">Contraseña</label>
@@ -82,19 +105,6 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group mt-2">
-                                    <label for="rol">Rol</label>
-                                    <select name="rol" class="form-control" id="rol">
-                                        <option value="">Seleccionar rol</option>
-                                        @foreach ($data['roles'] as $id => $name)
-                                            <option value="{{ $id }}" {{ is_array($data['userRoles']) && in_array($id, $data['userRoles']) ? 'selected' : '' }}>
-                                                {{ $name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
                                 </div>
                             </div>
                         </div>
