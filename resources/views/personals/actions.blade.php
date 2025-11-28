@@ -19,10 +19,7 @@
             <form action="{{ route('personals.activate', $value) }}" method="post">
                 @csrf
                 <button type="submit" class="btn text-success btn-sm" title="Activar">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" height="14" width="14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M3.5 7l2.5 2.5 4.5-4.5"></path>
-                    </svg>
+                    <i class="fas fa-check"></i>
                 </button>
             </form>
         @endif
