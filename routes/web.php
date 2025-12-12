@@ -5,6 +5,7 @@ use App\Http\Controllers\AsignadosController;
 use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\ConfiguracionesController;
 use App\Http\Controllers\CoordinadorController;
+use App\Http\Controllers\GisTokenController;
 use App\Http\Controllers\InformesController;
 use App\Http\Controllers\PersonalsController;
 use App\Http\Controllers\ReportesController;
@@ -55,6 +56,11 @@ Route::middleware('check_user_status')->group(function () {
     Route::resource('/auditorias', AuditoriaController::class)->names('auditorias');
     Route::resource('Roles', RolesController::class)->names('roles');
     Route::resource('/config', ConfiguracionesController::class)->names('configs');
+
+    // Rutas para gestión de tokens GIS
+    Route::resource('/gis-tokens', GisTokenController::class)->names('gis-tokens');
+    Route::patch('/gis-tokens/{gisToken}/activate', [GisTokenController::class, 'activate'])->name('gis-tokens.activate');
+
     Route::get('/generar-reportes-zip', [ReportesController::class, 'descargarZipReportes'])->name('reportes.zip');
     Route::get('/Rechazar/{id}', [ReportesController::class, 'Rechazar'])->name('Rechazar');
     Route::get('/check-connection', function () {
