@@ -214,6 +214,9 @@
                         <li>
                             <a href="{{ route('configs.index') }}"> ciclos </a>
                         </li>
+                        <li>
+                            <a href="{{ route('gis-tokens.index') }}"> Tokens GIS </a>
+                        </li>
                     </ul>
                 </li>
             @endcan
