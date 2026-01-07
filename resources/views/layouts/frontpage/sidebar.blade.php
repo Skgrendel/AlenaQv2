@@ -217,6 +217,9 @@
                         <li>
                             <a href="{{ route('gis-tokens.index') }}"> Tokens GIS </a>
                         </li>
+                        <li>
+                            <a href="{{ route('reguladores.index') }}"> Reguladores </a>
+                        </li>
                     </ul>
                 </li>
             @endcan

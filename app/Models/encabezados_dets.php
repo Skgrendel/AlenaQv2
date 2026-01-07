@@ -12,7 +12,8 @@ class encabezados_dets extends Model
     protected $fillable = [
         'encabezados_id',
         'nombre',
+        'nomenclatura'
     ];
 
-    
+
 }

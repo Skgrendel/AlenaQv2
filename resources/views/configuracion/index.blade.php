@@ -28,6 +28,14 @@
                                     <button type="submit" form="ciclo" class="btn btn-primary mt-2">Guardar
                                         Ciclo</button>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="card-text mb-3">
+                                        <h6>Opciones Adicionales</h6>
+                                        <a href="{{ route('reguladores.index') }}" class="btn btn-info btn-sm w-100">
+                                            <i class="fas fa-cogs"></i> Gestionar Reguladores
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

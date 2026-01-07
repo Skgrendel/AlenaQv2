@@ -8,6 +8,7 @@ use App\Http\Controllers\CoordinadorController;
 use App\Http\Controllers\GisTokenController;
 use App\Http\Controllers\InformesController;
 use App\Http\Controllers\PersonalsController;
+use App\Http\Controllers\ReguladorController;
 use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SurtugasController;
@@ -60,6 +61,9 @@ Route::middleware('check_user_status')->group(function () {
     // Rutas para gestión de tokens GIS
     Route::resource('/gis-tokens', GisTokenController::class)->names('gis-tokens');
     Route::patch('/gis-tokens/{gisToken}/activate', [GisTokenController::class, 'activate'])->name('gis-tokens.activate');
+
+    // Rutas para gestión de reguladores
+    Route::resource('/reguladores', ReguladorController::class)->names('reguladores');
 
     Route::get('/generar-reportes-zip', [ReportesController::class, 'descargarZipReportes'])->name('reportes.zip');
     Route::get('/Rechazar/{id}', [ReportesController::class, 'Rechazar'])->name('Rechazar');
