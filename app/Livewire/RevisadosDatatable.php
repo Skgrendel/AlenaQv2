@@ -17,7 +17,7 @@ class RevisadosDatatable extends DataTableComponent
     protected $model = reportes::class;
     public ?int $searchFilterDebounce = 500;
     public string $defaultSortDirection = 'desc';
-    public ?string $defaultSortColumn = 'created_at';
+    public ?string $defaultSortColumn = 'updated_at';
 
 
     public function configure(): void
@@ -167,7 +167,7 @@ class RevisadosDatatable extends DataTableComponent
                 )
                 ->html()
                 ->collapseOnMobile(),
-            Column::make("Fecha", "created_at")
+            Column::make("Fecha", "updated_at")
                 ->format(fn($value) => $value->format('d/M/Y'))
                 ->collapseOnMobile(),
             Column::make('Acciones', 'id')
