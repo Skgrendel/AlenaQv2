@@ -49,6 +49,9 @@ class ReportExport implements FromCollection, WithHeadings, WithStyles, WithColu
                     $reporte->confirmado == 1 ? 'Confirmado' : ($reporte->confirmado == 2 ? 'No Confirmado' : 'No Revisado'),
                     $reporte->created_at->format('Y-m-d'),
                     $reporte->created_at->format('H:i:s'),
+                    $reporte->updated_at->format('Y-m-d'),
+                    $reporte->updated_at->format('H:i:s')
+
                 ];
             });
     }
@@ -74,6 +77,8 @@ class ReportExport implements FromCollection, WithHeadings, WithStyles, WithColu
             'Revisión',
             'Fecha de Creación',
             'Hora de Creación',
+            'Fecha de Actualización',
+            'Hora de Actualización',
         ];
     }
 
