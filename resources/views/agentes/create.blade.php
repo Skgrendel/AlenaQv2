@@ -1,135 +1,328 @@
 @extends('layouts.frontpage.app')
 
 @section('content')
-    <div class="container mt-3">
-        <div class="card">
-            <div class="card-body">
-                <form class="row g-3" id="reportes" action="{{ route('reportes.store') }}" method="POST"
+    <div class="container-fluid" style="padding: 10px; max-width: 100%;">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-3 p-md-4">
+                <form class="row g-2 g-md-3" id="reportes" action="{{ route('reportes.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <input type="text" hidden id="latitud" name="latitud" value="">
                     <input type="text" hidden id="longitud" name="longitud" value="">
-                    <div class="col-12 mb-1" id="ubicacion">
-                        <div class="col-12">
-                            <div class="col-lg-12">
-                                <div class="card shadow">
-                                    <div class="card-body">
-                                        <div class="col-md-12">
-                                            <h5 class="text-center fw-bold">Información del Predio</h5>
-                                            <hr>
 
-                                            <div class="row">
-                                                <!-- Columna Izquierda -->
-                                                <div class="col-md-6">
-                                                    <div class="mb-1">
-                                                        <label for="nombre_cliente">Nombre:</label>
-                                                        <span class="fw-bold text-body staticEmail"
-                                                            id="nombre_cliente">{{ $data['info']['db_Surtigas']['cliente'] ?? 'sin datos' }}</span>
-                                                        <input type="text" name="nombre_cliente" id="nombre_cliente"
-                                                            hidden
-                                                            value="{{ $data['info']['db_Surtigas']['cliente'] ?? 'sin datos' }}">
-                                                    </div>
+                    {{-- Información del Predio --}}
+                    <div class="col-12">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body p-3" style="background-color: #f8f9fa; border-bottom: 3px solid #2c3e50;">
+                                <h5 class="card-title mb-3" style="color: #2c3e50;">
+                                    <i class="fas fa-building me-2"></i>Información del Predio
+                                </h5>
 
-                                                    <div class="mb-1">
-                                                        <label for="numero_contrato" class="form-label">Número de
-                                                            Contrato:</label>
-                                                        <span class="fw-bold text-body staticEmail"
-                                                            id="numero_contrato">{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}</span>
-                                                        <input type="text" name="numero_contrato" id="numero_contrato"
-                                                            hidden
-                                                            value="{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}">
-                                                    </div>
+                                {{-- Grid de 2 columnas que se adapta a móvil --}}
+                                <div class="row g-2">
+                                    {{-- Nombre Cliente --}}
+                                    <div class="col-12 col-sm-6">
+                                        <div class="info-item" style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e0e0e0;">
+                                            <small style="color: #7a8a99;">Nombre</small>
+                                            <p class="mb-0 fw-bold" style="color: #2c3e50;">{{ $data['info']['db_Surtigas']['cliente'] ?? 'sin datos' }}</p>
+                                        </div>
+                                        <input type="text" name="nombre_cliente" id="nombre_cliente" hidden
+                                            value="{{ $data['info']['db_Surtigas']['cliente'] ?? 'sin datos' }}">
+                                    </div>
 
-                                                    <div class="mb-1">
-                                                        <label for="numero_medidor" class="form-label">Número de
-                                                            Medidor:</label>
-                                                        <span class="fw-bold text-body"
-                                                            id="numero_medidor">{{ $data['info']['db_Surtigas']['medidor'] ?? 'sin datos' }}</span>
-                                                        <input type="text" name="numero_medidor" id="numero_medidor"
-                                                            hidden
-                                                            value="{{ $data['info']['db_Surtigas']['medidor'] ?? 'sin datos' }}">
-                                                    </div>
+                                    {{-- Número de Contrato --}}
+                                    <div class="col-12 col-sm-6">
+                                        <div class="info-item" style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e0e0e0;">
+                                            <small style="color: #7a8a99;">Contrato</small>
+                                            <p class="mb-0 fw-bold" style="color: #2c3e50;">{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}</p>
+                                        </div>
+                                        <input type="text" name="numero_contrato" id="numero_contrato" hidden
+                                            value="{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}">
+                                    </div>
 
-                                                    <div class="mb-1">
-                                                        <label for="direccion">Dirección:</label>
-                                                        <span class="fw-bold text-body"
-                                                            id="direccion">{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}</span>
-                                                        <input type="text" name="direccion" id="direccion" hidden
-                                                            value="{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}">
-                                                        <input type="text" name="barrio" id="barrio" hidden
-                                                            value="{{ $data['info']['db_Surtigas']['barrio'] ?? 'sin datos' }}">
+                                    {{-- Número de Medidor --}}
+                                    <div class="col-12 col-sm-6">
+                                        <div class="info-item" style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e0e0e0;">
+                                            <small style="color: #7a8a99;">Medidor</small>
+                                            <p class="mb-0 fw-bold" style="color: #2c3e50;">{{ $data['info']['db_Surtigas']['medidor'] ?? 'sin datos' }}</p>
+                                        </div>
+                                        <input type="text" name="numero_medidor" id="numero_medidor" hidden
+                                            value="{{ $data['info']['db_Surtigas']['medidor'] ?? 'sin datos' }}">
+                                    </div>
+
+                                    {{-- Ciclo --}}
+                                    <div class="col-12 col-sm-6">
+                                        <div class="info-item" style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e0e0e0;">
+                                            <small style="color: #7a8a99;">Ciclo</small>
+                                            <p class="mb-0 fw-bold" style="color: #2c3e50;">{{ $data['info']['db_Surtigas']['ciclo'] ?? 'sin datos' }}</p>
+                                        </div>
+                                        <input type="text" name="ciclo" id="ciclo" hidden
+                                            value="{{ $data['info']['db_Surtigas']['ciclo'] ?? 'sin datos' }}">
+                                    </div>
+
+                                    {{-- Dirección --}}
+                                    <div class="col-12">
+                                        <div class="info-item" style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e0e0e0;">
+                                            <small style="color: #7a8a99;">Dirección</small>
+                                            <p class="mb-0 fw-bold text-truncate" style="color: #2c3e50;">{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}</p>
+                                        </div>
+                                        <input type="text" name="direccion" id="direccion" hidden
+                                            value="{{ $data['info']['db_Surtigas']['direccion'] ?? 'sin datos' }}">
+                                        <input type="text" name="barrio" id="barrio" hidden
+                                            value="{{ $data['info']['db_Surtigas']['barrio'] ?? 'sin datos' }}">
+                                    </div>
+
+                                    {{-- Estado del Servicio y GIS --}}
+                                    <div class="col-12 col-sm-6">
+                                        <div class="info-item" style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e0e0e0;">
+                                            <small style="color: #7a8a99;">Estado Servicio</small>
+                                            <p class="mb-0">
+                                                {!! $data['info']['db_Surtigas']['estado_servicio'] == 1
+                                                    ? '<span class="badge" style="background-color: #d4edda; color: #155724;">Activo</span>'
+                                                    : '<span class="badge" style="background-color: #f8d7da; color: #721c24;">Inactivo</span>' !!}
+                                            </p>
+                                        </div>
+                                        <input type="text" id="estado_servicio" name="estado_servicio" hidden
+                                            value="{{ $data['info']['db_Surtigas']['estado_servicio'] ?? 'sin datos' }}">
+                                    </div>
+
+                                    <div class="col-12 col-sm-6">
+                                        <div class="info-item" style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e0e0e0;">
+                                            <small style="color: #7a8a99;">Estado GIS</small>
+                                            <p class="mb-0">
+                                                <span class="badge" style="background-color: #e2e3e5; color: #383d41;">{{ $gis['info']['estado'] ?? 'sin datos' }}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <input type="text" id="medidor" name="surtigas_id" hidden
+                                        value="{{ $data['info']['db_Surtigas']['id'] }}">
+
+                                    @if (isset($gis['info']))
+                                        <div class="col-12">
+                                            <div class="info-item" style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e0e0e0;">
+                                                <small style="color: #7a8a99;">Descripción</small>
+                                                <p class="mb-0 fw-bold" style="color: #2c3e50;">{{ $gis['info']['descripcion'] ?? 'sin datos' }}</p>
+                                            </div>
+                                        </div>
+                                    @elseif (isset($gis['error']))
+                                        <div class="col-12">
+                                            <div class="alert alert-danger mb-0" role="alert">
+                                                <i class="fas fa-exclamation-circle me-2"></i>{{ $gis['error'] ?? 'sin datos' }}
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                {{-- Botones de Acción --}}
+                                <div class="row g-2 mt-2">
+                                    @if (isset($gis['info']))
+                                        <div class="col-6">
+                                            <a id="ubication" href="{{ $gis['geometry']['link'] ?? '#' }}"
+                                                target="_blank" class="btn btn-light w-100"
+                                                title="Ver Ubicación"><i class="fas fa-map-marker-alt me-2"></i>Ubicación</a>
+                                        </div>
+                                    @else
+                                        <div class="col-6">
+                                            <a id="ubication" href="{{ $data['location']['link'] ?? '#' }}"
+                                                target="_blank" class="btn btn-light w-100"
+                                                title="Ver Ubicación"><i class="fas fa-map-marker-alt me-2"></i>Ubicación</a>
+                                        </div>
+                                    @endif
+                                    <div class="col-6">
+                                        <a class="btn btn-secondary w-100"
+                                            title="Regresar" href="{{ route('asignados') }}">
+                                            <i class="fas fa-arrow-left me-2"></i>Regresar
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Formulario Principal --}}
+                    <div id="info" class="col-12">
+                        <input type="text" name="contrato" id="data_gis" hidden
+                            value="{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}">
+
+                        {{-- Número de Orden --}}
+                        <div class="mb-3">
+                            <label for="numero_orden" class="form-label fw-500" style="color: #2c3e50;">
+                                <i class="fas fa-hashtag me-2" style="color: #7a8a99;"></i>Número de Orden
+                            </label>
+                            <input type="text" name="numero_orden" id="numero_orden" class="form-control form-control-lg" required>
+                        </div>
+
+                        {{-- Tipo de Comercio --}}
+                        <div class="mb-3">
+                            <label for="slcComercio" class="form-label fw-500" style="color: #2c3e50;">
+                                <i class="fas fa-store me-2" style="color: #7a8a99;"></i>Tipo de Comercio Encontrado
+                            </label>
+                            <select id="slcComercio" class="form-select form-select-lg" name="tipo_comercio" required>
+                                @foreach ($data['comercios'] as $id => $nombre)
+                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        {{-- Nombre del Comercio --}}
+                        <div class="mb-3">
+                            <label for="nombre_comercio" class="form-label fw-500" style="color: #2c3e50;">
+                                <i class="fas fa-edit me-2" style="color: #7a8a99;"></i>Nombre del Comercio
+                            </label>
+                            <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control form-control-lg" required>
+                        </div>
+                    </div>
+
+                    {{-- Contenedor del Medidor --}}
+                    <div id="cont-medidor" class="col-12">
+                        {{-- Número de Medidor --}}
+                        <div class="mb-3" id="medidor_anomalia_container">
+                            <label for="medidor_anomalia" class="form-label fw-500" style="color: #2c3e50;">
+                                <i class="fas fa-meter me-2" style="color: #7a8a99;"></i>Número de Medidor
+                            </label>
+                            <input type="text" name="medidor_anomalia" id="medidor_anomalia"
+                                class="form-control form-control-lg" required>
+                        </div>
+
+                        {{-- Lectura --}}
+                        <div class="mb-3" id="lectura_container">
+                            <label for="lectura" class="form-label fw-500" style="color: #2c3e50;">
+                                <i class="fas fa-gauge-simple me-2" style="color: #7a8a99;"></i>Lectura del Medidor
+                            </label>
+                            <input type="text" name="lectura" id="lectura" class="form-control form-control-lg" required>
+                        </div>
+
+                        {{-- Anomalías --}}
+                        <div class="mb-3" id="anomaliaContainer">
+                            <label for="slcanomalia" class="form-label fw-500" style="color: #2c3e50;">
+                                <i class="fas fa-exclamation-triangle me-2" style="color: #7a8a99;"></i>Anomalías Detectadas
+                            </label>
+                            <select id="slcanomalia" class="form-select form-select-lg select2" name="anomalia[]"
+                                multiple="multiple" data-placeholder="Seleccione las anomalías" required>
+                                @foreach ($data['anomalias'] as $id => $nombre)
+                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        {{-- Imposibilidad --}}
+                        <div class="mb-3" id="container_imposibilidad">
+                            <label for="imposibilidad" class="form-label fw-500" style="color: #2c3e50;">
+                                <i class="fas fa-ban me-2" style="color: #7a8a99;"></i>Imposibilidad
+                            </label>
+                            <select id="imposibilidad" class="form-select form-select-lg" name="imposibilidad" required>
+                                @foreach ($data['imposibilidad'] as $id => $nombre)
+                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        {{-- Descripción del Medidor --}}
+                        <div class="mb-3" id="descripcion_medidor_container">
+                            <label for="descripcion_medidor" class="form-label fw-500" style="color: #2c3e50;">
+                                <i class="fas fa-file-text me-2" style="color: #7a8a99;"></i>Descripción del Medidor
+                            </label>
+                            <select id="descripcion_medidor" class="form-select form-select-lg" name="descripcion_medidor" required>
+                                @foreach ($data['descripcion_medidor'] as $id => $nombre)
+                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        {{-- Tipo de Presión --}}
+                        <div class="mb-3" id="tipo_regulador_container">
+                            <label for="tipo_presion" class="form-label fw-500" style="color: #2c3e50;">
+                                <i class="fas fa-wind me-2" style="color: #7a8a99;"></i>Tipo de Presión
+                            </label>
+                            <select id="tipo_presion" class="form-select form-select-lg" name="tipo_presion" required>
+                                @foreach ($data['tipo_presion'] as $id => $nombre)
+                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        {{-- Marca del Regulador --}}
+                        <div class="mb-3" id="marca_regulador_container">
+                            <label for="marca_regulador" class="form-label fw-500" style="color: #2c3e50;">
+                                <i class="fas fa-wrench me-2" style="color: #7a8a99;"></i>Tipo del Regulador
+                            </label>
+                            <select id="marca_regulador" class="form-select form-select-lg" name="marca_regulador" required>
+                                @foreach ($data['marca_regulador'] as $id => $nombre)
+                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        {{-- Marca del Medidor --}}
+                        <div class="mb-3" id="marca_medidor_container">
+                            <label for="marca_medidor" class="form-label fw-500" style="color: #2c3e50;">
+                                <i class="fas fa-tag me-2" style="color: #7a8a99;"></i>Marca del Medidor
+                            </label>
+                            <select id="marca_medidor" class="form-select form-select-lg" name="marca_medidor" required>
+                                @foreach ($data['marca_medidor'] as $id => $nombre)
+                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        {{-- Alertas --}}
+                        <div class="mb-3" id="cau_container">
+                            <label for="cau" class="form-label fw-500" style="color: #2c3e50;">
+                                <i class="fas fa-bell me-2" style="color: #7a8a99;"></i>Notificación de Alertas
+                            </label>
+                            <select id="cau" class="form-select form-select-lg" name="cau" required>
+                                @foreach ($data['alertas'] as $id => $nombre)
+                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    {{-- Sección Desplegable: Incidencias --}}
+                    <div class="col-12">
+                        <div class="card border-0" style="background: #f8f9fa;">
+                            <button class="btn btn-link text-start d-flex justify-content-between align-items-center w-100"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#incidenciasCollapse"
+                                    style="padding: 12px 15px; text-decoration: none; color: #2c3e50;">
+                                <span class="fw-500">
+                                    <i class="fas fa-exclamation-circle me-2" style="color: #7a8a99;"></i>Incidencias Detectadas
+                                </span>
+                                <i class="fas fa-chevron-down" style="color: #7a8a99; font-size: 0.9rem;"></i>
+                            </button>
+                            <div class="collapse" id="incidenciasCollapse">
+                                <div class="card-body" style="border-top: 1px solid #e0e0e0; padding: 15px;">
+                                    <div class="row g-3">
+                                        {{-- Checkbox: Fuga de Gas --}}
+                                        <div class="col-12">
+                                            <label for="fuga_gas" style="cursor: pointer; display: block;">
+                                                <div style="padding: 16px; background: white; border-radius: 8px; border: 2px solid #e0e0e0; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;"
+                                                     class="incidencia-option" onclick="toggleCheckbox('fuga_gas')">
+                                                    <input class="form-check-input" type="checkbox" id="fuga_gas" name="fuga_gas" value="true" style="width: 24px; height: 24px; cursor: pointer; margin: 0;">
+                                                    <div>
+                                                        <div class="fw-600" style="color: #2c3e50; font-size: 1rem;">
+                                                            <i class="fas fa-water me-2" style="color: #7a8a99;"></i>Hay Fuga de Gas
+                                                        </div>
+                                                        <small style="color: #7a8a99; display: block; margin-top: 4px;">Detecta fugas o escapes de gas</small>
                                                     </div>
                                                 </div>
+                                            </label>
+                                        </div>
 
-                                                <!-- Columna Derecha -->
-                                                <div class="col-md-6">
-                                                    <div class="mb-1">
-                                                        <label for="ciclo">Ciclo:</label>
-                                                        <span class="fw-bold text-body"
-                                                            id="ciclo">{{ $data['info']['db_Surtigas']['ciclo'] ?? 'sin datos' }}</span>
-                                                        <input type="text" name="ciclo" id="ciclo" hidden
-                                                            value="{{ $data['info']['db_Surtigas']['ciclo'] ?? 'sin datos' }}">
-                                                    </div>
-
-                                                    <div class="mb-1">
-                                                        <label for="estado_servicio">Estado del Servicio:</label>
-                                                        <span class="text-card text-sm fw-bold">
-                                                            {!! $data['info']['db_Surtigas']['estado_servicio'] == 1
-                                                                ? '<span class="badge bg-success">Activo</span>'
-                                                                : '<span class="badge bg-danger">Inactivo </span>' !!}
-                                                        </span>
-                                                        <input type="text" id="estado_servicio" name="estado_servicio"
-                                                            hidden
-                                                            value="{{ $data['info']['db_Surtigas']['estado_servicio'] ?? 'sin datos' }}">
-                                                    </div>
-
-                                                    <div class="mb-1">
-                                                        <label for="estado_gis">Estado del Servicio en el Gis:</label>
-                                                        <span class="fw-bold text-card text-sm">
-                                                            <span
-                                                                class="badge bg-warning">{{ $gis['info']['estado'] ?? 'sin datos' }}</span>
-                                                        </span>
-                                                    </div>
-
-                                                    <input type="text" id="medidor" name="surtigas_id" hidden
-                                                        value="{{ $data['info']['db_Surtigas']['id'] }}">
-
-                                                    @if (isset($gis['info']))
-                                                        <div class="mb-1">
-                                                            <label for="descripcion">Descripción:</label>
-                                                            <span class="fw-bold text-body"
-                                                                id="descripcion">{{ $gis['info']['descripcion'] ?? 'sin datos' }}</span>
+                                        {{-- Checkbox: Excede Capacidad --}}
+                                        <div class="col-12">
+                                            <label for="ex_capacidad" style="cursor: pointer; display: block;">
+                                                <div style="padding: 16px; background: white; border-radius: 8px; border: 2px solid #e0e0e0; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;"
+                                                     class="incidencia-option" onclick="toggleCheckbox('ex_capacidad')">
+                                                    <input class="form-check-input" type="checkbox" id="ex_capacidad" name="ex_capacidad" value="true" style="width: 24px; height: 24px; cursor: pointer; margin: 0;">
+                                                    <div>
+                                                        <div class="fw-600" style="color: #2c3e50; font-size: 1rem;">
+                                                            <i class="fas fa-expand me-2" style="color: #7a8a99;"></i>Excede Capacidad
                                                         </div>
-                                                    @elseif (isset($gis['error']))
-                                                        <div class="mb-1">
-                                                            <label for="error">Error:</label>
-                                                            <span class="fw-bold text-body"
-                                                                id="error">{{ $gis['error'] ?? 'sin datos' }}</span>
-                                                        </div>
-                                                    @endif
+                                                        <small style="color: #7a8a99; display: block; margin-top: 4px;">La instalación supera capacidad permitida</small>
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="d-flex justify-content-between">
-                                                @if (isset($gis['info']))
-                                                    <a id="ubication" href="{{ $gis['geometry']['link'] ?? '#' }}"
-                                                        target="_blank" class="btn btn-info me-4 bs-tooltip rounded"
-                                                        title="Ver Ubicación Gis" data-bs-placement="top"><i
-                                                            class="fas fa-map-marker-alt"></i></a>
-                                                @else
-                                                    <a id="ubication" href="{{ $data['location']['link'] ?? '#' }}"
-                                                        target="_blank" class="btn btn-danger me-4 bs-tooltip rounded"
-                                                        title="Ver Ubicación Surtigas" data-bs-placement="top"><i
-                                                            class="fas fa-map-marker-alt"></i></a>
-                                                @endif
-                                                <a class="btn btn-info me-4 rounded bs-tooltip"
-                                                    title="Regresar Página Anterior" data-bs-placement="top"
-                                                    href="{{ route('asignados') }}"><i
-                                                        class="fas fa-arrow-circle-left"></i></a>
-                                            </div>
-
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
@@ -137,170 +330,103 @@
                         </div>
                     </div>
 
-                    <div id="info">
-                        <input type="text" name="contrato" id="data_gis" hidden
-                            value="{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}">
-                        <div class="col-12 mb-2">
-                            <label for="nueva_opcion" class="form-label">Numero de Orden</label>
-                            <input type="text" name="numero_orden" id="numero_orden" class="form-control" required>
-                            <label for="comercio" class="form-label mt-3">¿Que Tipo de Comercio Encontro?</label>
-                            <select id="slcComercio" class="form-select" name="tipo_comercio" required>
-                                @foreach ($data['comercios'] as $id => $nombre)
-                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                @endforeach
-                            </select>
-                            <div class="mt-3">
-                                <label for="nueva_opcion" class="form-label">Nombre del Comercio Encontrado</label>
-                                <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control"
-                                    required>
-                            </div>
-                        </div>
-                        <div id="cont-medidor">
-                            <div class="col-lg-12 mb-2" id="medidor_anomalia_container">
-                                <div class="mt-1">
-                                    <label for="nueva_opcion" class="form-label">Digite el numero de Medidor Que
-                                        Encontro</label>
-                                    <input type="text" name="medidor_anomalia" id="medidor_anomalia"
-                                        class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 mb-2" id="anomaliaContainer">
-                                <div class="mt-1">
-                                    <label for="slcanomalia" class="form-label">Seleccione La Anomalia Que
-                                        Detecto</label>
-                                    <select id="slcanomalia" class="form-select select2" name="anomalia[]"
-                                        multiple="multiple" data-placeholder="Seleccione la anomalia" required>
-                                        @foreach ($data['anomalias'] as $id => $nombre)
-                                            <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-12  mb-2" id="lectura_container">
-                                <div class="mt-1">
-                                    <label for="lectura" class="form-label">Digite el numero de Lectura</label>
-                                    <input type="text" name="lectura" id="lectura" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="col-12 mb-2" id="container_imposibilidad">
-                                <label for="imposibilidad" class="form-label">Imposibilidad</label>
-                                <select id="imposibilidad" class="form-select" name="imposibilidad" required>
-                                    @foreach ($data['imposibilidad'] as $id => $nombre)
-                                        <option value="{{ $nombre }}">{{ $nombre }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-12  mb-2" id="tipo_regulador_container">
-                                <label for="tipo_presion" class="form-label">Tipo de Presion</label>
-                                <select id="tipo_presion" class="form-select" name="tipo_presion" required>
-                                    @foreach ($data['tipo_presion'] as $id => $nombre)
-                                        <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-12  mb-2" id="descripcion_medidor_container">
-                                <label for="descripcion_medidor" class="form-label">Descripcion del Medidor</label>
-                                <select id="descripcion_medidor" class="form-select" name="descripcion_medidor" required>
-                                    @foreach ($data['descripcion_medidor'] as $id => $nombre)
-                                        <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-12  mb-2" id="marca_regulador_container">
-                                <label for="marca_regulador" class="form-label">Tipo del Regulador</label>
-                                <select id="marca_regulador" class="form-select" name="marca_regulador" required>
-                                    @foreach ($data['marca_regulador'] as $id => $nombre)
-                                        <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-12  mb-2" id="marca_medidor_container">
-                                <label for="marca_medidor" class="form-label">Marca del Medidor</label>
-                                <select id="marca_medidor" class="form-select" name="marca_medidor" required>
-                                    @foreach ($data['marca_medidor'] as $id => $nombre)
-                                        <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-12  mb-2" id="cau_container">
-                                <label for="cau" class="form-label">Notificacion de Alertas</label>
-                                <select id="cau" class="form-select" name="cau" required>
-                                    @foreach ($data['alertas'] as $id => $nombre)
-                                        <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                    {{-- Observaciones --}}
                     <div class="col-12">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="true" id="fuga_gas"
-                                name="fuga_gas">
-                            <label class="form-check-label" for="fuga_gas">Hay Fuga de gas</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="true" id="ex_capacidad"
-                                name="ex_capacidad">
-                            <label class="form-check-label" for="ex_capacidad">Excede Capacidad</label>
-                        </div>
+                        <label for="comentarios" class="form-label fw-500" style="color: #2c3e50;">
+                            <i class="fas fa-pen-fancy me-2" style="color: #7a8a99;"></i>Observaciones
+                        </label>
+                        <textarea name="comentarios" id="comentarios" rows="4" class="form-control"
+                            placeholder="Agrega tus observaciones..."></textarea>
                     </div>
-                    <div class="col-12">
-                        <label for="comentarios" class="form-label">Observaciones</label>
-                        <textarea name="comentarios" id="comentarios" cols="30" rows="3" class="form-control"></textarea>
-                    </div>
-                    <div id="evidencias" class="col-lg-12 layout-spacing">
-                        <div class="statbox widget box box-shadow">
-                            <div class="widget-header">
-                                <div class="row">
-                                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                        <h4>Fotos Evidencias</h4>
+
+                    {{-- Fotos Evidencias --}}
+                    <div id="evidencias" class="col-12">
+                        <div class="card border-0" style="background: #f8f9fa;">
+                            <div class="card-header text-white border-0 rounded-top" style="background-color: #2c3e50;">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-camera me-2"></i>Fotos Evidencias
+                                </h5>
+                            </div>
+                            <div class="card-body p-3">
+                                <div class="row g-2">
+                                    {{-- Foto 1: Fachada --}}
+                                    <div class="col-12">
+                                        <div style="padding: 12px; background: white; border-radius: 6px; border: 2px dashed #c0c0c0;">
+                                            <label for="foto1-input" class="form-label mb-2 fw-500" style="color: #2c3e50;">
+                                                <i class="fas fa-building me-2" style="color: #7a8a99;"></i>Foto de la Fachada
+                                            </label>
+                                            <input type="file" class="form-control form-control-sm" id="foto1-input" name="foto1"
+                                                accept="image/jpeg" capture="camera">
+                                        </div>
+                                    </div>
+
+                                    {{-- Foto 2: Medidor --}}
+                                    <div class="col-12">
+                                        <div style="padding: 12px; background: white; border-radius: 6px; border: 2px dashed #c0c0c0;">
+                                            <label for="foto2-input" class="form-label mb-2 fw-500" style="color: #2c3e50;">
+                                                <i class="fas fa-gauge-simple me-2" style="color: #7a8a99;"></i>Foto del Medidor
+                                            </label>
+                                            <input type="file" class="form-control form-control-sm" id="foto2-input" name="foto2"
+                                                accept="image/jpeg" capture="camera">
+                                        </div>
+                                    </div>
+
+                                    {{-- Foto 3: Odómetro --}}
+                                    <div class="col-12">
+                                        <div style="padding: 12px; background: white; border-radius: 6px; border: 2px dashed #c0c0c0;">
+                                            <label for="foto3-input" class="form-label mb-2 fw-500" style="color: #2c3e50;">
+                                                <i class="fas fa-meter me-2" style="color: #7a8a99;"></i>Foto del Odómetro
+                                            </label>
+                                            <input type="file" class="form-control form-control-sm" id="foto3-input" name="foto3"
+                                                accept="image/jpeg" capture="camera">
+                                        </div>
+                                    </div>
+
+                                    {{-- Foto 4: Regulador --}}
+                                    <div class="col-12">
+                                        <div style="padding: 12px; background: white; border-radius: 6px; border: 2px dashed #c0c0c0;">
+                                            <label for="foto4-input" class="form-label mb-2 fw-500" style="color: #2c3e50;">
+                                                <i class="fas fa-microchip me-2" style="color: #7a8a99;"></i>Foto del Regulador
+                                            </label>
+                                            <input type="file" class="form-control form-control-sm" id="foto4-input" name="foto4"
+                                                accept="image/jpeg" capture="camera">
+                                        </div>
+                                    </div>
+
+                                    {{-- Foto 5: Detector de Fuga (Condicional) --}}
+                                    <div class="col-12 d-none" id="foto5-button">
+                                        <div style="padding: 12px; background: white; border-radius: 6px; border: 2px dashed #c0c0c0;">
+                                            <label for="foto5-input" class="form-label mb-2 fw-500" style="color: #2c3e50;">
+                                                <i class="fas fa-water me-2" style="color: #7a8a99;"></i>Foto Detector de Fuga
+                                            </label>
+                                            <input type="file" class="form-control form-control-sm" id="foto5-input" name="foto5"
+                                                accept="image/jpeg" capture="camera">
+                                        </div>
+                                    </div>
+
+                                    {{-- Foto 6: Exceso de Capacidad (Condicional) --}}
+                                    <div class="col-12 d-none" id="foto6-button">
+                                        <div style="padding: 12px; background: white; border-radius: 6px; border: 2px dashed #c0c0c0;">
+                                            <label for="foto6-input" class="form-label mb-2 fw-500" style="color: #2c3e50;">
+                                                <i class="fas fa-exclamation-triangle me-2" style="color: #7a8a99;"></i>Foto Exceso de Capacidad
+                                            </label>
+                                            <input type="file" class="form-control form-control-sm" id="foto6-input" name="foto6"
+                                                accept="image/jpeg" capture="camera">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="widget-content widget-content-area">
-                                <div class="col-md-12">
-                                    <div id="foto1-button">
-                                        <span class="input-group-text  m-2" for="foto1-input">Foto de la
-                                            Fachada</span>
-                                        <input type="file" class="form-control" id="foto1-input" name="foto1"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
-                                    <div id="foto2-button">
-                                        <span class="input-group-text m-2" for="foto2-input">Foto del Medidor</span>
-                                        <input type="file" class="form-control" id="foto2-input" name="foto2"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
-                                    <div id="foto3-button">
-                                        <span class="input-group-text m-2" for="foto3-input">Foto del Odómetro</span>
-                                        <input type="file" class="form-control" id="foto3-input" name="foto3"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
-                                    <div id="foto4-button">
-                                        <span class="input-group-text m-2" for="foto4-input">Foto del Regulador</span>
-                                        <input type="file" class="form-control" id="foto4-input" name="foto4"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
-                                    <div class="d-none" id="foto5-button">
-                                        <span class="input-group-text m-2" for="foto5-input">Foto Detector de Fuga</span>
-                                        <input type="file" class="form-control" id="foto5-input" name="foto5"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
-                                    <div class="d-none" id="foto6-button">
-                                        <span class="input-group-text m-2" for="foto6-input">Foto Exceso de
-                                            Capacidad</span>
-                                        <input type="file" class="form-control" id="foto6-input" name="foto6"
-                                            accept="image/jpeg" capture="camera">
-                                    </div>
-                                </div>
-                                <hr class="my-2">
-                            </div>
                         </div>
-                        <div class="alert alert-warning mt-3 d-none" role="alert" id="progressBarObservacion">
-                            <span class="text-sm">Guardando Cambios Porfavor Espere.....</span>
+                        <div class="alert alert-info mt-3 d-none" role="alert" id="progressBarObservacion">
+                            <i class="fas fa-spinner fa-spin me-2"></i><span class="text-sm">Guardando, por favor espere...</span>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary mt-3" id="submitButtonReporte">Enviar</button>
+
+                    {{-- Botón Enviar --}}
+                    <div class="col-12 sticky-bottom bg-white pt-3 pb-3" style="box-shadow: 0 -2px 10px rgba(0,0,0,0.05);">
+                        <button type="submit" class="btn btn-lg w-100" id="submitButtonReporte" style="background-color: #2c3e50; border-color: #2c3e50; color: white;">
+                            <i class="fas fa-paper-plane me-2"></i>Enviar Reporte
+                        </button>
                     </div>
                 </form>
             </div>
@@ -379,6 +505,48 @@
                     foto6Button.classList.remove('d-none');
                 } else {
                     foto6Button.classList.add('d-none');
+                }
+            });
+        });
+    </script>
+    <script>
+        // Función para mejorar interactividad de los checkboxes de incidencias
+        function toggleCheckbox(checkboxId) {
+            const checkbox = document.getElementById(checkboxId);
+            checkbox.checked = !checkbox.checked;
+
+            // Cambiar estilo del borde cuando está seleccionado
+            const option = checkbox.closest('.incidencia-option');
+            if (checkbox.checked) {
+                option.style.borderColor = '#2c3e50';
+                option.style.backgroundColor = '#f0f4f8';
+            } else {
+                option.style.borderColor = '#e0e0e0';
+                option.style.backgroundColor = 'white';
+            }
+        }
+
+        // Aplicar estilos iniciales y listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            ['fuga_gas', 'ex_capacidad'].forEach(checkboxId => {
+                const checkbox = document.getElementById(checkboxId);
+                const option = checkbox.closest('.incidencia-option');
+
+                // Disparar evento change para mantener compatibilidad
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        option.style.borderColor = '#2c3e50';
+                        option.style.backgroundColor = '#f0f4f8';
+                    } else {
+                        option.style.borderColor = '#e0e0e0';
+                        option.style.backgroundColor = 'white';
+                    }
+                });
+
+                // Establecer estilo inicial si ya está checked
+                if (checkbox.checked) {
+                    option.style.borderColor = '#2c3e50';
+                    option.style.backgroundColor = '#f0f4f8';
                 }
             });
         });
