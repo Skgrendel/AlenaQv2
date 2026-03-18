@@ -145,153 +145,210 @@
                         <input type="text" name="contrato" id="data_gis" hidden
                             value="{{ $data['info']['db_Surtigas']['contrato'] ?? 'sin datos' }}">
 
-                        {{-- Número de Orden --}}
-                        <div class="mb-3">
-                            <label for="numero_orden" class="form-label fw-500" style="color: #2c3e50;">
-                                <i class="fas fa-hashtag me-2" style="color: #7a8a99;"></i>Número de Orden
-                            </label>
-                            <input type="text" name="numero_orden" id="numero_orden" class="form-control form-control-lg" required>
-                        </div>
-
-                        {{-- Tipo de Comercio --}}
-                        <div class="mb-3">
-                            <label for="slcComercio" class="form-label fw-500" style="color: #2c3e50;">
-                                <i class="fas fa-store me-2" style="color: #7a8a99;"></i>Tipo de Comercio Encontrado
-                            </label>
-                            <select id="slcComercio" class="form-select form-select-lg" name="tipo_comercio" required>
-                                @foreach ($data['comercios'] as $id => $nombre)
-                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        {{-- Nombre del Comercio --}}
-                        <div class="mb-3">
-                            <label for="nombre_comercio" class="form-label fw-500" style="color: #2c3e50;">
-                                <i class="fas fa-edit me-2" style="color: #7a8a99;"></i>Nombre del Comercio
-                            </label>
-                            <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control form-control-lg" required>
-                        </div>
-                    </div>
-
-                    {{-- Contenedor del Medidor --}}
-                    <div id="cont-medidor" class="col-12">
-                        {{-- Número de Medidor --}}
-                        <div class="mb-3" id="medidor_anomalia_container">
-                            <label for="medidor_anomalia" class="form-label fw-500" style="color: #2c3e50;">
-                                <i class="fas fa-meter me-2" style="color: #7a8a99;"></i>Número de Medidor
-                            </label>
-                            <input type="text" name="medidor_anomalia" id="medidor_anomalia"
-                                class="form-control form-control-lg" required>
-                        </div>
-
-                        {{-- Lectura --}}
-                        <div class="mb-3" id="lectura_container">
-                            <label for="lectura" class="form-label fw-500" style="color: #2c3e50;">
-                                <i class="fas fa-gauge-simple me-2" style="color: #7a8a99;"></i>Lectura del Medidor
-                            </label>
-                            <input type="text" name="lectura" id="lectura" class="form-control form-control-lg" required>
-                        </div>
-
-                        {{-- Anomalías --}}
-                        <div class="mb-3" id="anomaliaContainer">
-                            <label for="slcanomalia" class="form-label fw-500" style="color: #2c3e50;">
-                                <i class="fas fa-exclamation-triangle me-2" style="color: #7a8a99;"></i>Anomalías Detectadas
-                            </label>
-                            <select id="slcanomalia" class="form-select form-select-lg select2" name="anomalia[]"
-                                multiple="multiple" data-placeholder="Seleccione las anomalías" required>
-                                @foreach ($data['anomalias'] as $id => $nombre)
-                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        {{-- Imposibilidad --}}
-                        <div class="mb-3" id="container_imposibilidad">
-                            <label for="imposibilidad" class="form-label fw-500" style="color: #2c3e50;">
-                                <i class="fas fa-ban me-2" style="color: #7a8a99;"></i>Imposibilidad
-                            </label>
-                            <select id="imposibilidad" class="form-select form-select-lg" name="imposibilidad" required>
-                                @foreach ($data['imposibilidad'] as $id => $nombre)
-                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        {{-- Descripción del Medidor --}}
-                        <div class="mb-3" id="descripcion_medidor_container">
-                            <label for="descripcion_medidor" class="form-label fw-500" style="color: #2c3e50;">
-                                <i class="fas fa-file-text me-2" style="color: #7a8a99;"></i>Descripción del Medidor
-                            </label>
-                            <select id="descripcion_medidor" class="form-select form-select-lg" name="descripcion_medidor" required>
-                                @foreach ($data['descripcion_medidor'] as $id => $nombre)
-                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        {{-- Tipo de Presión --}}
-                        <div class="mb-3" id="tipo_regulador_container">
-                            <label for="tipo_presion" class="form-label fw-500" style="color: #2c3e50;">
-                                <i class="fas fa-wind me-2" style="color: #7a8a99;"></i>Tipo de Presión
-                            </label>
-                            <select id="tipo_presion" class="form-select form-select-lg" name="tipo_presion" required>
-                                @foreach ($data['tipo_presion'] as $id => $nombre)
-                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        {{-- Marca del Regulador --}}
-                        <div class="mb-3" id="marca_regulador_container">
-                            <label for="marca_regulador" class="form-label fw-500" style="color: #2c3e50;">
-                                <i class="fas fa-wrench me-2" style="color: #7a8a99;"></i>Tipo del Regulador
-                            </label>
-                            <select id="marca_regulador" class="form-select form-select-lg" name="marca_regulador" required>
-                                @foreach ($data['marca_regulador'] as $id => $nombre)
-                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        {{-- Marca del Medidor --}}
-                        <div class="mb-3" id="marca_medidor_container">
-                            <label for="marca_medidor" class="form-label fw-500" style="color: #2c3e50;">
-                                <i class="fas fa-tag me-2" style="color: #7a8a99;"></i>Marca del Medidor
-                            </label>
-                            <select id="marca_medidor" class="form-select form-select-lg" name="marca_medidor" required>
-                                @foreach ($data['marca_medidor'] as $id => $nombre)
-                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        {{-- Alertas --}}
-                        <div class="mb-3" id="cau_container">
-                            <label for="cau" class="form-label fw-500" style="color: #2c3e50;">
-                                <i class="fas fa-bell me-2" style="color: #7a8a99;"></i>Notificación de Alertas
-                            </label>
-                            <select id="cau" class="form-select form-select-lg" name="cau" required>
-                                @foreach ($data['alertas'] as $id => $nombre)
-                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    {{-- Sección Desplegable: Incidencias --}}
-                    <div class="col-12">
-                        <div class="card border-0" style="background: #f8f9fa;">
+                        {{-- SECCIÓN 1: DATOS DE LA ORDEN --}}
+                        <div class="card border-0 mb-3" style="background: #f8f9fa;">
                             <button class="btn btn-link text-start d-flex justify-content-between align-items-center w-100"
-                                    type="button" data-bs-toggle="collapse" data-bs-target="#incidenciasCollapse"
-                                    style="padding: 12px 15px; text-decoration: none; color: #2c3e50;">
-                                <span class="fw-500">
-                                    <i class="fas fa-exclamation-circle me-2" style="color: #7a8a99;"></i>Incidencias Detectadas
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#seccionOrden"
+                                    style="padding: 14px 16px; text-decoration: none; color: #2c3e50;">
+                                <span class="fw-600" style="font-size: 1.05rem;">
+                                    <i class="fas fa-file-alt me-2" style="color: #7a8a99;"></i>1. Datos de la Orden
                                 </span>
-                                <i class="fas fa-chevron-down" style="color: #7a8a99; font-size: 0.9rem;"></i>
+                                <i class="fas fa-chevron-down" style="color: #7a8a99;"></i>
                             </button>
-                            <div class="collapse" id="incidenciasCollapse">
-                                <div class="card-body" style="border-top: 1px solid #e0e0e0; padding: 15px;">
+                            <div class="collapse show" id="seccionOrden">
+                                <div class="card-body" style="border-top: 1px solid #e0e0e0; padding: 16px;">
+                                    {{-- Número de Orden --}}
+                                    <div class="mb-3">
+                                        <label for="numero_orden" class="form-label fw-500" style="color: #2c3e50;">
+                                            <i class="fas fa-hashtag me-2" style="color: #7a8a99;"></i>Número de Orden
+                                        </label>
+                                        <input type="text" name="numero_orden" id="numero_orden" class="form-control form-control-lg" required>
+                                    </div>
+
+                                    {{-- Tipo de Comercio --}}
+                                    <div class="mb-3">
+                                        <label for="slcComercio" class="form-label fw-500" style="color: #2c3e50;">
+                                            <i class="fas fa-store me-2" style="color: #7a8a99;"></i>Tipo de Comercio Encontrado
+                                        </label>
+                                        <select id="slcComercio" class="form-select form-select-lg" name="tipo_comercio" required>
+                                            @foreach ($data['comercios'] as $id => $nombre)
+                                                <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    {{-- Nombre del Comercio --}}
+                                    <div class="mb-0">
+                                        <label for="nombre_comercio" class="form-label fw-500" style="color: #2c3e50;">
+                                            <i class="fas fa-edit me-2" style="color: #7a8a99;"></i>Nombre del Comercio
+                                        </label>
+                                        <input type="text" name="nombre_comercio" id="nombre_comercio" class="form-control form-control-lg" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- SECCIÓN 2: INFORMACIÓN DEL MEDIDOR --}}
+                        <div class="card border-0 mb-3" style="background: #f8f9fa;">
+                            <button class="btn btn-link text-start d-flex justify-content-between align-items-center w-100"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#seccionMedidor"
+                                    style="padding: 14px 16px; text-decoration: none; color: #2c3e50;">
+                                <span class="fw-600" style="font-size: 1.05rem;">
+                                    <i class="fas fa-gauge-simple me-2" style="color: #7a8a99;"></i>2. Información del Medidor
+                                </span>
+                                <i class="fas fa-chevron-down" style="color: #7a8a99;"></i>
+                            </button>
+                            <div class="collapse show" id="seccionMedidor">
+                                <div class="card-body" style="border-top: 1px solid #e0e0e0; padding: 16px;">
+                                    {{-- Número de Medidor --}}
+                                    <div class="mb-3" id="medidor_anomalia_container">
+                                        <label for="medidor_anomalia" class="form-label fw-500" style="color: #2c3e50;">
+                                            <i class="fas fa-meter me-2" style="color: #7a8a99;"></i>Número de Medidor
+                                        </label>
+                                        <input type="text" name="medidor_anomalia" id="medidor_anomalia"
+                                            class="form-control form-control-lg" required>
+                                    </div>
+
+                                    {{-- Lectura --}}
+                                    <div class="mb-3" id="lectura_container">
+                                        <label for="lectura" class="form-label fw-500" style="color: #2c3e50;">
+                                            <i class="fas fa-tachometer-alt me-2" style="color: #7a8a99;"></i>Lectura del Medidor
+                                        </label>
+                                        <input type="text" name="lectura" id="lectura" class="form-control form-control-lg" required>
+                                    </div>
+
+                                    {{-- Descripción del Medidor --}}
+                                    <div class="mb-0" id="descripcion_medidor_container">
+                                        <label for="descripcion_medidor" class="form-label fw-500" style="color: #2c3e50;">
+                                            <i class="fas fa-file-text me-2" style="color: #7a8a99;"></i>Descripción del Medidor
+                                        </label>
+                                        <select id="descripcion_medidor" class="form-select form-select-lg" name="descripcion_medidor" required>
+                                            @foreach ($data['descripcion_medidor'] as $id => $nombre)
+                                                <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- SECCIÓN 3: CONFIGURACIÓN TÉCNICA --}}
+                        <div class="card border-0 mb-3" style="background: #f8f9fa;">
+                            <button class="btn btn-link text-start d-flex justify-content-between align-items-center w-100"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#seccionTecnica"
+                                    style="padding: 14px 16px; text-decoration: none; color: #2c3e50;">
+                                <span class="fw-600" style="font-size: 1.05rem;">
+                                    <i class="fas fa-sliders-h me-2" style="color: #7a8a99;"></i>3. Configuración Técnica
+                                </span>
+                                <i class="fas fa-chevron-down" style="color: #7a8a99;"></i>
+                            </button>
+                            <div class="collapse" id="seccionTecnica">
+                                <div class="card-body" style="border-top: 1px solid #e0e0e0; padding: 16px;">
+                                    {{-- Tipo de Presión --}}
+                                    <div class="mb-3" id="tipo_regulador_container">
+                                        <label for="tipo_presion" class="form-label fw-500" style="color: #2c3e50;">
+                                            <i class="fas fa-wind me-2" style="color: #7a8a99;"></i>Tipo de Presión
+                                        </label>
+                                        <select id="tipo_presion" class="form-select form-select-lg" name="tipo_presion" required>
+                                            @foreach ($data['tipo_presion'] as $id => $nombre)
+                                                <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    {{-- Marca del Regulador --}}
+                                    <div class="mb-3" id="marca_regulador_container">
+                                        <label for="marca_regulador" class="form-label fw-500" style="color: #2c3e50;">
+                                            <i class="fas fa-wrench me-2" style="color: #7a8a99;"></i>Tipo del Regulador
+                                        </label>
+                                        <select id="marca_regulador" class="form-select form-select-lg" name="marca_regulador" required>
+                                            @foreach ($data['marca_regulador'] as $id => $nombre)
+                                                <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    {{-- Marca del Medidor --}}
+                                    <div class="mb-3" id="marca_medidor_container">
+                                        <label for="marca_medidor" class="form-label fw-500" style="color: #2c3e50;">
+                                            <i class="fas fa-tag me-2" style="color: #7a8a99;"></i>Marca del Medidor
+                                        </label>
+                                        <select id="marca_medidor" class="form-select form-select-lg" name="marca_medidor" required>
+                                            @foreach ($data['marca_medidor'] as $id => $nombre)
+                                                <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    {{-- Notificación de Alertas --}}
+                                    <div class="mb-0" id="cau_container">
+                                        <label for="cau" class="form-label fw-500" style="color: #2c3e50;">
+                                            <i class="fas fa-bell me-2" style="color: #7a8a99;"></i>Notificación de Alertas
+                                        </label>
+                                        <select id="cau" class="form-select form-select-lg" name="cau" required>
+                                            @foreach ($data['alertas'] as $id => $nombre)
+                                                <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- SECCIÓN 4: DETECCIÓN DE ANOMALÍAS --}}
+                        <div class="card border-0 mb-3" style="background: #f8f9fa;">
+                            <button class="btn btn-link text-start d-flex justify-content-between align-items-center w-100"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#seccionAnomalias"
+                                    style="padding: 14px 16px; text-decoration: none; color: #2c3e50;">
+                                <span class="fw-600" style="font-size: 1.05rem;">
+                                    <i class="fas fa-exclamation-triangle me-2" style="color: #7a8a99;"></i>4. Detección de Anomalías
+                                </span>
+                                <i class="fas fa-chevron-down" style="color: #7a8a99;"></i>
+                            </button>
+                            <div class="collapse" id="seccionAnomalias">
+                                <div class="card-body" style="border-top: 1px solid #e0e0e0; padding: 16px;">
+                                    {{-- Anomalías --}}
+                                    <div class="mb-3" id="anomaliaContainer">
+                                        <label for="slcanomalia" class="form-label fw-500" style="color: #2c3e50;">
+                                            <i class="fas fa-search me-2" style="color: #7a8a99;"></i>Anomalías Detectadas
+                                        </label>
+                                        <select id="slcanomalia" class="form-select form-select-lg select2" name="anomalia[]"
+                                            multiple="multiple" data-placeholder="Seleccione las anomalías" required>
+                                            @foreach ($data['anomalias'] as $id => $nombre)
+                                                <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    {{-- Imposibilidad --}}
+                                    <div class="mb-0" id="container_imposibilidad">
+                                        <label for="imposibilidad" class="form-label fw-500" style="color: #2c3e50;">
+                                            <i class="fas fa-ban me-2" style="color: #7a8a99;"></i>¿Hubo Imposibilidad?
+                                        </label>
+                                        <select id="imposibilidad" class="form-select form-select-lg" name="imposibilidad" required>
+                                            @foreach ($data['imposibilidad'] as $id => $nombre)
+                                                <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- SECCIÓN 5: INCIDENCIAS DETECTADAS --}}
+                    <div class="col-12">
+                        <div class="card border-0 mb-3" style="background: #f8f9fa;">
+                            <button class="btn btn-link text-start d-flex justify-content-between align-items-center w-100"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#seccionIncidencias"
+                                    style="padding: 14px 16px; text-decoration: none; color: #2c3e50;">
+                                <span class="fw-600" style="font-size: 1.05rem;">
+                                    <i class="fas fa-exclamation-circle me-2" style="color: #7a8a99;"></i>5. Incidencias Detectadas
+                                </span>
+                                <i class="fas fa-chevron-down" style="color: #7a8a99;"></i>
+                            </button>
+                            <div class="collapse" id="seccionIncidencias">
+                                <div class="card-body" style="border-top: 1px solid #e0e0e0; padding: 16px;">
                                     <div class="row g-3">
                                         {{-- Checkbox: Fuga de Gas --}}
                                         <div class="col-12">
@@ -330,32 +387,51 @@
                         </div>
                     </div>
 
-                    {{-- Observaciones --}}
+                    {{-- SECCIÓN 6: OBSERVACIONES --}}
                     <div class="col-12">
-                        <label for="comentarios" class="form-label fw-500" style="color: #2c3e50;">
-                            <i class="fas fa-pen-fancy me-2" style="color: #7a8a99;"></i>Observaciones
-                        </label>
-                        <textarea name="comentarios" id="comentarios" rows="4" class="form-control"
-                            placeholder="Agrega tus observaciones..."></textarea>
+                        <div class="card border-0 mb-3" style="background: #f8f9fa;">
+                            <button class="btn btn-link text-start d-flex justify-content-between align-items-center w-100"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#seccionObservaciones"
+                                    style="padding: 14px 16px; text-decoration: none; color: #2c3e50;">
+                                <span class="fw-600" style="font-size: 1.05rem;">
+                                    <i class="fas fa-pen-fancy me-2" style="color: #7a8a99;"></i>6. Observaciones
+                                </span>
+                                <i class="fas fa-chevron-down" style="color: #7a8a99;"></i>
+                            </button>
+                            <div class="collapse" id="seccionObservaciones">
+                                <div class="card-body" style="border-top: 1px solid #e0e0e0; padding: 16px;">
+                                    <label for="comentarios" class="form-label fw-500 mb-2" style="color: #2c3e50;">
+                                        <i class="fas fa-note-sticky me-2" style="color: #7a8a99;"></i>Comentarios Adicionales
+                                    </label>
+                                    <textarea name="comentarios" id="comentarios" rows="5" class="form-control"
+                                        placeholder="Agrega aquí cualquier observación importante sobre la inspección..."
+                                        style="background: white; border: 2px solid #e0e0e0; color: #2c3e50; padding: 12px; border-radius: 6px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    {{-- Fotos Evidencias --}}
+                    {{-- SECCIÓN 7: FOTOS EVIDENCIAS --}}
                     <div id="evidencias" class="col-12">
-                        <div class="card border-0" style="background: #f8f9fa;">
-                            <div class="card-header text-white border-0 rounded-top" style="background-color: #2c3e50;">
-                                <h5 class="mb-0">
-                                    <i class="fas fa-camera me-2"></i>Fotos Evidencias
-                                </h5>
-                            </div>
-                            <div class="card-body p-3">
-                                <div class="row g-2">
-                                    {{-- Foto 1: Fachada --}}
-                                    <div class="col-12">
-                                        <div style="padding: 12px; background: white; border-radius: 6px; border: 2px dashed #c0c0c0;">
-                                            <label for="foto1-input" class="form-label mb-2 fw-500" style="color: #2c3e50;">
-                                                <i class="fas fa-building me-2" style="color: #7a8a99;"></i>Foto de la Fachada
-                                            </label>
-                                            <input type="file" class="form-control form-control-sm" id="foto1-input" name="foto1"
+                        <div class="card border-0 mb-3" style="background: #f8f9fa;">
+                            <button class="btn btn-link text-start d-flex justify-content-between align-items-center w-100"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#seccionFotos"
+                                    style="padding: 14px 16px; text-decoration: none; color: #2c3e50;">
+                                <span class="fw-600" style="font-size: 1.05rem;">
+                                    <i class="fas fa-camera me-2" style="color: #7a8a99;"></i>7. Fotos Evidencias
+                                </span>
+                                <i class="fas fa-chevron-down" style="color: #7a8a99;"></i>
+                            </button>
+                            <div class="collapse show" id="seccionFotos">
+                                <div class="card-body" style="border-top: 1px solid #e0e0e0; padding: 16px;">
+                                    <div class="row g-2">
+                                        {{-- Foto 1: Fachada --}}
+                                        <div class="col-12">
+                                            <div style="padding: 12px; background: white; border-radius: 6px; border: 2px dashed #c0c0c0;">
+                                                <label for="foto1-input" class="form-label mb-2 fw-500" style="color: #2c3e50;">
+                                                    <i class="fas fa-building me-2" style="color: #7a8a99;"></i>Foto de la Fachada
+                                                </label>
+                                                <input type="file" class="form-control form-control-sm" id="foto1-input" name="foto1"
                                                 accept="image/jpeg" capture="camera">
                                         </div>
                                     </div>
