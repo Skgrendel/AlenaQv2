@@ -249,24 +249,14 @@
             </div>
         </div>
 
-        {{-- Galería de Imágenes --}}
+        {{-- Galería de Imágenes Mejorada --}}
         <div class="widget-content widget-content-area mt-3">
             <div class="card style-4">
                 <div class="card-body pt-3">
-                    <div class="m-o-dropdown-list">
-                        <div class="media mt-0 mb-3">
-                            <div class="badge--group me-3">
-                                <div class="badge badge-success badge-dot"></div>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading mb-0">
-                                    <span class="text-card"><i class="fas fa-images me-2"></i>Galería de Evidencias</span>
-                                </h4>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                    </div>
-                    <div class="row">
+                    <h6 class="text-uppercase text-muted mb-3" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                        <i class="fas fa-images me-2"></i>Galería de Evidencias
+                    </h6>
+                    <div class="row g-3">
                         @php
                             $tieneImagenes = false;
                             for ($i = 1; $i <= 6; $i++) {
@@ -287,20 +277,33 @@
                                 @endphp
 
                                 @if ($rutaImagen)
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                                        <a href="{{ asset($rutaImagen) }}"
-                                            class="withDescriptionGlightbox glightbox-content"
-                                            data-glightbox="title: {{ $tituloGlightbox }}; description: {{ $descripcionGlightbox }};">
-                                            <img src="{{ asset($rutaImagen) }}"
-                                                alt="{{ $nombreArchivo }}" class="img-fluid rounded"
-                                                style="width:100%; height:200px; object-fit: cover;" />
-                                        </a>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                                            <a href="{{ asset($rutaImagen) }}" class="withDescriptionGlightbox glightbox-content" style="display: block; position: relative; overflow: hidden;"
+                                                data-glightbox="title: {{ $tituloGlightbox }}; description: {{ $descripcionGlightbox }};">
+                                                <img src="{{ asset($rutaImagen) }}" alt="{{ $nombreArchivo }}" class="img-fluid"
+                                                    style="width: 100%; height: 220px; object-fit: cover; display: block; transition: transform 0.3s ease;" />
+                                                {{-- Overlay con icono al pasar el mouse --}}
+                                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;" class="overlay-icon">
+                                                    <i class="fas fa-search-plus" style="font-size: 32px; color: white;"></i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <p class="text-muted mt-2 mb-0" style="font-size: 0.85rem; text-align: center;">
+                                            @if ($i == 1) Fachada
+                                            @elseif ($i == 2) Medidor
+                                            @elseif ($i == 3) Odómetro
+                                            @elseif ($i == 4) Regulador
+                                            @elseif ($i == 5) Detector Fuga
+                                            @else Exceso Capacidad
+                                            @endif
+                                        </p>
                                     </div>
                                 @endif
                             @endforeach
                         @else
                             <div class="col-12">
-                                <div class="alert alert-soft-warning border-0">
+                                <div class="alert alert-soft-warning border-0 mb-0" style="background-color: rgba(255, 193, 7, 0.1);">
                                     <i class="fas fa-camera me-2"></i>No hay imágenes disponibles para este reporte.
                                 </div>
                             </div>
@@ -315,5 +318,15 @@
                 </div>
             </div>
         </div>
+
+        <style>
+            .glightbox-content:hover img {
+                transform: scale(1.05);
+            }
+
+            .glightbox-content:hover .overlay-icon {
+                opacity: 1 !important;
+            }
+        </style>
     </div>
 @endsection
