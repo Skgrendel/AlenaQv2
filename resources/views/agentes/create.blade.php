@@ -198,15 +198,39 @@
                                 </span>
                                 <i class="fas fa-chevron-down" style="color: #7a8a99;"></i>
                             </button>
-                            <div class="collapse show" id="seccionMedidor">
+                            <div class="collapse" id="seccionMedidor">
                                 <div class="card-body" style="border-top: 1px solid #e0e0e0; padding: 16px;">
                                     {{-- Número de Medidor --}}
                                     <div class="mb-3" id="medidor_anomalia_container">
                                         <label for="medidor_anomalia" class="form-label fw-500" style="color: #2c3e50;">
-                                            <i class="fas fa-meter me-2" style="color: #7a8a99;"></i>Número de Medidor
+                                            <i class="fas fa-meter me-2" style="color: #7a8a99;"></i>Número de Medidor Encontrado
                                         </label>
                                         <input type="text" name="medidor_anomalia" id="medidor_anomalia"
                                             class="form-control form-control-lg" required>
+                                        <small style="color: #7a8a99; display: block; margin-top: 6px;">Ingresa el número del medidor que encontraste en el sitio</small>
+                                    </div>
+
+                                    {{-- ¿Coincide con el medidor asignado? --}}
+                                    <div class="mb-3">
+                                        <label class="form-label fw-500" style="color: #2c3e50;">
+                                            <i class="fas fa-check-circle me-2" style="color: #7a8a99;"></i>¿Coincide con el medidor asignado?
+                                        </label>
+                                        <div class="row g-2">
+                                            <div class="col-6">
+                                                <div style="padding: 12px; background: white; border-radius: 6px; border: 2px solid #e0e0e0; text-align: center; cursor: pointer; transition: all 0.3s;" class="medidor-coincide-option" onclick="selectMedidorCoincide('si')">
+                                                    <input type="radio" name="medidor_coincide" id="medidorcsi" value="si" style="display: none;">
+                                                    <i class="fas fa-thumbs-up mb-2" style="color: #7a8a99; font-size: 1.5rem; display: block;"></i>
+                                                    <span style="color: #2c3e50; font-weight: 500; font-size: 0.95rem;">Sí, Coincide</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div style="padding: 12px; background: white; border-radius: 6px; border: 2px solid #e0e0e0; text-align: center; cursor: pointer; transition: all 0.3s;" class="medidor-coincide-option" onclick="selectMedidorCoincide('no')">
+                                                    <input type="radio" name="medidor_coincide" id="medidorcno" value="no" style="display: none;">
+                                                    <i class="fas fa-exclamation mb-2" style="color: #7a8a99; font-size: 1.5rem; display: block;"></i>
+                                                    <span style="color: #2c3e50; font-weight: 500; font-size: 0.95rem;">No, Diferente</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     {{-- Lectura --}}
@@ -422,7 +446,7 @@
                                 </span>
                                 <i class="fas fa-chevron-down" style="color: #7a8a99;"></i>
                             </button>
-                            <div class="collapse show" id="seccionFotos">
+                            <div class="collapse" id="seccionFotos">
                                 <div class="card-body" style="border-top: 1px solid #e0e0e0; padding: 16px;">
                                     <div class="row g-2">
                                         {{-- Foto 1: Fachada --}}
@@ -624,6 +648,37 @@
                     option.style.borderColor = '#2c3e50';
                     option.style.backgroundColor = '#f0f4f8';
                 }
+            });
+        });
+    </script>
+    <script>
+        // Función para seleccionar opción de coincidencia de medidor
+        function selectMedidorCoincide(value) {
+            // Seleccionar el radio button correcto
+            document.getElementById(value === 'si' ? 'medidorcsi' : 'medidorcno').checked = true;
+
+            // Actualizar estilos de ambas opciones
+            const options = document.querySelectorAll('.medidor-coincide-option');
+            options.forEach(option => {
+                const radio = option.querySelector('input[type="radio"]');
+                if (radio.checked) {
+                    option.style.borderColor = '#2c3e50';
+                    option.style.backgroundColor = '#f0f4f8';
+                } else {
+                    option.style.borderColor = '#e0e0e0';
+                    option.style.backgroundColor = 'white';
+                }
+            });
+        }
+
+        // Inicializar estilos de coincidencia de medidor
+        document.addEventListener('DOMContentLoaded', function() {
+            const options = document.querySelectorAll('.medidor-coincide-option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const radio = this.querySelector('input[type="radio"]');
+                    selectMedidorCoincide(radio.value);
+                });
             });
         });
     </script>
