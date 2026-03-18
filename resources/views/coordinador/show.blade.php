@@ -327,118 +327,181 @@
                             </div>
                             <hr class="my-2">
                         </div>
-                        <div class="row">
-                            <form action="{{ route('coordinador.update', $data['info']['id']) }}" method="post"
-                                id="observacion" enctype="multipart/form-data">
-                                @method('PUT')
-                                @csrf
-                                <div>
-                                    <div class="row mt-3">
-                                        <div class="col-3">
-                                            <span class="form-check-label">¿El medidor coincide con el Contrato?</span>
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                    name="medidor_coincide" value="1">
-                                                <label class="form-check-label" for="inlineCheckbox1">si</label>
+                        <form action="{{ route('coordinador.update', $data['info']['id']) }}" method="post"
+                            id="observacion" enctype="multipart/form-data">
+                            @method('PUT')
+                            @csrf
+
+                            {{-- Preguntas de Verificación --}}
+                            <div class="mb-4">
+                                <h6 class="text-uppercase text-muted mb-3" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                    <i class="fas fa-check-circle me-2"></i>Preguntas de Verificación
+                                </h6>
+
+                                <div class="row g-3">
+                                    {{-- Pregunta 1 --}}
+                                    <div class="col-md-6">
+                                        <div style="background: rgba(87, 167, 225, 0.05); padding: 12px; border-radius: 6px; border-left: 3px solid #57a7e1;">
+                                            <p class="mb-2 text-sm fw-500">¿El medidor coincide con el Contrato?</p>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="medidor_si" name="medidor_coincide" value="1">
+                                                <label class="form-check-label text-sm" for="medidor_si">
+                                                    <i class="fas fa-check me-1" style="color: #28a745;"></i>Sí
+                                                </label>
                                             </div>
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                    name="medidor_coincide" value="0">
-                                                <label class="form-check-label" for="inlineCheckbox1">no</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <span class="form-check-label">¿La lectura es correcta?</span>
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                    name="lectura_correcta" value="1">
-                                                <label class="form-check-label" for="inlineCheckbox1">si</label>
-                                            </div>
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                    name="lectura_correcta" value="0">
-                                                <label class="form-check-label" for="inlineCheckbox1">no</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <span class="form-check-label">¿La foto fue tomada en la posicion
-                                                correcta?</span>
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                    name="foto_correcta" value="1">
-                                                <label class="form-check-label" for="inlineCheckbox1">si</label>
-                                            </div>
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                    name="foto_correcta" value="0">
-                                                <label class="form-check-label" for="inlineCheckbox1">no</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="medidor_no" name="medidor_coincide" value="0">
+                                                <label class="form-check-label text-sm" for="medidor_no">
+                                                    <i class="fas fa-times me-1" style="color: #dc3545;"></i>No
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-3">
-                                        <div class="col-4">
-                                            <span class="form-check-label">¿Coicide el tipo de comercio?</span>
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                    name="comercio_coincide" value="1">
-                                                <label class="form-check-label" for="inlineCheckbox1">si</label>
+
+                                    {{-- Pregunta 2 --}}
+                                    <div class="col-md-6">
+                                        <div style="background: rgba(87, 167, 225, 0.05); padding: 12px; border-radius: 6px; border-left: 3px solid #57a7e1;">
+                                            <p class="mb-2 text-sm fw-500">¿La lectura es correcta?</p>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="lectura_si" name="lectura_correcta" value="1">
+                                                <label class="form-check-label text-sm" for="lectura_si">
+                                                    <i class="fas fa-check me-1" style="color: #28a745;"></i>Sí
+                                                </label>
                                             </div>
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                                    name="comercio_coincide" value="0">
-                                                <label class="form-check-label" for="inlineCheckbox1">no</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
-                                                    name="revisado" value="1">
-                                                <label class="form-check-label" for="inlineCheckbox1">Revisado</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="lectura_no" name="lectura_correcta" value="0">
+                                                <label class="form-check-label text-sm" for="lectura_no">
+                                                    <i class="fas fa-times me-1" style="color: #dc3545;"></i>No
+                                                </label>
                                             </div>
                                         </div>
-                                        <div class="col-4">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
-                                                    name="soborno" value="1">
-                                                <label class="form-check-label" for="inlineCheckbox1">Intento de
-                                                    Soborno</label>
+                                    </div>
+
+                                    {{-- Pregunta 3 --}}
+                                    <div class="col-md-6">
+                                        <div style="background: rgba(87, 167, 225, 0.05); padding: 12px; border-radius: 6px; border-left: 3px solid #57a7e1;">
+                                            <p class="mb-2 text-sm fw-500">¿La foto fue tomada en posición correcta?</p>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="foto_si" name="foto_correcta" value="1">
+                                                <label class="form-check-label text-sm" for="foto_si">
+                                                    <i class="fas fa-check me-1" style="color: #28a745;"></i>Sí
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="foto_no" name="foto_correcta" value="0">
+                                                <label class="form-check-label text-sm" for="foto_no">
+                                                    <i class="fas fa-times me-1" style="color: #dc3545;"></i>No
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- Pregunta 4 --}}
+                                    <div class="col-md-6">
+                                        <div style="background: rgba(87, 167, 225, 0.05); padding: 12px; border-radius: 6px; border-left: 3px solid #57a7e1;">
+                                            <p class="mb-2 text-sm fw-500">¿Coincide el tipo de comercio?</p>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="comercio_si" name="comercio_coincide" value="1">
+                                                <label class="form-check-label text-sm" for="comercio_si">
+                                                    <i class="fas fa-check me-1" style="color: #28a745;"></i>Sí
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="comercio_no" name="comercio_coincide" value="0">
+                                                <label class="form-check-label text-sm" for="comercio_no">
+                                                    <i class="fas fa-times me-1" style="color: #dc3545;"></i>No
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                @if ($data['info']['estado'] != '6')
-                                    <textarea id="editor" rows="5" name="observaciones" class="form-control mb-3"
-                                        placeholder="Escriba Sus Observaciones"></textarea>
-                                    <div class="mb-2">
-                                        <div class="form-check form-check-success form-check-inline">
-                                            <label class="form-check-label" for="inlineRadio1">
-                                                <span class="badge badge-success">Revisado</span>
-                                                <input class="form-check-input" type="radio" name="estado"
-                                                    id="inlineRadio1" value="6">
+                            </div>
+
+                            {{-- Checkboxes adicionales --}}
+                            <div class="mb-4">
+                                <h6 class="text-uppercase text-muted mb-3" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                    <i class="fas fa-flag me-2"></i>Validaciones Adicionales
+                                </h6>
+                                <div class="row g-2">
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="revisado_check" name="revisado" value="1">
+                                            <label class="form-check-label text-sm" for="revisado_check">
+                                                <i class="fas fa-eye me-1"></i>Reporte Revisado
                                             </label>
                                         </div>
-                                        <div class="form-check form-check-danger form-check-inline">
-                                            <label class="form-check-label" for="inlineRadio2">
-                                                <span class="badge badge-danger">Rechazado</span>
-                                                <input class="form-check-input" type="radio" name="estado"
-                                                    id="inlineRadio2" value="7">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="soborno_check" name="soborno" value="1">
+                                            <label class="form-check-label text-sm" for="soborno_check">
+                                                <i class="fas fa-warning me-1"></i>Intento de Soborno
                                             </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if ($data['info']['estado'] != '6')
+                                {{-- Textarea de Observaciones --}}
+                                <div class="mb-4">
+                                    <h6 class="text-uppercase text-muted mb-2" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <i class="fas fa-pen-fancy me-2"></i>Observaciones Adicionales
+                                    </h6>
+                                    <textarea id="editor" rows="4" name="observaciones" class="form-control"
+                                        placeholder="Escriba sus observaciones, notas importantes o comentarios sobre la revisión..."
+                                        style="border: 1px solid #d1d3d4; border-radius: 6px;"></textarea>
+                                </div>
+
+                                {{-- Estado del Reporte --}}
+                                <div class="mb-4">
+                                    <h6 class="text-uppercase text-muted mb-3" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <i class="fas fa-certificate me-2"></i>Resultado de la Revisión
+                                    </h6>
+                                    <div class="row g-2">
+                                        <div class="col-12">
+                                            <div style="background: rgba(40, 167, 69, 0.08); padding: 12px; border-radius: 6px; border: 1px solid rgba(40, 167, 69, 0.2);">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="estado" id="estado_aprueba" value="6">
+                                                    <label class="form-check-label fw-500" for="estado_aprueba">
+                                                        <span class="badge badge-success me-2">
+                                                            <i class="fas fa-check me-1"></i>Revisado y Aprobado
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div style="background: rgba(220, 53, 69, 0.08); padding: 12px; border-radius: 6px; border: 1px solid rgba(220, 53, 69, 0.2);">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="estado" id="estado_rechaza" value="7">
+                                                    <label class="form-check-label fw-500" for="estado_rechaza">
+                                                        <span class="badge badge-danger me-2">
+                                                            <i class="fas fa-times me-1"></i>Rechazado
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                         @if ($errors->has('estado'))
-                                            <span class="text-danger">{{ $errors->first('estado') }}</span>
+                                            <span class="text-danger text-sm"><i class="fas fa-exclamation-circle me-1"></i>{{ $errors->first('estado') }}</span>
                                         @endif
                                     </div>
-                                @endif
-                                <div class="alert alert-warning d-none" role="alert" id="progressBarObservacion">
-                                    <span class="text-sm">Guardando Cambios Porfavor Espere.....</span>
                                 </div>
-                                <hr class="my-2">
-                                <div class=" d-flex justify-content-end">
-                                    <button type="submit" id="submitButtonObservacion"
-                                        class="btn btn-success">Guardar</button>
-                                </div>
-                            </form>
-                        </div>
+                            @endif
+
+                            <div class="alert alert-warning d-none" role="alert" id="progressBarObservacion">
+                                <span class="text-sm"><i class="fas fa-spinner fa-spin me-2"></i>Guardando Cambios, Por favor espere...</span>
+                            </div>
+
+                            <hr class="my-3">
+
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" id="submitButtonObservacion" class="btn btn-success">
+                                    <i class="fas fa-save me-2"></i>Guardar Cambios
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -458,62 +521,99 @@
                             </div>
                             <hr class="my-2">
                         </div>
-                        <div class="row">
-                            <form action="{{ route('coordinador.store') }}" method="POST" enctype="multipart/form-data"
-                                id="evidencias">
-                                @csrf
-                                <input type="text" name="id" value="{{ $data['info']['id'] }}" hidden>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div id="foto1-button">
-                                            <span class="input-group-text  m-2" for="foto1-input">Foto de la
-                                                Fachada</span>
-                                            <input type="file" class="form-control" id="foto1-input" name="foto1"
-                                                accept="image/jpeg" capture="camera">
-                                        </div>
-                                        <div id="foto2-button">
-                                            <span class="input-group-text m-2" for="foto2-input">Foto del Medidor</span>
-                                            <input type="file" class="form-control" id="foto2-input" name="foto2"
-                                                accept="image/jpeg" capture="camera">
-                                        </div>
-                                        <div id="foto5-button">
-                                            <span class="input-group-text m-2" for="foto5-input">Foto Detector de
-                                                Fuga</span>
-                                            <input type="file" class="form-control" id="foto5-input" name="foto5"
-                                                accept="image/jpeg" capture="camera">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div id="foto3-button">
-                                            <span class="input-group-text m-2" for="foto3-input">Foto del Odómetro</span>
-                                            <input type="file" class="form-control" id="foto3-input" name="foto3"
-                                                accept="image/jpeg" capture="camera">
-                                        </div>
-                                        <div id="foto4-button">
-                                            <span class="input-group-text m-2" for="foto4-input">Foto del Regulador</span>
-                                            <input type="file" class="form-control" id="foto4-input" name="foto4"
-                                                accept="image/jpeg" capture="camera">
-                                        </div>
-                                        <div id="foto6-button">
-                                            <span class="input-group-text m-2" for="foto6-input">Foto Exceso de
-                                                Capacidad</span>
-                                            <input type="file" class="form-control" id="foto6-input" name="foto6"
-                                                accept="image/jpeg" capture="camera">
-                                        </div>
+                        <form action="{{ route('coordinador.store') }}" method="POST" enctype="multipart/form-data"
+                            id="evidencias">
+                            @csrf
+                            <input type="text" name="id" value="{{ $data['info']['id'] }}" hidden>
+
+                            <div class="row g-3">
+                                {{-- Foto 1: Fachada --}}
+                                <div class="col-md-6">
+                                    <div style="padding: 12px; background: rgba(87, 167, 225, 0.05); border-radius: 6px; border: 2px dashed #57a7e1;">
+                                        <label for="foto1-input" class="mb-2 text-sm fw-500 d-block">
+                                            <i class="fas fa-building me-1" style="color: #57a7e1;"></i>Foto de la Fachada
+                                        </label>
+                                        <input type="file" class="form-control form-control-sm" id="foto1-input" name="foto1"
+                                            accept="image/jpeg" capture="camera">
+                                        <small class="text-muted d-block mt-1"><i class="fas fa-info-circle me-1"></i>Foto frontal del inmueble</small>
                                     </div>
                                 </div>
-                                <hr class="my-2">
-                                <div class="alert alert-success d-none alert-evidencia" role="alert" id="alert">
+
+                                {{-- Foto 2: Medidor --}}
+                                <div class="col-md-6">
+                                    <div style="padding: 12px; background: rgba(87, 167, 225, 0.05); border-radius: 6px; border: 2px dashed #57a7e1;">
+                                        <label for="foto2-input" class="mb-2 text-sm fw-500 d-block">
+                                            <i class="fas fa-gauge-simple me-1" style="color: #57a7e1;"></i>Foto del Medidor
+                                        </label>
+                                        <input type="file" class="form-control form-control-sm" id="foto2-input" name="foto2"
+                                            accept="image/jpeg" capture="camera">
+                                        <small class="text-muted d-block mt-1"><i class="fas fa-info-circle me-1"></i>Primer plano del medidor</small>
+                                    </div>
                                 </div>
-                                <div class="alert alert-warning d-none" role="alert" id="progressBarEvidencias">
-                                    <span class="text-sm">Cargando Archivos Porfavor Espere.....</span>
+
+                                {{-- Foto 3: Odómetro --}}
+                                <div class="col-md-6">
+                                    <div style="padding: 12px; background: rgba(87, 167, 225, 0.05); border-radius: 6px; border: 2px dashed #57a7e1;">
+                                        <label for="foto3-input" class="mb-2 text-sm fw-500 d-block">
+                                            <i class="fas fa-meter me-1" style="color: #57a7e1;"></i>Foto del Odómetro
+                                        </label>
+                                        <input type="file" class="form-control form-control-sm" id="foto3-input" name="foto3"
+                                            accept="image/jpeg" capture="camera">
+                                        <small class="text-muted d-block mt-1"><i class="fas fa-info-circle me-1"></i>Lectura del odómetro</small>
+                                    </div>
                                 </div>
-                                <div class="d-flex justify-content-end">
-                                    <button type="submit" id="submitButtonEvidencias"
-                                        class="btn btn-success">Guardar</button>
+
+                                {{-- Foto 4: Regulador --}}
+                                <div class="col-md-6">
+                                    <div style="padding: 12px; background: rgba(87, 167, 225, 0.05); border-radius: 6px; border: 2px dashed #57a7e1;">
+                                        <label for="foto4-input" class="mb-2 text-sm fw-500 d-block">
+                                            <i class="fas fa-microchip me-1" style="color: #57a7e1;"></i>Foto del Regulador
+                                        </label>
+                                        <input type="file" class="form-control form-control-sm" id="foto4-input" name="foto4"
+                                            accept="image/jpeg" capture="camera">
+                                        <small class="text-muted d-block mt-1"><i class="fas fa-info-circle me-1"></i>Regulador de presión</small>
+                                    </div>
                                 </div>
-                            </form>
-                        </div>
+
+                                {{-- Foto 5: Detector de Fuga --}}
+                                <div class="col-md-6">
+                                    <div style="padding: 12px; background: rgba(87, 167, 225, 0.05); border-radius: 6px; border: 2px dashed #57a7e1;">
+                                        <label for="foto5-input" class="mb-2 text-sm fw-500 d-block">
+                                            <i class="fas fa-water me-1" style="color: #57a7e1;"></i>Foto Detector de Fuga
+                                        </label>
+                                        <input type="file" class="form-control form-control-sm" id="foto5-input" name="foto5"
+                                            accept="image/jpeg" capture="camera">
+                                        <small class="text-muted d-block mt-1"><i class="fas fa-info-circle me-1"></i>Prueba con detector</small>
+                                    </div>
+                                </div>
+
+                                {{-- Foto 6: Exceso de Capacidad --}}
+                                <div class="col-md-6">
+                                    <div style="padding: 12px; background: rgba(87, 167, 225, 0.05); border-radius: 6px; border: 2px dashed #57a7e1;">
+                                        <label for="foto6-input" class="mb-2 text-sm fw-500 d-block">
+                                            <i class="fas fa-exclamation-triangle me-1" style="color: #57a7e1;"></i>Foto Exceso de Capacidad
+                                        </label>
+                                        <input type="file" class="form-control form-control-sm" id="foto6-input" name="foto6"
+                                            accept="image/jpeg" capture="camera">
+                                        <small class="text-muted d-block mt-1"><i class="fas fa-info-circle me-1"></i>Si hay exceso, evidenciarlo</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="my-3">
+
+                            <div class="alert alert-success d-none alert-evidencia" role="alert" id="alert"></div>
+
+                            <div class="alert alert-info d-none" role="alert" id="progressBarEvidencias">
+                                <span class="text-sm"><i class="fas fa-spinner fa-spin me-2"></i>Cargando archivos, por favor espere...</span>
+                            </div>
+
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" id="submitButtonEvidencias" class="btn btn-success">
+                                    <i class="fas fa-cloud-upload-alt me-2"></i>Guardar Evidencias
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
