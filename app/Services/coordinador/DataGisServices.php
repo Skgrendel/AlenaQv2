@@ -92,6 +92,7 @@ class DataGisServices
                     'direccion' => $attributes['DIRECCION'],
                     'estado' => $attributes['ESTADOPRODUCTO'],
                     'estadoCorte' => $attributes['DESCESTADOCORTE'],
+                    'localidad' => $attributes['NOMBRE'],
                     'usuario' => $attributes['NOMBREUSUARIO'],
                     'apellido' => $attributes['APELLIDO'],
                     'cliente' => $attributes['NOMBREUSUARIO'] . ' ' . $attributes['APELLIDO'],
@@ -101,6 +102,7 @@ class DataGisServices
                     'contrato' => $attributes['SUBSCRIPTION_ID'],
                     'medidor' => $attributes['SERIEMEDIDOR_ACTUAL'],
                     'medidor_anterior' => $attributes['SERIEMEDIDOR_ANTERIOR'],
+                    'fecha_anterior' => $this->formatTimestamp($attributes['FECHA_ANTERIOR']),
                 ],
                 'geometry' => [
                     'latitude' => $lat,
@@ -282,6 +284,18 @@ class DataGisServices
         $lng = ($x / 6378137) * (180 / pi());
         $lat = (2 * atan(exp($y / 6378137)) - (pi() / 2)) * (180 / pi());
         return [$lat, $lng];
+    }
+
+    private function formatTimestamp($timestamp)
+    {
+        if (!$timestamp) {
+            return null;
+        }
+
+        // Convertir milisegundos a segundos si es necesario
+        $seconds = $timestamp > 9999999999 ? $timestamp / 1000 : $timestamp;
+
+        return date('d/m/Y', intval($seconds));
     }
 
     private function buildGisUrl(string $contrato, string $token): string

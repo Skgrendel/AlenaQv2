@@ -125,60 +125,127 @@
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading mb-0">
-                                        <span class="text-card">Datos del Usuario
-                                        </span>
+                                        <span class="text-card">Datos del Usuario: <strong>{{ $gis['info']['cliente'] ?? 'sin datos' }}</strong></span>
                                     </h4>
                                 </div>
                             </div>
                             <hr class="my-2">
                         </div>
                         @if (isset($gis['info']))
-                            <div class="row mt-2">
-                                <div class="text-card text-sm col-6">
-                                    <ul>
-                                        <li class="mb-2">
-                                            Usuario :
-                                            {{ $gis['info']['cliente'] ?? 'sin datos' }}
-                                        </li>
-                                        <li class="mb-2">
-                                            Direccion: {{ $gis['info']['direccion'] ?? 'sin datos' }}
-                                        </li>
-                                        <li class="mb-2">
-                                            Barrio: {{ $gis['info']['barrio'] ?? 'sin datos' }}
-                                        </li>
-                                        <li>
-                                            Categoria: {{ $gis['info']['categoria'] ?? 'sin datos' }}
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="text-card text-sm col-6">
-                                    <ul>
-                                        <li class="mb-2">
-                                            Contrato: {{ $gis['info']['contrato'] ?? 'sin datos' }}
-                                        </li>
-                                        <li class="mb-2">
-                                            Medidor : {{ $gis['info']['medidor'] ?? 'sin datos' }}
-                                        </li>
-                                        <li class="mb-2">
-                                            Estado: {{ $gis['info']['estado'] ?? 'sin datos' }}
-                                        </li>
-                                        <li class="mb-2">
-                                            Descripcion: {{ $gis['info']['descripcion'] ?? 'sin datos' }}
-                                        </li>
-                                    </ul>
+                            {{-- Información de Ubicación --}}
+                            <div class="mb-4">
+                                <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Ubicación
+                                </h6>
+                                <div class="row mt-2">
+                                    <div class="col-12 mb-2">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <span class="text-muted text-sm">Dirección:</span>
+                                            <span class="text-card text-sm fw-500" style="text-align: right; flex: 1; margin-left: 10px;">{{ $gis['info']['direccion'] ?? 'sin datos' }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="text-muted text-sm">Barrio:</span>
+                                            <span class="text-card text-sm fw-500">{{ $gis['info']['barrio'] ?? 'sin datos' }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="text-muted text-sm">Departamento:</span>
+                                            <span class="text-card text-sm fw-500">{{ $gis['info']['localidad'] ?? 'sin datos' }}</span>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="text-card">
-                                    <ul>
-                                        <li>
-                                            Estado de Conexion: {{ $gis['info']['estadoCorte'] ?? 'sin datos' }}
-                                        </li>
-                                    </ul>
+
+                            <hr class="my-3">
+
+                            {{-- Información de Contrato y Medidores --}}
+                            <div class="mb-4">
+                                <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                    <i class="fas fa-file-invoice me-2"></i>Servicio
+                                </h6>
+                                <div class="row mt-2">
+                                    <div class="col-12 mb-2">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="text-muted text-sm">Contrato:</span>
+                                            <span class="text-card text-sm fw-bold">{{ $gis['info']['contrato'] ?? 'sin datos' }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="text-muted text-sm">Medidor Actual:</span>
+                                            <span class="text-card text-sm fw-500">{{ $gis['info']['medidor'] ?? 'sin datos' }}</span>
+                                        </div>
+                                    </div>
+                                     <div class="col-12">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="text-muted text-sm">Categoría:</span>
+                                            <span class="text-card text-sm fw-500">{{ $gis['info']['categoria'] ?? 'sin datos' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="my-3">
+
+                            {{-- Información de Medidor Anterior --}}
+                            <div class="mb-4">
+                                <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                    <i class="fas fa-history me-2"></i>Medidor Anterior
+                                </h6>
+                                <div class="row mt-2">
+                                    <div class="col-12 mb-2">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="text-muted text-sm">Número:</span>
+                                            <span class="text-card text-sm fw-500">{{ $gis['info']['medidor_anterior'] ?? 'sin datos' }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="text-muted text-sm">Fecha:</span>
+                                            <span class="badge badge-light-info text-sm">{{ $gis['info']['fecha_anterior'] ?? 'sin datos' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="my-3">
+
+                            {{-- Información de Estado --}}
+                            <div class="mb-4">
+                                <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                    <i class="fas fa-info-circle me-2"></i>Estado
+                                </h6>
+                                <div class="row mt-2">
+                                    <div class="col-12 mb-2">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="text-muted text-sm">Estado:</span>
+                                            <span class="badge {{ $gis['info']['estado'] == 'Activo' ? 'badge-success' : 'badge-danger' }} text-sm">
+                                                {{ $gis['info']['estado'] ?? 'sin datos' }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="text-muted text-sm">Conexión:</span>
+                                            <span class="text-card text-sm fw-500">{{ $gis['info']['estadoCorte'] ?? 'sin datos' }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <span class="text-muted text-sm">Descripción:</span>
+                                            <span class="text-card text-sm fw-500" style="text-align: right; flex: 1; margin-left: 10px;">{{ $gis['info']['descripcion'] ?? 'sin datos' }}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         @else
-                            <p>{{ $gis['error'] }}</p>
+                            <div class="alert alert-danger">
+                                <i class="fas fa-exclamation-circle me-2"></i>{{ $gis['error'] }}
+                            </div>
                         @endif
                     </div>
                     <div class="card-footer pt-0 border-0">
