@@ -12,7 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        // Renovar token GIS cada 50 minutos (antes de que expire en 60 min)
+        $schedule->command('gis:renew-token')->everyFiftyMinutes();
     }
 
     /**

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('token');
             $table->string('descripcion')->nullable();
             $table->boolean('activo')->default(true);
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
     }

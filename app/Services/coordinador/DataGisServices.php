@@ -2,10 +2,14 @@
 
 namespace App\Services\coordinador;
 
+use App\Models\GisToken;
 use App\Models\surtigas;
 use App\Models\reportes;
+use App\Jobs\RenewGisTokenJob;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Queue;
 
 
 
@@ -37,14 +41,45 @@ class DataGisServices
 
     private function getToken(): string
     {
-        $token = $this->tokenService->getToken();
+        // 1. Intentar obtener el token de la BD (RÁPIDO)
+        $tokenFromDB = GisToken::getActiveToken();
 
-        if (!$token) {
-            Log::error('No se pudo obtener el token GIS');
-            throw new \Exception('No se pudo obtener el token del servicio GIS');
+        if ($tokenFromDB) {
+            // Si el token existe pero está próximo a expirar, disparar renovación en background
+            if (GisToken::isTokenExpiringSoon()) {
+                Log::info('Token GIS próximo a expirar, disparando renovación en background');
+                Queue::dispatch(new RenewGisTokenJob());
+            }
+
+            return $tokenFromDB;
         }
 
-        return $token;
+        // 2. Si no hay token en BD, generarlo de forma síncrona (primera vez)
+        try {
+            $tokenService = $this->tokenService;
+            $token = $tokenService->getToken();
+
+            if (!$token) {
+                throw new \Exception('No se pudo obtener el token GIS');
+            }
+
+            // Guardar en BD para futuro uso
+            GisToken::updateOrCreate(
+                ['activo' => true],
+                [
+                    'token' => $token,
+                    'descripcion' => 'Token GIS - Generado automáticamente',
+                    'expires_at' => \Carbon\Carbon::now()->addMinutes(55)
+                ]
+            );
+
+            Log::info('Token GIS obtenido y guardado en BD');
+            return $token;
+
+        } catch (\Exception $e) {
+            Log::error('Error al obtener token GIS: ' . $e->getMessage());
+            throw $e;
+        }
     }
 
     public function DataGis($id)
