@@ -1,4 +1,7 @@
-<div class="d-flex">
+<div class="d-flex gap-2">
+    <a href="{{ route('personals.edit', $value) }}" class="btn btn-sm btn-info" title="Editar">
+        <i class="fas fa-edit"></i> Editar
+    </a>
     <div class="btn-group" role="group" aria-label="Basic example">
         @if($row->estado == 3)
             <form action="{{ route('personals.destroy', $value) }}" method="post">

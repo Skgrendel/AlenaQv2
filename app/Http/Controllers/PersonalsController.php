@@ -105,7 +105,7 @@ class PersonalsController extends Controller
 
 
         // Redirigir a la ruta de índice
-        return redirect()->route('personals.index')->with('icon', 'success')->with('success', 'Personal Eliminado con Exito');
+        return redirect()->route('personals.index')->with('icon', 'success')->with('success', 'Personal Desactivado con Exito');
     }
     /**
      * Activate the specified resource.

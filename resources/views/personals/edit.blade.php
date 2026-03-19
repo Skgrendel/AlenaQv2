@@ -22,7 +22,7 @@
                                             id="tipo_documento" required>
                                             <option selected disabled>Seleccione tipo de documento</option>
                                             @foreach ($data['tipodocumento'] as $id => $nombre)
-                                                <option value="{{ $id }}" {{ $data['personal']['tipodocumento'] == $id ? 'selected' : '' }}>{{ $nombre }}</option>
+                                                <option value="{{ $id }}" {{ $data['personal']['tipo_documento'] == $id ? 'selected' : '' }}>{{ $nombre }}</option>
                                             @endforeach
                                         </select>
                                     </div>
