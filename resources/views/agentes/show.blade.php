@@ -118,126 +118,133 @@
                             <hr class="my-2">
                         </div>
 
-                        {{-- Comercio --}}
-                        <div class="mb-4">
-                            <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                                <i class="fas fa-store me-2"></i>Comercio
-                            </h6>
-                            <div class="row mt-2">
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Tipo:</span>
-                                        <select id="comercio" class="form-select form-select-sm" name="tipo_comercio" disabled style="max-width: 200px;">
-                                            @foreach ($data['comercios'] as $id => $nombre)
-                                                <option value="{{ $id }}"
-                                                    {{ $data['info']['comerciosid'] == $id ? 'selected' : '' }}>{{ $nombre }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                        {{-- Comercio | Configuración Técnica --}}
+                        <div class="row">
+                            {{-- Columna Izquierda: Comercio y Medidor --}}
+                            <div class="col-6">
+                                {{-- Comercio --}}
+                                <div class="mb-4">
+                                    <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <i class="fas fa-store me-2"></i>Comercio
+                                    </h6>
+                                    <div class="row mt-2">
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Tipo:</span>
+                                                <select id="comercio" class="form-select form-select-sm" name="tipo_comercio" disabled style="max-width: 200px;">
+                                                    @foreach ($data['comercios'] as $id => $nombre)
+                                                        <option value="{{ $id }}"
+                                                            {{ $data['info']['comerciosid'] == $id ? 'selected' : '' }}>{{ $nombre }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Nombre:</span>
+                                                <span class="text-card text-sm fw-500">{{ $data['info']['nombrecomercio'] ?? 'Sin datos' }}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Nombre:</span>
-                                        <span class="text-card text-sm fw-500">{{ $data['info']['nombrecomercio'] ?? 'Sin datos' }}</span>
+
+                                <hr class="my-3">
+
+                                {{-- Información del Medidor --}}
+                                <div class="mb-4">
+                                    <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <i class="fas fa-gauge-simple me-2"></i>Medidor
+                                    </h6>
+                                    <div class="row mt-2">
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Lectura:</span>
+                                                <span class="text-card text-sm fw-bold">{{ $data['info']['lectura'] ?? 'sin datos' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Medidor Encontrado (Anomalía):</span>
+                                                <span class="badge badge-light-warning text-sm">{{ $data['info']['medidoranomalia'] ?? 'Sin datos' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Marca:</span>
+                                                <span class="text-card text-sm fw-500">{{ $data['info']['marca de medidor'] ?? 'Sin Datos' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Descripción:</span>
+                                                <span class="text-card text-sm fw-500">{{ $data['info']['descripcion del medidor'] ?? 'Sin Datos' }}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            {{-- Columna Derecha: Configuración Técnica, Incidencias y Comentarios --}}
+                            <div class="col-6">
+                                {{-- Configuración Técnica --}}
+                                <div class="mb-4">
+                                    <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <i class="fas fa-wrench me-2"></i>Configuración Técnica
+                                    </h6>
+                                    <div class="row mt-2">
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Tipo de Presión:</span>
+                                                <span class="text-card text-sm fw-500">{{ $data['info']['tipo de presion'] ?? 'Sin Datos' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Marca del Regulador:</span>
+                                                <span class="text-card text-sm fw-500">{{ $data['info']['marca de regulador'] ?? 'Sin Datos' }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="my-3">
+
+                                {{-- Estado e Incidencias --}}
+                                <div class="mb-4">
+                                    <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>Incidencias
+                                    </h6>
+                                    <div class="row mt-2">
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Anomalías:</span>
+                                                <span class="badge badge-light-danger text-sm">{{ implode(', ', $data['info']['anomalias'] ?? []) ?: 'Sin anomalías' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Imposibilidad:</span>
+                                                <span class="badge badge-light-secondary text-sm">{{ $data['info']['imposibilidad'] ?? 'Ninguna' }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @if (isset($data['info']['comentarios']))
+                                    <hr class="my-3">
+                                    {{-- Comentarios --}}
+                                    <div>
+                                        <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                            <i class="fas fa-comments me-2"></i>Comentarios
+                                        </h6>
+                                        <div class="alert alert-soft-info border-0 mt-2 mb-0" style="background-color: rgba(87, 167, 225, 0.1);">
+                                            <p class="text-card text-sm mb-0">{{ $data['info']['comentarios'] }}</p>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
-
-                        <hr class="my-3">
-
-                        {{-- Información del Medidor --}}
-                        <div class="mb-4">
-                            <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                                <i class="fas fa-gauge-simple me-2"></i>Medidor
-                            </h6>
-                            <div class="row mt-2">
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Lectura:</span>
-                                        <span class="text-card text-sm fw-bold">{{ $data['info']['lectura'] ?? 'sin datos' }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Medidor Encontrado (Anomalía):</span>
-                                        <span class="badge badge-light-warning text-sm">{{ $data['info']['medidoranomalia'] ?? 'Sin datos' }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Marca:</span>
-                                        <span class="text-card text-sm fw-500">{{ $data['info']['marca de medidor'] ?? 'Sin Datos' }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Descripción:</span>
-                                        <span class="text-card text-sm fw-500">{{ $data['info']['descripcion del medidor'] ?? 'Sin Datos' }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr class="my-3">
-
-                        {{-- Configuración Técnica --}}
-                        <div class="mb-4">
-                            <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                                <i class="fas fa-wrench me-2"></i>Configuración Técnica
-                            </h6>
-                            <div class="row mt-2">
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Tipo de Presión:</span>
-                                        <span class="text-card text-sm fw-500">{{ $data['info']['tipo de presion'] ?? 'Sin Datos' }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Marca del Regulador:</span>
-                                        <span class="text-card text-sm fw-500">{{ $data['info']['marca de regulador'] ?? 'Sin Datos' }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr class="my-3">
-
-                        {{-- Estado e Incidencias --}}
-                        <div class="mb-4">
-                            <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                                <i class="fas fa-exclamation-triangle me-2"></i>Incidencias
-                            </h6>
-                            <div class="row mt-2">
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Anomalías:</span>
-                                        <span class="badge badge-light-danger text-sm">{{ implode(', ', $data['info']['anomalias'] ?? []) ?: 'Sin anomalías' }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Imposibilidad:</span>
-                                        <span class="badge badge-light-secondary text-sm">{{ $data['info']['imposibilidad'] ?? 'Ninguna' }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        @if (isset($data['info']['comentarios']))
-                            <hr class="my-3">
-                            {{-- Comentarios --}}
-                            <div>
-                                <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                                    <i class="fas fa-comments me-2"></i>Comentarios
-                                </h6>
-                                <div class="alert alert-soft-info border-0 mt-2 mb-0" style="background-color: rgba(87, 167, 225, 0.1);">
-                                    <p class="text-card text-sm mb-0">{{ $data['info']['comentarios'] }}</p>
-                                </div>
-                            </div>
-                        @endif
                     </div>
                     <div class="card-footer pt-0 border-0">
                         <div class="progress br-30 progress-sm">

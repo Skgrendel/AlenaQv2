@@ -20,127 +20,134 @@
                             <hr class="my-2">
                         </div>
 
-                        {{-- Información del Medidor --}}
-                        <div class="mb-4">
-                            <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                                <i class="fas fa-gauge-simple me-2"></i>Medidor
-                            </h6>
-                            <div class="row mt-2">
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Número:</span>
-                                        <span class="text-card text-sm fw-bold">{{ $data['info']['medidor'] ?? 'Sin medidor' }}</span>
+                        {{-- Información del Medidor y Servicio | Regulador y Estado --}}
+                        <div class="row">
+                            {{-- Columna Izquierda: Medidor y Servicio --}}
+                            <div class="col-6">
+                                {{-- Información del Medidor --}}
+                                <div class="mb-4">
+                                    <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <i class="fas fa-gauge-simple me-2"></i>Medidor
+                                    </h6>
+                                    <div class="row mt-2">
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Número:</span>
+                                                <span class="text-card text-sm fw-bold">{{ $data['info']['medidor'] ?? 'Sin medidor' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Lectura Actual:</span>
+                                                <span class="text-card text-sm fw-500">{{ $data['info']['reporte']['lectura'] }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Marca:</span>
+                                                <span class="text-card text-sm fw-500">{{ $data['info']['marca de medidor'] ?? 'Sin Datos' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Descripción:</span>
+                                                <span class="text-card text-sm fw-500">{{ $data['info']['descripcion_medidor'] ?? 'Sin Datos' }}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Lectura Actual:</span>
-                                        <span class="text-card text-sm fw-500">{{ $data['info']['reporte']['lectura'] }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Marca:</span>
-                                        <span class="text-card text-sm fw-500">{{ $data['info']['marca de medidor'] ?? 'Sin Datos' }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Descripción:</span>
-                                        <span class="text-card text-sm fw-500">{{ $data['info']['descripcion_medidor'] ?? 'Sin Datos' }}</span>
+
+                                <hr class="my-3">
+
+                                {{-- Información de Servicio --}}
+                                <div class="mb-4">
+                                    <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <i class="fas fa-building me-2"></i>Servicio
+                                    </h6>
+                                    <div class="row mt-2">
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Ciclo:</span>
+                                                <span class="text-card text-sm fw-500">{{ $data['info']['ciclo']['ciclo'] ?? 'Sin Datos' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Tipo de Comercio:</span>
+                                                <span class="text-card text-sm fw-500">{{ $data['info']['comercios'] ?? 'No tiene comercio' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Tipo de Presión:</span>
+                                                <span class="text-card text-sm fw-500">{{ $data['info']['tipo presion'] ?? 'Sin Datos' }}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <hr class="my-3">
+                            {{-- Columna Derecha: Regulador y Estado --}}
+                            <div class="col-6">
+                                {{-- Información del Regulador --}}
+                                <div class="mb-4">
+                                    <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <i class="fas fa-sliders me-2"></i>Regulador
+                                    </h6>
+                                    <div class="row mt-2">
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Marca:</span>
+                                                <span class="text-card text-sm fw-500">{{ $data['info']['marca de regulador'] ?? 'Sin Datos' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Medidor Encontrado:</span>
+                                                <span class="badge badge-light-warning text-sm">{{ $data['info']['medidoranomalia'] ?? 'Sin datos' }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        {{-- Información de Servicio --}}
-                        <div class="mb-4">
-                            <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                                <i class="fas fa-building me-2"></i>Servicio
-                            </h6>
-                            <div class="row mt-2">
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Ciclo:</span>
-                                        <span class="text-card text-sm fw-500">{{ $data['info']['ciclo']['ciclo'] ?? 'Sin Datos' }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Tipo de Comercio:</span>
-                                        <span class="text-card text-sm fw-500">{{ $data['info']['comercios'] ?? 'No tiene comercio' }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Tipo de Presión:</span>
-                                        <span class="text-card text-sm fw-500">{{ $data['info']['tipo presion'] ?? 'Sin Datos' }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                <hr class="my-3">
 
-                        <hr class="my-3">
-
-                        {{-- Información del Regulador --}}
-                        <div class="mb-4">
-                            <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                                <i class="fas fa-sliders me-2"></i>Regulador
-                            </h6>
-                            <div class="row mt-2">
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Marca:</span>
-                                        <span class="text-card text-sm fw-500">{{ $data['info']['marca de regulador'] ?? 'Sin Datos' }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Medidor Encontrado:</span>
-                                        <span class="badge badge-light-warning text-sm">{{ $data['info']['medidoranomalia'] ?? 'Sin datos' }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr class="my-3">
-
-                        {{-- Estado e Incidencias --}}
-                        <div class="mb-4">
-                            <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                                <i class="fas fa-exclamation-triangle me-2"></i>Estado
-                            </h6>
-                            <div class="row mt-2">
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Estado:</span>
-                                        {!! $data['info']['estado'] == 1
-                                            ? '<span class="badge bg-success">Activo</span>'
-                                            : '<span class="badge bg-danger">Inactivo</span>' !!}
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Alertas:</span>
-                                        @if (trim($data['info']['alerta']) === 'Sin Alertas')
-                                            <span class="badge bg-success">Sin Alertas</span>
-                                        @else
-                                            <span class="badge bg-danger">{{ $data['info']['alerta'] }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Imposibilidad:</span>
-                                        <span class="badge badge-light-secondary text-sm">{{ $data['info']['imposibilidad'] ?? 'Ninguna' }}</span>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted text-sm">Anomalías:</span>
-                                        <span class="badge badge-light-danger text-sm">{{ $data['info']['anomaliasN'] ?? 'sin datos' }}</span>
+                                {{-- Estado e Incidencias --}}
+                                <div class="mb-4">
+                                    <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>Estado
+                                    </h6>
+                                    <div class="row mt-2">
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Estado:</span>
+                                                {!! $data['info']['estado'] == 1
+                                                    ? '<span class="badge bg-success">Activo</span>'
+                                                    : '<span class="badge bg-danger">Inactivo</span>' !!}
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Alertas:</span>
+                                                @if (trim($data['info']['alerta']) === 'Sin Alertas')
+                                                    <span class="badge bg-success">Sin Alertas</span>
+                                                @else
+                                                    <span class="badge bg-danger">{{ $data['info']['alerta'] }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Imposibilidad:</span>
+                                                <span class="badge badge-light-secondary text-sm">{{ $data['info']['imposibilidad'] ?? 'Ninguna' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted text-sm">Anomalías:</span>
+                                                <span class="badge badge-light-danger text-sm">{{ $data['info']['anomaliasN'] ?? 'sin datos' }}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -183,112 +190,118 @@
                             <hr class="my-2">
                         </div>
                         @if (isset($gis['info']))
-                            {{-- Información de Ubicación --}}
-                            <div class="mb-4">
-                                <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                                    <i class="fas fa-map-marker-alt me-2"></i>Ubicación
-                                </h6>
-                                <div class="row mt-2">
-                                    <div class="col-12 mb-2">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <span class="text-muted text-sm">Dirección:</span>
-                                            <span class="text-card text-sm fw-500" style="text-align: right; flex: 1; margin-left: 10px;">{{ $gis['info']['direccion'] ?? 'sin datos' }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="text-muted text-sm">Barrio:</span>
-                                            <span class="text-card text-sm fw-500">{{ $gis['info']['barrio'] ?? 'sin datos' }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="text-muted text-sm">Departamento:</span>
-                                            <span class="text-card text-sm fw-500">{{ $gis['info']['localidad'] ?? 'sin datos' }}</span>
+                            {{-- Información de Ubicación | Medidor Anterior | Estado --}}
+                            <div class="row">
+                                {{-- Columna Izquierda: Ubicación y Servicio --}}
+                                <div class="col-6">
+                                    {{-- Información de Ubicación --}}
+                                    <div class="mb-4">
+                                        <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                            <i class="fas fa-map-marker-alt me-2"></i>Ubicación
+                                        </h6>
+                                        <div class="row mt-2">
+                                            <div class="col-12 mb-2">
+                                                <div class="d-flex justify-content-between align-items-start">
+                                                    <span class="text-muted text-sm">Dirección:</span>
+                                                    <span class="text-card text-sm fw-500" style="text-align: right; flex: 1; margin-left: 10px;">{{ $gis['info']['direccion'] ?? 'sin datos' }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mb-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="text-muted text-sm">Barrio:</span>
+                                                    <span class="text-card text-sm fw-500">{{ $gis['info']['barrio'] ?? 'sin datos' }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mb-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="text-muted text-sm">Departamento:</span>
+                                                    <span class="text-card text-sm fw-500">{{ $gis['info']['localidad'] ?? 'sin datos' }}</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
-                                </div>
-                            </div>
+                                    <hr class="my-3">
 
-                            <hr class="my-3">
-
-                            {{-- Información de Contrato y Medidores --}}
-                            <div class="mb-4">
-                                <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                                    <i class="fas fa-file-invoice me-2"></i>Servicio
-                                </h6>
-                                <div class="row mt-2">
-                                    <div class="col-12 mb-2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="text-muted text-sm">Contrato:</span>
-                                            <span class="text-card text-sm fw-bold">{{ $gis['info']['contrato'] ?? 'sin datos' }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="text-muted text-sm">Medidor Actual:</span>
-                                            <span class="text-card text-sm fw-500">{{ $gis['info']['medidor'] ?? 'sin datos' }}</span>
-                                        </div>
-                                    </div>
-                                     <div class="col-12">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="text-muted text-sm">Categoría:</span>
-                                            <span class="text-card text-sm fw-500">{{ $gis['info']['categoria'] ?? 'sin datos' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr class="my-3">
-
-                            {{-- Información de Medidor Anterior --}}
-                            <div class="mb-4">
-                                <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                                    <i class="fas fa-history me-2"></i>Medidor Anterior
-                                </h6>
-                                <div class="row mt-2">
-                                    <div class="col-12 mb-2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="text-muted text-sm">Número:</span>
-                                            <span class="text-card text-sm fw-500">{{ $gis['info']['medidor_anterior'] ?? 'sin datos' }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="text-muted text-sm">Fecha:</span>
-                                            <span class="badge badge-light-info text-sm">{{ $gis['info']['fecha_anterior'] ?? 'sin datos' }}</span>
+                                    {{-- Información de Contrato y Medidores --}}
+                                    <div class="mb-4">
+                                        <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                            <i class="fas fa-file-invoice me-2"></i>Servicio
+                                        </h6>
+                                        <div class="row mt-2">
+                                            <div class="col-12 mb-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="text-muted text-sm">Contrato:</span>
+                                                    <span class="text-card text-sm fw-bold">{{ $gis['info']['contrato'] ?? 'sin datos' }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mb-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="text-muted text-sm">Medidor Actual:</span>
+                                                    <span class="text-card text-sm fw-500">{{ $gis['info']['medidor'] ?? 'sin datos' }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="text-muted text-sm">Categoría:</span>
+                                                    <span class="text-card text-sm fw-500">{{ $gis['info']['categoria'] ?? 'sin datos' }}</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <hr class="my-3">
-
-                            {{-- Información de Estado --}}
-                            <div class="mb-4">
-                                <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                                    <i class="fas fa-info-circle me-2"></i>Estado
-                                </h6>
-                                <div class="row mt-2">
-                                    <div class="col-12 mb-2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="text-muted text-sm">Estado:</span>
-                                            <span class="badge {{ $gis['info']['estado'] == 'Activo' ? 'badge-success' : 'badge-danger' }} text-sm">
-                                                {{ $gis['info']['estado'] ?? 'sin datos' }}
-                                            </span>
+                                {{-- Columna Derecha: Medidor Anterior y Estado --}}
+                                <div class="col-6">
+                                    {{-- Información de Medidor Anterior --}}
+                                    <div class="mb-4">
+                                        <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                            <i class="fas fa-history me-2"></i>Medidor Anterior
+                                        </h6>
+                                        <div class="row mt-2">
+                                            <div class="col-12 mb-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="text-muted text-sm">Número:</span>
+                                                    <span class="text-card text-sm fw-500">{{ $gis['info']['medidor_anterior'] ?? 'sin datos' }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="text-muted text-sm">Fecha:</span>
+                                                    <span class="badge badge-light-info text-sm">{{ $gis['info']['fecha_anterior'] ?? 'sin datos' }}</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="text-muted text-sm">Conexión:</span>
-                                            <span class="text-card text-sm fw-500">{{ $gis['info']['estadoCorte'] ?? 'sin datos' }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <span class="text-muted text-sm">Descripción:</span>
-                                            <span class="text-card text-sm fw-500" style="text-align: right; flex: 1; margin-left: 10px;">{{ $gis['info']['descripcion'] ?? 'sin datos' }}</span>
+
+                                    <hr class="my-3">
+
+                                    {{-- Información de Estado --}}
+                                    <div class="mb-4">
+                                        <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                            <i class="fas fa-info-circle me-2"></i>Estado
+                                        </h6>
+                                        <div class="row mt-2">
+                                            <div class="col-12 mb-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="text-muted text-sm">Estado:</span>
+                                                    <span class="badge {{ $gis['info']['estado'] == 'Activo' ? 'badge-success' : 'badge-danger' }} text-sm">
+                                                        {{ $gis['info']['estado'] ?? 'sin datos' }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mb-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="text-muted text-sm">Conexión:</span>
+                                                    <span class="text-card text-sm fw-500">{{ $gis['info']['estadoCorte'] ?? 'sin datos' }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="d-flex justify-content-between align-items-start">
+                                                    <span class="text-muted text-sm">Descripción:</span>
+                                                    <span class="text-card text-sm fw-500" style="text-align: right; flex: 1; margin-left: 10px;">{{ $gis['info']['descripcion'] ?? 'sin datos' }}</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
