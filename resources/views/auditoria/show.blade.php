@@ -13,7 +13,8 @@
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading mb-0">
-                                        <span class="text-card">Información del Contrato: <strong>{{ $data['info']['contrato'] ?? 'Sin datos' }}</strong></span>
+                                        <span class="text-card">Información del Contrato:
+                                            <strong>{{ $data['info']['contrato'] ?? 'Sin datos' }}</strong></span>
                                     </h4>
                                 </div>
                             </div>
@@ -23,64 +24,71 @@
                         {{-- Información del Medidor y Servicio | Regulador y Estado --}}
                         <div class="row">
                             {{-- Columna Izquierda: Medidor y Servicio --}}
-                            <div class="col-6">
+                            <div class="col-6" style="border-right: 1px solid #e0e0e0; padding-right: 15px;">
                                 {{-- Información del Medidor --}}
                                 <div class="mb-4">
-                                    <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                    <h6 class="text-uppercase text-muted"
+                                        style="font-size: 0.75rem; letter-spacing: 0.5px;">
                                         <i class="fas fa-gauge-simple me-2"></i>Medidor
                                     </h6>
                                     <div class="row mt-2">
                                         <div class="col-12 mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-muted text-sm">Número:</span>
-                                                <span class="text-card text-sm fw-bold">{{ $data['info']['medidor'] ?? 'Sin medidor' }}</span>
+                                                <span
+                                                    class="text-card text-sm fw-bold">{{ $data['info']['medidor'] ?? 'Sin medidor' }}</span>
                                             </div>
                                         </div>
                                         <div class="col-12 mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-muted text-sm">Lectura Actual:</span>
-                                                <span class="text-card text-sm fw-500">{{ $data['info']['reporte']['lectura'] }}</span>
+                                                <span
+                                                    class="text-card text-sm fw-500">{{ $data['info']['reporte']['lectura'] }}</span>
                                             </div>
                                         </div>
                                         <div class="col-12 mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-muted text-sm">Marca:</span>
-                                                <span class="text-card text-sm fw-500">{{ $data['info']['marca de medidor'] ?? 'Sin Datos' }}</span>
+                                                <span
+                                                    class="text-card text-sm fw-500">{{ $data['info']['marca de medidor'] ?? 'Sin Datos' }}</span>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-muted text-sm">Descripción:</span>
-                                                <span class="text-card text-sm fw-500">{{ $data['info']['descripcion_medidor'] ?? 'Sin Datos' }}</span>
+                                                <span
+                                                    class="text-card text-sm fw-500">{{ $data['info']['descripcion_medidor'] ?? 'Sin Datos' }}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <hr class="my-3">
-
+                                <hr>
                                 {{-- Información de Servicio --}}
                                 <div class="mb-4">
-                                    <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                    <h6 class="text-uppercase text-muted"
+                                        style="font-size: 0.75rem; letter-spacing: 0.5px;">
                                         <i class="fas fa-building me-2"></i>Servicio
                                     </h6>
                                     <div class="row mt-2">
                                         <div class="col-12 mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-muted text-sm">Ciclo:</span>
-                                                <span class="text-card text-sm fw-500">{{ $data['info']['ciclo']['ciclo'] ?? 'Sin Datos' }}</span>
+                                                <span
+                                                    class="text-card text-sm fw-500">{{ $data['info']['ciclo']['ciclo'] ?? 'Sin Datos' }}</span>
                                             </div>
                                         </div>
                                         <div class="col-12 mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-muted text-sm">Tipo de Comercio:</span>
-                                                <span class="text-card text-sm fw-500">{{ $data['info']['comercios'] ?? 'No tiene comercio' }}</span>
+                                                <span
+                                                    class="text-card text-sm fw-500">{{ $data['info']['comercios'] ?? 'No tiene comercio' }}</span>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-muted text-sm">Tipo de Presión:</span>
-                                                <span class="text-card text-sm fw-500">{{ $data['info']['tipo presion'] ?? 'Sin Datos' }}</span>
+                                                <span
+                                                    class="text-card text-sm fw-500">{{ $data['info']['tipo presion'] ?? 'Sin Datos' }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -88,33 +96,35 @@
                             </div>
 
                             {{-- Columna Derecha: Regulador y Estado --}}
-                            <div class="col-6">
+                            <div class="col-6" style="padding-left: 15px;">
                                 {{-- Información del Regulador --}}
                                 <div class="mb-4">
-                                    <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                    <h6 class="text-uppercase text-muted"
+                                        style="font-size: 0.75rem; letter-spacing: 0.5px;">
                                         <i class="fas fa-sliders me-2"></i>Regulador
                                     </h6>
                                     <div class="row mt-2">
                                         <div class="col-12 mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-muted text-sm">Marca:</span>
-                                                <span class="text-card text-sm fw-500">{{ $data['info']['marca de regulador'] ?? 'Sin Datos' }}</span>
+                                                <span
+                                                    class="text-card text-sm fw-500">{{ $data['info']['marca de regulador'] ?? 'Sin Datos' }}</span>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-muted text-sm">Medidor Encontrado:</span>
-                                                <span class="badge badge-light-warning text-sm">{{ $data['info']['medidoranomalia'] ?? 'Sin datos' }}</span>
+                                                <span
+                                                    class="badge badge-light-warning text-sm">{{ $data['info']['medidoranomalia'] ?? 'Sin datos' }}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <hr class="my-3">
-
+                                <hr>
                                 {{-- Estado e Incidencias --}}
                                 <div class="mb-4">
-                                    <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                    <h6 class="text-uppercase text-muted"
+                                        style="font-size: 0.75rem; letter-spacing: 0.5px;">
                                         <i class="fas fa-exclamation-triangle me-2"></i>Estado
                                     </h6>
                                     <div class="row mt-2">
@@ -139,13 +149,15 @@
                                         <div class="col-12 mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-muted text-sm">Imposibilidad:</span>
-                                                <span class="badge badge-light-secondary text-sm">{{ $data['info']['imposibilidad'] ?? 'Ninguna' }}</span>
+                                                <span
+                                                    class="badge badge-light-secondary text-sm">{{ $data['info']['imposibilidad'] ?? 'Ninguna' }}</span>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-muted text-sm">Anomalías:</span>
-                                                <span class="badge badge-light-danger text-sm">{{ $data['info']['anomaliasN'] ?? 'sin datos' }}</span>
+                                                <span
+                                                    class="badge badge-light-danger text-sm">{{ $data['info']['anomaliasN'] ?? 'sin datos' }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -160,7 +172,8 @@
                             <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
                                 <i class="fas fa-comments me-2"></i>Comentarios del Agente
                             </h6>
-                            <div class="alert alert-soft-info border-0 mt-2 mb-0" style="background-color: rgba(87, 167, 225, 0.1);">
+                            <div class="alert alert-soft-info border-0 mt-2 mb-0"
+                                style="background-color: rgba(87, 167, 225, 0.1);">
                                 <p class="text-card text-sm mb-0">{{ $data['info']['comentarios'] ?? 'sin datos' }}</p>
                             </div>
                         </div>
@@ -183,7 +196,8 @@
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading mb-0">
-                                        <span class="text-card">Datos del Usuario: <strong>{{ $gis['info']['cliente'] ?? 'sin datos' }}</strong></span>
+                                        <span class="text-card">Datos del Usuario:
+                                            <strong>{{ $gis['info']['cliente'] ?? 'sin datos' }}</strong></span>
                                     </h4>
                                 </div>
                             </div>
@@ -193,58 +207,66 @@
                             {{-- Información de Ubicación | Medidor Anterior | Estado --}}
                             <div class="row">
                                 {{-- Columna Izquierda: Ubicación y Servicio --}}
-                                <div class="col-6">
+                                <div class="col-6" style="border-right: 1px solid #e0e0e0; padding-right: 15px;">
                                     {{-- Información de Ubicación --}}
                                     <div class="mb-4">
-                                        <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <h6 class="text-uppercase text-muted"
+                                            style="font-size: 0.75rem; letter-spacing: 0.5px;">
                                             <i class="fas fa-map-marker-alt me-2"></i>Ubicación
                                         </h6>
                                         <div class="row mt-2">
                                             <div class="col-12 mb-2">
                                                 <div class="d-flex justify-content-between align-items-start">
                                                     <span class="text-muted text-sm">Dirección:</span>
-                                                    <span class="text-card text-sm fw-500" style="text-align: right; flex: 1; margin-left: 10px;">{{ $gis['info']['direccion'] ?? 'sin datos' }}</span>
+                                                    <span class="text-card text-sm fw-500"
+                                                        style="text-align: right; flex: 1; margin-left: 10px;">{{ $gis['info']['direccion'] ?? 'sin datos' }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-12 mb-2">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <span class="text-muted text-sm">Barrio:</span>
-                                                    <span class="text-card text-sm fw-500">{{ $gis['info']['barrio'] ?? 'sin datos' }}</span>
+                                                    <span
+                                                        class="text-card text-sm fw-500">{{ $gis['info']['barrio'] ?? 'sin datos' }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-12 mb-2">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <span class="text-muted text-sm">Departamento:</span>
-                                                    <span class="text-card text-sm fw-500">{{ $gis['info']['localidad'] ?? 'sin datos' }}</span>
+                                                    <span
+                                                        class="text-card text-sm fw-500">{{ $gis['info']['localidad'] ?? 'sin datos' }}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <hr class="my-3">
+                                    <hr>
 
                                     {{-- Información de Contrato y Medidores --}}
                                     <div class="mb-4">
-                                        <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <h6 class="text-uppercase text-muted"
+                                            style="font-size: 0.75rem; letter-spacing: 0.5px;">
                                             <i class="fas fa-file-invoice me-2"></i>Servicio
                                         </h6>
                                         <div class="row mt-2">
                                             <div class="col-12 mb-2">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <span class="text-muted text-sm">Contrato:</span>
-                                                    <span class="text-card text-sm fw-bold">{{ $gis['info']['contrato'] ?? 'sin datos' }}</span>
+                                                    <span
+                                                        class="text-card text-sm fw-bold">{{ $gis['info']['contrato'] ?? 'sin datos' }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-12 mb-2">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <span class="text-muted text-sm">Medidor Actual:</span>
-                                                    <span class="text-card text-sm fw-500">{{ $gis['info']['medidor'] ?? 'sin datos' }}</span>
+                                                    <span
+                                                        class="text-card text-sm fw-500">{{ $gis['info']['medidor'] ?? 'sin datos' }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <span class="text-muted text-sm">Categoría:</span>
-                                                    <span class="text-card text-sm fw-500">{{ $gis['info']['categoria'] ?? 'sin datos' }}</span>
+                                                    <span
+                                                        class="text-card text-sm fw-500">{{ $gis['info']['categoria'] ?? 'sin datos' }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -252,54 +274,61 @@
                                 </div>
 
                                 {{-- Columna Derecha: Medidor Anterior y Estado --}}
-                                <div class="col-6">
+                                <div class="col-6" style="padding-left: 15px;">
                                     {{-- Información de Medidor Anterior --}}
                                     <div class="mb-4">
-                                        <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <h6 class="text-uppercase text-muted"
+                                            style="font-size: 0.75rem; letter-spacing: 0.5px;">
                                             <i class="fas fa-history me-2"></i>Medidor Anterior
                                         </h6>
                                         <div class="row mt-2">
                                             <div class="col-12 mb-2">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <span class="text-muted text-sm">Número:</span>
-                                                    <span class="text-card text-sm fw-500">{{ $gis['info']['medidor_anterior'] ?? 'sin datos' }}</span>
+                                                    <span
+                                                        class="text-card text-sm fw-500">{{ $gis['info']['medidor_anterior'] ?? 'sin datos' }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <span class="text-muted text-sm">Fecha:</span>
-                                                    <span class="badge badge-light-info text-sm">{{ $gis['info']['fecha_anterior'] ?? 'sin datos' }}</span>
+                                                    <span
+                                                        class="badge badge-light-info text-sm">{{ $gis['info']['fecha_anterior'] ?? 'sin datos' }}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <hr class="my-3">
+                                    <hr>
 
                                     {{-- Información de Estado --}}
                                     <div class="mb-4">
-                                        <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <h6 class="text-uppercase text-muted"
+                                            style="font-size: 0.75rem; letter-spacing: 0.5px;">
                                             <i class="fas fa-info-circle me-2"></i>Estado
                                         </h6>
                                         <div class="row mt-2">
                                             <div class="col-12 mb-2">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <span class="text-muted text-sm">Estado:</span>
-                                                    <span class="badge {{ $gis['info']['estado'] == 'Activo' ? 'badge-success' : 'badge-danger' }} text-sm">
+                                                    <span
+                                                        class="badge {{ $gis['info']['estado'] == 'Activo' ? 'badge-success' : 'badge-danger' }} text-sm">
                                                         {{ $gis['info']['estado'] ?? 'sin datos' }}
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="col-12 mb-2">
-                                                <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex justify-content-between align-items-start">
                                                     <span class="text-muted text-sm">Conexión:</span>
-                                                    <span class="text-card text-sm fw-500">{{ $gis['info']['estadoCorte'] ?? 'sin datos' }}</span>
+                                                    <span class="text-card fw-500"
+                                                        style="font-size: 0.70rem; text-align: right; flex: 1; margin-left: 10px;">{{ $gis['info']['estadoCorte'] ?? 'sin datos' }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-flex justify-content-between align-items-start">
                                                     <span class="text-muted text-sm">Descripción:</span>
-                                                    <span class="text-card text-sm fw-500" style="text-align: right; flex: 1; margin-left: 10px;">{{ $gis['info']['descripcion'] ?? 'sin datos' }}</span>
+                                                    <span class="text-card text-sm fw-500"
+                                                        style="text-align: right; flex: 1; margin-left: 10px;">{{ $gis['info']['descripcion'] ?? 'sin datos' }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -311,6 +340,8 @@
                                 <i class="fas fa-exclamation-circle me-2"></i>{{ $gis['error'] }}
                             </div>
                         @endif
+
+                        <hr class="my-3">
                     </div>
                     <div class="card-footer pt-0 border-0">
                         <div class="progress br-30 progress-sm">
@@ -413,7 +444,8 @@
                                                 <select id="marca_medidor" class="form-select" name="marca_medidor">
                                                     @foreach ($data['marca de medidor'] as $id => $nombre)
                                                         <option
-                                                            value="{{ $nombre }}"{{ $data['info']['marca de medidor'] == $nombre ? 'selected' : '' }}>{{ $nombre }}</option>
+                                                            value="{{ $nombre }}"{{ $data['info']['marca de medidor'] == $nombre ? 'selected' : '' }}>
+                                                            {{ $nombre }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -422,7 +454,8 @@
                                                 <select id="cau" class="form-select" name="cau">
                                                     @foreach ($data['alertas'] as $id => $nombre)
                                                         <option
-                                                            value="{{ $nombre }}"{{ $data['info']['alerta'] == $nombre ? 'selected' : '' }}>{{ $nombre }}</option>
+                                                            value="{{ $nombre }}"{{ $data['info']['alerta'] == $nombre ? 'selected' : '' }}>
+                                                            {{ $nombre }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -737,29 +770,45 @@
                             @php
                                 $rutaImagen = $data['imagenes']['foto' . $i] ?? null;
                                 $nombreArchivo = $rutaImagen ? pathinfo($rutaImagen, PATHINFO_FILENAME) : 'Imagen';
-                                $tituloGlightbox = $nombreArchivo . ' - Contrato #: ' . ($data['info']['contrato'] ?? 'N/A');
-                                $descripcionGlightbox = 'Contrato #: ' . ($data['info']['contrato'] ?? 'N/A') . ' - Medidor #: ' . ($data['info']['medidor'] ?? 'N/A');
+                                $tituloGlightbox =
+                                    $nombreArchivo . ' - Contrato #: ' . ($data['info']['contrato'] ?? 'N/A');
+                                $descripcionGlightbox =
+                                    'Contrato #: ' .
+                                    ($data['info']['contrato'] ?? 'N/A') .
+                                    ' - Medidor #: ' .
+                                    ($data['info']['medidor'] ?? 'N/A');
                             @endphp
                             @if ($rutaImagen)
                                 <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.3s ease;">
-                                        <a href="{{ asset($rutaImagen) }}" class="withDescriptionGlightbox glightbox-content" style="display: block; position: relative; overflow: hidden;"
+                                    <div
+                                        style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                                        <a href="{{ asset($rutaImagen) }}"
+                                            class="withDescriptionGlightbox glightbox-content"
+                                            style="display: block; position: relative; overflow: hidden;"
                                             data-glightbox="title: {{ $tituloGlightbox }}; description: {{ $descripcionGlightbox }};">
-                                            <img src="{{ asset($rutaImagen) }}" alt="{{ $nombreArchivo }}" class="img-fluid"
+                                            <img src="{{ asset($rutaImagen) }}" alt="{{ $nombreArchivo }}"
+                                                class="img-fluid"
                                                 style="width: 100%; height: 220px; object-fit: cover; display: block; transition: transform 0.3s ease;" />
                                             {{-- Overlay con icono al pasar el mouse --}}
-                                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;" class="overlay-icon">
+                                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;"
+                                                class="overlay-icon">
                                                 <i class="fas fa-search-plus" style="font-size: 32px; color: white;"></i>
                                             </div>
                                         </a>
                                     </div>
                                     <p class="text-muted mt-2 mb-0" style="font-size: 0.85rem; text-align: center;">
-                                        @if ($i == 1) Fachada
-                                        @elseif ($i == 2) Medidor
-                                        @elseif ($i == 3) Odómetro
-                                        @elseif ($i == 4) Regulador
-                                        @elseif ($i == 5) Detector Fuga
-                                        @else Exceso Capacidad
+                                        @if ($i == 1)
+                                            Fachada
+                                        @elseif ($i == 2)
+                                            Medidor
+                                        @elseif ($i == 3)
+                                            Odómetro
+                                        @elseif ($i == 4)
+                                            Regulador
+                                        @elseif ($i == 5)
+                                            Detector Fuga
+                                        @else
+                                            Exceso Capacidad
                                         @endif
                                     </p>
                                 </div>
@@ -767,7 +816,8 @@
                         @endforeach
                     @else
                         <div class="col-12">
-                            <div class="alert alert-soft-warning border-0 mb-0" style="background-color: rgba(255, 193, 7, 0.1);">
+                            <div class="alert alert-soft-warning border-0 mb-0"
+                                style="background-color: rgba(255, 193, 7, 0.1);">
                                 <i class="fas fa-image me-2"></i>No hay imágenes disponibles para esta auditoría.
                             </div>
                         </div>

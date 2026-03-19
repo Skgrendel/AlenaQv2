@@ -23,7 +23,7 @@
                         {{-- Información del Medidor y Servicio | Regulador y Estado --}}
                         <div class="row">
                             {{-- Columna Izquierda: Medidor y Servicio --}}
-                            <div class="col-6">
+                            <div class="col-6" style="border-right: 1px solid #e0e0e0; padding-right: 15px;">
                                 {{-- Información del Medidor --}}
                                 <div class="mb-4">
                                     <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
@@ -57,8 +57,6 @@
                                     </div>
                                 </div>
 
-                                <hr class="my-3">
-
                                 {{-- Información de Servicio --}}
                                 <div class="mb-4">
                                     <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
@@ -88,7 +86,7 @@
                             </div>
 
                             {{-- Columna Derecha: Regulador y Estado --}}
-                            <div class="col-6">
+                            <div class="col-6" style="padding-left: 15px;">
                                 {{-- Información del Regulador --}}
                                 <div class="mb-4">
                                     <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
@@ -109,9 +107,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <hr class="my-3">
-
+                                <hr>
                                 {{-- Estado e Incidencias --}}
                                 <div class="mb-4">
                                     <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
@@ -193,7 +189,7 @@
                             {{-- Información de Ubicación | Medidor Anterior | Estado --}}
                             <div class="row">
                                 {{-- Columna Izquierda: Ubicación y Servicio --}}
-                                <div class="col-6">
+                                <div class="col-6" style="border-right: 1px solid #e0e0e0; padding-right: 15px;">
                                     {{-- Información de Ubicación --}}
                                     <div class="mb-4">
                                         <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
@@ -221,7 +217,7 @@
                                         </div>
                                     </div>
 
-                                    <hr class="my-3">
+                                    <hr>
 
                                     {{-- Información de Contrato y Medidores --}}
                                     <div class="mb-4">
@@ -252,7 +248,7 @@
                                 </div>
 
                                 {{-- Columna Derecha: Medidor Anterior y Estado --}}
-                                <div class="col-6">
+                                <div class="col-6" style="padding-left: 15px;">
                                     {{-- Información de Medidor Anterior --}}
                                     <div class="mb-4">
                                         <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
@@ -274,7 +270,7 @@
                                         </div>
                                     </div>
 
-                                    <hr class="my-3">
+                                    <hr>
 
                                     {{-- Información de Estado --}}
                                     <div class="mb-4">
@@ -291,9 +287,9 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 mb-2">
-                                                <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex justify-content-between align-items-start">
                                                     <span class="text-muted text-sm">Conexión:</span>
-                                                    <span class="text-card text-sm fw-500">{{ $gis['info']['estadoCorte'] ?? 'sin datos' }}</span>
+                                                    <span class="text-card fw-500" style="font-size: 0.70rem; text-align: right; flex: 1; margin-left: 10px;">{{ $gis['info']['estadoCorte'] ?? 'sin datos' }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -311,6 +307,8 @@
                                 <i class="fas fa-exclamation-circle me-2"></i>{{ $gis['error'] }}
                             </div>
                         @endif
+
+                        <hr class="my-3">
                     </div>
                     <div class="card-footer pt-0 border-0">
                         <div class="progress br-30 progress-sm">

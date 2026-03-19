@@ -121,7 +121,7 @@
                         {{-- Comercio | Configuración Técnica --}}
                         <div class="row">
                             {{-- Columna Izquierda: Comercio y Medidor --}}
-                            <div class="col-6">
+                            <div class="col-6" style="border-right: 1px solid #e0e0e0; padding-right: 15px;">
                                 {{-- Comercio --}}
                                 <div class="mb-4">
                                     <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
@@ -148,9 +148,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <hr class="my-3">
-
+                                <hr>
                                 {{-- Información del Medidor --}}
                                 <div class="mb-4">
                                     <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
@@ -186,7 +184,7 @@
                             </div>
 
                             {{-- Columna Derecha: Configuración Técnica, Incidencias y Comentarios --}}
-                            <div class="col-6">
+                            <div class="col-6" style="padding-left: 15px;">
                                 {{-- Configuración Técnica --}}
                                 <div class="mb-4">
                                     <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
@@ -207,9 +205,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <hr class="my-3">
-
+                                <hr>
                                 {{-- Estado e Incidencias --}}
                                 <div class="mb-4">
                                     <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
@@ -231,8 +227,9 @@
                                     </div>
                                 </div>
 
+                                <hr>
+
                                 @if (isset($data['info']['comentarios']))
-                                    <hr class="my-3">
                                     {{-- Comentarios --}}
                                     <div>
                                         <h6 class="text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
@@ -245,6 +242,8 @@
                                 @endif
                             </div>
                         </div>
+
+                        <hr class="my-3">
                     </div>
                     <div class="card-footer pt-0 border-0">
                         <div class="progress br-30 progress-sm">
