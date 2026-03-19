@@ -2,7 +2,6 @@
 
 namespace App\Services\coordinador;
 
-use App\Models\GisToken;
 use App\Models\surtigas;
 use App\Models\reportes;
 use Illuminate\Support\Facades\Http;
@@ -13,6 +12,13 @@ use Illuminate\Support\Facades\Log;
 class DataGisServices
 {
     private string $baseUrl = "https://arcgisportal.surtigas.com.co/geaserver/rest/services/Ingenieria/FC_PTUSUARIOS/MapServer/0/query";
+
+    private DataGisServicesToken $tokenService;
+
+    public function __construct()
+    {
+        $this->tokenService = new DataGisServicesToken();
+    }
 
     private array $headers = [
         "accept" => "*/*",
@@ -31,7 +37,14 @@ class DataGisServices
 
     private function getToken(): string
     {
-        return GisToken::getActiveToken();
+        $token = $this->tokenService->getToken();
+
+        if (!$token) {
+            Log::error('No se pudo obtener el token GIS');
+            throw new \Exception('No se pudo obtener el token del servicio GIS');
+        }
+
+        return $token;
     }
 
     public function DataGis($id)

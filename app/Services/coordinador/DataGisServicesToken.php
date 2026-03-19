@@ -148,44 +148,72 @@ class DataGisServicesToken
 
     public function getToken()
     {
+        // Verificar si el token está en caché y aún es válido
         $cache = Cache::get('gis_token');
         if ($cache) {
-            Log::info('Returning cached GIS token.');
-            return $cache; // Return cached token if available
+            Log::info('Retornando token GIS cacheado.');
+            return $cache; // Retornar token cacheado si disponible
         }
-        $token = $this->logingis();
-        $url = "https://arcgisportal.surtigas.com.co/geaportal/sharing/generateToken?request=getToken&serverUrl=https%3A%2F%2Farcgisportal.surtigas.com.co%2Fgeaportal%2Fsharing%2Fservers%2Fa4c5837128a3482f89823d843cc26dde%2Frest%2Fservices%2FIngenieria%2FRedGas%2FFeatureServer%2F34&token=$token&referer=arcgisportal.surtigas.com.co&f=json";
-        $response = Http::withoutVerifying()
-            ->withHeaders([
-                "accept" => "*/*",
-                "accept-language" => "es-419,es;q=0.9,en;q=0.8",
-                "priority" => "u=1, i",
-                "referer" => "https://arcgisportal.surtigas.com.co/geaportal/apps/webappviewer/index.html?id=7f01784d858d43f49acd9fd5bd4b3123",
-                "sec-ch-ua" => "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\"",
-                "sec-ch-ua-mobile" => "?0",
-                "sec-ch-ua-platform" => "\"Windows\"",
-                "sec-fetch-dest" => "empty",
-                "sec-fetch-mode" => "cors",
-                "sec-fetch-site" => "same-origin",
-                "user-agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
-            ])
-            ->withOptions([
-                'version' => 2.0,
-                'proxy' => [
-                    'http'  => $this->proxy,
-                    'https' => $this->proxy,
-                ],
-                'force_ip_resolve' => 'v4',
-                // 'curl' => [
-                //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                //     CURLOPT_HTTPPROXYTUNNEL => true,
-                //     CURLOPT_SSLVERSION   => CURL_SSLVERSION_TLSv1_2,
-                // ],
-            ])
-            ->get($url);
-        $data = $response->json();
-         Log::info('Token update.');
-        Cache::put('gis_token', $data['token'], Carbon::createFromTimestampMs($data['expires']));
-        return $data['token']; // Return the token
+
+        try {
+            // Obtener nuevo token
+            $token = $this->logingis();
+
+            if (!$token) {
+                throw new \Exception('No se pudo obtener el token del servicio GIS');
+            }
+
+            // URL para generar el token con expiración
+            $url = "https://arcgisportal.surtigas.com.co/geaportal/sharing/generateToken?request=getToken&serverUrl=https%3A%2F%2Farcgisportal.surtigas.com.co%2Fgeaportal%2Fsharing%2Fservers%2Fa4c5837128a3482f89823d843cc26dde%2Frest%2Fservices%2FIngenieria%2FRedGas%2FFeatureServer%2F34&token=$token&referer=arcgisportal.surtigas.com.co&f=json";
+
+            $response = Http::withoutVerifying()
+                ->withHeaders([
+                    "accept" => "*/*",
+                    "accept-language" => "es-419,es;q=0.9,en;q=0.8",
+                    "priority" => "u=1, i",
+                    "referer" => "https://arcgisportal.surtigas.com.co/geaportal/apps/webappviewer/index.html?id=7f01784d858d43f49acd9fd5bd4b3123",
+                    "sec-ch-ua" => "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\"",
+                    "sec-ch-ua-mobile" => "?0",
+                    "sec-ch-ua-platform" => "\"Windows\"",
+                    "sec-fetch-dest" => "empty",
+                    "sec-fetch-mode" => "cors",
+                    "sec-fetch-site" => "same-origin",
+                    "user-agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+                ])
+                ->withOptions([
+                    'version' => 2.0,
+                    'proxy' => [
+                        'http'  => $this->proxy,
+                        'https' => $this->proxy,
+                    ],
+                    'force_ip_resolve' => 'v4',
+                ])
+                ->get($url);
+
+            if (!$response->successful()) {
+                throw new \Exception('Error en respuesta del servidor: ' . $response->status());
+            }
+
+            $data = $response->json();
+
+            if (!isset($data['token'])) {
+                throw new \Exception('Token no encontrado en la respuesta');
+            }
+
+            // Calcular tiempo de expiración (por defecto 60 minutos si no viene en la respuesta)
+            $expiresAt = isset($data['expires'])
+                ? Carbon::createFromTimestampMs($data['expires'])
+                : Carbon::now()->addMinutes(60);
+
+            // Cachear el token con su tiempo de expiración
+            Cache::put('gis_token', $data['token'], $expiresAt);
+
+            Log::info('Token GIS actualizado y cacheado.');
+            return $data['token'];
+
+        } catch (\Exception $e) {
+            Log::error('Error al obtener token GIS: ' . $e->getMessage());
+            return null;
+        }
     }
 }
