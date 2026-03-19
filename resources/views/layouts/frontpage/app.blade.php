@@ -139,7 +139,41 @@
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     @livewireScripts
     @yield('scripts')
+
+    <script>
+        // Mantener el sidebar siempre abierto
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.main-container');
+            const sidebarToggle = document.querySelector('.sidebar-toggle');
+
+            // Ocultar botón de toggle
+            if (sidebarToggle) {
+                sidebarToggle.style.display = 'none';
+            }
+
+            // Remover clase sidebar-closed si existe
+            if (container) {
+                container.classList.remove('sidebar-closed');
+                container.classList.add('sbar-open');
+            }
+
+            // Prevenir que se agregue la clase sidebar-closed
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (container && container.classList.contains('sidebar-closed')) {
+                        container.classList.remove('sidebar-closed');
+                        container.classList.add('sbar-open');
+                    }
+                });
+            });
+
+            if (container) {
+                observer.observe(container, { attributes: true, attributeFilter: ['class'] });
+            }
+        });
+    </script>
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+
 </body>
 
 </html>
