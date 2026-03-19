@@ -69,6 +69,13 @@ class DataGisServices
             // Decodificar la respuesta JSON
             $data = $urlConsulta->json();
             //dd($data);
+
+            if (isset($data['status']) && $data['status'] === 'error') {
+                return [
+                    'error' => 'No se pudo acceder a ninguna máquina servidor. 500 - Internal server error.'
+                ];
+            }
+
             if (isset($data['error'])) {
                 return [
                     'error' => $data['error']['message']
