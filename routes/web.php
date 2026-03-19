@@ -3,6 +3,7 @@
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\AsignadosController;
 use App\Http\Controllers\AuditoriaController;
+use App\Http\Controllers\BusquedaGisController;
 use App\Http\Controllers\ConfiguracionesController;
 use App\Http\Controllers\CoordinadorController;
 use App\Http\Controllers\GisTokenController;
@@ -64,6 +65,10 @@ Route::middleware('check_user_status')->group(function () {
 
     // Rutas para gestión de reguladores
     Route::resource('/reguladores', ReguladorController::class)->names('reguladores');
+
+    // Rutas para búsqueda GIS
+    Route::get('/busqueda-gis', [BusquedaGisController::class, 'index'])->name('busqueda-gis.index');
+    Route::post('/busqueda-gis/search', [BusquedaGisController::class, 'search'])->name('busqueda-gis.search');
 
     Route::get('/generar-reportes-zip', [ReportesController::class, 'descargarZipReportes'])->name('reportes.zip');
     Route::get('/Rechazar/{id}', [ReportesController::class, 'Rechazar'])->name('Rechazar');

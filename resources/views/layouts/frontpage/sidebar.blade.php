@@ -223,6 +223,24 @@
                     </ul>
                 </li>
             @endcan
+
+            {{-- Búsqueda --}}
+            <li class="menu {{ Route::currentRouteName() == 'busqueda-gis.index' ? 'active' : '' }} mt-3 pt-3" style="border-top: 1px solid #e0e0e0;">
+                <a href="{{ route('busqueda-gis.index') }}" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            id="Search--Streamline-Core" height="24" width="24">
+                            <desc>Search Streamline Icon: https://streamlinehq.com</desc>
+                            <g id="search--magnifying-glass-find-search">
+                                <path id="Union" fill="#000000" fill-rule="evenodd"
+                                    d="M10 2a8 8 0 0 1 6.325 12.906l5.989 5.989a1 1 0 0 1 -1.414 1.414l-5.989 -5.989A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12A6 6 0 0 0 10 4Z"
+                                    clip-rule="evenodd" stroke-width="1"></path>
+                            </g>
+                        </svg>
+                        <span>Búsqueda</span>
+                    </div>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>

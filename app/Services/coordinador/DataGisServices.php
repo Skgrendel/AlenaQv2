@@ -183,6 +183,7 @@ class DataGisServices
                      'direccion' => $attributes['DIRECCION'],
                     'estado' => $attributes['ESTADOPRODUCTO'],
                     'estadoCorte' => $attributes['DESCESTADOCORTE'],
+                    'localidad' => $attributes['NOMBRE'],
                     'usuario' => $attributes['NOMBREUSUARIO'],
                     'apellido' => $attributes['APELLIDO'],
                     'cliente' => $attributes['NOMBREUSUARIO'] . ' ' . $attributes['APELLIDO'],
@@ -192,6 +193,7 @@ class DataGisServices
                     'contrato' => $attributes['SUBSCRIPTION_ID'],
                     'medidor' => $attributes['SERIEMEDIDOR_ACTUAL'],
                     'medidor_anterior' => $attributes['SERIEMEDIDOR_ANTERIOR'],
+                    'fecha_anterior' => $this->formatTimestamp($attributes['FECHA_ANTERIOR']),
                 ],
                 'geometry' => [
                     'link' => 'https://www.google.com/maps/place/' . $lat . ',' . $lng,
