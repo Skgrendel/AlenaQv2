@@ -172,6 +172,21 @@
             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
                 <div class="card style-4" style="width: 100%; height: 100%;">
                     <div class="card-body pt-3">
+                        @if (isset($gis['error']) && !empty($gis['error']))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>⚠️ Error al consultar GIS:</strong>
+                                <br>{{ $gis['error'] }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div class="alert alert-info">
+                                <strong>ℹ️ Posibles soluciones:</strong>
+                                <ul class="mb-0">
+                                    <li>Intenta refrescar la página</li>
+                                    <li>Verifica tu conexión a internet</li>
+                                    <li>Si el error persiste, contacta al administrador</li>
+                                </ul>
+                            </div>
+                        @endif
                         <div class="m-o-dropdown-list">
                             <div class="media mt-0 mb-3">
                                 <div class="badge--group me-3">

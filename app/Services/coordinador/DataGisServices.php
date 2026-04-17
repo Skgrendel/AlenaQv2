@@ -41,44 +41,46 @@ class DataGisServices
 
     private function getToken(): string
     {
-        // 1. Intentar obtener el token de la BD (RÁPIDO)
-        $tokenFromDB = GisToken::getActiveToken();
+        // ESTRATEGIA: Generar token fresco siempre
+        // El token en BD podría estar expirado sin que nos demos cuenta
 
-        if ($tokenFromDB) {
-            // Si el token existe pero está próximo a expirar, disparar renovación en background
-            if (GisToken::isTokenExpiringSoon()) {
-                Log::info('Token GIS próximo a expirar, disparando renovación en background');
-                Queue::dispatch(new RenewGisTokenJob());
-            }
-
-            return $tokenFromDB;
-        }
-
-        // 2. Si no hay token en BD, generarlo de forma síncrona (primera vez)
         try {
+            Log::info('Intentando generar token GIS fresco...');
             $tokenService = $this->tokenService;
             $token = $tokenService->getToken();
 
             if (!$token) {
-                throw new \Exception('No se pudo obtener el token GIS');
+                Log::warning('No se pudo generar token fresco, intentando fallback a BD');
+                throw new \Exception('No se pudo obtener token del servicio GIS');
             }
 
-            // Guardar en BD para futuro uso
+            // Guardar en BD para auditoría y fallback
             GisToken::updateOrCreate(
                 ['activo' => true],
                 [
                     'token' => $token,
                     'descripcion' => 'Token GIS - Generado automáticamente',
-                    'expires_at' => \Carbon\Carbon::now()->addMinutes(55)
+                    'expires_at' => Carbon::now()->addMinutes(55)
                 ]
             );
 
-            Log::info('Token GIS obtenido y guardado en BD');
+            Log::info('✓ Token GIS fresco generado y guardado en BD');
             return $token;
 
         } catch (\Exception $e) {
-            Log::error('Error al obtener token GIS: ' . $e->getMessage());
-            throw $e;
+            Log::error('Error al generar token fresco: ' . $e->getMessage());
+
+            // FALLBACK: Si falla la generación, usar el de BD como último recurso
+            Log::warning('Intentando fallback a token de BD...');
+            $tokenFromDB = GisToken::getActiveToken();
+
+            if ($tokenFromDB) {
+                Log::warning('Usando token de BD como fallback (puede estar expirado)');
+                return $tokenFromDB;
+            }
+
+            Log::error('No hay token disponible ni en servicio ni en BD');
+            throw new \Exception('No se pudo obtener token GIS de ninguna fuente: ' . $e->getMessage());
         }
     }
 

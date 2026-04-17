@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class GisToken extends Model
 {
@@ -24,6 +25,7 @@ class GisToken extends Model
 
     /**
      * Obtener el token activo y válido
+     * Solo retorna si está REALMENTE vigente
      */
     public static function getActiveToken()
     {
@@ -32,14 +34,22 @@ class GisToken extends Model
                 $query->whereNull('expires_at')
                       ->orWhere('expires_at', '>', Carbon::now());
             })
+            ->orderBy('created_at', 'desc')
             ->first();
 
-        if ($token) {
-            return $token->token;
+        if (!$token) {
+            Log::warning('No hay token válido en BD (todos expirados o ausentes)');
+            return config('app.gis_api_token');
         }
 
-        // Fallback al token de configuración si no hay ninguno activo
-        return config('app.gis_api_token');
+        // Verificar que realmente no esté expirado
+        if ($token->expires_at && $token->expires_at->isPast()) {
+            Log::warning('Token en BD está expirado: ' . $token->expires_at->toDateTimeString());
+            return null;
+        }
+
+        Log::info('Token válido en BD, expira en ' . $token->expires_at->diffInMinutes(Carbon::now()) . ' minutos');
+        return $token->token;
     }
 
     /**
