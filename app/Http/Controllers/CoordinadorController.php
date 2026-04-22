@@ -55,6 +55,25 @@ class CoordinadorController extends Controller
     {
         $data = $this->show->ShowReport($id);
         $gis = $this->info->DataGis($id);
+
+        // Si hay un error en la consulta GIS, crear un array con estructura válida
+        if (isset($gis['error']) && !isset($gis['info'])) {
+            $gis = [
+                'error' => $gis['error'],
+                'info' => [
+                    'cliente' => 'sin datos',
+                    'direccion' => 'sin datos',
+                    'barrio' => 'sin datos',
+                    'localidad' => 'sin datos',
+                    'contrato' => 'sin datos',
+                    'medidor' => 'sin datos',
+                    'categoria' => 'sin datos',
+                    'medidor_anterior' => 'sin datos',
+                    'fecha_anterior' => 'sin datos',
+                ]
+            ];
+        }
+
         $data['imagenes'] = (array) $data['imagenes'];
 
         return view('coordinador.show', compact('data', 'gis'));
