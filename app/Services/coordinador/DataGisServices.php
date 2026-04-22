@@ -177,20 +177,11 @@ class DataGisServices
     {
         try {
 
-            //$loginSgt = new DataGisServicesToken();
-            //$token =  $loginSgt->logingis()->getToken();
             // Token de acceso para el servicio GIS desde la base de datos
             $token = $this->getToken();
-            $surtigas = surtigas::where('contrato', $contrato)->first();
 
-            // URL de consulta
-            $url = $this->buildGisUrl($surtigas->contrato, $token);
-
-            if (!$surtigas) {
-                return [
-                    'error' => 'No se encontró informacion asociada al contrato proporcionado.'
-                ];
-            }
+            // URL de consulta - usa directamente el contrato del parámetro
+            $url = $this->buildGisUrl($contrato, $token);
 
             $urlConsulta = Http::withoutVerifying()
                 ->withHeaders($this->headers)
